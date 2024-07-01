@@ -1,3 +1,6 @@
+import { getInputTextClasses, getInputTextMessageClasses } from '../../../utils/style';
+import PropTypes from 'prop-types';
+
 const InputText = ({
     variant = 'primary',
     size = 'medium',
@@ -7,44 +10,34 @@ const InputText = ({
     inputMessageType,
     ...props
 }) => {
-    const baseClasses = 'w-full flex-1 placeholder:text-gray-placeholder';
-    const variantClasses = {
-        primary: 'bg-gray-input border border-gray-inputBorder focus:ring-2 focus:ring-primary focus:outline-2 focus:outline-primary',
-        secondary: '',
-        tertiary: '',
-        quaternary: ''
-    };
-    const sizeClasses = {
-        small: 'max-h-10 min-h-[40px] px-3 py-2 rounded-md text-sm',
-        medium: 'max-h-13 px-5 py-3 rounded-lg text-base',
-        large: 'px-6 py-4 rounded-lg text-xl'
-    };
-    const disabledClasses = props.disabled? 'disabled:bg-gray-disable':''
-    const inputMessageBasicClasses = 'text-xs mt-1 pl-1 font-semibold';
-    const inputMessageTypeClasses = {
-        danger: 'text-red-danger',
-        success: 'text-primary',
-    };
-
-    const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className} ${disabledClasses}`;
-    const inputMessageClasses = `${inputMessageBasicClasses} ${inputMessageTypeClasses[inputMessageType]}`;
+    const classes = getInputTextClasses(variant, size, className, props.disabled);
+    const inputMessageClasses = getInputTextMessageClasses(inputMessageType);
 
     return (
         <div className="w-full">
-        {
-            label && <label className="block w-full text-left mb-1 text-sm text-red" htmlFor={label}>{label}</label>
-        }
+            {label && (
+                <label className="block w-full text-left mb-1 text-sm text-red" htmlFor={label}>
+                    {label}
+                </label>
+            )}
             <input
                 id={label}
                 type="text"
                 className={classes}
                 {...props}
             />
-            {
-                inputMessage && <p className={inputMessageClasses}>{inputMessage}</p>
-            }
+            {inputMessage && <p className={inputMessageClasses}>{inputMessage}</p>}
         </div>
-    )
-}
+    );
+};
+
+InputText.propTypes = {
+    variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'quaternary']),
+    size: PropTypes.oneOf(['small', 'medium', 'large']),
+    label: PropTypes.string,
+    className: PropTypes.string,
+    inputMessage: PropTypes.string,
+    inputMessageType: PropTypes.oneOf(['danger', 'success']),
+};
 
 export default InputText;

@@ -1,0 +1,108 @@
+
+
+// ============================ Button Component ============================
+export const getButtonClasses = (variant, size) => {
+    const baseClasses = 'w-full rounded-xl font-semibold tracking-[0.1rem]';
+    const variantClasses = {
+        primary: 'bg-primary text-white hover:bg-primary-hover',
+        secondary: 'bg-secondary text-primary hover:bg-secondary-hover',
+        tertiary: 'bg-transparent border border-gray-inputBorder text-primary hover:bg-gray-input',
+        quaternary: 'bg-transparent text-primary hover:bg-gray-input'
+    };
+    const sizeClasses = {
+        small: 'px-3 py-2 text-sm',
+        medium: 'px-5 py-3 text-base',
+        large: 'px-6 py-4 text-lg'
+    };
+
+    return `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]}`;
+};
+
+// ============================ InputText Component ============================
+export const getInputTextClasses = (variant, size, className, disabled) => {
+    const baseClasses = 'w-full flex-1 placeholder:text-gray-placeholder';
+    const variantClasses = {
+        primary: 'bg-gray-input border border-gray-inputBorder focus:ring-2 focus:ring-primary focus:outline-2 focus:outline-primary',
+        secondary: '',
+        tertiary: '',
+        quaternary: ''
+    };
+    const sizeClasses = {
+        small: 'max-h-10 min-h-[40px] px-3 py-2 rounded-md text-sm',
+        medium: 'max-h-13 px-5 py-3 rounded-lg text-base',
+        large: 'px-6 py-4 rounded-lg text-xl'
+    };
+    const disabledClasses = disabled ? 'disabled:bg-gray-disable' : '';
+
+    return `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className} ${disabledClasses}`;
+};
+
+export const getInputTextMessageClasses = (type) => {
+    const baseClasses = 'text-xs mt-1 pl-1 font-semibold';
+    const typeClasses = {
+        danger: 'text-red-danger',
+        success: 'text-primary',
+    };
+
+    return `${baseClasses} ${typeClasses[type] || ''}`;
+};
+
+// ============================ Divison Component ============================
+export const getDivisionClasses = (variant, type) => {
+    const baseClasses = 'm-1';
+    const variantClasses = {
+        primary: 'bg-primary',
+        secondary: 'bg-gray-300',
+    };
+    const typeClasses = {
+        vertical: 'w-[0.05vw] min-h-3.5',
+        horizontal: 'min-w-full h-[1px]',
+    };
+    return `${baseClasses} ${variantClasses[variant]} ${typeClasses[type]}`;
+};
+
+// ============================ Logo Component ============================
+export const getLogoClasses = (size) => {
+    const baseClasses = 'flex items-center justify-center';
+    const sizeClasses = {
+        small: 'w-12 h-12',
+        medium: 'w-20 h-20',
+        large: 'w-28 h-28'
+    };
+    return `${baseClasses} ${sizeClasses[size]}`;
+};
+
+export const getLogoImageClasses = (to) => {
+    const baseClasses = "object-contain select-none w-full h-full";
+    const cursorClasses = to ? 'cursor-pointer' : '';
+    return `${baseClasses} ${cursorClasses}`;
+};
+
+// ============================ SelectBox Component ============================
+export const getSelectBoxClasses = (variant, size, className) => {
+    const baseClasses = 'w-full flex-1 cursor-default';
+    const variantClasses = {
+        primary: 'bg-gray-input border border-gray-inputBorder focus:ring-2 focus:ring-primary focus:outline-2 focus:outline-primary',
+        secondary: '',
+        tertiary: '',
+        quaternary: ''
+    };
+    const sizeClasses = {
+        small: 'max-h-10 px-3 py-2 rounded-md text-sm',
+        medium: 'max-h-13 px-5 py-3 rounded-lg text-base',
+        large: 'px-6 py-4 rounded-lg text-lg'
+    };
+    return `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+};
+
+// ============================ TextButton Component ============================
+export const getTextButtonClasses = (variant, className) => {
+    const baseClasses = `${className} underline`;
+    const variantClasses = {
+        primary: 'text-primary',
+        secondary: '',
+        tertiary: '',
+        quaternary: '',
+    };
+    return `${baseClasses} ${variantClasses[variant]}`;
+};
