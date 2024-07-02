@@ -8,8 +8,8 @@ const closePath = {
 }
 
 const Modal = ({
-    modalType = 'generalmodal',
-    showCloseButton = false,
+    modalType,
+    showCloseButton,
     closeTo,
     title,
     children,
@@ -38,6 +38,11 @@ const Modal = ({
         </div>,
         document.getElementById('modal')
     );
+}
+
+Modal.defaultProps = {
+    modalType: 'generalmodal',
+    showCloseButton: false,
 }
 
 export default Modal;

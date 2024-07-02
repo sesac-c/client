@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import MascotImage from "../../components/common/MascotImage.jsx";
+import MascotImage from "../../components/common/layout/MascotImage.jsx";
 import LoginForm from "../../components/accounts/LoginForm.jsx";
 
 const LoginPage = () => {

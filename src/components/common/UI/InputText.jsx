@@ -2,15 +2,15 @@ import { getInputTextClasses, getInputTextMessageClasses } from '../../../utils/
 import PropTypes from 'prop-types';
 
 const InputText = ({
-    variant = 'primary',
-    size = 'medium',
+    variant,
+    size,
     label,
-    className = "",
+    className,
     inputMessage,
     inputMessageType,
     ...props
 }) => {
-    const classes = getInputTextClasses(variant, size, className, props.disabled);
+    const classes = getInputTextClasses(variant, size, className);
     const inputMessageClasses = getInputTextMessageClasses(inputMessageType);
 
     return (
@@ -32,12 +32,18 @@ const InputText = ({
 };
 
 InputText.propTypes = {
-    variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'quaternary']),
+    variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'quaternary', 'danger']),
     size: PropTypes.oneOf(['small', 'medium', 'large']),
     label: PropTypes.string,
     className: PropTypes.string,
     inputMessage: PropTypes.string,
     inputMessageType: PropTypes.oneOf(['danger', 'success']),
 };
+
+InputText.defaultProps = {
+    variant: 'primary',
+    size: 'medium',
+    className: '',
+}
 
 export default InputText;

@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 
 const RootLayout = ({ children }) => {
-    return <div className="w-full h-screen text-gray-basic">
+    return <div className="root-container">
         <Outlet />
         {children}
     </div>

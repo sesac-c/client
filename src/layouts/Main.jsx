@@ -2,8 +2,8 @@ import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
     return <>
-        <main id="main" className="w-full h-full">
-            <div className="">
+        <main className="main-container">
+            <div>
                 <Outlet />
             </div>
         </main>

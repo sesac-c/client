@@ -19,22 +19,22 @@ export const getButtonClasses = (variant, size) => {
 };
 
 // ============================ InputText Component ============================
-export const getInputTextClasses = (variant, size, className, disabled) => {
-    const baseClasses = 'w-full flex-1 placeholder:text-gray-placeholder';
+export const getInputTextClasses = (variant, size, className) => {
+    const baseClasses = 'w-full flex-1 placeholder:text-gray-placeholder disabled:bg-gray-disable disabled:border disabled:border-gray-inputBorder disabled:focus:ring-0 focus:outline-0';
     const variantClasses = {
         primary: 'bg-gray-input border border-gray-inputBorder focus:ring-2 focus:ring-primary focus:outline-2 focus:outline-primary',
         secondary: '',
         tertiary: '',
-        quaternary: ''
+        quaternary: '',
+        danger: 'bg-red-danger/30 border border-red-danger focus:ring-2 focus:ring-red-danger focus:outline-2 focus:outline-red-danger',
     };
     const sizeClasses = {
         small: 'max-h-10 min-h-[40px] px-3 py-2 rounded-md text-sm',
         medium: 'max-h-13 px-5 py-3 rounded-lg text-base',
         large: 'px-6 py-4 rounded-lg text-xl'
     };
-    const disabledClasses = disabled ? 'disabled:bg-gray-disable' : '';
 
-    return `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className} ${disabledClasses}`;
+    return `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
 };
 
 export const getInputTextMessageClasses = (type) => {
@@ -80,19 +80,7 @@ export const getLogoImageClasses = (to) => {
 
 // ============================ SelectBox Component ============================
 export const getSelectBoxClasses = (variant, size, className) => {
-    const baseClasses = 'w-full flex-1 cursor-default';
-    const variantClasses = {
-        primary: 'bg-gray-input border border-gray-inputBorder focus:ring-2 focus:ring-primary focus:outline-2 focus:outline-primary',
-        secondary: '',
-        tertiary: '',
-        quaternary: ''
-    };
-    const sizeClasses = {
-        small: 'max-h-10 px-3 py-2 rounded-md text-sm',
-        medium: 'max-h-13 px-5 py-3 rounded-lg text-base',
-        large: 'px-6 py-4 rounded-lg text-lg'
-    };
-    return `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+    return getInputTextClasses(variant, size, className);
 };
 
 // ============================ TextButton Component ============================

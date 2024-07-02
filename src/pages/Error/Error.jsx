@@ -1,8 +1,8 @@
 import { useRouteError } from "react-router-dom";
 
 import ErrorLayout from "../../layouts/Error.jsx";
-import MascotImage from "../../components/common/MascotImage.jsx";
-import Logo from "../../components/common/UI/Logo.jsx";
+import MascotImage from "../../components/common/layout/MascotImage.jsx";
+import Logo from "../../components/common/layout/Logo.jsx";
 
 const ErrorPage = ({errorState}) => {
     const error = useRouteError();

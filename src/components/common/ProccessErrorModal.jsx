@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useNavigateHandler } from '../../hooks/useNavigateHandler'
-import processErrorIcon from '../../assets/svg/proccess-error-Icon.svg';
+import processErrorIcon from '../../assets/svg/proccess-error.svg';
 import Modal from "./UI/Modal.jsx";
 import Button from "./UI/Button.jsx";
 import { LOGIN_PATH } from '../../constants/paths.js';

@@ -1,7 +1,7 @@
 import InputText from "../common/UI/InputText.jsx";
 import TextButton from "../common/UI/TextButton.jsx";
 import Division from "../common/UI/Division.jsx";
-import Logo from "../common/UI/Logo.jsx";
+import Logo from "../common/layout/Logo.jsx";
 import Button from "../common/UI/Button.jsx";
 import { SIGNUP_PATH, FIND_PASSWORD_PATH } from "../../constants/paths.js";
 
@@ -16,8 +16,8 @@ const LoginForm = () => {
             </div>
             <div className={`${formDetailSize} flex flex-col gap-4 justify-center`}>
                 <div className="flex flex-col justify-start gap-3 w-full min-h-0">
-                    <InputText placeholder="아이디" />
-                    <InputText placeholder="비밀번호" />
+                    <InputText placeHolder="아이디" />
+                    <InputText placeHolder="비밀번호" />
                 </div>
                 <div className="h-fit flex flex-row gap-2 justify-end items-center py-2">
                     <TextButton to={SIGNUP_PATH} content="회원가입" />

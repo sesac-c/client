@@ -1,4 +1,4 @@
-import HeaderedInputSection from "../common/HeaderedInputSection.jsx";
+import HeaderedInputText from "../common/UI/HeaderedInputText.jsx";
 
 const VerificationCodeField = () => {
     const remainTime = () => (
@@ -8,7 +8,7 @@ const VerificationCodeField = () => {
         </div>
     )
     return (
-        <HeaderedInputSection title='인증코드 입력' placeHolder='인증코드' name='' type='text' ExtraInfoElement={remainTime} />
+        <HeaderedInputText title='인증코드 입력' placeHolder='인증코드' name='' type='text' ExtraInfoElement={remainTime} />
     )
 }
 export default VerificationCodeField;
