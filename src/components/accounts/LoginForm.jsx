@@ -3,7 +3,7 @@ import TextButton from "../common/UI/TextButton.jsx";
 import Division from "../common/UI/Division.jsx";
 import Logo from "../common/layout/Logo.jsx";
 import Button from "../common/UI/Button.jsx";
-import { SIGNUP_PATH, FIND_PASSWORD_PATH } from "../../constants/paths.js";
+import { SIGNUP_PATH, FIND_PASSWORD_PATH } from "../../constants/routes.js";
 
 const LoginForm = () => {
     const formSize = 'w-5/6 h-full';

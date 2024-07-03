@@ -1,0 +1,39 @@
+.root-container {
+    width: 100%;
+    height: 100vh;
+    max-height: fit-content;
+}
+
+#wrap {
+    width: 100%;
+    height: 100vh;
+    max-height: fit-content;
+    padding-bottom: 5%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    justify-items: center;
+}
+
+.main-container {
+    flex-grow: 1;
+}
+
+.accounts-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+
+.error-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}

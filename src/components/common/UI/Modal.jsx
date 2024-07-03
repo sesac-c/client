@@ -1,8 +1,7 @@
 import { createPortal } from 'react-dom';
 import { useNavigateHandler } from '../../../hooks/useNavigateHandler';
-import closeSvg from '../../../assets/svg/close.svg';
-import { LOGIN_PATH } from '../../../constants/paths';
-
+import { LOGIN_PATH } from '../../../constants/routes';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 const closePath = {
     login: LOGIN_PATH
 }
@@ -23,7 +22,7 @@ const Modal = ({
                     <h2>{title}</h2>
                     {showCloseButton && (
                         <button onClick={useNavigateHandler(closePath[closeTo])} className='close-button'>
-                            <img src={closeSvg} alt="close" />
+                            <XMarkIcon className='w-8 h-8'/>
                         </button>
                     )
                     }

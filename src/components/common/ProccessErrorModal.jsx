@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { useNavigateHandler } from '../../hooks/useNavigateHandler'
-import processErrorIcon from '../../assets/svg/proccess-error.svg';
 import Modal from "./UI/Modal.jsx";
 import Button from "./UI/Button.jsx";
-import { LOGIN_PATH } from '../../constants/paths.js';
+import { LOGIN_PATH } from '../../constants/routes.js';
+import { ExclamationCircleIcon } from '@heroicons/react/20/solid';
 
 const buttonPaths = {
     back: '../',
@@ -29,7 +29,7 @@ const ProccessErrorModal = ({
             footer={modalFooter}
         >
             <div className='w-full h-32 flex flex-col justify-between items-center'>
-                <img src={processErrorIcon} alt='process error' className='w-20 h-20' />
+                <ExclamationCircleIcon className='w-20 h-20 text-yellow-300'/>
                 <p>오류가 발생했습니다. 잠시 뒤 시도해주세요.</p>
             </div>
         </Modal>
