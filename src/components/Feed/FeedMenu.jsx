@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { FEED_INFO, CAMPUS, ALL, GROUP } from "../../../constants/routes.js"
+import { FEED_INFO, CAMPUS, ALL, GROUP } from "../../constants/routes.js"
 import FeedSelectBox from "./FeedSelectBox.jsx";
 import PropTypes from 'prop-types';
 

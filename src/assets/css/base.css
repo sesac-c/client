@@ -47,6 +47,7 @@
     --gray-disable: #c8c8c8;
     --gray-basic: #4c4c4c;
     --gray-dark: #2b2b2b;
+    --gray-light: #adadad;
 
     /* Red 색상 팔레트 */
     --red-50: #fff0f0;
@@ -62,4 +63,17 @@
     --red-950: #500000;
     --red-danger: #ff0000;
     --red-danger-background: #fff0f0;
+    --red-favorite: #f27171;
+
+    /* White 색상 팔레트 */
+    --white: #fff;
+
+    /* netural */
+    --board-background: #fafafa;
 }
+
+@import url('./utils.css');
+@import url('./layout.css');
+@import url('./components.css');
+@import url('./pages/feed.css');
+@import url('./pages/campus.css');

@@ -1,5 +1,5 @@
-import { FEED_INFO, FEED_SELECT_ITEMS, CAMPUS, ALL, GROUP } from "../../../constants/routes.js";
-import SelectBox from "../UI/SelectBox.jsx"
+import { FEED_INFO, FEED_SELECT_ITEMS, CAMPUS, ALL, GROUP } from "../../constants/routes.js";
+import SelectBox from "../common/UI/SelectBox.jsx"
 import PropTypes from 'prop-types';
 
 const FeedSelectBox = ({currentLocation}) => {

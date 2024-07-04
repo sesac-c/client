@@ -1,3 +1,4 @@
+/* modal styles */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -111,4 +112,28 @@
         height: 100%;
         border-radius: 0;
     }
+}
+
+
+
+/* extra info style */
+.extra-info {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    border-radius: 0.5rem;
+    letter-spacing: 0.1rem;
+}
+
+.extra-info.red {
+    color: var(--red-danger);
+    background-color: var(--red-danger-background);
+}
+
+.extra-info.green {
+    color: var(--primary);
+    background-color: var(--secondary-100);
 }

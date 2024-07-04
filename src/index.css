@@ -1,42 +1,4 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* root */
-@import url('./assets/css/root.css');
-/* layouts의 container style */
-@import url('./assets/css/layout.css');
-/* header style */
-@import url('./assets/css/header.css');
-/* modal style*/
-@import url('./assets/css/modal.css');
-
-
-/* body style */
-body {
-    letter-spacing: -1px;
-    font-size: 16px;
-    color: var(--gray-basic);
-}
-
-/* extra info style */
-.extra-info {
-    display: inline-block;
-    font-size: 0.75rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-    border-radius: 0.5rem;
-    letter-spacing: 0.1rem;
-}
-
-.extra-info.red {
-    color: var(--red-danger);
-    background-color: var(--red-danger-background);
-}
-
-.extra-info.green {
-    color: var(--primary);
-    background-color: var(--secondary-100);
-}
+@import url('./assets/css/base.css');
