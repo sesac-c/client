@@ -2,10 +2,10 @@ import { getInputTextClasses, getInputTextMessageClasses } from '../../../utils/
 import PropTypes from 'prop-types';
 
 const InputText = ({
-    variant,
-    size,
+    variant='primary',
+    size='medium',
     label,
-    className,
+    className='',
     inputMessage,
     inputMessageType,
     ...props

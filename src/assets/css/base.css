@@ -28,6 +28,7 @@
     --secondary-800: #1a710a;
     --secondary-900: #155d0a;
     --secondary-950: #073400;
+    --secondary-background: rgba(141, 255, 118, 0.2);
 
     /* Gray 색상 팔레트 */
     --gray-50: #f7f7f7;
@@ -41,13 +42,23 @@
     --gray-800: #676767;
     --gray-900: #545454;
     --gray-950: #363636;
+
     --gray-input: #fafafa;
     --gray-input-border: #9b9b9b;
     --gray-placeholder: #adadad;
     --gray-disable: #c8c8c8;
+
     --gray-basic: #4c4c4c;
     --gray-dark: #2b2b2b;
-    --gray-light: #adadad;
+
+    --gray-search: #d3e4fd;
+
+    --gray-primary: #adadad;
+    --gray-secondary: #f0f0f0;
+    --gray-tertiary: #fafafa;
+
+    --grayblue-primary: #d3e4fd;
+    --grayblue-secondary: #f0f2f5;
 
     /* Red 색상 팔레트 */
     --red-50: #fff0f0;
@@ -68,8 +79,14 @@
     /* White 색상 팔레트 */
     --white: #fff;
 
-    /* netural */
-    --board-background: #fafafa;
+    --header-height: 56px;
+    --board-height: 280px;
+
+    --font-size-title: 1.2rem;
+    --font-size-basic: 1rem;
+    --font-size-description: 0.85rem;
+    --font-size-caption: 0.75rem;
+
 }
 
 @import url('./utils.css');

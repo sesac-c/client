@@ -10,7 +10,14 @@ module.exports = {
         'app': '27.5rem'
       },
       height: {
-        'header': '56px'
+        'header': '56px',
+        'board': '280px'
+      },
+      fontSize: {
+        'title': '1.2rem',
+        'basic': '1rem',
+        'description': '0.85rem',
+        'caption': '0.75rem',
       },
       flex: {
         '2': '2 2 0%',
@@ -68,10 +75,18 @@ module.exports = {
           'inputBorder': '#9B9B9B',
           'placeholder': '#adadad',
           'disable': '#c8c8c8',
+
           'basic': '#4C4C4C',
           'dark': '#2B2B2B',
-          'boardBackground': "#fafafa"
-        }, 
+
+          'primary': '#adadad',
+          'secondary': '#f0f0f0',
+          'tertiary': "#fafafa",
+        },
+        'grayblue': {
+          'primary': '#d3e4fd',
+          'secondary': '#f0f2f5',
+        },
         'red': {
           '50': '#fff0f0',
           '100': '#ffdddd',
