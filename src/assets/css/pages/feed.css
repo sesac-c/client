@@ -1,10 +1,22 @@
 /* ====================================================================Posts start*/
 
 .board-container {
-    width: 100%;
+    width: 100vw;
     height: var(--board-height);
-    background-color: var(--gray-tertiary);
-    padding: 0 19.1%;
+    background: linear-gradient(to bottom,
+            var(--gray-board) 0%,
+            rgba(229, 232, 229, 0.95) 10%,
+            rgba(229, 232, 229, 0.85) 25%,
+            rgba(229, 232, 229, 0.65) 50%,
+            rgba(229, 232, 229, 0.35) 75%,
+            rgba(229, 232, 229, 0.15) 90%,
+            rgba(229, 232, 229, 0) 100%);
+
+}
+
+.board-inner {
+    width: 100%;
+    height: 100%;
 }
 
 .main-container {
@@ -61,6 +73,12 @@
     .main-area {
         max-width: 90%;
         margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .board-container {
+        display: none;
     }
 }
 
@@ -145,7 +163,6 @@
 }
 
 .title-text {
-    font-family: "Arial-Bold", Helvetica;
     font-size: var(--font-size-title);
     font-weight: 700;
     color: #000000;
@@ -241,7 +258,6 @@
 }
 
 .description-text {
-    font-family: "Arial-Regular", Helvetica;
     font-size: var(--font-size-description);
     margin: 0;
     display: -webkit-box;
@@ -269,12 +285,11 @@
 }
 
 .hashtag-item:hover {
-    transform: scale(1.05);
+    animation: liftUp 0.25s ease-out forwards;
     /* 호버 시 5% 확대 */
 }
 
 .hashtag-text {
-    font-family: "Arial-Regular", Helvetica;
     font-size: var(--font-size-caption);
     color: var(--primary);
 }
@@ -292,6 +307,7 @@
     gap: 3px;
     align-items: center;
     padding: 8px 0;
+    user-select: none;
 }
 
 .user-list__profile-image {
@@ -300,6 +316,7 @@
     border-radius: 50%;
     margin-right: 12px;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .user-list__user-info {
@@ -331,6 +348,7 @@
 }
 
 .user-list__button {
+    cursor: pointer;
     background-color: var(--primary-100);
     color: var(--primary);
     border: none;
@@ -347,6 +365,7 @@
 .user-list__button:hover {
     background-color: var(--primary-200);
 }
+
 /* ====================================================================UserItem end*/
 /* ====================================================================UserSearch start*/
 
@@ -355,8 +374,9 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     position: sticky;
-    top: var(--header-height); /* 헤더 높이만큼 띄우기 */
-    height: calc(70vh - var(--header-height));
+    top: var(--header-height);
+    /* 헤더 높이만큼 띄우기 */
+    height: calc(50vh - var(--header-height));
     overflow-y: auto;
 }
 
@@ -409,7 +429,8 @@
     margin-top: 10px;
     min-height: 30vh;
     max-height: calc(100% - 60px);
-    background-color: var(--white); /* 컨텐츠 영역에도 흰 배경 추가 */
+    background-color: var(--white);
+    /* 컨텐츠 영역에도 흰 배경 추가 */
 }
 
 
@@ -418,6 +439,7 @@
     color: var(--gray-800);
     margin: 0;
     padding-left: 5px;
+    user-select: none;
 }
 
 /* search__title이 없는 경우 */
@@ -437,3 +459,106 @@
 }
 
 /* ====================================================================UserSearch end*/
+
+/* ====================================================================Carousel start*/
+.carousel {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.carousel__container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.carousel__content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+}
+
+.carousel__header {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.carousel__title {
+    font-size: var(--font-size-basic);
+    width: fit-content;
+    margin: auto;
+    font-weight: bold;
+    color: var(--gray-dark);
+}
+
+.carousel__list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: fit-content;
+}
+
+.carousel__item {
+    width: 95px;
+    aspect-ratio: 1.2 / 1;
+}
+
+.carousel__item-btn {
+    width: 100%;
+    height: 100%;
+    background: var(--white);
+    /* border: 0.01px solid rgba(7, 52, 0, 0.15); */
+    border-radius: 8px;
+    color: var(--primary--950);
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.carousel__item-btn:hover:not(.carousel__item-btn--disabled) {
+    animation: liftUp 0.25s ease-out forwards;
+    background: var(--secondary);
+}
+
+.carousel__item-btn--disabled {
+    background: var(--gray-disable);
+    cursor: not-allowed;
+}
+
+.carousel__nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.carousel__nav-btn--prev,
+.carousel__nav-btn--next {
+    color: var(--primary--950);
+}
+
+.carousel__nav-btn--disabled {
+    cursor: not-allowed;
+    color: var(--gray-disable);
+}
+
+.carousel__nav-btn svg {
+    width: 35px;
+    height: 35px;
+    transition: color 0.1s;
+}
+/* ====================================================================Carousel end*/
