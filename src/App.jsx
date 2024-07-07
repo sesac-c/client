@@ -6,13 +6,14 @@ import SignupPage from "./pages/Accounts/Signup.jsx";
 import FindPasswordPage from "./pages/Accounts/FindPassword.jsx";
 import CampusLayout from "./layouts/Campus.jsx";
 import CampusPostListPage from "./pages/Campus/CampusPostList.jsx";
+import CampusNoticeListPage from "./pages/Campus/CampusNoticeList.jsx";
 
 import {
-        ACCOUNTS_PATH, 
-        ACCOUNT_CHILDREN_PATH,
-        CAMPUS_PATH,
-        CAMPUS_CHILDREN_PATH
-      } from './constants/routes.js'
+  ACCOUNTS_PATH,
+  ACCOUNT_CHILDREN_PATH,
+  CAMPUS_PATH,
+  CAMPUS_CHILDREN_PATH
+} from './constants/routes.js'
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,11 @@ const router = createBrowserRouter([
               {
                 path: CAMPUS_CHILDREN_PATH.postList,
                 element: <CampusPostListPage />,
-            },
+              },
+              {
+                path: CAMPUS_CHILDREN_PATH.noticeList,
+                element: <CampusNoticeListPage/>,
+              },
 
             ]
           }

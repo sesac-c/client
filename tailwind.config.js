@@ -79,6 +79,8 @@ module.exports = {
           'basic': '#4C4C4C',
           'dark': '#2B2B2B',
 
+          'search': '#d3e4fd',
+
           'primary': '#adadad',
           'secondary': '#f0f0f0',
           'tertiary': "#fafafa",

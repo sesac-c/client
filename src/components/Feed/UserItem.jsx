@@ -34,7 +34,7 @@ UserItem.propTypes = {
     user: PropTypes.shape({
         profileImageUrl: PropTypes.string,
         nickname: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
+        description: PropTypes.string,
         buttonText: PropTypes.string.isRequired,
         onClick: PropTypes.func
     }).isRequired
