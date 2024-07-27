@@ -1,31 +1,19 @@
-const Header = () => (
-    <h1 className="header">안녕~?</h1>
-);
-
-const Mascot = () => (
-    <img src="path_to_mascot_image.png" alt="Mascot" className="mascot" />
-);
-
-const LoginForm = () => (
-    <form className="login-form">
-        <h2>새싹커뮤니티</h2>
-        <input type="text" placeholder="아이디" />
-        <input type="password" placeholder="비밀번호" />
-        <div className="form-links">
-            <a href="#">회원가입</a> | <a href="#">비밀번호 찾기</a>
-        </div>
-        <button type="submit" className="login-button">로그인</button>
-    </form>
-);
+import LoginMascot from '../../components/login/LoginMascot.jsx';
+import LoginForm from '../../components/login/LoginForm.jsx';
 
 const LoginPage = () => {
-    return (
-        <div className="login-page">
-            <Header />
-            <Mascot />
-            <LoginForm />
-        </div>
-    )
+  const loginMascotSize = 'w-3/12 h-[30rem]';
+  const loginFormSize = 'w-2/5 h-[35rem]';
+  return (
+    <div className='container flex h-full w-full flex-row items-center justify-center'>
+      <div className={`${loginMascotSize} hidden xl:flex xl:justify-end`}>
+        <LoginMascot />
+      </div>
+      <div className={`${loginFormSize} flex items-center justify-center`}>
+        <LoginForm />
+      </div>
+    </div>
+  );
 };
 
 export default LoginPage;
