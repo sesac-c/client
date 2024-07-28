@@ -1,8 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import logoImage from '../../../assets/images/sesacc-logo.png'
 
 const Logo = ({
-    size = 'large'
+    size = 'large',
+    to = ''
 }) => {
+    const navigate = useNavigate();
     const baseClasses = 'flex items-center justify-center';
     const sizeClasses = {
         small: 'w-12 h-12',
@@ -12,10 +15,17 @@ const Logo = ({
 
     const classes = `${baseClasses} ${sizeClasses[size]}`;
 
+    const imageBaseClasses = "object-contain select-none w-full h-full";
+    const cursorClasses = to ? 'cursor-pointer' : '';
+    const imageClasses = `${imageBaseClasses} ${cursorClasses}`;
+
     return (
         <div className={classes}>
             <img src={logoImage} alt="logo image"
-                className="object-contain select-none w-full h-full"
+                className={imageClasses}
+                onClick={to ? () => {
+                    navigate(to);
+                } : null}
             />
         </div>
     )

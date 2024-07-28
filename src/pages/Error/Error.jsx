@@ -1,7 +1,10 @@
 import { useRouteError } from "react-router-dom";
 
-const ErrorPage = () => {
+import ErrorLayout from "../../layouts/Error.jsx";
+import MascotImage from "../../components/common/MascotImage.jsx";
+import Logo from "../../components/common/UI/Logo.jsx";
 
+const ErrorPage = () => {
     const error = useRouteError();
 
     // default
@@ -13,17 +16,46 @@ const ErrorPage = () => {
     }
 
     if (error.status === 404) {
-        title = '404';
-        message = '요청하신 페이지를 찾을 수 없습니다.';
+        message = (
+            <>
+                <div>
+                    <p>죄송합니다.</p>
+                    <p>요청하신 페이지를 찾을 수 없습니다.</p>
+                    <p>&nbsp;</p>
+                    <p>방문하시려는 페이지의 주소가 잘못 입력되었거나,</p>
+                    <p>페이지의 주소가 변경 혹은 삭제되어 요청하신 페이지를 찾을 수 없습니다.</p>
+                    <p>&nbsp;</p>
+                </div>
+                <p>입력하신 주소가 정확한지 다시 한번 확인해 주시기 바랍니다.</p>
+            </>
+        )
     }
 
-    return (
-        <div>
-            <div>{title}</div>
-            <div>{message}</div>
-        </div>
+    const errorMascotSize = 'w-3/12 h-[30rem]';
+    const contentContainerSize = 'w-2/5 h-[30rem]';
+    const contentSize = 'w-5/6 h-full';
+    const detailSize = 'w-full h-[50%]';
 
+    return (
+        <ErrorLayout>
+            <div className="container mx-auto h-full flex items-center justify-center">
+                <div className={`hidden xl:flex xl:justify-end ${errorMascotSize}`}>
+                    <MascotImage type='error' />
+                </div>
+                <div className={`flex justify-center items-center ${contentContainerSize}`}>
+                    <div className={`pb-20 flex flex-col justify-between items-center ${contentSize}`}>
+                        <div className="w-full flex flex-col items-center">
+                            <Logo to='/' />
+                            <h1 className="w-full text-center font-extrabold text-2xl text-primary">{title}</h1>
+                        </div>
+                        <div className={`flex flex-col items-stretch justify-between ${detailSize}`}>
+                            {message}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ErrorLayout>
     )
-}
+};
 
 export default ErrorPage;
