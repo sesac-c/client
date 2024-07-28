@@ -1,4 +1,4 @@
-import LoginMascot from "../../components/login/LoginMascot.jsx";
+import MascotImage from "../../components/common/MascotImage.jsx";
 import LoginForm from "../../components/login/LoginForm.jsx";
 
 const LoginPage = () => {
@@ -7,7 +7,7 @@ const LoginPage = () => {
     return (
         <div className="container w-full h-full flex flex-row justify-center items-center">
             <div className={`${loginMascotSize} hidden xl:flex xl:justify-end`}>
-                <LoginMascot />
+                <MascotImage type='login' />
             </div>
             <div className={`${loginFormSize} flex justify-center items-center`}>
                 <LoginForm />
