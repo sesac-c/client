@@ -1,10 +1,10 @@
 const Button = ({
     variant = 'primary',
     size = 'medium',
-    content,
+    children,
     ...props
 }) => {
-    const baseClasses = 'w-full rounded-lg font-semibold';
+    const baseClasses = 'w-full rounded-xl font-semibold tracking-[0.1rem]';
     const variantClasses = {
         primary: 'bg-primary text-white hover:bg-primary-hover',
         secondary: 'bg-secondary text-primary hover:bg-secondary-hover',
@@ -21,7 +21,7 @@ const Button = ({
 
     return (
         <button className={classes} {...props}>
-            {content}
+            {children}
         </button>
     );
 };

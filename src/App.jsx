@@ -4,6 +4,7 @@ import AccountsLayout from './layouts/Accounts.jsx';
 import MainLayout from './layouts/Main.jsx';
 import LoginPage from './pages/Accounts/Login.jsx';
 import ErrorPage from './pages/Error/Error.jsx';
+import SignupPage from "./pages/Accounts/Signup.jsx";
 
 
 const router = createBrowserRouter([
@@ -16,32 +17,31 @@ const router = createBrowserRouter([
     children: [
       // Main Layout
       {
-        path: '', 
+        path: '',
         element: <MainLayout />,
-        
+
         children: [
           {
             index: true,
             //TODO: test 삭제
             loader: () => redirect('/accounts/login')
           },
-        ] 
+        ]
       },
       // OAuth Layout
       {
         path: '/accounts',
-        element: <AccountsLayout/>,
+        element: <AccountsLayout />,
         errorElement: <ErrorPage />,
         children: [
           {
             path: 'login',
-            element: <LoginPage/>
-          }
-          // ,
-          // {
-          //   path: 'signup',
-          //   element:
-          // }
+            element: <LoginPage />,
+          },
+          {
+            path: 'signup',
+            element: <SignupPage />
+          },
         ]
       }
     ]

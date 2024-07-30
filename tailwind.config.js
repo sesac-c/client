@@ -7,7 +7,7 @@ module.exports = {
     },
     extend: {
       width: {
-        'app': '27.5rem',
+        'app': '27.5rem'
       },
       flex: {
         '2': '2 2 0%',
@@ -62,10 +62,10 @@ module.exports = {
           '900': '#545454',
           '950': '#363636',
           'input': '#FAFAFA',
-          'inputBorder': '616161',
+          'inputBorder': '#9B9B9B',
           'placeholder': '#adadad',
           'disable': '#9d9d9d',
-          'basic': '#363636',
+          'basic': '#4C4C4C',
           'dark': '#2B2B2B',
         },
       },
