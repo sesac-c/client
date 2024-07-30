@@ -1,5 +1,5 @@
 import MascotImage from '../../components/common/MascotImage.jsx';
-import LoginForm from '../../components/login/LoginForm.jsx';
+import LoginForm from '../../components/accounts/LoginForm.jsx';
 
 const LoginPage = () => {
   const loginMascotSize = 'w-3/12 h-[30rem]';

@@ -48,4 +48,5 @@ thumb
 sketch
 dist
 
-src/assets/images
+.env
+src/assets/

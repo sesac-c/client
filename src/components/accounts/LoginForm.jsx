@@ -3,6 +3,7 @@ import TextButton from "../common/UI/TextButton.jsx";
 import Division from "../common/UI/Division.jsx";
 import Logo from "../common/UI/Logo.jsx";
 import Button from "../common/UI/Button.jsx";
+import { SIGNUP_PATH, FIND_PASSWORD_PATH } from "../../constants/paths.js";
 
 const LoginForm = () => {
     const formSize = 'w-5/6 h-full';
@@ -19,12 +20,12 @@ const LoginForm = () => {
                     <InputText placeholder="비밀번호" />
                 </div>
                 <div className="h-fit flex flex-row gap-2 justify-end items-center py-2">
-                    <TextButton to="/acounts/signup" content="회원가입" />
+                    <TextButton to={SIGNUP_PATH} content="회원가입" />
                     <Division />
-                    <TextButton to="/acounts/find/password" content="비밀번호 찾기" />
+                    <TextButton to={FIND_PASSWORD_PATH} content="비밀번호 찾기" />
                 </div>
                 <div>
-                    <Button content='로그인' size='large'/>
+                    <Button size='large'>로그인</Button>
                 </div>
             </div>
         </form>
