@@ -19,14 +19,14 @@ const InputText = ({
         medium: 'max-h-13 px-5 py-3 rounded-lg text-base',
         large: 'px-6 py-4 rounded-lg text-xl'
     };
-    const disabledClasses = 'bg-gray-disable'
+    const disabledClasses = props.disabled? 'disabled:bg-gray-disable':''
     const inputMessageBasicClasses = 'text-xs mt-1 pl-1 font-semibold';
     const inputMessageTypeClasses = {
         danger: 'text-red-danger',
         success: 'text-primary',
     };
 
-    const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className} ${props.disabled && disabledClasses}`;
+    const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className} ${disabledClasses}`;
     const inputMessageClasses = `${inputMessageBasicClasses} ${inputMessageTypeClasses[inputMessageType]}`;
 
     return (
