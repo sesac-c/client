@@ -1,4 +1,5 @@
-import { useSearchParams } from "react-router-dom"; import Modal from "../../components/common/UI/Modal.jsx";
+import { useSearchParams } from "react-router-dom"; 
+import Modal from "../../components/common/UI/Modal.jsx";
 
 import {
   SignupFirstStepField, SignupSecondStepField, SignupCompleteContent,
@@ -48,8 +49,9 @@ function getModalContent(step) {
 const SignupPage = () => {
   const [searchParams] = useSearchParams();
   const step = searchParams.get('step');
+  const error =false; //TODO: status error로 수정 필요
 
-  if (step === 'error') {
+  if (error) {
     return <ProccessErrorModal buttonTo='login' title='회원가입 실패'/>
   } else {
     const { title, modalType, showCloseButton, buttonContent, formContent } = getModalContent(step);

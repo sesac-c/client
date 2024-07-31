@@ -96,13 +96,12 @@ body {
     justify-content: space-start;
 }
 
-.modal-text {
-    text-align: center;
+.modal-headerform {
     flex-grow: 1;
+    gap: 3rem;
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    gap: 0.25rem;
+    justify-content: space-start;
 }
 
 .modal-footer {
@@ -119,4 +118,26 @@ body {
         height: 100%;
         border-radius: 0;
     }
+}
+
+/* extra info style */
+.extra-info {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    border-radius: 0.5rem;
+    letter-spacing: 0.1rem;
+}
+
+.extra-info.red {
+    color: #ff0000;
+    background-color: #fff0f0;
+}
+
+.extra-info.green {
+    color: #187b46;
+    background-color: #deffd7;
 }

@@ -3,6 +3,8 @@ const InputText = ({
     size = 'medium',
     label,
     className = "",
+    inputMessage,
+    inputMessageType,
     ...props
 }) => {
     const baseClasses = 'w-full flex-1 placeholder:text-gray-placeholder';
@@ -17,13 +19,20 @@ const InputText = ({
         medium: 'max-h-13 px-5 py-3 rounded-lg text-base',
         large: 'px-6 py-4 rounded-lg text-xl'
     };
+    const disabledClasses = 'bg-gray-disable'
+    const inputMessageBasicClasses = 'text-xs mt-1 pl-1 font-semibold';
+    const inputMessageTypeClasses = {
+        danger: 'text-red-danger',
+        success: 'text-primary',
+    };
 
-    const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+    const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className} ${props.disabled && disabledClasses}`;
+    const inputMessageClasses = `${inputMessageBasicClasses} ${inputMessageTypeClasses[inputMessageType]}`;
 
     return (
         <div className="w-full">
         {
-            label && <label className="block w-full text-left mb-1 text-sm" htmlFor={label}>{label}</label>
+            label && <label className="block w-full text-left mb-1 text-sm text-red" htmlFor={label}>{label}</label>
         }
             <input
                 id={label}
@@ -31,6 +40,9 @@ const InputText = ({
                 className={classes}
                 {...props}
             />
+            {
+                inputMessage && <p className={inputMessageClasses}>{inputMessage}</p>
+            }
         </div>
     )
 }

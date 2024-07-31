@@ -4,18 +4,18 @@ import ErrorLayout from "../../layouts/Error.jsx";
 import MascotImage from "../../components/common/MascotImage.jsx";
 import Logo from "../../components/common/UI/Logo.jsx";
 
-const ErrorPage = () => {
+const ErrorPage = ({errorState}) => {
     const error = useRouteError();
 
     // default
     let title = '페이지 요청 실패';
     let message = '잠시 후에 다시 시도해주세요.';
 
-    if (error.status === 500) {
+    if (error?.status === 500) {
         message = error.data.message;
     }
 
-    if (error.status === 404) {
+    if (error?.status === 404 || errorState === 404) {
         message = (
             <>
                 <div>
