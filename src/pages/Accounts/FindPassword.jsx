@@ -40,7 +40,7 @@ const FindPasswordPage = () => {
         <div className="modal-form">
           <HeaderedInputSection 
             title='이메일 인증' 
-            label='이메일' 
+            placeHolder='이메일' 
             name='email' 
             type='email' 
             disabled={isSendVerificationCode} 

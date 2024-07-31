@@ -8,7 +8,7 @@ const VerificationCodeField = () => {
         </div>
     )
     return (
-        <HeaderedInputSection title='인증코드 입력' label='인증코드' name='' type='text' ExtraInfoElement={remainTime} />
+        <HeaderedInputSection title='인증코드 입력' placeHolder='인증코드' name='' type='text' ExtraInfoElement={remainTime} />
     )
 }
 export default VerificationCodeField;
