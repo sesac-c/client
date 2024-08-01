@@ -1,18 +1,14 @@
-const Division = ({
-    variant = "primary",
-    type = "vertical"
-}) => {
-    const baseClasses = 'm-1';
-    const variantClasses = {
-        primary: 'bg-primary',
-        secondary: 'bg-gray-300',
-    };
-    const typeClasses = {
-        vertical: 'w-[0.05vw] min-h-3.5',
-        horizontal: 'min-w-full h-[1px]',
-    };
-    const classes = `${baseClasses} ${variantClasses[variant]} ${typeClasses[type]}`;
+import PropTypes from 'prop-types';
+import { getDivisionClasses } from '../../../utils/style';
 
-    return <div className={classes}></div>
-}
+const Division = ({ variant = "primary", type = "vertical" }) => {
+    const classes = getDivisionClasses(variant, type);
+    return <div className={classes}></div>;
+};
+
+Division.propTypes = {
+    variant: PropTypes.oneOf(["primary", "secondary"]),
+    type: PropTypes.oneOf(["vertical", "horizontal"]),
+};
+
 export default Division;

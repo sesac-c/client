@@ -1,6 +1,11 @@
 import { createPortal } from 'react-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigateHandler } from '../../../hooks/useNavigateHandler';
 import closeSvg from '../../../assets/svg/close.svg';
+import { LOGIN_PATH } from '../../../constants/paths';
+
+const closePath = {
+    login: LOGIN_PATH
+}
 
 const Modal = ({
     modalType = 'generalmodal',
@@ -10,14 +15,6 @@ const Modal = ({
     children,
     footer
 }) => {
-    const navigate = useNavigate();
-    const closePath = {
-        login: '/accounts/login'
-    }
-
-    function handleCloseModal() {
-        navigate(closePath[closeTo]);
-    }
 
     return createPortal(
         <div className="modal-overlay">
@@ -25,7 +22,7 @@ const Modal = ({
                 <div className='modal-header'>
                     <h2>{title}</h2>
                     {showCloseButton && (
-                        <button onClick={handleCloseModal} className='close-button'>
+                        <button onClick={useNavigateHandler(closePath[closeTo])} className='close-button'>
                             <img src={closeSvg} alt="close" />
                         </button>
                     )

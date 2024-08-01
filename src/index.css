@@ -96,6 +96,10 @@ body {
     justify-content: space-start;
 }
 
+.modal-text {
+    text-align: center;
+}
+
 .modal-headerform {
     flex-grow: 1;
     gap: 3rem;
