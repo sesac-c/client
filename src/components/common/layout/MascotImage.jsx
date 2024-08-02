@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import loginMascotImage from '../../assets/images/login-mascot.gif'
-import ErrorMascotImage from "../../assets/images/error-mascot.gif";
+import loginMascotImage from '../../../assets/images/login-mascot.gif'
+import ErrorMascotImage from "../../../assets/images/error-mascot.gif";
 
 const mascotImages = {
     login: loginMascotImage,

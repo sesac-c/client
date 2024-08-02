@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { getTextButtonClasses } from '../../../utils/style';
 
 const TextButton = ({
-    variant = 'primary',
+    variant,
     content,
-    className = "",
+    className,
     ...props
 }) => {
     const classes = getTextButtonClasses(variant, className);
@@ -22,5 +22,10 @@ TextButton.propTypes = {
     content: PropTypes.node.isRequired,
     className: PropTypes.string,
 };
+
+TextButton.defaultProps = {
+    variant: 'primary',
+    className: "",
+}
 
 export default TextButton;

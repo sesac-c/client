@@ -1,21 +1,24 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Listbox, ListboxButton, ListboxOptions, ListboxOption, Label } from '@headlessui/react';
+import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
-import { getSelectBoxClasses } from '../../../utils/style';
+import { getSelectBoxClasses, getInputTextMessageClasses } from '../../../utils/style';
 
 const SelectBox = ({
-    variant = 'primary',
-    size = 'medium',
+    variant,
+    size,
     label,
-    className = "",
-    options = ['option1', 'option2', 'option3', 'option4', 'option5'],
+    className,
+    inputMessage,
+    inputMessageType,
+    options = ['option1', 'option2', 'option3', 'option4', 'option5'], //TODO: delete default
     onChange,
     ...props
 }) => {
     const [selected, setSelected] = useState(options[0]);
     const buttonClasses = getSelectBoxClasses(variant, size, className);
     const optionsClasses = 'absolute z-10 mt-1 max-h-36 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm';
+    const inputMessageClasses = getInputTextMessageClasses(inputMessageType);
 
     const handleChange = (value) => {
         setSelected(value);
@@ -59,17 +62,24 @@ const SelectBox = ({
                     </ListboxOptions>
                 </div>
             </Listbox>
+            {inputMessage && <p className={inputMessageClasses}>{inputMessage}</p>}
         </div>
     );
 };
 
 SelectBox.propTypes = {
-    variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'quaternary']),
+    variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'quaternary', 'danger']),
     size: PropTypes.oneOf(['small', 'medium', 'large']),
     label: PropTypes.string,
     className: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.string),
     onChange: PropTypes.func,
 };
+
+SelectBox.defaultProps = {
+    variant: 'primary',
+    size: 'medium',
+    className: "",
+}
 
 export default SelectBox;

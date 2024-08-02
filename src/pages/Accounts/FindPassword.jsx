@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import ProccessErrorModal from "../../components/common/ProccessErrorModal.jsx";
-import HeaderedInputSection from "../../components/common/HeaderedInputSection.jsx";
+import HeaderedInputText from "../../components/common/UI/HeaderedInputText.jsx";
 import Modal from "../../components/common/UI/Modal.jsx";
 import { useState } from "react";
 import Button from "../../components/common/UI/Button.jsx";
@@ -38,7 +38,7 @@ const FindPasswordPage = () => {
         footer={button}
       >
         <div className="modal-form">
-          <HeaderedInputSection 
+          <HeaderedInputText 
             title='이메일 인증' 
             placeHolder='이메일' 
             name='email' 

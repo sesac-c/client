@@ -1,13 +1,12 @@
 import { Outlet } from 'react-router-dom';
 
 const MainLayout = () => {
-  return (
-    <>
-      <main id='main' className='h-full w-full'>
-        <div className=''>
-          <Outlet />
-        </div>
-      </main>
+    return <>
+        <main className="main-container">
+            <div>
+                <Outlet />
+            </div>
+        </main>
     </>
   );
 };

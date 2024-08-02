@@ -1,6 +1,5 @@
-import { createBrowserRouter, Navigate, redirect, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, redirect, RouterProvider } from "react-router-dom";
 import RootLayout from './layouts/Root.jsx';
-import AccountsLayout from './layouts/Accounts.jsx';
 import MainLayout from './layouts/Main.jsx';
 import LoginPage from './pages/Accounts/Login.jsx';
 import ErrorPage from './pages/Error/Error.jsx';

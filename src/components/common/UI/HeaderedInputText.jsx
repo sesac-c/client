@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import Division from "./UI/Division";
-import InputText from "./UI/InputText";
+import Division from "./Division";
+import InputText from "./InputText";
 
-const HeaderedInputSection = ({
+const HeaderedInputText = ({
   title,
   ExtraInfoElement,
   ...inputProps
@@ -23,9 +23,9 @@ const HeaderedInputSection = ({
   );
 };
 
-HeaderedInputSection.propTypes = {
+HeaderedInputText.propTypes = {
   title: PropTypes.string.isRequired,
   ExtraInfoElement: PropTypes.elementType,
 };
 
-export default HeaderedInputSection;
+export default HeaderedInputText;
