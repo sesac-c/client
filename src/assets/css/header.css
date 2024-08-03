@@ -1,0 +1,295 @@
+/* header, feed menu TODO: 반응형*/
+.header-container {
+    width: 100%;
+    height: 56px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 4000;
+    min-width: 300px;
+    transition: top 0.3s;
+}
+
+.header-inner {
+    width: 100%;
+    height: 100%;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1001;
+    transition: background 100ms;
+    background-color: var(--primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.feed-menu-area {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.feed-menu-area .logo {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    padding: 0.7rem;
+    flex-shrink: 0;
+}
+
+.feed-menu-area .logo span {
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid var(--secondary);
+}
+
+.feed-menu {
+    user-select: none;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.feed-menu nav {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.feed-menu nav ul {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.feed-menu nav ul li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.feed-select-container {
+    width: 8rem;
+}
+
+.feed-menu-inner {
+    padding: 0 0.5rem;
+}
+
+.feed-menu-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    transition: all 0.15s ease;
+    position: relative;
+}
+
+.feed-menu-link:hover,
+.feed-menu-link.active {
+    color: white;
+    font-weight: 600;
+}
+
+.feed-menu-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    transform: scaleX(0);
+    transition: transform 0.15s ease;
+}
+
+.feed-menu-link:hover::after,
+.feed-menu-link.active::after {
+    transform: scaleX(1);
+}
+
+.user-menu {
+    height: 100%;
+}
+
+.user-menu-area {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.user-menu-list {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.user-menu-item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-right: 0.5rem;
+}
+
+.user-menu-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding-right: 0.85rem;
+    cursor: pointer;
+}
+
+.user-menu-icon {
+    opacity: 0.8;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.user-menu-link:hover .user-menu-icon {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.user-menu-item.profile {
+    height: 3.75rem;
+    aspect-ratio: 1 / 1;
+    padding: 0.7rem;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.user-menu-link:hover {
+    transform: scale(1.1);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.bell-icon.has-notification {
+    animation: pulse 1s infinite;
+}
+
+@media (min-width: 769px) {
+    .header-inner {
+        justify-content: space-between;
+    }
+
+    .feed-menu-area {
+        flex: 1;
+        justify-content: flex-start;
+    }
+
+    .user-menu-area {
+        flex: 0 0 auto;
+    }
+
+    .feed-menu {
+        flex: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-inner {
+        justify-content: space-between;
+    }
+
+    .feed-menu-area,
+    .user-menu-area {
+        width: auto;
+    }
+
+    .feed-menu ul li.feed-select-container {
+        width: 8rem;
+    }
+
+    .user-menu-area ul li {
+        padding: 0 5px;
+    }
+}
+
+@media (max-width: 767px) {
+    .header-inner {
+        justify-content: flex-end;
+    }
+
+    .feed-menu-area {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .user-menu-area {
+        position: relative;
+        z-index: 1002;
+        background-color: var(--primary);
+        padding: 0 24px;
+    }
+
+    .feed-menu {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding-right: 100px;
+    }
+
+    .feed-menu::-webkit-scrollbar {
+        display: none;
+    }
+
+    .feed-menu nav ul {
+        flex-wrap: nowrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-inner {
+        padding: 0 12px;
+    }
+
+    .feed-menu-area {
+        left: 12px;
+        right: 12px;
+    }
+
+    .feed-menu-area .logo {
+        padding: 0.5rem;
+    }
+
+    .feed-menu ul li.feed-select-container {
+        width: 6rem;
+    }
+
+    .user-menu-area {
+        padding: 0 12px;
+    }
+
+    .user-menu-area .icon-button {
+        font-size: 1rem;
+    }
+}

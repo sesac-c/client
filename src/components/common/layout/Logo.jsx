@@ -3,7 +3,7 @@ import logoImage from '../../../assets/images/sesacc-logo.png'
 import { getLogoClasses, getLogoImageClasses } from '../../../utils/style';
 import { useNavigateHandler } from '../../../hooks/useNavigateHandler';
 
-const Logo = ({ size, to }) => {
+const Logo = ({ size='large', to='' }) => {
     const classes = getLogoClasses(size);
     const imageClasses = getLogoImageClasses(to);
 
@@ -20,13 +20,8 @@ const Logo = ({ size, to }) => {
 };
 
 Logo.propTypes = {
-    size: PropTypes.oneOf(['small', 'medium', 'large']),
+    size: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
     to: PropTypes.string,
 };
-
-Logo.defaultProps = {
-    size: 'large',
-    to: '',
-}
 
 export default Logo;

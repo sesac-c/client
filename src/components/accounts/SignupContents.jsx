@@ -2,7 +2,7 @@ import { useNavigateHandler } from '../../hooks/useNavigateHandler';
 import InputText from '../../components/common/UI/InputText.jsx';
 import SelectBox from '../../components/common/UI/SelectBox.jsx';
 import Button from '../../components/common/UI/Button.jsx';
-import { LOGIN_PATH, SIGNUP_PATH } from "../../constants/paths.js";
+import { LOGIN_PATH, SIGNUP_PATH } from "../../constants/routes.js";
 
 const INPUT_SIZE = 'small';
 const BUTTON_SIZE = 'large';

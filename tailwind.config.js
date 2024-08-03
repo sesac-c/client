@@ -9,6 +9,9 @@ module.exports = {
       width: {
         'app': '27.5rem'
       },
+      height: {
+        'header': '56px'
+      },
       flex: {
         '2': '2 2 0%',
         '3': '3 3 0%',
@@ -64,7 +67,7 @@ module.exports = {
           'input': '#FAFAFA',
           'inputBorder': '#9B9B9B',
           'placeholder': '#adadad',
-          'disable': '#9d9d9d',
+          'disable': '#c8c8c8',
           'basic': '#4C4C4C',
           'dark': '#2B2B2B',
         }, 
@@ -81,6 +84,7 @@ module.exports = {
           '900': '#920a0a',
           '950': '#500000',
           'danger': '#ff0000',
+          'danger-background': '#fff0f0',
         },
       },
     },

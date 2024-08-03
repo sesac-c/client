@@ -27,11 +27,13 @@ export const getInputTextClasses = (variant, size, className) => {
         tertiary: '',
         quaternary: '',
         danger: 'bg-red-danger/30 border border-red-danger focus:ring-2 focus:ring-red-danger focus:outline-2 focus:outline-red-danger',
+        feed: 'text-white mt-[0.4rem]',
     };
     const sizeClasses = {
         small: 'max-h-10 min-h-[40px] px-3 py-2 rounded-md text-sm',
         medium: 'max-h-13 px-5 py-3 rounded-lg text-base',
-        large: 'px-6 py-4 rounded-lg text-xl'
+        large: 'px-6 py-4 rounded-lg text-xl',
+        feedSize: 'px-3 text-md font-semibold',
     };
 
     return `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
@@ -67,7 +69,8 @@ export const getLogoClasses = (size) => {
     const sizeClasses = {
         small: 'w-12 h-12',
         medium: 'w-20 h-20',
-        large: 'w-28 h-28'
+        large: 'w-28 h-28',
+        full: 'w-full h-full'
     };
     return `${baseClasses} ${sizeClasses[size]}`;
 };
@@ -82,6 +85,13 @@ export const getLogoImageClasses = (to) => {
 export const getSelectBoxClasses = (variant, size, className) => {
     return getInputTextClasses(variant, size, className);
 };
+
+export const getSelectBoxDownIconClasses = (variant) => {
+    const baseClasses = 'h-5 w-5';
+    const textClasses = variant === 'feed'? 'text-white':'text-gray-inputBorder'
+    return `${baseClasses} ${textClasses}`
+} 
+
 
 // ============================ TextButton Component ============================
 export const getTextButtonClasses = (variant, className) => {

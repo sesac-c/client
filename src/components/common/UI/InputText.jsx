@@ -32,18 +32,12 @@ const InputText = ({
 };
 
 InputText.propTypes = {
-    variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'quaternary', 'danger']),
-    size: PropTypes.oneOf(['small', 'medium', 'large']),
+    variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'quaternary', 'danger', 'feed']),
+    size: PropTypes.oneOf(['small', 'medium', 'large', 'feedSize']),
     label: PropTypes.string,
     className: PropTypes.string,
     inputMessage: PropTypes.string,
     inputMessageType: PropTypes.oneOf(['danger', 'success']),
 };
-
-InputText.defaultProps = {
-    variant: 'primary',
-    size: 'medium',
-    className: '',
-}
 
 export default InputText;

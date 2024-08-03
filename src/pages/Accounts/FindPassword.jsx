@@ -4,7 +4,7 @@ import HeaderedInputText from "../../components/common/UI/HeaderedInputText.jsx"
 import Modal from "../../components/common/UI/Modal.jsx";
 import { useState } from "react";
 import Button from "../../components/common/UI/Button.jsx";
-import {REST_PASSWORD_PATH} from '../../constants/paths.js'
+import {RESET_PASSWORD_PATH} from '../../constants/routes.js'
 import VerificationCodeField from "../../components/accounts/VerificationCodeField.jsx";
 
 const FindPasswordPage = () => {
@@ -22,7 +22,7 @@ const FindPasswordPage = () => {
     }}>인증번호 발송</Button>;
   } else {
     button = <Button size="large" onClick={() => {
-      navigate(REST_PASSWORD_PATH);
+      navigate(RESET_PASSWORD_PATH);
     }}>확인</Button>;
   }
 
