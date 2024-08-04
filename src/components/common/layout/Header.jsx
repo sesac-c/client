@@ -1,6 +1,6 @@
 import Logo from "./Logo.jsx";
 import UserMenu from './UserMenu.jsx';
-import FeedMenu from './FeedMenu.jsx'
+import FeedMenu from '../../Feed/FeedMenu.jsx'
 import PropTypes from 'prop-types';
 import { CAMPUS, ALL, GROUP } from "../../../constants/routes.js";
 

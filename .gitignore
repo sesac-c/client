@@ -50,3 +50,4 @@ dist
 
 .env
 src/assets/images
+src/assets/mockData

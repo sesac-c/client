@@ -1,0 +1,7 @@
+/* body style */
+body {
+    letter-spacing: -1px;
+    font-size: 16px;
+    color: var(--gray-basic);
+    font-family: Arial, sans-serif;
+}

@@ -70,6 +70,7 @@ module.exports = {
           'disable': '#c8c8c8',
           'basic': '#4C4C4C',
           'dark': '#2B2B2B',
+          'boardBackground': "#fafafa"
         }, 
         'red': {
           '50': '#fff0f0',
@@ -85,6 +86,7 @@ module.exports = {
           '950': '#500000',
           'danger': '#ff0000',
           'danger-background': '#fff0f0',
+          'favorite': '#f27171',
         },
       },
     },

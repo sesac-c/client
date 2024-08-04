@@ -8,9 +8,9 @@ const CampusLayout = () => {
             <Header
                 currentLocation={CAMPUS}
             />
-            <div>
+            <main id="main">
                 <Outlet />
-            </div>
+            </main>
         </div>
     )
 }
