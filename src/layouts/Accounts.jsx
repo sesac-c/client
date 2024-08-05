@@ -1,10 +1,8 @@
-import { Outlet } from 'react-router-dom';
-
-const AccountsLayout = () => {
+const AccountsLayout = ({ children }) => {
     return <>
         <main className="accounts-container">
             <div className="w-full h-3/5">
-                <Outlet />
+                {children}
             </div>
         </main>
     </>

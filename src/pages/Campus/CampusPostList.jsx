@@ -1,14 +1,14 @@
 import FeedWrapper from "../../components/Feed/FeedWrapper.jsx";
-import ThreeColumnLayoutWrapper from "../../components/common/layout/ThreeColumnLayoutWrapper.jsx";
+import ColumnLayoutWrapper from "../../components/common/layout/ColumnLayoutWrapper.jsx";
 import Posts from "../../components/Feed/Posts.jsx";
+import UserSearch from "../../components/Feed/UserSearch.jsx";
 
 const CampusPostListPage = () => {
     return (
         <FeedWrapper boardContent={<>boardContent</>}>
-            <ThreeColumnLayoutWrapper
-                leftSide='left-side'
+            <ColumnLayoutWrapper
                 mainArea={<Posts />}
-                rightSide='right-side'
+                rightSide={<UserSearch/>}
             />
         </FeedWrapper>
     )

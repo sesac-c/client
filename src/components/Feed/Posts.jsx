@@ -5,38 +5,38 @@ import { formatDateToKorean } from "../../utils/formatter";
 import { dummyPostData } from "../../assets/mockData/post";
 
 const Post = ({
-    postObj,
-    userObj
+    post,
+    user
 }) => {
-    const formattedDate = formatDateToKorean(postObj.date);
+    const formattedDate = formatDateToKorean(post.date);
     return (
         <div className="post">
             <div className="post-container">
-                {postObj.imageUrl && (
+                {post.imageUrl && (
                     <div className="post-image">
-                        <img src={postObj.imageUrl} alt='post url' />
+                        <img src={post.imageUrl} alt='post url' />
                     </div>
                 )}
                 <div className="post-content">
                     <div className="post-main">
                         <div className="post-header">
                             <div className="post-title">
-                                <p className="title-text">{postObj.title}</p>
+                                <p className="title-text">{post.title}</p>
                             </div>
                             <div className="post-meta">
                                 <div className="post-actions">
                                     <div className="action-item">
                                         <ChatBubbleBottomCenterTextIcon className="comment-icon" />
-                                        <span className="action-count">{postObj.commentsCount}</span>
+                                        <span className="action-count">{post.commentsCount}</span>
                                     </div>
                                     <div className="action-item">
                                         <HeartIcon className="favorite-icon" />
-                                        <span className="action-count">{postObj.likesCount}</span>
+                                        <span className="action-count">{post.likesCount}</span>
                                     </div>
                                 </div>
                                 <div className="meta-info">
                                     <div className="meta-item">
-                                        <span className="meta-text nickname">{userObj.nickname}</span>
+                                        <span className="meta-text nickname">{user.nickname}</span>
                                     </div>
                                     <div className="meta-separator" />
                                     <div className="meta-item">
@@ -47,13 +47,13 @@ const Post = ({
                         </div>
                         <div className="post-body">
                             <div className="post-description">
-                                <p className="description-text">{postObj.description}</p>
+                                <p className="description-text">{post.description}</p>
                             </div>
                         </div>
                     </div>
-                    {postObj.hashtags && postObj.hashtags.length > 0 && (
+                    {post.hashtags && post.hashtags.length > 0 && (
                         <div className="post-hashtags">
-                            {postObj.hashtags.map((hashtag, index) => (
+                            {post.hashtags.map((hashtag, index) => (
                                 <div key={index} className="hashtag-item">
                                     <span className="hashtag-text">#{hashtag}</span>
                                 </div>
@@ -75,7 +75,7 @@ const Posts = ({ posts = dummyPostData }) => { // TODO: dummyPostData 삭제
     return (
         <div className="posts-container">
             {posts.map((post, index) => (
-                <Post key={index} postObj={post.postObj} userObj={post.userObj} />
+                <Post key={index} post={post.post} user={post.user} />
             ))}
         </div>
     );
@@ -84,7 +84,7 @@ const Posts = ({ posts = dummyPostData }) => { // TODO: dummyPostData 삭제
 Posts.propTypes = {
     posts: PropTypes.arrayOf(
         PropTypes.shape({
-            postObj: PropTypes.shape({
+            post: PropTypes.shape({
                 title: PropTypes.string.isRequired,
                 date: PropTypes.string.isRequired,
                 commentsCount: PropTypes.number.isRequired,
@@ -93,7 +93,7 @@ Posts.propTypes = {
                 hashtags: PropTypes.arrayOf(PropTypes.string),
                 imageUrl: PropTypes.string
             }).isRequired,
-            userObj: PropTypes.shape({
+            user: PropTypes.shape({
                 nickname: PropTypes.string.isRequired
             }).isRequired
         })
