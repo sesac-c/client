@@ -49,5 +49,6 @@ sketch
 dist
 
 .env
+src/assets/fonts
 src/assets/images
 src/assets/mockData

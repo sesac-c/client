@@ -47,6 +47,7 @@
     --gray-input-border: #9b9b9b;
     --gray-placeholder: #adadad;
     --gray-disable: #c8c8c8;
+    --gray-board: #e5e8e5;
 
     --gray-basic: #4c4c4c;
     --gray-dark: #2b2b2b;
@@ -80,7 +81,7 @@
     --white: #fff;
 
     --header-height: 56px;
-    --board-height: 280px;
+    --board-height: 250px;
 
     --font-size-title: 1.2rem;
     --font-size-basic: 1rem;
