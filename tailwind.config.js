@@ -73,7 +73,7 @@ module.exports = {
           '950': '#363636',
           'input': '#FAFAFA',
           'inputBorder': '#9B9B9B',
-          'placeholder': '#adadad',
+          'placeholder': '#888',
           'disable': '#c8c8c8',
 
           'basic': '#4C4C4C',

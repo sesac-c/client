@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import loginMascotImage from '../../../assets/images/login-mascot.gif'
 import ErrorMascotImage from "../../../assets/images/error-mascot.gif";
+import SearchLoadingMascotImage from "../../../assets/images/search-loading-mascot.png";
 
 const mascotImages = {
     login: loginMascotImage,
     error: ErrorMascotImage,
+    searchLoading: SearchLoadingMascotImage,
 };
 
 const MascotImage = ({
@@ -20,7 +22,7 @@ const MascotImage = ({
 }
 
 MascotImage.propTypes = {
-    type: PropTypes.oneOf(['login', 'error']).isRequired,
+    type: PropTypes.oneOf(['login', 'error', 'searchLoading']).isRequired,
 };
 
 export default MascotImage;

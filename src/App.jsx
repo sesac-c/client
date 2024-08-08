@@ -7,7 +7,7 @@ import FindPasswordPage from "./pages/Accounts/FindPassword.jsx";
 import CampusLayout from "./layouts/Campus.jsx";
 import CampusPostListPage from "./pages/Campus/CampusPostList.jsx";
 import CampusNoticeListPage from "./pages/Campus/CampusNoticeList.jsx";
-
+import SearchCampusPostPage from "./pages/Campus/SearchCampusPost.jsx";
 import {
   ACCOUNTS_PATH,
   ACCOUNT_CHILDREN_PATH,
@@ -43,6 +43,10 @@ const router = createBrowserRouter([
               {
                 path: CAMPUS_CHILDREN_PATH.noticeList,
                 element: <CampusNoticeListPage/>,
+              },
+              {
+                path: CAMPUS_CHILDREN_PATH.search,
+                element: <SearchCampusPostPage/>,
               },
 
             ]
