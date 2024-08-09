@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { MagnifyingGlassIcon as SearchIcon } from '@heroicons/react/16/solid';
 
 const PostSearchBar = ({ onInputChange }) => {
