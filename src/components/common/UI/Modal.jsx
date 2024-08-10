@@ -1,47 +1,24 @@
 import { createPortal } from 'react-dom';
-import { useNavigateHandler } from '../../../hooks/useNavigateHandler';
-import { LOGIN_PATH } from '../../../constants/routes';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-const closePath = {
-    login: LOGIN_PATH
-}
 
-const Modal = ({
-    modalType,
-    showCloseButton,
-    closeTo,
-    title,
-    children,
-    footer
-}) => {
-
-    return createPortal(
-        <div className="modal-overlay">
-            <div className={modalType}>
-                <div className='modal-header'>
-                    <h2>{title}</h2>
-                    {showCloseButton && (
-                        <button onClick={useNavigateHandler(closePath[closeTo])} className='close-button'>
-                            <XMarkIcon className='w-8 h-8'/>
-                        </button>
-                    )
-                    }
-                </div>
-                <div className='modal-content'>
-                    {children}
-                </div>
-                <div className='modal-footer'>
-                    {footer}
-                </div>
-            </div>
-        </div>,
-        document.getElementById('modal')
-    );
-}
-
-Modal.defaultProps = {
-    modalType: 'generalmodal',
-    showCloseButton: false,
-}
+const Modal = ({ modalType = 'generalmodal', title, footer, onClose, children }) => {
+  return createPortal(
+    <div className='modal-overlay'>
+      <div className={modalType}>
+        <div className='modal-header'>
+          <h2>{title}</h2>
+          {onClose && (
+            <button onClick={onClose} className='close-button'>
+              <XMarkIcon className='h-8 w-8' />
+            </button>
+          )}
+        </div>
+        <div className='modal-content'>{children}</div>
+        <div className='modal-footer'>{footer}</div>
+      </div>
+    </div>,
+    document.getElementById('modal')
+  );
+};
 
 export default Modal;

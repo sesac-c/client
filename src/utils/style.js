@@ -88,9 +88,9 @@ export const getSelectBoxClasses = (variant, size, className) => {
 
 export const getSelectBoxDownIconClasses = (variant) => {
     const baseClasses = 'h-5 w-5';
-    const textClasses = variant === 'feed'? 'text-white':'text-gray-inputBorder'
+    const textClasses = variant === 'feed' ? 'text-white' : 'text-gray-inputBorder'
     return `${baseClasses} ${textClasses}`
-} 
+}
 
 
 // ============================ TextButton Component ============================

@@ -1,19 +1,14 @@
-import { createBrowserRouter, redirect, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
 import RootLayout from './layouts/Root.jsx';
 import LoginPage from './pages/Accounts/Login.jsx';
 import ErrorPage from './pages/Error/Error.jsx';
-import SignupPage from "./pages/Accounts/Signup.jsx";
-import FindPasswordPage from "./pages/Accounts/FindPassword.jsx";
-import CampusLayout from "./layouts/Campus.jsx";
-import CampusPostListPage from "./pages/Campus/CampusPostList.jsx";
-import CampusNoticeListPage from "./pages/Campus/CampusNoticeList.jsx";
-import SearchCampusPostPage from "./pages/Campus/SearchCampusPost.jsx";
-import {
-  ACCOUNTS_PATH,
-  ACCOUNT_CHILDREN_PATH,
-  CAMPUS_PATH,
-  CAMPUS_CHILDREN_PATH
-} from './constants/routes.js'
+import SignupPage from './pages/Accounts/Signup.jsx';
+import FindPasswordPage from './pages/Accounts/FindPassword.jsx';
+import CampusLayout from './layouts/Campus.jsx';
+import CampusPostListPage from './pages/Campus/CampusPostList.jsx';
+import CampusNoticeListPage from './pages/Campus/CampusNoticeList.jsx';
+import SearchCampusPostPage from './pages/Campus/SearchCampusPost.jsx';
+import { ACCOUNTS_PATH, ACCOUNT_CHILDREN_PATH, CAMPUS_PATH, CAMPUS_CHILDREN_PATH } from './constants/routes.js';
 
 const router = createBrowserRouter([
   {
@@ -38,17 +33,16 @@ const router = createBrowserRouter([
             children: [
               {
                 path: CAMPUS_CHILDREN_PATH.postList,
-                element: <CampusPostListPage />,
+                element: <CampusPostListPage />
               },
               {
                 path: CAMPUS_CHILDREN_PATH.noticeList,
-                element: <CampusNoticeListPage/>,
+                element: <CampusNoticeListPage />
               },
               {
                 path: CAMPUS_CHILDREN_PATH.search,
-                element: <SearchCampusPostPage/>,
-              },
-
+                element: <SearchCampusPostPage />
+              }
             ]
           }
         ]
@@ -65,7 +59,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
           {
-            path: ACCOUNT_CHILDREN_PATH.login,
+            path: ACCOUNT_CHILDREN_PATH.login
           },
           {
             path: ACCOUNT_CHILDREN_PATH.signup,
@@ -74,7 +68,7 @@ const router = createBrowserRouter([
           {
             path: ACCOUNT_CHILDREN_PATH.findPassword,
             element: <FindPasswordPage />
-          },
+          }
         ]
       }
     ]
@@ -82,6 +76,6 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 }
 export default App;

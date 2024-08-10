@@ -189,6 +189,7 @@
     padding-left: 0.85rem;
     cursor: pointer;
 }
+
 .user-menu-icon {
     opacity: 0.8;
     transition: opacity 0.3s ease, transform 0.3s ease;

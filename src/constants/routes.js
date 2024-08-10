@@ -13,7 +13,7 @@ export const FEED_SELECT_ITEMS = [
     `${KO_CAMPUS} ${FEED_SUFFIX}`, `${KO_ALL} ${FEED_SUFFIX}`, `${KO_GROUP} ${FEED_SUFFIX}`
 ];
 
-export const ACCOUNTS_PATH = '/accounts'; 
+export const ACCOUNTS_PATH = '/accounts';
 export const ACCOUNT_CHILDREN_PATH = {
     login: 'login',
     signup: 'signup',
