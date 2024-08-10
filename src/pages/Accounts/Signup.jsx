@@ -1,11 +1,16 @@
-import { useSearchParams } from "react-router-dom"; 
-import Modal from "../../components/common/UI/Modal.jsx";
+import { useSearchParams } from 'react-router-dom';
+import Modal from '../../components/common/UI/Modal.jsx';
 
 import {
-  SignupFirstStepField, SignupSecondStepField, SignupCompleteContent,
-  SignupFirstStepButton, SignupSecondStepButton, SignupCompleteButton
-} from "../../components/accounts/SignupContents.jsx";
-import ProccessErrorModal from "../../components/common/ProccessErrorModal.jsx";
+  SignupFirstStepField,
+  SignupSecondStepField,
+  SignupCompleteContent,
+  SignupFirstStepButton,
+  SignupSecondStepButton,
+  SignupCompleteButton
+} from '../../components/accounts/SignupContents.jsx';
+import ProcessErrorModal from '../../components/common/ProcessErrorModal.jsx';
+import { useNavigateHandler } from '../../hooks/useNavigateHandler.js';
 
 function getModalContent(step) {
   let title = '회원가입';
@@ -18,14 +23,14 @@ function getModalContent(step) {
     case 'second':
       formContent = <SignupSecondStepField />;
       buttonContent = <SignupSecondStepButton />;
-      modalType = 'pagemodal'
+      modalType = 'pagemodal';
       showCloseButton = true;
       break;
     case 'complete':
-      title += ' 완료'
+      title += ' 완료';
       formContent = <SignupCompleteContent />;
       buttonContent = <SignupCompleteButton />;
-      modalType = 'generalmodal'
+      modalType = 'generalmodal';
       showCloseButton = false;
       break;
     case null:
@@ -33,7 +38,7 @@ function getModalContent(step) {
     default:
       formContent = <SignupFirstStepField />;
       buttonContent = <SignupFirstStepButton />;
-      modalType = 'pagemodal'
+      modalType = 'pagemodal';
       showCloseButton = true;
       break;
   }
@@ -44,29 +49,28 @@ function getModalContent(step) {
     buttonContent,
     modalType,
     showCloseButton
-  }
+  };
 }
 const SignupPage = () => {
   const [searchParams] = useSearchParams();
   const step = searchParams.get('step');
-  const error =false; //TODO: status error로 수정 필요
+  const error = false; //TODO: status error로 수정 필요
 
   if (error) {
-    return <ProccessErrorModal buttonTo='login' title='회원가입 실패'/>
+    return <ProcessErrorModal buttonTo='login' title='회원가입 실패' />;
   } else {
     const { title, modalType, showCloseButton, buttonContent, formContent } = getModalContent(step);
     return (
       <Modal
-        title={title}
         modalType={modalType}
-        showCloseButton={showCloseButton}
-        closeTo='login'
+        title={title}
         footer={buttonContent}
+        onClose={showCloseButton && useNavigateHandler('../login')}
       >
         {formContent}
       </Modal>
-    )
+    );
   }
-}
+};
 
 export default SignupPage;

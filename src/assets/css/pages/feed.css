@@ -81,6 +81,7 @@
     .main-area {
         max-width: 100%;
     }
+
     .main-container:has(.post-search-loading-indicator) .main-area {
         margin: 0;
     }
@@ -617,7 +618,7 @@
 
 .post-search-bar__input:focus {
     outline: none;
-    box-shadow: none; 
+    box-shadow: none;
 }
 
 .post-search-bar__icon {
@@ -630,7 +631,7 @@
 /* post-search indicator */
 .post-search-loading-indicator {
     display: flex;
-    gap:20px;
+    gap: 20px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -639,7 +640,7 @@
 }
 
 .post-search-loading-indicator__image {
-    width: 300px; 
+    width: 300px;
     aspect-ratio: 1/1;
 }
 
@@ -648,9 +649,10 @@
     font-size: var(--font-size-basic);
     color: var(--gray--placeholder);
 }
+
 .main-container:has(.post-search-loading-indicator) .main-area {
     margin: 0;
-    padding:0;
+    padding: 0;
 }
 
 /* ====================================================================SearchPostBar end*/

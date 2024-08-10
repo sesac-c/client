@@ -2,42 +2,37 @@ import { getInputTextClasses, getInputTextMessageClasses } from '../../../utils/
 import PropTypes from 'prop-types';
 
 const InputText = ({
-    variant='primary',
-    size='medium',
-    label,
-    className='',
-    inputMessage,
-    inputMessageType,
-    ...props
+  variant = 'primary',
+  size = 'medium',
+  label,
+  className = '',
+  inputMessage,
+  inputMessageType,
+  ...props
 }) => {
-    const classes = getInputTextClasses(variant, size, className);
-    const inputMessageClasses = getInputTextMessageClasses(inputMessageType);
+  const classes = getInputTextClasses(variant, size, className);
+  const inputMessageClasses = getInputTextMessageClasses(inputMessageType);
 
-    return (
-        <div className="w-full">
-            {label && (
-                <label className="block w-full text-left mb-1 text-sm text-red" htmlFor={label}>
-                    {label}
-                </label>
-            )}
-            <input
-                id={label}
-                type="text"
-                className={classes}
-                {...props}
-            />
-            {inputMessage && <p className={inputMessageClasses}>{inputMessage}</p>}
-        </div>
-    );
+  return (
+    <div className='w-full'>
+      {label && (
+        <label className='text-red mb-1 block w-full text-left text-sm' htmlFor={label}>
+          {label}
+        </label>
+      )}
+      <input id={label} type='text' className={classes} {...props} />
+      {inputMessage && <p className={inputMessageClasses}>{inputMessage}</p>}
+    </div>
+  );
 };
 
 InputText.propTypes = {
-    variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'quaternary', 'danger', 'feed']),
-    size: PropTypes.oneOf(['small', 'medium', 'large', 'feedSize']),
-    label: PropTypes.string,
-    className: PropTypes.string,
-    inputMessage: PropTypes.string,
-    inputMessageType: PropTypes.oneOf(['danger', 'success']),
+  variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'quaternary', 'danger', 'feed']),
+  size: PropTypes.oneOf(['small', 'medium', 'large', 'feedSize']),
+  label: PropTypes.string,
+  className: PropTypes.string,
+  inputMessage: PropTypes.string,
+  inputMessageType: PropTypes.oneOf(['danger', 'success'])
 };
 
 export default InputText;

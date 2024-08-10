@@ -1,0 +1,39 @@
+import PropTypes from 'prop-types';
+import { useNavigateHandler } from '../../hooks/useNavigateHandler.js';
+import Modal from './UI/Modal.jsx';
+import Button from './UI/Button.jsx';
+import { LOGIN_PATH } from '../../constants/routes.js';
+import { ExclamationCircleIcon } from '@heroicons/react/20/solid';
+
+const buttonPaths = {
+  back: '../',
+  login: LOGIN_PATH
+};
+
+const ProcessErrorModal = ({ title, footer, buttonTo, handleButtonClick }) => {
+  const onClick = buttonTo ? useNavigateHandler(buttonPaths[buttonTo]) : handleButtonClick;
+
+  const modalFooter = footer || (
+    <Button size='large' onClick={onClick}>
+      확인
+    </Button>
+  );
+
+  return (
+    <Modal title={title} modalType='generalmodal' footer={modalFooter}>
+      <div className='flex h-32 w-full flex-col items-center justify-between'>
+        <ExclamationCircleIcon className='h-20 w-20 text-yellow-300' />
+        <p>오류가 발생했습니다. 잠시 뒤 시도해주세요.</p>
+      </div>
+    </Modal>
+  );
+};
+
+ProcessErrorModal.propTypes = {
+  title: PropTypes.string,
+  footer: PropTypes.node,
+  buttonTo: PropTypes.oneOf(['back', 'login']),
+  handleButtonClick: PropTypes.func
+};
+
+export default ProcessErrorModal;
