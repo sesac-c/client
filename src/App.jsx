@@ -9,6 +9,7 @@ import CampusPostListPage from './pages/Campus/CampusPostList.jsx';
 import CampusNoticeListPage from './pages/Campus/CampusNoticeList.jsx';
 import SearchCampusPostPage from './pages/Campus/SearchCampusPost.jsx';
 import { ACCOUNTS_PATH, ACCOUNT_CHILDREN_PATH, CAMPUS_PATH, CAMPUS_CHILDREN_PATH } from './constants/routes.js';
+import AccountsLayout from './layouts/Accounts.jsx';
 
 const router = createBrowserRouter([
   {
