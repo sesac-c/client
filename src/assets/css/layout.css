@@ -188,6 +188,7 @@
     height: 100%;
     padding-left: 0.85rem;
     cursor: pointer;
+    opacity: 0.9;
 }
 
 .user-menu-icon {
@@ -210,6 +211,7 @@
 }
 
 .user-menu-link:hover {
+    opacity: 1;
     transform: scale(1.1);
 }
 

@@ -4,12 +4,12 @@ import AccountsLayout from '../../layouts/Accounts.jsx';
 import { Outlet } from 'react-router-dom';
 
 const LoginPage = () => {
-  const loginMascotSize = 'w-3/12 h-[30rem]';
+  const loginMascotSize = 'w-2/12 h-[25rem]';
   const loginFormSize = 'w-2/5 h-[35rem]';
 
   return (
     <AccountsLayout>
-      <div className='container flex h-full w-full flex-row items-center justify-center'>
+      <div className='container flex h-full w-full flex-row items-center justify-center gap-5'>
         <div className={`${loginMascotSize} hidden xl:flex xl:justify-end`}>
           <MascotImage type='login' />
         </div>
