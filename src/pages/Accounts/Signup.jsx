@@ -1,76 +1,32 @@
-import { useSearchParams } from 'react-router-dom';
-import Modal from '../../components/common/UI/Modal.jsx';
-
-import {
-  SignupFirstStepField,
-  SignupSecondStepField,
-  SignupCompleteContent,
-  SignupFirstStepButton,
-  SignupSecondStepButton,
-  SignupCompleteButton
-} from '../../components/accounts/SignupContents.jsx';
+import SignupModal, { TITLE } from '../../components/Accounts/SignupContents.jsx';
 import ProcessErrorModal from '../../components/common/ProcessErrorModal.jsx';
-import { useNavigateHandler } from '../../hooks/useNavigateHandler.js';
+import ProcessSuccessModal from '../../components/common/ProcessSuccessModal.jsx';
+import { SIGNUP_SUCCESS_MESSAGES } from '../../constants/modal.js';
+import useSignupState, { STEP } from '../../hooks/Accounts/useSignupState.js';
 
-function getModalContent(step) {
-  let title = '회원가입';
-  let formContent;
-  let buttonContent;
-  let modalType;
-  let showCloseButton;
+const MODAL_TITLES = {
+  ERROR: `${TITLE} 실패`,
+  SUCCESS: `${TITLE} 성공`
+};
 
-  switch (step) {
-    case 'second':
-      formContent = <SignupSecondStepField />;
-      buttonContent = <SignupSecondStepButton />;
-      modalType = 'pagemodal';
-      showCloseButton = true;
-      break;
-    case 'complete':
-      title += ' 완료';
-      formContent = <SignupCompleteContent />;
-      buttonContent = <SignupCompleteButton />;
-      modalType = 'generalmodal';
-      showCloseButton = false;
-      break;
-    case null:
-    case 'first':
-    default:
-      formContent = <SignupFirstStepField />;
-      buttonContent = <SignupFirstStepButton />;
-      modalType = 'pagemodal';
-      showCloseButton = true;
-      break;
+const SignupPage = () => {
+  const { state, handleStepChange, handleError, handleClose } = useSignupState();
+
+  if (state.isError) {
+    return <ProcessErrorModal title={MODAL_TITLES.ERROR} onClose={handleClose} />;
   }
 
-  return {
-    title,
-    formContent,
-    buttonContent,
-    modalType,
-    showCloseButton
-  };
-}
-const SignupPage = () => {
-  const [searchParams] = useSearchParams();
-  const step = searchParams.get('step');
-  const error = false; //TODO: status error로 수정 필요
-
-  if (error) {
-    return <ProcessErrorModal buttonTo='login' title='회원가입 실패' />;
-  } else {
-    const { title, modalType, showCloseButton, buttonContent, formContent } = getModalContent(step);
+  if (state.currentStep === STEP.SUCCESS) {
     return (
-      <Modal
-        modalType={modalType}
-        title={title}
-        footer={buttonContent}
-        onClose={showCloseButton && useNavigateHandler('../login')}
-      >
-        {formContent}
-      </Modal>
+      <ProcessSuccessModal title={MODAL_TITLES.SUCCESS} onClose={handleClose}>
+        {SIGNUP_SUCCESS_MESSAGES.map((message, index) => (
+          <p key={index}>{message}</p>
+        ))}
+      </ProcessSuccessModal>
     );
   }
+
+  return <SignupModal currentStep={state.currentStep} onClick={handleStepChange} onError={handleError} />;
 };
 
 export default SignupPage;
