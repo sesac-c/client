@@ -3,18 +3,21 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import PropTypes from 'prop-types';
 
 const Modal = ({ modalType = 'generalmodal', title, footer, onClose, children, open }) => {
-  if (modalType !== 'pagemodal' && !open) return null;
+  const isPagemodal = modalType === 'pagemodal';
+  if (!isPagemodal && !open) return null;
 
   return createPortal(
-    <div className='modal-overlay'>
+    <div className='modal-overlay' onClick={!isPagemodal ? onClose : null}>
       <div className={modalType}>
         <div className='modal-header'>
           <h2>{title}</h2>
-          {onClose && (
-            <button onClick={onClose} className='close-button'>
-              <XMarkIcon className='h-8 w-8' />
-            </button>
-          )}
+          {isPagemodal ? (
+            onClose ? (
+              <button onClick={onClose} className='close-button'>
+                <XMarkIcon className='h-8 w-8' />
+              </button>
+            ) : null
+          ) : null}
         </div>
         <div className='modal-content'>{children}</div>
         <div className='modal-footer'>{footer}</div>
