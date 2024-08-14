@@ -1,10 +1,37 @@
 import { NavLink } from 'react-router-dom';
-import { FEED_INFO, CAMPUS, ALL, GROUP } from '../../constants/routes.js';
+import { FEED_INFO, FEED_ARR } from '../../constants/routes.js';
 import FeedSelectBox from './FeedSelectBox.jsx';
 import PropTypes from 'prop-types';
+import useModal from '../../hooks/useModal';
+import WritePostModal from './WritePostModal.jsx';
+import { memo, useCallback, useMemo } from 'react';
 
 const FeedMenu = ({ currentLocation }) => {
-  const menuList = FEED_INFO[currentLocation].menuList;
+  const menuList = useMemo(() => FEED_INFO[currentLocation].menuList, [currentLocation]);
+
+  const { openModal, closeModal } = useModal(() => <WritePostModal onClose={closeModal} />);
+
+  const renderMenuItem = useCallback(
+    ({ title, path }) => {
+      if (path) {
+        return (
+          <li key={title} className='feed-menu-container'>
+            <NavLink end className={({ isActive }) => `feed-menu-link${isActive ? ' active' : ''}`} to={path}>
+              {title}
+            </NavLink>
+          </li>
+        );
+      }
+      return (
+        <li key={title} className='feed-menu-container'>
+          <a className='feed-menu-link' onClick={openModal}>
+            {title}
+          </a>
+        </li>
+      );
+    },
+    [openModal]
+  );
 
   return (
     <div className='feed-menu'>
@@ -13,17 +40,7 @@ const FeedMenu = ({ currentLocation }) => {
           <li className='feed-select-container'>
             <FeedSelectBox currentLocation={currentLocation} />
           </li>
-          {menuList.map(({ title, path }) => (
-            <li key={title} className='feed-menu-container'>
-              <NavLink
-                end
-                className={({ isActive }) => (isActive ? 'feed-menu-link active' : 'feed-menu-link')}
-                to={path}
-              >
-                {title}
-              </NavLink>
-            </li>
-          ))}
+          {menuList.map(renderMenuItem)}
         </ul>
       </nav>
     </div>
@@ -31,7 +48,7 @@ const FeedMenu = ({ currentLocation }) => {
 };
 
 FeedMenu.propTypes = {
-  currentLocation: PropTypes.oneOf([CAMPUS, ALL, GROUP]).isRequired
+  currentLocation: PropTypes.oneOf(FEED_ARR).isRequired
 };
 
-export default FeedMenu;
+export default memo(FeedMenu);

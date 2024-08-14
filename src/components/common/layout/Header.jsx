@@ -2,7 +2,7 @@ import Logo from './Logo.jsx';
 import UserMenu from './UserMenu.jsx';
 import FeedMenu from '../../Feed/FeedMenu.jsx';
 import PropTypes from 'prop-types';
-import { CAMPUS, ALL, GROUP } from '../../../constants/routes.js';
+import { FEED_ARR } from '../../../constants/routes.js';
 
 const Header = ({ currentLocation }) => {
   return (
@@ -27,7 +27,7 @@ const Header = ({ currentLocation }) => {
 };
 
 Header.propTypes = {
-  currentLocation: PropTypes.oneOf([CAMPUS, ALL, GROUP]).isRequired
+  currentLocation: PropTypes.oneOf(FEED_ARR).isRequired
 };
 
 export default Header;

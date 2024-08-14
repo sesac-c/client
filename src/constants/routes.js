@@ -1,7 +1,8 @@
-
 export const CAMPUS = 'campus';
 export const ALL = 'all';
 export const GROUP = 'group';
+
+export const FEED_ARR = [CAMPUS, ALL, GROUP];
 
 const KO_CAMPUS = '캠퍼스';
 const KO_ALL = '전체';
@@ -30,13 +31,11 @@ export const RESET_PASSWORD_PATH = `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.res
 export const CAMPUS_PATH = '/feed/campus'
 export const CAMPUS_CHILDREN_PATH = {
     postList: 'post/list',
-    postWrite: 'post/write',
     noticeList: 'notice/list',
     search: 'search',
 }
 
 export const CAMPUS_POST_LIST_PATH = `${CAMPUS_PATH}/${CAMPUS_CHILDREN_PATH.postList}`;
-export const CAMPUS_POST_WRITE_PATH = `${CAMPUS_PATH}/${CAMPUS_CHILDREN_PATH.postWrite}`;
 export const CAMPUS_NOTICE_LIST_PATH = `${CAMPUS_PATH}/${CAMPUS_CHILDREN_PATH.noticeList}`;
 export const CAMPUS_SEARCH_PATH = `${CAMPUS_PATH}/${CAMPUS_CHILDREN_PATH.search}`;
 
@@ -46,8 +45,7 @@ export const CAMPUS_MENU = [
         path: CAMPUS_POST_LIST_PATH
     },
     {
-        title: '글쓰기',
-        path: CAMPUS_POST_WRITE_PATH
+        title: '글쓰기'
     },
     {
         title: '공지',
