@@ -2,7 +2,7 @@ import SignupModal, { TITLE } from '../../components/Accounts/SignupContents.jsx
 import ProcessErrorModal from '../../components/common/ProcessErrorModal.jsx';
 import ProcessSuccessModal from '../../components/common/ProcessSuccessModal.jsx';
 import { SIGNUP_SUCCESS_MESSAGES } from '../../constants/modal.js';
-import useSignupState, { STEP } from '../../hooks/Accounts/useSignupState.js';
+import { STEP, useSignupState } from '../../hooks/Accounts/useSignupState.js';
 
 const MODAL_TITLES = {
   ERROR: `${TITLE} 실패`,

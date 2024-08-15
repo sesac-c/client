@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
 import { getSelectBoxClasses, getSelectBoxDownIconClasses, getInputTextMessageClasses } from '../../../utils/style';
+import { useSelectBox } from '../../../hooks/useInput';
 
 const SelectBox = ({
   variant = 'primary',
@@ -16,17 +17,8 @@ const SelectBox = ({
   onChange,
   ...props
 }) => {
-  const [selected, setSelected] = useState(selectedOption || options[0]);
-  const buttonClasses = getSelectBoxClasses(variant, size, className);
-  const selectBoxDownIconClasses = getSelectBoxDownIconClasses(variant);
-  const optionsClasses =
-    'absolute z-10 mt-1 max-h-36 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm';
-  const inputMessageClasses = getInputTextMessageClasses(inputMessageType);
-
-  const handleChange = value => {
-    setSelected(value);
-    if (onChange) onChange(value);
-  };
+  const { selected, buttonClasses, selectBoxDownIconClasses, optionsClasses, inputMessageClasses, handleChange } =
+    useSelectBox(options, selectedOption, onChange, variant, size, className, inputMessageType);
 
   return (
     <div className='w-full'>

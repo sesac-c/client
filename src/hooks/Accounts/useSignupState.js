@@ -7,7 +7,7 @@ export const STEP = {
     SECOND: 'second',
     SUCCESS: 'success'
 };
-const useSignupState = () => {
+export const useSignupState = () => {
     const navigate = useNavigate();
     const [state, setState] = useState({
         currentStep: STEP.FIRST,
@@ -33,5 +33,3 @@ const useSignupState = () => {
         handleClose
     };
 };
-
-export default useSignupState;

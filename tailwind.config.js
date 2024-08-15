@@ -105,6 +105,8 @@ module.exports = {
           'danger-background': '#fff0f0',
           'favorite': '#f27171',
         },
+
+        'positive-disable': 'rgb(232, 240, 254)',
       },
     },
   },
