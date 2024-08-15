@@ -2,7 +2,7 @@ import Modal from '../../components/common/UI/Modal.jsx';
 import Button from '../../components/common/UI/Button.jsx';
 import ProcessErrorModal from '../../components/common/ProcessErrorModal.jsx';
 import FindPasswordContent from '../../components/Accounts/FindPasswordContent.jsx';
-import useFindPasswordState from '../../hooks/Accounts/useFindPasswordState';
+import { useFindPasswordState } from '../../hooks/Accounts/useFindPasswordState';
 import { useNavigateHandler } from '../../hooks/useNavigateHandler';
 import { FIND_PASSWORD_PROCESS_STATUS } from '../../hooks/Accounts/useFindPasswordState';
 import { LOGIN_PATH } from '../../constants/routes';
@@ -32,6 +32,7 @@ const FindPasswordPage = () => {
         </Button>
       }
       onClose={useNavigateHandler(LOGIN_PATH)}
+      hasCloseButton={true}
     >
       <FindPasswordContent currentStep={state.currentStep} />
     </Modal>

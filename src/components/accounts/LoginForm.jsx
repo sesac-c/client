@@ -1,4 +1,4 @@
-import InputText from '../common/UI/InputText.jsx';
+import Input from '../common/UI/Input.jsx';
 import TextButton from '../common/UI/TextButton.jsx';
 import Division from '../common/UI/Division.jsx';
 import Logo from '../common/layout/Logo.jsx';
@@ -16,13 +16,13 @@ const LoginForm = () => {
       </div>
       <div className={`${formDetailSize} flex flex-col justify-center gap-4`}>
         <div className='flex min-h-0 w-full flex-col justify-start gap-3'>
-          <InputText placeholder='아이디' />
-          <InputText placeholder='비밀번호' />
+          <Input placeholder='아이디' />
+          <Input placeholder='비밀번호' />
         </div>
         <div className='flex h-fit flex-row items-center justify-end gap-2 py-2'>
-          <TextButton to={SIGNUP_PATH} content='회원가입' />
+          <TextButton to={SIGNUP_PATH}>회원가입</TextButton>
           <Division />
-          <TextButton to={FIND_PASSWORD_PATH} content='비밀번호 찾기' />
+          <TextButton to={FIND_PASSWORD_PATH}>비밀번호 찾기</TextButton>
         </div>
         <div>
           <Button size='large'>로그인</Button>

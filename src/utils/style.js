@@ -2,7 +2,7 @@
 
 // ============================ Button Component ============================
 export const getButtonClasses = (variant, size) => {
-    const baseClasses = 'w-full rounded-xl font-semibold tracking-[0.1rem]';
+    const baseClasses = 'w-full rounded-xl font-semibold tracking-[0.1rem] disabled:bg-gray-disable disabled:cursor-not-allowed';
     const variantClasses = {
         primary: 'bg-primary text-white hover:bg-primary-hover',
         secondary: 'bg-secondary text-primary hover:bg-secondary-hover',
@@ -10,9 +10,9 @@ export const getButtonClasses = (variant, size) => {
         quaternary: 'bg-transparent text-primary hover:bg-gray-input'
     };
     const sizeClasses = {
-        small: 'px-3 py-2 text-sm',
-        medium: 'px-5 py-3 text-base',
-        large: 'px-6 py-4 text-lg'
+        small: 'px-3 py-2 text-caption',
+        medium: 'px-5 py-3 text-description',
+        large: 'px-6 py-4 text-basic'
     };
 
     return `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]}`;
@@ -20,7 +20,7 @@ export const getButtonClasses = (variant, size) => {
 
 // ============================ InputText Component ============================
 export const getInputTextClasses = (variant, size, className) => {
-    const baseClasses = 'w-full flex-1 placeholder:text-gray-placeholder disabled:bg-gray-disable disabled:border disabled:border-gray-inputBorder disabled:focus:ring-0 focus:outline-0';
+    const baseClasses = 'w-full flex-1 placeholder:text-gray-placeholder disabled:bg-positive-disable disabled:border disabled:border-gray-inputBorder disabled:focus:ring-0 focus:outline-0 disabled:cursor-not-allowed';
     const variantClasses = {
         primary: 'bg-gray-input border border-gray-inputBorder focus:ring-2 focus:ring-primary focus:outline-2 focus:outline-primary',
         secondary: '',
@@ -28,6 +28,7 @@ export const getInputTextClasses = (variant, size, className) => {
         quaternary: '',
         danger: 'bg-red-danger/30 border border-red-danger focus:ring-2 focus:ring-red-danger focus:outline-2 focus:outline-red-danger',
         feed: 'text-white mt-[0.4rem]',
+        noneFocus: 'bg-gray-input border border-gray-inputBorder'
     };
     const sizeClasses = {
         small: 'max-h-10 min-h-[40px] px-3 py-2 rounded-md text-sm',

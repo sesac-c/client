@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import InputText from '../../components/common/UI/InputText.jsx';
+import Input from '../../components/common/UI/Input.jsx';
 import SelectBox from '../../components/common/UI/SelectBox.jsx';
 import Button from '../../components/common/UI/Button.jsx';
 import { useNavigateHandler } from '../../hooks/useNavigateHandler.js';
@@ -36,13 +36,13 @@ const BirthdateInput = () => {
 const SignupFirstStepField = () => (
   <div className='modal-form'>
     <div className='flex flex-col gap-2'>
-      <InputText type='text' name='name' label='이름' size={INPUT_SIZE} />
+      <Input type='text' name='name' label='이름' size={INPUT_SIZE} />
       <BirthdateInput />
     </div>
     <div className='flex flex-col gap-2'>
-      <InputText type='email' name='email' label='이메일' size={INPUT_SIZE} />
-      <InputText type='password' name='password' label='비밀번호' size={INPUT_SIZE} />
-      <InputText type='password' name='confirmPassword' label='비밀번호 확인' size={INPUT_SIZE} />
+      <Input type='email' name='email' label='이메일' size={INPUT_SIZE} />
+      <Input type='password' name='password' label='비밀번호' size={INPUT_SIZE} />
+      <Input type='password' name='confirmPassword' label='비밀번호 확인' size={INPUT_SIZE} />
     </div>
   </div>
 );
@@ -90,6 +90,7 @@ const SignupModal = ({ currentStep, onClick }) => {
       title={TITLE}
       footer={<SignupStepButton currentStep={currentStep} onClick={onClick} />}
       onClose={useNavigateHandler(-1)}
+      hasCloseButton={true}
     >
       {content}
     </Modal>

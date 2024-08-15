@@ -47,6 +47,8 @@
     --gray-input-border: #9b9b9b;
     --gray-placeholder: #888;
     --gray-disable: #c8c8c8;
+
+    --positive-disable: rgb(232, 240, 254);
     --gray-board: #e5e8e5;
 
     --gray-basic: #4c4c4c;

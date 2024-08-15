@@ -6,7 +6,7 @@ import useModalStore from '../stores/modalStore';
  */
 const isArrEmpty = (arr) => arr.length === 0;
 
-const useModal = (component) => {
+export const useModal = (component) => {
     const { addModal, removeModal } = useModalStore();
     const [isOpen, setIsOpen] = useState(false);
     const id = useId();
@@ -32,5 +32,3 @@ const useModal = (component) => {
 
     return { isOpen, openModal, closeModal };
 };
-
-export default useModal;

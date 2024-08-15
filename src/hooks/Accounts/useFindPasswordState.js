@@ -9,7 +9,7 @@ export const FIND_PASSWORD_PROCESS_STATUS = {
     SUCCESS: 'success'
 };
 
-const useFindPasswordState = () => {
+export const useFindPasswordState = () => {
     const [state, setState] = useState({
         currentStep: FIND_PASSWORD_PROCESS_STATUS.EMAIL,
         isError: false
@@ -27,5 +27,3 @@ const useFindPasswordState = () => {
 
     return { state, handleButtonClick };
 };
-
-export default useFindPasswordState;

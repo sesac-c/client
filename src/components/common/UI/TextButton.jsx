@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getTextButtonClasses } from '../../../utils/style';
 
-const TextButton = ({ variant = 'primary', className = '', content, ...props }) => {
+const TextButton = ({ variant = 'primary', className = '', children, ...props }) => {
   const classes = getTextButtonClasses(variant, className);
 
   return (
     <Link className={classes} {...props}>
-      {content}
+      {children}
     </Link>
   );
 };
