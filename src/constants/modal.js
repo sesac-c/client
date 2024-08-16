@@ -12,3 +12,7 @@ export const SIGNUP_SUCCESS_MESSAGES = [
 ];
 
 export const DEFAULT_PROCCESS_ERROR_MESSAGE = '오류가 발생했습니다. 잠시 뒤 시도해주세요.';
+
+
+export const HASHTAG_TITLE = '해시태그';
+export const IMAGE_TITLE = '이미지';
