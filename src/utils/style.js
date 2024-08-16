@@ -28,13 +28,15 @@ export const getInputTextClasses = (variant, size, className) => {
         quaternary: '',
         danger: 'bg-red-danger/30 border border-red-danger focus:ring-2 focus:ring-red-danger focus:outline-2 focus:outline-red-danger',
         feed: 'text-white mt-[0.4rem]',
-        noneFocus: 'bg-gray-input border border-gray-inputBorder'
+        noneFocus: 'bg-gray-input border border-gray-inputBorder',
+        custom: '',
     };
     const sizeClasses = {
         small: 'max-h-10 min-h-[40px] px-3 py-2 rounded-md text-sm',
         medium: 'max-h-13 px-5 py-3 rounded-lg text-base',
         large: 'px-6 py-4 rounded-lg text-xl',
         feedSize: 'px-3 text-md font-semibold',
+        custom: '',
     };
 
     return `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;

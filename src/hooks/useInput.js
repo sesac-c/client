@@ -1,23 +1,15 @@
-import { useCallback, useRef, useMemo, useState } from 'react';
+import { useRef, useMemo, useState } from 'react';
 import { getInputTextClasses, getInputTextMessageClasses, getSelectBoxClasses, getSelectBoxDownIconClasses } from '../utils/style'
 
-export const useInput = (variant, size, className, inputMessageType, onTextChange) => {
+export const useInput = (variant, size, className, inputMessageType) => {
     const inputRef = useRef();
     const classes = useMemo(() => getInputTextClasses(variant, size, className), [variant, size, className]);
     const inputMessageClasses = useMemo(() => getInputTextMessageClasses(inputMessageType), [inputMessageType]);
 
-    const handleInputChange = useCallback(e => {
-        const newValue = e.target.value;
-        const newLength = newValue.length;
-
-        onTextChange?.(newLength);
-    }, [onTextChange]);
-
     return {
         inputRef,
         classes,
-        inputMessageClasses,
-        handleInputChange
+        inputMessageClasses
     };
 };
 export const useSelectBox = (options, selectedOption, onChange, variant, size, className, inputMessageType) => {

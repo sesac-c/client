@@ -2,14 +2,14 @@ import { NavLink } from 'react-router-dom';
 import { FEED_INFO, FEED_ARR } from '../../constants/routes.js';
 import FeedSelectBox from './FeedSelectBox.jsx';
 import PropTypes from 'prop-types';
-import useModal from '../../hooks/useModal';
+import { useModal } from '../../hooks/useModal';
 import WritePostModal from './WritePostModal.jsx';
 import { memo, useCallback, useMemo } from 'react';
 
 const FeedMenu = ({ currentLocation }) => {
   const menuList = useMemo(() => FEED_INFO[currentLocation].menuList, [currentLocation]);
 
-  const { openModal, closeModal } = useModal(() => <WritePostModal onClose={closeModal} />);
+  const { openModal, closeModal, isOpen } = useModal(() => <WritePostModal onClose={closeModal} />);
 
   const renderMenuItem = useCallback(
     ({ title, path }) => {

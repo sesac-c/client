@@ -9,16 +9,9 @@ const Input = ({
   label,
   inputMessage,
   inputMessageType,
-  onTextChange,
   ...props
 }) => {
-  const { inputRef, classes, inputMessageClasses, handleInputChange } = useInput(
-    variant,
-    size,
-    className,
-    inputMessageType,
-    onTextChange
-  );
+  const { inputRef, classes, inputMessageClasses } = useInput(variant, size, className, inputMessageType);
 
   const InputComponent = isTextarea ? 'textarea' : 'input';
 
@@ -29,22 +22,15 @@ const Input = ({
           {label}
         </label>
       )}
-      <InputComponent
-        ref={inputRef}
-        id={label}
-        className={classes}
-        onChange={handleInputChange}
-        {...(!isTextarea && { type: 'text' })}
-        {...props}
-      />
+      <InputComponent ref={inputRef} id={label} className={classes} {...(!isTextarea && { type: 'text' })} {...props} />
       {inputMessage && <p className={inputMessageClasses}>{inputMessage}</p>}
     </div>
   );
 };
 
 Input.propTypes = {
-  variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'quaternary', 'danger', 'feed', 'noneFocus']),
-  size: PropTypes.oneOf(['small', 'medium', 'large', 'feedSize']),
+  variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'quaternary', 'danger', 'feed', 'noneFocus', 'custom']),
+  size: PropTypes.oneOf(['small', 'medium', 'large', 'feedSize', 'custom']),
   label: PropTypes.string,
   className: PropTypes.string,
   inputMessage: PropTypes.string,
