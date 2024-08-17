@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect } from 'react';
-import Modal from '../common/UI/Modal';
-import Button from '../common/UI/Button';
-import useWritePostStore from '../../stores/writePostStore';
-import { useModal } from '../../hooks/useModal';
-import { useConfirmClose } from '../../hooks/useConfirmClose';
-import { WRITE_POST_CONFIRM_MESSAGE } from '../../constants/confirmations';
-import { WRITE_MODAL } from '../../constants/modal';
+import Modal from '../../../common/UI/Modal';
+import Button from '../../../common/UI/Button';
+import useWritePostStore from '../../../../stores/writePostStore';
+import { useModal } from '../../../../hooks/useModal';
+import { useConfirmClose } from '../../../../hooks/useConfirmClose';
+import { WRITE_POST_CONFIRM_MESSAGE } from '../../../../constants/confirmations';
+import { WRITE_MODAL } from '../../../../constants/modal';
 import WritePostContent from './WritePostContent';
-import ProcessErrorModal from '../common/ProcessErrorModal';
+import ProcessErrorModal from '../../../common/ProcessErrorModal';
 
 const TITLE = '글쓰기';
 const BUTTON_SIZE = 'large';

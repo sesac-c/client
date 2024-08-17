@@ -3,7 +3,7 @@ import { FEED_INFO, FEED_ARR } from '../../constants/routes.js';
 import FeedSelectBox from './FeedSelectBox.jsx';
 import PropTypes from 'prop-types';
 import { useModal } from '../../hooks/useModal';
-import WritePostModal from './WritePostModal.jsx';
+import WritePostModal from '../Feed/posts/write/WritePostModal.jsx';
 import { memo, useCallback, useMemo } from 'react';
 
 const FeedMenu = ({ currentLocation }) => {
@@ -16,7 +16,7 @@ const FeedMenu = ({ currentLocation }) => {
       if (path) {
         return (
           <li key={title} className='feed-menu-container'>
-            <NavLink end className={({ isActive }) => `feed-menu-link${isActive ? ' active' : ''}`} to={path}>
+            <NavLink className={({ isActive }) => `feed-menu-link${isActive ? ' active' : ''}`} to={path}>
               {title}
             </NavLink>
           </li>

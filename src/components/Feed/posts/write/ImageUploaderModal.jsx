@@ -1,11 +1,11 @@
 import React from 'react';
-import Modal from '../common/UI/Modal.jsx';
-import useWritePostStore from '../../stores/writePostStore';
+import Modal from '../../../common/UI/Modal.jsx';
+import useWritePostStore from '../../../../stores/writePostStore';
 import { CameraIcon } from '@heroicons/react/20/solid';
-import { IMAGE_TITLE } from '../../constants/modal.js';
-import Button from '../common/UI/Button.jsx';
+import { IMAGE_TITLE } from '../../../../constants/modal.js';
+import Button from '../../../common/UI/Button.jsx';
 import { PhotoIcon } from '@heroicons/react/24/outline';
-import { useModal } from '../../hooks/useModal.js';
+import { useModal } from '../../../../hooks/useModal.js';
 
 const BUTTON_SIZE = 'medium';
 

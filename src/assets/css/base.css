@@ -62,6 +62,17 @@
 
     --grayblue-primary: #d3e4fd;
     --grayblue-secondary: #f0f2f5;
+    --grayblue-50: #f0f2f5;
+    --grayblue-100: #e9ecf0;
+    --grayblue-200: #d8dee5;
+    --grayblue-300: #bdc6d3;
+    --grayblue-400: #9eaabc;
+    --grayblue-500: #8693ab;
+    --grayblue-600: #747f9c;
+    --grayblue-700: #68718d;
+    --grayblue-800: #585e75;
+    --grayblue-900: #494e5f;
+    --grayblue-950: #2f323c;
 
     /* Red 색상 팔레트 */
     --red-50: #fff0f0;
