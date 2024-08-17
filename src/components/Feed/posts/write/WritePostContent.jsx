@@ -1,5 +1,5 @@
 import React from 'react';
-import { TitleInputField, ContentInputField } from './WritePostRequiredFields';
+import { TitleInputField, ContentInputField } from './WritePostRequiredFields.jsx';
 
 const WritePostContent = React.memo(() => {
   return (

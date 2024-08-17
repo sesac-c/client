@@ -1,6 +1,6 @@
 import FeedWrapper from '../../components/Feed/FeedWrapper.jsx';
 import ColumnLayoutWrapper from '../../components/common/layout/ColumnLayoutWrapper.jsx';
-import Posts from '../../components/Feed/Posts.jsx';
+import Posts from '../../components/Feed/posts/Posts.jsx';
 import { dummyNoticeData } from '../../assets/mockData/notice.js';
 import PostSearchBar from '../../components/Feed/PostSearchBar.jsx';
 import SearchLoadingIndicator from '../../components/Feed/SearchLoadingIndicator.jsx';

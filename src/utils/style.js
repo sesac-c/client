@@ -53,17 +53,19 @@ export const getInputTextMessageClasses = (type) => {
 };
 
 // ============================ Divison Component ============================
-export const getDivisionClasses = (variant, type) => {
+export const getDivisionClasses = (variant, type, className) => {
     const baseClasses = 'm-1';
     const variantClasses = {
         primary: 'bg-primary',
         secondary: 'bg-gray-300',
+        custom: '',
     };
     const typeClasses = {
         vertical: 'w-[0.05vw] min-h-3.5',
         horizontal: 'min-w-full h-[1px]',
+        horizontal_custom: 'min-w-full ',
     };
-    return `${baseClasses} ${variantClasses[variant]} ${typeClasses[type]}`;
+    return `${baseClasses} ${variantClasses[variant]} ${typeClasses[type]} ${className}`;
 };
 
 // ============================ Logo Component ============================

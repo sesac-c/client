@@ -1,4 +1,4 @@
-import create from 'zustand';
+import { create } from 'zustand';
 import { MAX_HASHTAGS } from '../constants/validations';
 import { processImage } from '../utils/image';
 

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Modal from '../common/UI/Modal.jsx';
-import useWritePostStore from '../../stores/writePostStore';
-import { MAX_HASHTAGS, MAX_HASHTAG_LENGTH } from '../../constants/validations';
-import Input from '../common/UI/Input.jsx';
-import Button from '../common/UI/Button.jsx';
-import { useModal } from '../../hooks/useModal.js';
+import Modal from '../../../common/UI/Modal.jsx';
+import useWritePostStore from '../../../../stores/writePostStore';
+import { MAX_HASHTAGS, MAX_HASHTAG_LENGTH } from '../../../../constants/validations';
+import Input from '../../../common/UI/Input.jsx';
+import Button from '../../../common/UI/Button.jsx';
+import { useModal } from '../../../../hooks/useModal.js';
 import { HashtagIcon } from '@heroicons/react/24/outline';
 
 const INPUT_SIZE = 'small';

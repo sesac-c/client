@@ -1,14 +1,15 @@
 import FeedWrapper from '../../components/Feed/FeedWrapper.jsx';
 import ColumnLayoutWrapper from '../../components/common/layout/ColumnLayoutWrapper.jsx';
-import Posts from '../../components/Feed/Posts.jsx';
+import Posts from '../../components/Feed/posts/Posts.jsx';
 import UserSearch from '../../components/Feed/UserSearch.jsx';
 import Carousel from '../../components/Feed/Carousel.jsx';
 import { dummyNoticesData } from '../../assets/mockData/notice.js';
 import { dummyUserData } from '../../assets/mockData/search.js';
+import PostDetailModal from '../../components/Feed/posts/detail/PostDetailModal.jsx';
 
 const CampusPostListPage = () => {
   return (
-    <FeedWrapper boardContent={<Carousel items={dummyNoticesData} title='최신 공지' />}>
+    <FeedWrapper boardContent={<Carousel items={dummyNoticesData} title='주요 공지' />}>
       <ColumnLayoutWrapper
         mainArea={<Posts />}
         rightSide={
@@ -21,6 +22,7 @@ const CampusPostListPage = () => {
           />
         }
       />
+      <PostDetailModal postId={1} />
     </FeedWrapper>
   );
 };

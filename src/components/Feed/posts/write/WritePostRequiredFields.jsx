@@ -1,8 +1,8 @@
 import React from 'react';
-import LabeledWrapper from '../common/UI/LabeledWrapper';
-import Input from '../common/UI/Input.jsx';
-import { MAX_TITLE_LENGTH, MAX_CONTENT_LENGTH } from '../../constants/validations';
-import useWritePostStore from '../../stores/writePostStore.js';
+import LabeledWrapper from '../../../common/UI/LabeledWrapper.jsx';
+import Input from '../../../common/UI/Input.jsx';
+import { MAX_TITLE_LENGTH, MAX_CONTENT_LENGTH } from '../../../../constants/validations';
+import useWritePostStore from '../../../../stores/writePostStore';
 import { ImageUploaderOpenButton } from './ImageUploaderModal.jsx';
 import { HashTagUploaderOpenButton } from './HashtagUploaderModal.jsx';
 

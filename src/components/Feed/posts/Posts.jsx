@@ -1,20 +1,23 @@
 import PropTypes from 'prop-types';
-import { HeartIcon, ChatBubbleBottomCenterTextIcon } from '@heroicons/react/20/solid';
-import { formatDateToKorean } from '../../utils/formatter';
+import { HeartIcon } from '@heroicons/react/20/solid';
+import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
+import { formatDateToKorean } from '../../../utils/formatter';
 
-import { dummyPostData } from '../../assets/mockData/post';
+import { dummyPostData } from '../../../assets/mockData/post';
+import { useNavigateHandler } from '../../../hooks/useNavigateHandler.js';
 
 const Post = ({ post, user }) => {
-  const formattedDate = formatDateToKorean(post.date);
+  const formattedDate = formatDateToKorean(post.createdAt);
+
   return (
     <div className='post'>
       <div className='post-container'>
-        {post.imageUrl && (
+        {post.image && (
           <div className='post-image'>
-            <img src={post.imageUrl} alt='post url' />
+            <img src={post.image} alt='post url' />
           </div>
         )}
-        <div className='post-content'>
+        <div className='post-content' onClick={useNavigateHandler(`./${post.id}`)}>
           <div className='post-main'>
             <div className='post-header'>
               <div className='post-title'>
@@ -24,11 +27,11 @@ const Post = ({ post, user }) => {
                 <div className='post-actions'>
                   <div className='action-item'>
                     <ChatBubbleBottomCenterTextIcon className='comment-icon' />
-                    <span className='action-count'>{post.commentsCount}</span>
+                    <span className='action-count'>{post.replyCount}</span>
                   </div>
                   <div className='action-item'>
                     <HeartIcon className='favorite-icon' />
-                    <span className='action-count'>{post.likesCount}</span>
+                    <span className='action-count'>{post.likeCount}</span>
                   </div>
                 </div>
                 <div className='meta-info'>
@@ -44,7 +47,7 @@ const Post = ({ post, user }) => {
             </div>
             <div className='post-body'>
               <div className='post-description'>
-                <p className='description-text'>{post.description}</p>
+                <p className='description-text'>{post.content}</p>
               </div>
             </div>
           </div>
@@ -71,7 +74,7 @@ const Posts = ({ posts = dummyPostData }) => {
   return (
     <div className='posts-container'>
       {posts.map((post, index) => (
-        <Post key={index} post={post.post} user={post.user} />
+        <Post key={index} post={post} user={post.user} />
       ))}
     </div>
   );
@@ -87,7 +90,7 @@ Posts.propTypes = {
         likesCount: PropTypes.number.isRequired,
         description: PropTypes.string.isRequired,
         hashtags: PropTypes.arrayOf(PropTypes.string),
-        imageUrl: PropTypes.string
+        image: PropTypes.string
       }).isRequired,
       user: PropTypes.shape({
         nickname: PropTypes.string.isRequired

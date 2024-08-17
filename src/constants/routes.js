@@ -30,9 +30,9 @@ export const RESET_PASSWORD_PATH = `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.res
 
 export const CAMPUS_PATH = '/feed/campus'
 export const CAMPUS_CHILDREN_PATH = {
-    postList: 'post/list',
-    noticeList: 'notice/list',
-    search: 'search',
+    postList: 'posts',
+    noticeList: 'notices',
+    search: 'search-post',
 }
 
 export const CAMPUS_POST_LIST_PATH = `${CAMPUS_PATH}/${CAMPUS_CHILDREN_PATH.postList}`;
