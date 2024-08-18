@@ -5,7 +5,6 @@ import UserSearch from '../../components/Feed/UserSearch.jsx';
 import Carousel from '../../components/Feed/Carousel.jsx';
 import { dummyNoticesData } from '../../assets/mockData/notice.js';
 import { dummyUserData } from '../../assets/mockData/search.js';
-import PostDetailModal from '../../components/Feed/posts/detail/PostDetailModal.jsx';
 
 const CampusPostListPage = () => {
   return (
@@ -22,7 +21,6 @@ const CampusPostListPage = () => {
           />
         }
       />
-      <PostDetailModal postId={1} />
     </FeedWrapper>
   );
 };
