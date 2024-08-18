@@ -1,0 +1,72 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('../fonts/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* body style */
+body {
+    letter-spacing: -0.2px;
+    -ms-overflow-style: none;
+    font-size: 16px;
+    color: var(--gray-basic);
+    font-family: 'Pretendard-Regular', sans-serif;
+    line-height: 1.4;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    /* scroll bar 없앰 */
+    display: none;
+}
+
+/* textarea style */
+textarea {
+    resize: none;
+    overflow: auto;
+    width: 100%;
+}
+
+textarea::-webkit-resizer {
+    display: none;
+}
+
+#root {
+    width: 100%;
+    overflow-y: auto;
+}
+
+@keyframes pulse {
+
+    /*  
+        description: 커짐
+        example=> animation: pulse 1s infinite; 
+    */
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes liftUp {
+
+    /*  
+        description: 요소가 위아래로 들썩거리는 듯한 애니메이션 효과
+        example=> animation: liftUp 0.5s ease-out forwards;
+    */
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-5px);
+    }
+}

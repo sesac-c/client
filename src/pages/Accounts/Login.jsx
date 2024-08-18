@@ -1,31 +1,25 @@
-const Header = () => (
-    <h1 className="header">안녕~?</h1>
-);
-
-const Mascot = () => (
-    <img src="path_to_mascot_image.png" alt="Mascot" className="mascot" />
-);
-
-const LoginForm = () => (
-    <form className="login-form">
-        <h2>새싹커뮤니티</h2>
-        <input type="text" placeholder="아이디" />
-        <input type="password" placeholder="비밀번호" />
-        <div className="form-links">
-            <a href="#">회원가입</a> | <a href="#">비밀번호 찾기</a>
-        </div>
-        <button type="submit" className="login-button">로그인</button>
-    </form>
-);
+import MascotImage from '../../components/common/layout/MascotImage.jsx';
+import LoginForm from '../../components/accounts/LoginForm.jsx';
+import AccountsLayout from '../../layouts/Accounts.jsx';
+import { Outlet } from 'react-router-dom';
 
 const LoginPage = () => {
-    return (
-        <div className="login-page">
-            <Header />
-            <Mascot />
-            <LoginForm />
+  const loginMascotSize = 'w-2/12 h-[25rem]';
+  const loginFormSize = 'w-2/5 h-[35rem]';
+
+  return (
+    <AccountsLayout>
+      <div className='container flex h-full w-full flex-row items-center justify-center gap-5'>
+        <div className={`${loginMascotSize} hidden xl:flex xl:justify-end`}>
+          <MascotImage type='login' />
         </div>
-    )
+        <div className={`${loginFormSize} flex items-center justify-center`}>
+          <LoginForm />
+        </div>
+      </div>
+      <Outlet />
+    </AccountsLayout>
+  );
 };
 
 export default LoginPage;
