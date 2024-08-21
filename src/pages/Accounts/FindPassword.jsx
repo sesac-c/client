@@ -1,41 +1,25 @@
-import Modal from '../../components/common/UI/Modal.jsx';
-import Button from '../../components/common/UI/Button.jsx';
-import ProcessErrorModal from '../../components/common/ProcessErrorModal.jsx';
-import FindPasswordContent from '../../components/Accounts/FindPasswordContent.jsx';
-import { useFindPasswordState } from '../../hooks/Accounts/useFindPasswordState';
+import ProcessErrorModal from '../../components/common/ProcessErrorModal';
+import FindPasswordContent from '../../components/accounts/findPassword/FindPasswordContent';
 import { useNavigateHandler } from '../../hooks/useNavigateHandler';
-import { FIND_PASSWORD_PROCESS_STATUS } from '../../hooks/Accounts/useFindPasswordState';
 import { LOGIN_PATH } from '../../constants/routes';
-import { PAGE_MODAL } from '../../constants/modal';
-
-const TITLE = '비밀번호 찾기';
-const BUTTON_SIZE = 'large';
-const BUTTON_TEXT = {
-  [FIND_PASSWORD_PROCESS_STATUS.EMAIL]: '인증번호 발송',
-  [FIND_PASSWORD_PROCESS_STATUS.CODE]: '확인'
-};
+import { useFindPasswordState } from '../../hooks/Accounts/useFindPasswordState';
 
 const FindPasswordPage = () => {
-  const { state, handleButtonClick } = useFindPasswordState();
+  const title = '비밀번호 찾기';
+  const { state, handleChange, handleButtonClick, isButtonDisabled } = useFindPasswordState();
+  const navigateToLogin = useNavigateHandler(LOGIN_PATH);
 
   if (state.isError) {
-    return <ProcessErrorModal title='비밀번호 찾기 실패' onClose={useNavigateHandler(LOGIN_PATH)} />;
+    return <ProcessErrorModal title={`'${title} 실패'`} onClose={navigateToLogin} />;
   }
-
   return (
-    <Modal
-      modalType={PAGE_MODAL}
-      title={TITLE}
-      footer={
-        <Button size={BUTTON_SIZE} onClick={handleButtonClick}>
-          {BUTTON_TEXT[state.currentStep]}
-        </Button>
-      }
-      onClose={useNavigateHandler(LOGIN_PATH)}
-      hasCloseButton={true}
-    >
-      <FindPasswordContent currentStep={state.currentStep} />
-    </Modal>
+    <FindPasswordContent
+      title={title}
+      state={state}
+      handleChange={handleChange}
+      handleButtonClick={handleButtonClick}
+      isButtonDisabled={isButtonDisabled}
+    />
   );
 };
 
