@@ -1,61 +1,54 @@
-import { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react';
-import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
-import { getSelectBoxClasses, getSelectBoxDownIconClasses, getInputTextMessageClasses } from '../../../utils/style';
-import { useSelectBox } from '../../../hooks/useInput';
+import { CheckIcon, ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
+import { useSelectBox } from '../../../hooks/useSelectBox';
 
-const SelectBox = ({
-  variant = 'primary',
-  size = 'medium',
-  label,
-  className = '',
-  inputMessage,
-  inputMessageType,
-  options = ['option1', 'option2', 'option3', 'option4', 'option5'], //TODO: delete default
-  selectedOption,
-  onChange,
-  ...props
-}) => {
-  const { selected, buttonClasses, selectBoxDownIconClasses, optionsClasses, inputMessageClasses, handleChange } =
-    useSelectBox(options, selectedOption, onChange, variant, size, className, inputMessageType);
+const SelectBox = ({ variant = 'primary', size = 'medium', options, selectedOption, onChange }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const { selected, handleChange } = useSelectBox(options, selectedOption, onChange);
+
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const handleToggle = () => setIsOpen(!isOpen);
+
+  const handleSelect = option => {
+    handleChange(option);
+    setIsOpen(false);
+  };
 
   return (
-    <div className='w-full'>
-      {label && <div className='mb-1 w-full text-left text-sm'>{label}</div>}
-      <Listbox value={selected} onChange={handleChange} {...props}>
-        <div className='relative'>
-          <ListboxButton className={buttonClasses}>
-            <span className='block truncate text-left'>{selected}</span>
-            <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
-              <ChevronDownIcon className={selectBoxDownIconClasses} aria-hidden='true' />
-            </span>
-          </ListboxButton>
-          <ListboxOptions className={optionsClasses}>
-            {options.map(option => (
-              <ListboxOption
-                key={option}
-                className={({ active }) =>
-                  `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-secondary text-gray-basic' : ''}`
-                }
-                value={option}
-              >
-                {({ selected }) => (
-                  <>
-                    <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>{option}</span>
-                    {selected && (
-                      <span className='absolute inset-y-0 left-0 flex items-center pl-3 text-primary-600'>
-                        <CheckIcon className='h-5 w-5' aria-hidden='true' />
-                      </span>
-                    )}
-                  </>
-                )}
-              </ListboxOption>
-            ))}
-          </ListboxOptions>
-        </div>
-      </Listbox>
-      {inputMessage && <p className={inputMessageClasses}>{inputMessage}</p>}
+    <div className='select-box'>
+      <button type='button' className={`select-box-button ${size} ${variant}`} onClick={handleToggle}>
+        {selected}
+        {isOpen ? <ChevronUpIcon className='select-box-icon' /> : <ChevronDownIcon className='select-box-icon' />}
+      </button>
+      {isOpen && (
+        <ul className='select-box-options'>
+          {options.map(option => (
+            <li
+              key={option}
+              className={`select-box-option ${option === selected ? 'select-box-option-selected' : ''}`}
+              onClick={() => handleSelect(option)}
+            >
+              {option}
+              {option === selected && <CheckIcon className='select-box-check-icon' />}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
