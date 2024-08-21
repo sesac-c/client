@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Modal from '../../../common/UI/Modal.jsx';
 import useWritePostStore from '../../../../stores/writePostStore';
 import { MAX_HASHTAGS, MAX_HASHTAG_LENGTH } from '../../../../constants/validations';
-import Input from '../../../common/UI/Input.jsx';
 import Button from '../../../common/UI/Button.jsx';
 import { useModal } from '../../../../hooks/useModal.js';
 import { HashtagIcon } from '@heroicons/react/24/outline';
+import { TextField } from '@mui/material';
 
 const INPUT_SIZE = 'small';
 const BUTTON_SIZE = 'medium';
@@ -53,8 +53,9 @@ const HashtagInputField = React.memo(() => {
   return (
     <>
       {hashtagCount < MAX_HASHTAGS && (
-        <Input
-          variant='noneFocus'
+        <TextField
+          name='hashtags'
+          type='text'
           size={INPUT_SIZE}
           value={inputValue}
           onChange={handleChange}
@@ -64,8 +65,12 @@ const HashtagInputField = React.memo(() => {
               ? `${hashtagCountInfo}입력 후 엔터 키를 누르면 해시태그가 추가됩니다.`
               : `${hashtagCountInfo}해시태그를 클릭하면 해당 해시태그가 삭제됩니다.`
           }
-          maxLength={MAX_HASHTAG_LENGTH}
-          className='mb-1'
+          inputProps={{ maxLength: MAX_HASHTAG_LENGTH }}
+          {...{
+            color: 'success',
+            margin: 'dense',
+            fullWidth: true
+          }}
         />
       )}
     </>

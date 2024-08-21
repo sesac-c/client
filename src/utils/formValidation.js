@@ -98,3 +98,35 @@ export const validateFindPasswordForm = (formData, step) => {
 
     return errors;
 };
+
+export const validateSignupForm = (formData, currentStep) => {
+    let errors = {};
+
+    if (currentStep === 'FIRST') {
+        const nameError = validateName(formData.name);
+        if (nameError) errors.name = nameError;
+
+        const birthdateError = validateBirthdate(formData.birthdate, formData.gender);
+        if (birthdateError) {
+            errors.birthdate = birthdateError;
+            errors.gender = '　';
+        }
+
+        const emailError = validateEmail(formData.email);
+        if (emailError) errors.email = emailError;
+
+        const passwordError = validatePassword(formData.password);
+        if (passwordError) errors.password = passwordError;
+
+        const confirmPasswordError = validateConfirmPassword(formData.password, formData.confirmPassword);
+        if (confirmPasswordError) errors.confirmPassword = confirmPasswordError;
+    } else if (currentStep === 'SECOND') {
+        const campusError = validateCampus(formData.campus);
+        if (campusError) errors.campus = campusError;
+
+        const courseError = validateCourse(formData.course);
+        if (courseError) errors.course = courseError;
+    }
+
+    return errors;
+};

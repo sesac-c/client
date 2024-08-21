@@ -1,9 +1,9 @@
-import Input from '../common/UI/Input.jsx';
-import TextButton from '../common/UI/TextButton.jsx';
 import Division from '../common/UI/Division.jsx';
 import Logo from '../common/layout/Logo.jsx';
 import Button from '../common/UI/Button.jsx';
 import { SIGNUP_PATH, FIND_PASSWORD_PATH } from '../../constants/routes.js';
+import { TextField } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
   const formSize = 'w-5/6 h-full';
@@ -16,13 +16,17 @@ const LoginForm = () => {
       </div>
       <div className={`${formDetailSize} flex flex-col justify-center gap-4`}>
         <div className='flex min-h-0 w-full flex-col justify-start gap-3'>
-          <Input placeholder='아이디' />
-          <Input placeholder='비밀번호' />
+          <TextField label='아이디' color='success' />
+          <TextField label='비밀번호' color='success' />
         </div>
         <div className='flex h-fit flex-row items-center justify-end gap-2 py-2'>
-          <TextButton to={SIGNUP_PATH}>회원가입</TextButton>
+          <Link className='text-primary underline' to={SIGNUP_PATH}>
+            회원가입
+          </Link>
           <Division />
-          <TextButton to={FIND_PASSWORD_PATH}>비밀번호 찾기</TextButton>
+          <Link className='text-primary underline' to={FIND_PASSWORD_PATH}>
+            비밀번호 찾기
+          </Link>
         </div>
         <div>
           <Button size='large'>로그인</Button>

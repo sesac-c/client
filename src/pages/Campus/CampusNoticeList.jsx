@@ -5,7 +5,6 @@ import UserSearch from '../../components/Feed/UserSearch.jsx';
 import Carousel from '../../components/Feed/Carousel.jsx';
 import { dummyNoticeData, dummyNoticesData } from '../../assets/mockData/notice.js';
 import { dummyManagerData } from '../../assets/mockData/search.js';
-
 const CampusNoticeListPage = () => {
   return (
     <FeedWrapper boardContent={<Carousel items={dummyNoticesData} title='주요 공지' />}>

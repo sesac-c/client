@@ -1,12 +1,20 @@
 import React from 'react';
 import LabeledWrapper from '../../../common/UI/LabeledWrapper.jsx';
-import Input from '../../../common/UI/Input.jsx';
 import { MAX_TITLE_LENGTH, MAX_CONTENT_LENGTH } from '../../../../constants/validations';
 import useWritePostStore from '../../../../stores/writePostStore';
 import { ImageUploaderOpenButton } from './ImageUploaderModal.jsx';
 import { HashTagUploaderOpenButton } from './HashtagUploaderModal.jsx';
+import TextField from '@mui/material/TextField';
+import { FormControl, FormHelperText, OutlinedInput } from '@mui/material';
 
+const DEFAULT_TEXTFIELD_SETTING = {
+  color: 'success',
+  required: true,
+  fullWidth: true,
+  size: 'small'
+};
 const INPUT_SIZE = 'small';
+
 const RemainTextCount = ({ current, max }) => (
   <p className='mt-1 w-full text-right text-caption text-gray-basic'>
     {current} / {max}
@@ -22,17 +30,20 @@ export const TitleInputField = React.memo(() => {
 
   return (
     <LabeledWrapper title='제목' ExtraInfoElement={HashTagUploaderOpenButton}>
-      <Input
-        size={INPUT_SIZE}
-        placeholder='제목을 입력하세요'
-        name='title'
-        type='text'
-        variant='noneFocus'
-        maxLength={MAX_TITLE_LENGTH}
-        onChange={handleChange}
-        value={title}
-      />
-      <RemainTextCount current={getTitleLength()} max={MAX_TITLE_LENGTH} />
+      <FormControl variant='outlined' color={DEFAULT_TEXTFIELD_SETTING.color} fullWidth>
+        <OutlinedInput
+          id='title'
+          type='text'
+          name='title'
+          value={title}
+          onChange={handleChange}
+          inputProps={{ maxLength: MAX_TITLE_LENGTH }}
+          {...DEFAULT_TEXTFIELD_SETTING}
+        />
+        <FormHelperText id='title'>
+          <RemainTextCount current={getTitleLength()} max={MAX_TITLE_LENGTH} />
+        </FormHelperText>
+      </FormControl>
     </LabeledWrapper>
   );
 });
@@ -46,19 +57,39 @@ export const ContentInputField = React.memo(() => {
 
   return (
     <LabeledWrapper title='내용' ExtraInfoElement={ImageUploaderOpenButton}>
-      <Input
-        size='custom'
-        placeholder='내용을 입력하세요'
-        name='content'
-        type='textarea'
-        variant='noneFocus'
-        maxLength={MAX_CONTENT_LENGTH}
-        isTextarea={true}
-        onChange={handleChange}
-        value={content}
-        className='h-[210px] rounded-md px-3 py-2 text-sm'
-      />
-      <RemainTextCount current={getContentLength()} max={MAX_CONTENT_LENGTH} />
+      <FormControl variant='outlined' color={DEFAULT_TEXTFIELD_SETTING.color} fullWidth sx={{ maxWidth: '100%' }}>
+        <TextField
+          id='content'
+          multiline
+          name='content'
+          value={content}
+          onChange={handleChange}
+          inputProps={{
+            maxLength: MAX_CONTENT_LENGTH,
+            style: {
+              height: '180px',
+              overflowY: 'auto'
+            }
+          }}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              height: '210px',
+              '& textarea': {
+                resize: 'none',
+                lineHeight: '1.5',
+                fontSize: '0.875rem'
+              }
+            },
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderRadius: '0.375rem'
+            }
+          }}
+          {...DEFAULT_TEXTFIELD_SETTING}
+        />
+        <FormHelperText id='content'>
+          <RemainTextCount current={getContentLength()} max={MAX_CONTENT_LENGTH} />
+        </FormHelperText>
+      </FormControl>
     </LabeledWrapper>
   );
 });
