@@ -1,8 +1,10 @@
+import { STEP, useSignupState } from '../../hooks/accounts/useSignupState';
+
+import ProcessErrorModal from '../../components/common/feedback/ProcessErrorModal.jsx';
+import ProcessSuccessModal from '../../components/common/feedback/ProcessSuccessModal.jsx';
 import SingupContent from '../../components/accounts/signup/SignupContents.jsx';
-import ProcessErrorModal from '../../components/common/ProcessErrorModal.jsx';
-import ProcessSuccessModal from '../../components/common/ProcessSuccessModal.jsx';
-import { SIGNUP_SUCCESS_MESSAGES } from '../../constants/modal';
-import { STEP, useSignupState } from '../../hooks/Accounts/useSignupState';
+
+import { SIGNUP_SUCCESS_MESSAGES } from '../../constants/index';
 
 const TITLE = '회원가입';
 const MODAL_TITLES = {

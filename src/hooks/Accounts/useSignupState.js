@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LOGIN_PATH } from '../../constants/routes';
+
 import { validateSignupForm } from '../../utils/formValidation';
+import { LOGIN_PATH } from '../../constants/index';
 
 export const STEP = {
     FIRST: 'first',

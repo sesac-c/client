@@ -1,7 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
 import PropTypes from 'prop-types';
+
 import { CheckIcon, ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
-import { useSelectBox } from '../../../hooks/useSelectBox';
+
+import { useSelectBox } from '../../../hooks/component/useSelectBox';
 
 const SelectBox = ({ variant = 'primary', size = 'medium', options, selectedOption, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);

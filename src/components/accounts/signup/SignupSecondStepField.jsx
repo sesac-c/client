@@ -1,6 +1,6 @@
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import { campuses, courses } from '../../../assets/mockData/account';
+import { TextField, MenuItem } from '@mui/material';
+
+import { campuses, courses } from '../../../services/mockData/account';
 
 // Constants
 const DEFAULT_TEXTFIELD_SETTING = {

@@ -1,11 +1,15 @@
 import { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import FormControl from '@mui/material/FormControl';
-import { FormHelperText } from '@mui/material';
+
+import {
+  TextField,
+  OutlinedInput,
+  InputLabel,
+  InputAdornment,
+  IconButton,
+  FormControl,
+  FormHelperText
+} from '@mui/material';
+
 import { EyeSlashIcon, EyeIcon } from '@heroicons/react/20/solid';
 
 // Constants

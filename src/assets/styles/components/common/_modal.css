@@ -1,0 +1,130 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.modal {
+    width: 90vw;
+    max-width: 500px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-radius: 1.5rem;
+}
+
+.pagemodal,
+.writemodal {
+    aspect-ratio: 4 / 5;
+}
+
+.pagemodal {
+    height: auto;
+}
+
+.writemodal {
+    overflow: auto;
+}
+
+.writemodal ::-webkit-scrollbar {
+    /* scroll bar 없앰 */
+    display: block;
+}
+
+.generalmodal {
+    aspect-ratio: 16 / 9;
+}
+
+.modal-header {
+    position: relative;
+    padding: 1rem;
+    text-align: center;
+}
+
+.generalmodal .modal-header {
+    padding: 2rem;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.close-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.close-button img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.modal-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content:has(.write__modal-form) {
+    padding: 1rem 2rem 0 2rem;
+    height: 100%;
+}
+
+.generalmodal .modal-content {
+    overflow-y: visible;
+}
+
+.modal-form {
+    flex-grow: 1;
+    gap: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-start;
+}
+
+.modal-text {
+    text-align: center;
+}
+
+.modal-headerform {
+    flex-grow: 1;
+    gap: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-start;
+}
+
+.modal-footer {
+    padding: 2rem;
+}
+
+.generalmodal .modal-footer {
+    padding: 2rem;
+}
+
+@media (max-width: 705px) {
+
+    .pagemodal,
+    .writemodal {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+}

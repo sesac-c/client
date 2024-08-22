@@ -1,8 +1,11 @@
-import React, { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+
 import PropTypes from 'prop-types';
-import { MODAL_TYPE_ARR, GENERAL_MODAL, PAGE_MODAL, WRITE_MODAL } from '../../../constants/modal';
+
+import { XMarkIcon } from '@heroicons/react/24/outline';
+
+import { MODAL_TYPE_ARR, GENERAL_MODAL, PAGE_MODAL, WRITE_MODAL } from '../../../constants/index';
 
 const Modal = ({
   modalType = GENERAL_MODAL,
@@ -65,4 +68,4 @@ Modal.propTypes = {
   open: PropTypes.bool
 };
 
-export default React.memo(Modal);
+export default memo(Modal);

@@ -1,22 +1,28 @@
 import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
+
+import ModalProvider from './ModalProvider.jsx';
+
 import RootLayout from './layouts/Root.jsx';
-import LoginPage from './pages/Accounts/Login.jsx';
+import CampusLayout from './layouts/Campus.jsx';
+
 import ErrorPage from './pages/Error/Error.jsx';
+
+import LoginPage from './pages/Accounts/Login.jsx';
 import SignupPage from './pages/Accounts/Signup.jsx';
 import FindPasswordPage from './pages/Accounts/FindPassword.jsx';
-import CampusLayout from './layouts/Campus.jsx';
+
 import CampusPostListPage from './pages/Campus/CampusPostList.jsx';
 import CampusPostDetailPage from './pages/Campus/CampusPostDetail.jsx';
 import CampusNoticeListPage from './pages/Campus/CampusNoticeList.jsx';
 import SearchCampusPostPage from './pages/Campus/SearchCampusPost.jsx';
+
 import {
   ACCOUNTS_PATH,
   ACCOUNT_CHILDREN_PATH,
   CAMPUS_PATH,
   CAMPUS_CHILDREN_PATH,
   CAMPUS_POST_LIST_PATH
-} from './constants/routes.js';
-import ModalProvider from './ModalProvider.jsx';
+} from './constants/index';
 
 const router = createBrowserRouter([
   {

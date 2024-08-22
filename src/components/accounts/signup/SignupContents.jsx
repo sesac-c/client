@@ -1,14 +1,16 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+
+import { STEP } from '../../../hooks/accounts/useSignupState';
+import { useConfirmClose } from '../../../hooks/common/useConfirmClose';
+
 import Button from '../../common/UI/Button';
 import Modal from '../../common/UI/Modal';
-import { PAGE_MODAL } from '../../../constants/modal';
-import { STEP } from '../../../hooks/Accounts/useSignupState';
-import { useConfirmClose } from '../../../hooks/useConfirmClose';
-import { SIGNUP_CONFIRM_MESSAGE } from '../../../constants/confirmations';
+import Stepper from '../../common/UI/Stepper.jsx';
+
 import SignupFirstStepField from './SignupFirstStepField.jsx';
 import SignupSecondStepField from './SignupSecondStepField.jsx';
-import Stepper from '../../common/UI/Stepper.jsx';
+
+import { PAGE_MODAL, SIGNUP_CONFIRM_MESSAGE } from '../../../constants/index';
 
 // Constants
 const steps = ['개인정보 입력', '새싹정보 입력', '회원가입 완료'];

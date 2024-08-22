@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
-import logoImage from '../../../assets/images/sesacc-logo.png';
+
+import { useNavigateHandler } from '../../../hooks/common/useNavigateHandler';
+
 import { getLogoClasses, getLogoImageClasses } from '../../../utils/style';
-import { useNavigateHandler } from '../../../hooks/useNavigateHandler';
+import logoImage from '../../../assets/images/sesacc-logo.png';
 
 const Logo = ({ size = 'large', to = '' }) => {
   const classes = getLogoClasses(size);

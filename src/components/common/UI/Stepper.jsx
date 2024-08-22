@@ -1,5 +1,7 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
+
 import PropTypes from 'prop-types';
+
 import { Stepper as MuiStepper, Step as MuiStep, StepLabel as MuiStepLabel } from '@mui/material';
 
 const Stepper = memo(({ steps, activeStep, activeColor = 'green', completedColor = 'green' }) => (

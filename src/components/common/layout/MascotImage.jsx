@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import loginMascotImage from '../../../assets/images/login-mascot.gif';
 import ErrorMascotImage from '../../../assets/images/error-mascot.gif';
 import SearchLoadingMascotImage from '../../../assets/images/search-loading-mascot.png';

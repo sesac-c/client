@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import { getDivisionClasses } from '../../../utils/style';
 
 const Division = ({ variant = 'primary', type = 'vertical', className = '' }) => {

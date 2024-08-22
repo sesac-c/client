@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
-import PostDetailInner from '../../components/Feed/posts/detail/PostDetailInner.jsx';
+
+import PostDetailInner from '../../components/post/detail/PostDetailInner.jsx';
 
 const CampusPostDetailPage = () => {
   const params = useParams();

@@ -1,4 +1,4 @@
-import useModalStore from '../src/stores/modalStore';
+import useModalStore from './stores/modalStore';
 
 const ModalProvider = () => {
   const modals = useModalStore(state => state.modals);

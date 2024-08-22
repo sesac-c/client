@@ -1,5 +1,6 @@
-import defaultProfileImage from '../../../assets/images/default-profile.png';
 import PropTypes from 'prop-types';
+
+import defaultProfileImage from '../../../assets/images/default-profile.png';
 
 const ProfileImage = ({ image, hasShadow = true }) => {
   const profileImage = image || defaultProfileImage;

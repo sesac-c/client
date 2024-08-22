@@ -1,9 +1,9 @@
 import { useState, useCallback, useEffect } from 'react';
-import { RESET_PASSWORD_PATH } from '../../constants/routes';
-import { COUNTDOWN_TIME } from '../../constants/validations';
-import { validateFindPasswordForm } from '../../utils/formValidation';
-import { checkEmailExists, verifyCode } from '../../utils/api/findPassword';
 import { useNavigate } from 'react-router-dom';
+
+import { validateFindPasswordForm } from '../../utils/formValidation'
+import { checkEmailExists, verifyCode } from '../../services/api/findPassword';
+import { RESET_PASSWORD_PATH, COUNTDOWN_TIME } from '../../constants/index';
 
 export const FIND_PASSWORD_PROCESS_STATUS = {
     EMAIL: 'EMAIL',

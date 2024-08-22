@@ -1,8 +1,10 @@
-import ProcessErrorModal from '../../components/common/ProcessErrorModal';
+import { useNavigateHandler } from '../../hooks/common/useNavigateHandler';
+import { useFindPasswordState } from '../../hooks/accounts/useFindPasswordState';
+
+import ProcessErrorModal from '../../components/common/feedback/ProcessErrorModal';
 import FindPasswordContent from '../../components/accounts/findPassword/FindPasswordContent';
-import { useNavigateHandler } from '../../hooks/useNavigateHandler';
-import { LOGIN_PATH } from '../../constants/routes';
-import { useFindPasswordState } from '../../hooks/Accounts/useFindPasswordState';
+
+import { LOGIN_PATH } from '../../constants/index';
 
 const FindPasswordPage = () => {
   const title = '비밀번호 찾기';

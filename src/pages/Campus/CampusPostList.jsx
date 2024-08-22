@@ -1,10 +1,11 @@
-import FeedWrapper from '../../components/Feed/FeedWrapper.jsx';
+import FeedWrapper from '../../components/common/layout/FeedWrapper.jsx';
 import ColumnLayoutWrapper from '../../components/common/layout/ColumnLayoutWrapper.jsx';
-import Posts from '../../components/Feed/posts/Posts.jsx';
-import UserSearch from '../../components/Feed/UserSearch.jsx';
-import Carousel from '../../components/Feed/Carousel.jsx';
-import { dummyNoticesData } from '../../assets/mockData/notice.js';
-import { dummyUserData } from '../../assets/mockData/search.js';
+import Carousel from '../../components/common/UI/Carousel.jsx';
+import Posts from '../../components/post/Posts.jsx';
+import UserSearch from '../../components/user/UserSearch.jsx';
+
+import { dummyNoticesData } from '../../services/mockData/notice';
+import { dummyUserData } from '../../services/mockData/search';
 
 const CampusPostListPage = () => {
   return (

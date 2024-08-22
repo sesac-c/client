@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router-dom';
+
 import Header from '../components/common/layout/Header.jsx';
-import { CAMPUS } from '../constants/routes.js';
+
+import { CAMPUS } from '../constants/index';
 
 const CampusLayout = () => {
   return (

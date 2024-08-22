@@ -1,5 +1,7 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
+
 import PropTypes from 'prop-types';
+
 import { TextField } from '@mui/material';
 
 const EmailInputField = memo(({ email, isEmailValid, helperText, onChange }) => {

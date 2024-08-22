@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import Division from './Division.jsx';
 
 const LabeledWrapper = ({ title, ExtraInfoElement, children, extraInfo }) => {

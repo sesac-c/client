@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types';
-import Modal from '../../common/UI/Modal';
-import Button from '../../common/UI/Button';
-import { PAGE_MODAL } from '../../../constants/modal';
-import { useConfirmClose } from '../../../hooks/useConfirmClose';
-import { FINDPASSWORD_CONFIRM_MESSAGE } from '../../../constants/confirmations';
-import { LOGIN_PATH } from '../../../constants/routes';
-import { useNavigateHandler } from '../../../hooks/useNavigateHandler';
-import EmailInputField from './EmailInputField';
-import VerificationCodeField from './VerificationCodeField.jsx';
-import { FIND_PASSWORD_PROCESS_STATUS } from '../../../hooks/Accounts/useFindPasswordState';
+
+import { useConfirmClose } from '../../../hooks/common/useConfirmClose';
+import { useNavigateHandler } from '../../../hooks/common/useNavigateHandler';
+import { FIND_PASSWORD_PROCESS_STATUS } from '../../../hooks/accounts/useFindPasswordState';
+
+import Modal from '../../common/UI/Modal.jsx';
+import Button from '../../common/UI/Button.jsx';
 import Stepper from '../../common/UI/Stepper.jsx';
+
+import EmailInputField from './EmailInputField.jsx';
+import VerificationCodeField from './VerificationCodeField.jsx';
+
+import { PAGE_MODAL, LOGIN_PATH, FINDPASSWORD_CONFIRM_MESSAGE } from '../../../constants/index';
 
 // Constants
 const steps = ['이메일 인증', '인증번호 인증', '비밀번호 변경'];
@@ -41,7 +43,6 @@ const FindPasswordContent = ({ state, title, handleChange, handleButtonClick, is
           isDisabled={state.isTimerExpired}
         />
       )}
-      >
     </>
   );
 

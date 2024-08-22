@@ -6,9 +6,9 @@ import {
     ERROR_PASSWORD_REQUIRED, ERROR_PASSWORD_LENGTH, ERROR_PASSWORD_INVALID,
     ERROR_CONFIRM_PASSWORD_REQUIRED, ERROR_PASSWORD_MISMATCH, ERROR_CAMPUS_REQUIRED,
     ERROR_COURSE_REQUIRED, ERROR_VERIFICATION_CODE_REQUIRED
-} from '../constants/validations';
+} from '../constants/index';
 
-import { checkEmailExists } from "./api/signup";
+import { checkEmailExists } from "../services/api/findPassword";
 
 export const validateName = (name) => {
     if (!name.trim()) return ERROR_NAME_REQUIRED;

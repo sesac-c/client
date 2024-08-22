@@ -1,10 +1,12 @@
-import FeedWrapper from '../../components/Feed/FeedWrapper.jsx';
-import ColumnLayoutWrapper from '../../components/common/layout/ColumnLayoutWrapper.jsx';
-import Posts from '../../components/Feed/posts/Posts.jsx';
-import { dummyNoticeData } from '../../assets/mockData/notice.js';
-import PostSearchBar from '../../components/Feed/PostSearchBar.jsx';
-import SearchLoadingIndicator from '../../components/Feed/SearchLoadingIndicator.jsx';
 import { useState } from 'react';
+
+import FeedWrapper from '../../components/common/layout/FeedWrapper.jsx';
+import ColumnLayoutWrapper from '../../components/common/layout/ColumnLayoutWrapper.jsx';
+import Posts from '../../components/post/Posts.jsx';
+import PostSearchBar from '../../components/post/search/PostSearchBar.jsx';
+import SearchLoadingIndicator from '../../components/post/search/SearchLoadingIndicator.jsx';
+
+import { dummyNoticeData } from '../../services/mockData/notice';
 
 const SearchCampusPostPage = () => {
   const [hasInput, setHasInput] = useState(false);

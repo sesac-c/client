@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import { getButtonClasses } from '../../../utils/style';
 
 const Button = ({ variant = 'primary', size = 'medium', className = '', children, ...props }) => {

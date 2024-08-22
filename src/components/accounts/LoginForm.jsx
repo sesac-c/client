@@ -1,9 +1,12 @@
-import Division from '../common/UI/Division.jsx';
-import Logo from '../common/layout/Logo.jsx';
-import Button from '../common/UI/Button.jsx';
-import { SIGNUP_PATH, FIND_PASSWORD_PATH } from '../../constants/routes.js';
-import { TextField } from '@mui/material';
 import { Link } from 'react-router-dom';
+
+import { TextField } from '@mui/material';
+
+import Division from '../../components/common/UI/Division.jsx';
+import Logo from '../../components/common/layout/Logo.jsx';
+import Button from '../../components/common/UI/Button.jsx';
+
+import { SIGNUP_PATH, FIND_PASSWORD_PATH } from '../../constants/index';
 
 const LoginForm = () => {
   const formSize = 'w-5/6 h-full';

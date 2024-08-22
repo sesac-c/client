@@ -1,7 +1,8 @@
+import { Outlet } from 'react-router-dom';
+
+import AccountsLayout from '../../layouts/Accounts.jsx';
 import MascotImage from '../../components/common/layout/MascotImage.jsx';
 import LoginForm from '../../components/accounts/LoginForm.jsx';
-import AccountsLayout from '../../layouts/Accounts.jsx';
-import { Outlet } from 'react-router-dom';
 
 const LoginPage = () => {
   const loginMascotSize = 'w-2/12 h-[25rem]';

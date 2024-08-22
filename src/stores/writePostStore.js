@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { MAX_HASHTAGS } from '../constants/validations';
+
+import { MAX_HASHTAGS } from '../constants/index';
 import { processImage } from '../utils/image';
 
 const useWritePostStore = create((set, get) => ({

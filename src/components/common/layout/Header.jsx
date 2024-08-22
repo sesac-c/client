@@ -1,8 +1,10 @@
-import Logo from './Logo.jsx';
-import UserMenu from './UserMenu.jsx';
-import FeedMenu from '../../Feed/FeedMenu.jsx';
 import PropTypes from 'prop-types';
-import { FEED_ARR } from '../../../constants/routes.js';
+
+import Logo from './Logo.jsx';
+import UserMenu from '../layout/menu/UserMenu.jsx';
+import FeedMenu from '../layout/menu/FeedMenu.jsx';
+
+import { FEED_ARR } from '../../../constants/index';
 
 const Header = ({ currentLocation }) => {
   return (
