@@ -7,7 +7,6 @@ import Logo from '../../components/common/layout/Logo.jsx';
 const ErrorPage = ({ errorState }) => {
   const error = useRouteError();
 
-  // default
   let title = '페이지 요청 실패';
   let message = '잠시 후에 다시 시도해주세요.';
 
@@ -31,24 +30,19 @@ const ErrorPage = ({ errorState }) => {
     );
   }
 
-  const errorMascotSize = 'w-3/12 h-[30rem]';
-  const contentContainerSize = 'w-2/5 h-[30rem]';
-  const contentSize = 'w-5/6 h-full';
-  const detailSize = 'w-full h-[50%]';
-
   return (
     <ErrorLayout>
-      <div className='container mx-auto flex h-full items-center justify-center'>
-        <div className={`hidden xl:flex xl:justify-end ${errorMascotSize}`}>
+      <div className='error-page'>
+        <div className='error-page__mascot'>
           <MascotImage type='error' />
         </div>
-        <div className={`flex items-center justify-center ${contentContainerSize}`}>
-          <div className={`flex flex-col items-center justify-between pb-20 ${contentSize}`}>
-            <div className='flex w-full flex-col items-center'>
+        <div className='error-page__content'>
+          <div className='error-page__content-inner'>
+            <div className='error-page__header'>
               <Logo to='/' />
-              <h1 className='w-full text-center text-2xl font-extrabold text-primary'>{title}</h1>
+              <h1 className='error-page__title'>{title}</h1>
             </div>
-            <div className={`flex flex-col items-stretch justify-between ${detailSize}`}>{message}</div>
+            <div className='error-page__message'>{message}</div>
           </div>
         </div>
       </div>

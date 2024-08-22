@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { validateFindPasswordForm } from '../../utils/formValidation'
+import { validateFindPasswordForm } from '../../utils/form'
 import { checkEmailExists, verifyCode } from '../../services/api/findPassword';
 import { RESET_PASSWORD_PATH, COUNTDOWN_TIME } from '../../constants/index';
 

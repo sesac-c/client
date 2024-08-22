@@ -40,3 +40,46 @@ export const ERROR_CAMPUS_REQUIRED = '캠퍼스를 선택해 주세요';
 export const ERROR_COURSE_REQUIRED = '강의를 선택해 주세요';
 
 export const ERROR_VERIFICATION_CODE_REQUIRED = '인증 코드를 입력해주세요.';
+
+/** Field Names
+ * 회원가입 필드
+ *      1. 이름
+ *      2. 생년월일
+ *      3. 성별
+ *      4. 이메일
+ *      5. 비밀번호
+ *      6. 비밀번호 확인
+ *      7. 캠퍼스
+ *      8. 강의
+ * 
+ * 
+ * 비밀번호 찾기 필드
+ *      1. 이메일
+ *      2. 인증번호
+ * 
+ * 로그인 필드
+ *      1. 아이디
+ *      2. 비밀번호
+ * 
+ * 댓글 필드
+ * 해시태그 필드
+ * 
+ * 글쓰기 필드
+ *      1. 제목
+ *      2. 내용
+ */
+export const NAME_NAME = 'name'
+export const BIRTHDATE_NAME = 'birthdate'
+export const GENDER_NAME = 'gender'
+export const EMAIL_NAME = 'email'
+export const PASSWORD_NAME = 'password'
+export const CONFIRMPASSWORD_NAME = 'confirmPassword'
+export const CAMPUS_NAME = 'campus'
+export const COURSE_NAME = 'course'
+export const CODE_NAME = 'userVerifyNum';
+export const USERNAME_NAME = 'username';
+export const REPLY_NAME = 'reply';
+export const HASHTAG_NAME = 'hashtag';
+export const HASHTAGS_NAME = 'hashtags';
+export const TITLE_NAME = 'title';
+export const CONTENT_NAME = 'cotent';

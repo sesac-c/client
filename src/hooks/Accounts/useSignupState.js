@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { validateSignupForm } from '../../utils/formValidation';
+import { validateSignupForm } from '../../utils/form';
 import { LOGIN_PATH } from '../../constants/index';
 
 export const STEP = {
@@ -48,8 +48,8 @@ export const useSignupState = () => {
         }));
     }, []);
 
-    const handleValidate = useCallback((nextStep) => {
-        const newErrors = validateSignupForm(state.formData, state.currentStep === STEP.FIRST ? 'FIRST' : 'SECOND');
+    const handleValidate = useCallback(async (nextStep) => {
+        const newErrors = await validateSignupForm(state.formData, state.currentStep === STEP.FIRST ? 'FIRST' : 'SECOND');
         setState(prevState => ({ ...prevState, errors: newErrors }));
 
         if (Object.keys(newErrors).length === 0) {

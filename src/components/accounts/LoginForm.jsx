@@ -7,31 +7,29 @@ import Logo from '../../components/common/layout/Logo.jsx';
 import Button from '../../components/common/UI/Button.jsx';
 
 import { SIGNUP_PATH, FIND_PASSWORD_PATH } from '../../constants/index';
+import { DEFAULT_TEXTFIELD_SETTING, USERNAME_FIELD_SETTING, PASSWORD_LOGIN_FIELD_SETTING } from '../../utils/form.js';
 
 const LoginForm = () => {
-  const formSize = 'w-5/6 h-full';
-  const formDetailSize = 'w-full h-[65%]';
-
   return (
-    <form method='post' className={`${formSize} flex flex-col items-center justify-center py-10`}>
-      <div className='flex-grow-2 flex-basis-0 flex min-h-0 w-full flex-shrink-0 flex-col items-center'>
+    <form method='post' className='login__form-container'>
+      <div className='login__logo-container'>
         <Logo />
       </div>
-      <div className={`${formDetailSize} flex flex-col justify-center gap-4`}>
-        <div className='flex min-h-0 w-full flex-col justify-start gap-3'>
-          <TextField label='아이디' color='success' />
-          <TextField label='비밀번호' color='success' />
+      <div className='login__form-details'>
+        <div className='login__input-fields'>
+          <TextField {...DEFAULT_TEXTFIELD_SETTING} {...USERNAME_FIELD_SETTING} />
+          <TextField {...DEFAULT_TEXTFIELD_SETTING} {...PASSWORD_LOGIN_FIELD_SETTING} />
         </div>
-        <div className='flex h-fit flex-row items-center justify-end gap-2 py-2'>
-          <Link className='text-primary underline' to={SIGNUP_PATH}>
+        <div className='login__links-container'>
+          <Link className='login__link' to={SIGNUP_PATH}>
             회원가입
           </Link>
           <Division />
-          <Link className='text-primary underline' to={FIND_PASSWORD_PATH}>
+          <Link className='login__link' to={FIND_PASSWORD_PATH}>
             비밀번호 찾기
           </Link>
         </div>
-        <div>
+        <div className='login__button-container'>
           <Button size='large'>로그인</Button>
         </div>
       </div>

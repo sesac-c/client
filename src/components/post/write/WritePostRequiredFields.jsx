@@ -10,14 +10,7 @@ import { ImageUploaderOpenButton } from './ImageUploaderModal.jsx';
 import { HashTagUploaderOpenButton } from './HashtagUploaderModal.jsx';
 
 import { MAX_TITLE_LENGTH, MAX_CONTENT_LENGTH } from '../../../constants/index';
-
-const DEFAULT_TEXTFIELD_SETTING = {
-  color: 'success',
-  required: true,
-  fullWidth: true,
-  size: 'small'
-};
-const INPUT_SIZE = 'small';
+import { CONTENT_FIELD_SETTING, DEFAULT_TEXTFIELD_SETTING, TITLE_FIELD_SETTING } from '../../../utils/form.js';
 
 const RemainTextCount = ({ current, max }) => (
   <p className='mt-1 w-full text-right text-caption text-gray-basic'>
@@ -34,15 +27,12 @@ export const TitleInputField = memo(() => {
 
   return (
     <LabeledWrapper title='제목' ExtraInfoElement={HashTagUploaderOpenButton}>
-      <FormControl variant='outlined' color={DEFAULT_TEXTFIELD_SETTING.color} fullWidth>
+      <FormControl variant='outlined' {...DEFAULT_TEXTFIELD_SETTING}>
         <OutlinedInput
-          id='title'
-          type='text'
-          name='title'
           value={title}
           onChange={handleChange}
           inputProps={{ maxLength: MAX_TITLE_LENGTH }}
-          {...DEFAULT_TEXTFIELD_SETTING}
+          {...TITLE_FIELD_SETTING}
         />
         <FormHelperText id='title'>
           <RemainTextCount current={getTitleLength()} max={MAX_TITLE_LENGTH} />
@@ -61,11 +51,8 @@ export const ContentInputField = memo(() => {
 
   return (
     <LabeledWrapper title='내용' ExtraInfoElement={ImageUploaderOpenButton}>
-      <FormControl variant='outlined' color={DEFAULT_TEXTFIELD_SETTING.color} fullWidth sx={{ maxWidth: '100%' }}>
+      <FormControl variant='outlined' {...DEFAULT_TEXTFIELD_SETTING} sx={{ maxWidth: '100%' }}>
         <TextField
-          id='content'
-          multiline
-          name='content'
           value={content}
           onChange={handleChange}
           inputProps={{
@@ -75,20 +62,7 @@ export const ContentInputField = memo(() => {
               overflowY: 'auto'
             }
           }}
-          sx={{
-            '& .MuiOutlinedInput-root': {
-              height: '210px',
-              '& textarea': {
-                resize: 'none',
-                lineHeight: '1.5',
-                fontSize: '0.875rem'
-              }
-            },
-            '& .MuiOutlinedInput-notchedOutline': {
-              borderRadius: '0.375rem'
-            }
-          }}
-          {...DEFAULT_TEXTFIELD_SETTING}
+          {...CONTENT_FIELD_SETTING}
         />
         <FormHelperText id='content'>
           <RemainTextCount current={getContentLength()} max={MAX_CONTENT_LENGTH} />

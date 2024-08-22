@@ -9,7 +9,8 @@ import { useModal } from '../../../hooks/common/useModal';
 import Modal from '../../common/UI/Modal.jsx';
 import Button from '../../common/UI/Button.jsx';
 
-import { MAX_HASHTAGS, MAX_HASHTAG_LENGTH } from '../../../constants/index';
+import { HASHTAGS_NAME, MAX_HASHTAGS, MAX_HASHTAG_LENGTH } from '../../../constants/index';
+import { DEFAULT_TEXTFIELD_SETTING } from '../../../utils/form.js';
 
 const INPUT_SIZE = 'small';
 const BUTTON_SIZE = 'medium';
@@ -58,8 +59,7 @@ const HashtagInputField = React.memo(() => {
     <>
       {hashtagCount < MAX_HASHTAGS && (
         <TextField
-          name='hashtags'
-          type='text'
+          name={HASHTAGS_NAME}
           size={INPUT_SIZE}
           value={inputValue}
           onChange={handleChange}
@@ -70,11 +70,7 @@ const HashtagInputField = React.memo(() => {
               : `${hashtagCountInfo}해시태그를 클릭하면 해당 해시태그가 삭제됩니다.`
           }
           inputProps={{ maxLength: MAX_HASHTAG_LENGTH }}
-          {...{
-            color: 'success',
-            margin: 'dense',
-            fullWidth: true
-          }}
+          {...DEFAULT_TEXTFIELD_SETTING}
         />
       )}
     </>

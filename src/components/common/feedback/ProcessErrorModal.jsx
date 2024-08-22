@@ -16,8 +16,8 @@ const ProcessErrorModal = ({ title, footer, onClose }) => {
 
   return (
     <Modal title={title} footer={modalFooter} open={true}>
-      <div className='flex h-32 w-full flex-col items-center justify-between'>
-        <ExclamationCircleIcon className='h-20 w-20 text-yellow-300' />
+      <div className='process-error-container'>
+        <ExclamationCircleIcon className='process-error__icon' />
         <p>{DEFAULT_PROCCESS_ERROR_MESSAGE}</p>
       </div>
     </Modal>

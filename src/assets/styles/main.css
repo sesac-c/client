@@ -10,8 +10,14 @@
 /* components/common */
 @import './components/common/index.css';
 
+/* components/accounts */
+@import './components/accounts/index.css';
+
 /* components/post */
 @import './components/post/index.css';
 
 /* components/user */
 @import './components/user/index.css';
+
+/* components/error */
+@import url('./components/error.css');

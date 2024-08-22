@@ -1,0 +1,56 @@
+.signup__button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.signup__birthdate-filed-container {
+    width: 100%;
+}
+
+.signup__birthdate-filed-inner {
+    display: flex;
+    align-items: center;
+}
+
+
+.signup__birthdate-filed-birthdate {
+    flex-grow: 1;
+}
+
+
+.signup__birthdate-filed-hyphen {
+    margin: 0 0.5rem;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+}
+
+.signup__birthdate-filed-gender {
+    width: 3rem;
+}
+
+.signup__birthdate-filed__blurred-info-container {
+    display: flex;
+    margin-left: 0.5rem;
+}
+
+.signup__birthdate-filed__blurred-info-item {
+    margin: 0 0.125rem;
+    height: 0.625rem;
+    width: 0.625rem;
+    border-radius: 9999px;
+    background-color: var(--gray-400);
+}
+
+.signup__filed-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.signup__visibility-icon {
+    margin: 0.5rem;
+    width: 1.25rem;
+    color: var(--gray-400)
+}

@@ -26,7 +26,7 @@ const SignupStepButton = ({ currentStep, onPrevious, onValidate, isDisabled }) =
     );
   }
   return (
-    <div className='flex flex-row items-center justify-center gap-2'>
+    <div className='signup__button-container'>
       <Button size={BUTTON_SIZE} variant='tertiary' onClick={onPrevious}>
         이전
       </Button>

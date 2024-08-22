@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { TextField } from '@mui/material';
+import { REPLY_FIELD_SETTING } from '../../../utils/form';
 
 const ReplyInput = () => {
   const [reply, setReply] = useState('');
@@ -14,9 +15,6 @@ const ReplyInput = () => {
   }
   return (
     <TextField
-      type='text'
-      placeholder='댓글...'
-      name='reply'
       value={reply}
       onChange={e => handleChange(e.target.value)}
       onKeyDown={e => {
@@ -24,16 +22,7 @@ const ReplyInput = () => {
           handleReplySubmit(e);
         }
       }}
-      fullWidth
-      autoComplete='off'
-      size='small'
-      sx={{
-        '& .MuiOutlinedInput-root': {
-          '& fieldset': {
-            border: 'none'
-          }
-        }
-      }}
+      {...REPLY_FIELD_SETTING}
     />
   );
 };
