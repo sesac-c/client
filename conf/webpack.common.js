@@ -1,20 +1,26 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require("dotenv-webpack")
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   entry: './src/index.jsx',
   module: {
     rules: [
       {
-        test: /\.(jsx|js)$/,
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use: 'ts-loader',
+      },
+      {
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
             presets: [
               '@babel/preset-env',
-              ['@babel/preset-react', { runtime: 'automatic' }]
+              ['@babel/preset-react', { runtime: 'automatic' }],
+              '@babel/preset-typescript'
             ]
           }
         }
@@ -38,7 +44,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.jsx', '.js']
+    extensions: ['.tsx', '.ts', '.jsx', '.js']
   },
   plugins: [
     new Dotenv(),
@@ -48,5 +54,10 @@ module.exports = {
     new webpack.ProvidePlugin({
       React: 'react'
     })
-  ]
+  ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  }
 };
