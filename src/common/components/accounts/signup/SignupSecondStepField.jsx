@@ -1,6 +1,7 @@
 import { TextField, MenuItem } from '@mui/material';
 
-import { campuses, courses } from '../../../services/mockData/account';
+import { campuses, courses } from '../../../_mock';
+
 import { CAMPUS_FIELD_SETTING, COURSE_FIELD_SETTING } from '../../../utils/form';
 
 // Constants

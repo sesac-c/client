@@ -1,14 +1,24 @@
+import { lazy, Suspense } from 'react';
 import { CAMPUS_CHILDREN_PATH, CAMPUS_PATH } from '../common/constants';
 import CampusLayout from './layouts/Campus.jsx';
-import CampusNoticeListPage from './pages/Campus/CampusNoticeList.jsx';
-import CampusPostDetailPage from './pages/Campus/CampusPostDetail.jsx';
-import CampusPostListPage from './pages/Campus/CampusPostList.jsx';
-import SearchCampusPostPage from './pages/Campus/SearchCampusPost.jsx';
+
+// ----------------------------------------------------------------------
+
+export const CampusNoticeListPage = lazy(() => import('./pages/Campus/CampusNoticeList.jsx'));
+export const CampusPostDetailPage = lazy(() => import('./pages/Campus/CampusPostDetail.jsx'));
+export const CampusPostListPage = lazy(() => import('./pages/Campus/CampusPostList.jsx'));
+export const SearchCampusPostPage = lazy(() => import('./pages/Campus/SearchCampusPost.jsx'));
+
+// ----------------------------------------------------------------------
 
 const userRoutes = [
   {
     path: CAMPUS_PATH,
-    element: <CampusLayout />,
+    element: (
+      <CampusLayout>
+        <Suspense fallback={<p>잠시만여,,</p>}></Suspense>
+      </CampusLayout>
+    ),
     children: [
       {
         path: `${CAMPUS_CHILDREN_PATH.postList}/:postId`,

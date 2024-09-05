@@ -1,15 +1,13 @@
 import PropTypes from 'prop-types';
 
-import defaultProfileImage from '../../../assets/images/default-profile.png';
-
 const ProfileImage = ({ image, hasShadow = true }) => {
-  const profileImage = image || defaultProfileImage;
+  const profileImage = image || '/assets/images/default-profile.png';
   return (
     <div
       className={`aspect-square h-full overflow-hidden rounded-full bg-secondary p-1 shadow-md ${hasShadow && 'shadow-primary-950'}`}
     >
       <img
-        src={profileImage}
+        src='/assets/images/default-profile.png'
         alt='profile image'
         className='
                     mx-auto h-full w-full                    

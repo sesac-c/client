@@ -56,3 +56,6 @@ src/assets/mockData
 fonts
 images
 mockData
+_mock
+
+package-lock.json

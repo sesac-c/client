@@ -4,8 +4,7 @@ import Carousel from '../../components/common/UI/Carousel.jsx';
 import Posts from '../../components/post/Posts.jsx';
 import UserSearch from '../../components/user/UserSearch.jsx';
 
-import { dummyNoticesData } from '../../services/mockData/notice';
-import { dummyUserData } from '../../services/mockData/search';
+import { dummyNoticesData, dummyUserData } from '../../_mock';
 
 const CampusPostListPage = () => {
   return (
@@ -14,9 +13,10 @@ const CampusPostListPage = () => {
         mainArea={<Posts />}
         rightSide={
           <UserSearch
-            users={dummyUserData}
+            // users={dummyUserData}
+            users={[]}
             searchInputPlaceholder='캠퍼스 회원 검색'
-            title='회원님을 위한 추천'
+            // title='회원님을 위한 추천'
             noSearchContent='일치하는 회원이 없습니다.'
             buttonText='팔로우'
           />
