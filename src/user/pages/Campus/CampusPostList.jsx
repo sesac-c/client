@@ -14,9 +14,10 @@ const CampusPostListPage = () => {
         mainArea={<Posts />}
         rightSide={
           <UserSearch
-            users={dummyUserData}
+            // users={dummyUserData}
+            users={[]}
             searchInputPlaceholder='캠퍼스 회원 검색'
-            title='회원님을 위한 추천'
+            // title='회원님을 위한 추천'
             noSearchContent='일치하는 회원이 없습니다.'
             buttonText='팔로우'
           />
