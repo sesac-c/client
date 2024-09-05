@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import ReplyItem from './ReplyItem.jsx';
 
-import { dummyReplydata } from '../../../services/mockData/post';
+import { dummyReplydata } from '../../../_mock';
 
 const ReplyList = ({ postId }) => {
   const [replies, setReplies] = useState(null);

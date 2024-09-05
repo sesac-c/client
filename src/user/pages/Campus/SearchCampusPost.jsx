@@ -6,7 +6,7 @@ import Posts from '../../components/post/Posts.jsx';
 import PostSearchBar from '../../components/post/search/PostSearchBar.jsx';
 import SearchLoadingIndicator from '../../components/post/search/SearchLoadingIndicator.jsx';
 
-import { dummyNoticeData } from '../../services/mockData/notice';
+import { dummyNoticeData } from '../../_mock';
 
 const SearchCampusPostPage = () => {
   const [hasInput, setHasInput] = useState(false);

@@ -5,7 +5,7 @@ import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 
 import { useNavigateHandler } from '../../../common/hooks';
 
-import { dummyPostData } from '../../services/mockData/post';
+import { dummyPostData } from '../../_mock';
 import { formatDateToKorean } from '../../../common/utils/formatter';
 
 const Post = ({ post, user }) => {

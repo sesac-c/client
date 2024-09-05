@@ -4,8 +4,7 @@ import Carousel from '../../components/common/UI/Carousel.jsx';
 import Posts from '../../components/post/Posts.jsx';
 import UserSearch from '../../components/user/UserSearch.jsx';
 
-import { dummyNoticeData, dummyNoticesData } from '../../services/mockData/notice';
-import { dummyManagerData } from '../../services/mockData/search';
+import { dummyNoticeData, dummyNoticesData, dummyManagerData } from '../../_mock';
 
 const CampusNoticeListPage = () => {
   return (

@@ -7,7 +7,7 @@ import PostLikeButton from './PostLikeButton.jsx';
 import PostAuthor from './PostAuthor.jsx';
 import { PostContent, PostImage } from './PostContent.jsx';
 
-import { dummyPostData } from '../../../services/mockData/post';
+import { dummyPostData } from '../../../_mock';
 
 const PostDetailInner = ({ postId }) => {
   const [post, setPost] = useState(null);

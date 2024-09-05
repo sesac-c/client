@@ -8,7 +8,7 @@ import SignupPage from './common/pages/Accounts/Signup';
 import FindPasswordPage from './common/pages/Accounts/FindPassword';
 import ErrorPage from './common/pages/Error/Error';
 
-import RootLayout from './user/layouts/RootLayout';
+import UserRootLayout from './user/layouts/UserRootLayout';
 import {
   ACCOUNTS_PATH,
   ACCOUNT_CHILDREN_PATH,
@@ -61,7 +61,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     element: (
       <ProtectedRoute requiredRole={USER_ROLE}>
-        <RootLayout />
+        <UserRootLayout />
       </ProtectedRoute>
     ),
     children: [
