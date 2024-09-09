@@ -81,3 +81,28 @@ export const FEED_INFO = {
         path: GROUP_PATH
     },
 }
+
+// manager
+
+export const DASHBOARD_PATH = 'dashboard';
+export const MANAGER_PROFILE_PATH = 'profile';
+export const MANAGER_USER_PATH = 'users';
+export const MANAGER_FEEDS_PATH = 'feeds';
+export const MANAGER_CAMPUS_PATH = 'campuses';
+export const MANAGER_COURSE_PATH = 'courses';
+export const MANAGER_RUNNINGMATE_PATH = 'runningmates';
+
+
+export const MANAGER_USER_CHILDREN_PATH = {
+    accept: 'user-accept',
+    campusChangeAccept: 'campus-change-accept'
+};
+
+export const MANAGER_FEEDS_CHILDREN_PATH = {
+    post: 'posts',
+    notice: 'notices'
+};
+
+export const MANAGER_RUNNINGMATE_CHILDREN_PATH = {
+    report: 'activity-reports'
+};

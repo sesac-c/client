@@ -13,11 +13,14 @@ import {
   ACCOUNTS_PATH,
   ACCOUNT_CHILDREN_PATH,
   CAMPUS_POST_LIST_PATH,
+  DASHBOARD_PATH,
   MANAGER_PATH,
   MANAGER_ROLE,
   USER_PATH,
   USER_ROLE
 } from './common/constants/index';
+import managerRoutes from './manager/router';
+import ManagerRootLayout from './manager/layouts/ManagerRootLayout';
 
 const ProtectedRoute = ({ children, requiredRole }) => {
   // 접근 권한이 필요한 컴포넌트 미들웨어
@@ -50,12 +53,22 @@ const router = createBrowserRouter([
       }
     ]
   },
-  // {
-  //   path: MANAGER_PATH,
-  //   errorElement: <ErrorPage />,
-  //   element: <ProtectedRoute requiredRole={MANAGER_ROLE} />
-  //   //children:
-  // },
+  {
+    path: MANAGER_PATH,
+    errorElement: <ErrorPage />,
+    element: (
+      <ProtectedRoute requiredRole={MANAGER_ROLE}>
+        <ManagerRootLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        index: true,
+        loader: () => redirect(DASHBOARD_PATH)
+      },
+      ...managerRoutes
+    ]
+  },
   {
     path: USER_PATH,
     errorElement: <ErrorPage />,
@@ -69,7 +82,7 @@ const router = createBrowserRouter([
         index: true,
         loader: () => redirect(CAMPUS_POST_LIST_PATH)
       },
-      ...userRoutes // userRoutes 배열의 모든 요소를 직접 포함
+      ...userRoutes
     ]
   }
 ]);
