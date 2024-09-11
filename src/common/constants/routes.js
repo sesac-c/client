@@ -84,8 +84,8 @@ export const FEED_INFO = {
 
 // manager
 
-export const DASHBOARD_PATH = 'dashboard';
 export const MANAGER_PROFILE_PATH = 'profile';
+export const MANAGER_MESSAGE_PATH = 'messages'
 export const MANAGER_USER_PATH = 'users';
 export const MANAGER_FEEDS_PATH = 'feeds';
 export const MANAGER_CAMPUS_PATH = 'campuses';

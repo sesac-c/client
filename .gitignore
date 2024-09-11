@@ -59,3 +59,4 @@ mockData
 _mock
 
 package-lock.json
+yarn.lock

@@ -8,19 +8,19 @@ import SignupPage from './common/pages/Accounts/Signup';
 import FindPasswordPage from './common/pages/Accounts/FindPassword';
 import ErrorPage from './common/pages/Error/Error';
 
-import UserRootLayout from './user/layouts/UserRootLayout';
+import UserRootLayout from './user/layouts/UserRoot';
 import {
   ACCOUNTS_PATH,
   ACCOUNT_CHILDREN_PATH,
   CAMPUS_POST_LIST_PATH,
-  DASHBOARD_PATH,
+  MANAGER_USER_PATH,
   MANAGER_PATH,
   MANAGER_ROLE,
   USER_PATH,
   USER_ROLE
 } from './common/constants/index';
 import managerRoutes from './manager/router';
-import ManagerRootLayout from './manager/layouts/ManagerRootLayout';
+import ManagerRootLayout from './manager/layouts/ManagerRoot';
 
 const ProtectedRoute = ({ children, requiredRole }) => {
   // 접근 권한이 필요한 컴포넌트 미들웨어
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: () => redirect(DASHBOARD_PATH)
+        loader: () => redirect(MANAGER_USER_PATH)
       },
       ...managerRoutes
     ]

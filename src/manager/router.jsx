@@ -1,25 +1,25 @@
 import { lazy, Suspense } from 'react';
-import { DASHBOARD_PATH } from '../common/constants';
-import DashBoardLayout from './layouts/DashBoard';
+import { MANAGER_USER_PATH } from '../common/constants';
+import UserLayout from './layouts/User';
 
 // ----------------------------------------------------------------------
 
-export const DashBoardPage = lazy(() => import('./pages/DashBoard/DashBoard.jsx'));
+export const UserListPage = lazy(() => import('./pages/User/UserList.jsx'));
 
 // ----------------------------------------------------------------------
 
 const managerRoutes = [
   {
-    path: DASHBOARD_PATH,
+    path: MANAGER_USER_PATH,
     element: (
-      <DashBoardLayout>
+      <UserLayout>
         <Suspense fallback={<p>잠시만여,,</p>}></Suspense>
-      </DashBoardLayout>
+      </UserLayout>
     ),
     children: [
       {
         index: true,
-        element: <DashBoardPage />
+        element: <UserListPage />
       }
     ]
   }

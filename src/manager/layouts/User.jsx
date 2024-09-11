@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router-dom';
 
-const DashBoardLayout = () => {
+const UserLayout = () => {
   return (
-    <div id='wrap'>
+    <div id='user-container'>
       <Outlet />
     </div>
   );
 };
 
-export default DashBoardLayout;
+export default UserLayout;
