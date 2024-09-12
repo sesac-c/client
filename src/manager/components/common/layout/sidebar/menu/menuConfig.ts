@@ -1,14 +1,3 @@
-import React from 'react';
-import FaceIcon from '@mui/icons-material/Face';
-import ContentPasteTwoToneIcon from '@mui/icons-material/ContentPasteTwoTone';
-import SchoolTwoToneIcon from '@mui/icons-material/SchoolTwoTone';
-import RateReviewTwoToneIcon from '@mui/icons-material/RateReviewTwoTone';
-import SportsKabaddiTwoToneIcon from '@mui/icons-material/SportsKabaddiTwoTone';
-import AutoAwesomeTwoToneIcon from '@mui/icons-material/AutoAwesomeTwoTone';
-import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
-import DraftsTwoToneIcon from '@mui/icons-material/DraftsTwoTone';
-
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { MenuItem } from './MenuItems';
 import {
   MANAGER_CAMPUS_PATH,

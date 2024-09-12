@@ -14,6 +14,7 @@ import LoginUser from './LoginUser';
 import SidebarHeader from './SidebarHeader';
 import SideMenu from './menu/SideMenu';
 
+import { loginUser } from '../../../../_mock';
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -124,7 +125,7 @@ const Sidebar: React.FC = () => {
         toggleExpanded={toggleExpanded}
       />
       <Divider />
-      <LoginUser />
+      <LoginUser loginUser={loginUser} />
     </Sheet>
   );
 };

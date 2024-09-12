@@ -1,73 +1,107 @@
 import React from 'react';
 
-import { Input, FormControl, FormLabel, Select, Option } from '@mui/joy';
+import { Input, FormControl, FormLabel, Select, Option, Link, Button } from '@mui/joy';
 import SearchIcon from '@mui/icons-material/Search';
 import { Box } from '@mui/material';
+import { FILTERS, FilterSortGroup, SearchAndFilterProps, SORTS, TableSearchProps } from '../../../../types/table';
 
-export const TableSearch = () => {
+export const TableSearch: React.FC<TableSearchProps> = ({ searchTitle }) => {
+  return <React.Fragment></React.Fragment>;
+};
+
+export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
+  onFilterChange,
+  onSortChange,
+  onSearchChange,
+  onApplyFilters,
+  selectedFilters,
+  sortOption,
+  searchTitle
+}) => {
+  const filters = FILTERS[searchTitle];
+  const sort = SORTS[searchTitle];
+
+  const handleFilterChange = (name: string) => (event: React.SyntheticEvent | null, newValue: string | null) => {
+    if (newValue !== null) {
+      onFilterChange(name, newValue);
+    }
+  };
+
+  const handleSortChange = (event: React.SyntheticEvent | null, newValue: string | null) => {
+    if (newValue !== null) {
+      onSortChange(newValue);
+    }
+  };
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onSearchChange(event.target.value);
+  };
+
   return (
-    <FormControl sx={{ flex: 1 }} size='sm'>
-      <FormLabel>Search for order</FormLabel>
-      <Input size='sm' placeholder='Search' startDecorator={<SearchIcon />} />
-    </FormControl>
+    <Box
+      className='SearchAndFilters-tabletUp'
+      sx={{
+        borderRadius: 'sm',
+        py: 2,
+        display: { xs: 'none', sm: 'flex' },
+        flexWrap: 'wrap',
+        gap: 1.5,
+        '& > *': {
+          minWidth: { xs: '120px', md: '160px' }
+        }
+      }}
+    >
+      <Input
+        size='sm'
+        sx={{
+          flexGrow: 1,
+          '--Input-focusedInset': 'var(--joy-palette-success-500, #1F7A1F)',
+          '&::before': {
+            transition: 'box-shadow .15s ease-in-out'
+          },
+          '&:focus-within': {
+            borderColor: 'var(--joy-palette-success-500, #1F7A1F)'
+          }
+        }}
+        placeholder={`${searchTitle} 검색`}
+        startDecorator={<SearchIcon />}
+        onChange={handleSearchChange}
+      />
+      {filters.map((filter: FilterSortGroup) => (
+        <FormControl size='sm' key={filter.name}>
+          <Select
+            size='sm'
+            placeholder={`${filter.label} 선택`}
+            value={selectedFilters[filter.name] || null}
+            onChange={handleFilterChange(filter.name)}
+            slotProps={{ button: { sx: { whiteSpace: 'nowrap' } } }}
+          >
+            {filter.options.map(option => (
+              <Option key={option.value} value={option.value}>
+                {option.label}
+              </Option>
+            ))}
+          </Select>
+        </FormControl>
+      ))}
+      <FormControl size='sm'>
+        <Select
+          size='sm'
+          placeholder={`${sort.label}`}
+          value={sortOption || null}
+          onChange={handleSortChange}
+          slotProps={{ button: { sx: { whiteSpace: 'nowrap' } } }}
+        >
+          {sort.options.map(option => (
+            <Option key={option.value} value={option.value}>
+              {option.label}
+            </Option>
+          ))}
+        </Select>
+      </FormControl>
+      <Button color='success' onClick={onApplyFilters}>
+        적용
+      </Button>
+    </Box>
   );
 };
-export const TableFilter = () => (
-  <React.Fragment>
-    <FormControl sx={{ flex: 1 }} size='sm'>
-      <FormLabel>Search for order</FormLabel>
-      <Input size='sm' placeholder='Search' startDecorator={<SearchIcon />} />
-    </FormControl>
-    <FormControl size='sm'>
-      <FormLabel>Status</FormLabel>
-      <Select size='sm' placeholder='Filter by status' slotProps={{ button: { sx: { whiteSpace: 'nowrap' } } }}>
-        <Option value='paid'>Paid</Option>
-        <Option value='pending'>Pending</Option>
-        <Option value='refunded'>Refunded</Option>
-        <Option value='cancelled'>Cancelled</Option>
-      </Select>
-    </FormControl>
-    <FormControl size='sm'>
-      <FormLabel>Category</FormLabel>
-      <Select size='sm' placeholder='All'>
-        <Option value='all'>All</Option>
-        <Option value='refund'>Refund</Option>
-        <Option value='purchase'>Purchase</Option>
-        <Option value='debit'>Debit</Option>
-      </Select>
-    </FormControl>
-    <FormControl size='sm'>
-      <FormLabel>Customer</FormLabel>
-      <Select size='sm' placeholder='All'>
-        <Option value='all'>All</Option>
-        <Option value='olivia'>Olivia Rhye</Option>
-        <Option value='steve'>Steve Hampton</Option>
-        <Option value='ciaran'>Ciaran Murray</Option>
-        <Option value='marina'>Marina Macdonald</Option>
-        <Option value='charles'>Charles Fulton</Option>
-        <Option value='jay'>Jay Hoper</Option>
-      </Select>
-    </FormControl>
-  </React.Fragment>
-);
-
-const TabletSearchAndFilter: React.FC = () => (
-  <Box
-    className='SearchAndFilters-tabletUp'
-    sx={{
-      borderRadius: 'sm',
-      py: 2,
-      display: { xs: 'none', sm: 'flex' },
-      flexWrap: 'wrap',
-      gap: 1.5,
-      '& > *': {
-        minWidth: { xs: '120px', md: '160px' }
-      }
-    }}
-  >
-    <TableSearch />
-    <TableFilter />
-  </Box>
-);
-
-export default TabletSearchAndFilter;

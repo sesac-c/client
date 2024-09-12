@@ -63,7 +63,7 @@ const ContentHeader: React.FC<ContentHeaderProps> = ({ breadcrumb, pageInfo }: C
           justifyContent: 'space-between'
         }}
       >
-        <Typography level='h2' component='h1'>
+        <Typography level='h3' component='h1'>
           {page}
         </Typography>
         {button && (
