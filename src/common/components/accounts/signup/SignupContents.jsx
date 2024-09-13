@@ -5,7 +5,7 @@ import { useConfirmClose } from '../../../hooks/useConfirmClose';
 
 import Button from '../../common/UI/Button';
 import Modal from '../../common/UI/Modal';
-import Stepper from '../../common/UI/Stepper.jsx';
+import Stepper from '../../common/UI/Stepper';
 
 import SignupFirstStepField from './SignupFirstStepField.jsx';
 import SignupSecondStepField from './SignupSecondStepField.jsx';

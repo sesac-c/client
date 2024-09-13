@@ -4,7 +4,7 @@ import { FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton, For
 
 import { EyeSlashIcon, EyeIcon } from '@heroicons/react/20/solid';
 
-import { DEFAULT_TEXTFIELD_SETTING } from '../../../utils/form';
+import { DEFAULT_TEXTFIELD_SETTING } from '../../../utils';
 
 const PasswordInput = ({ id, label, placeholder, value, onChange, error, helperText }) => {
   const [showPassword, setShowPassword] = useState(false);

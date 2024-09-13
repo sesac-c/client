@@ -1,40 +1,45 @@
-import PropTypes from 'prop-types';
-
-import { useConfirmClose } from '../../../hooks/useConfirmClose';
-import { useNavigateHandler } from '../../../hooks/useNavigateHandler';
-import { FIND_PASSWORD_PROCESS_STATUS } from '../../../hooks/accounts/useFindPasswordState';
+import React from 'react';
+import { useConfirmClose } from '../../../../common/hooks/useConfirmClose';
+import { useNavigateHandler } from '../../../../common/hooks/useNavigateHandler';
 
 import Modal from '../../common/UI/Modal.jsx';
 import Button from '../../common/UI/Button.jsx';
-import Stepper from '../../common/UI/Stepper.jsx';
+import Stepper from '../../common/UI/Stepper';
 
-import EmailInputField from './EmailInputField.jsx';
-import VerificationCodeField from './VerificationCodeField.jsx';
+import EmailInputField from './EmailInputField';
+import VerificationCodeField from './VerificationCodeField';
 
-import { PAGE_MODAL, LOGIN_PATH, FINDPASSWORD_CONFIRM_MESSAGE } from '../../../constants';
+import { PAGE_MODAL, LOGIN_PATH, FINDPASSWORD_CONFIRM_MESSAGE } from '../../../../common/constants';
+import { FindPasswordContentProps, FindPasswordProcessStatus } from '../../../../common/types';
 
 // Constants
 const steps = ['이메일 인증', '인증번호 인증', '비밀번호 변경'];
 const BUTTON_SIZE = 'large';
-
-const FindPasswordContent = ({ state, title, handleChange, handleButtonClick, isButtonDisabled }) => {
+const FindPasswordContent: React.FC<FindPasswordContentProps> = ({
+  title,
+  state,
+  handleChange,
+  handleButtonClick,
+  isButtonDisabled
+}) => {
   const buttonText = state.isTimerExpired
     ? '인증번호 재전송'
-    : state.currentStep === FIND_PASSWORD_PROCESS_STATUS.EMAIL
+    : state.currentStep === FindPasswordProcessStatus.EMAIL
       ? '인증번호 발송'
       : '확인';
   const confirmClose = useConfirmClose(FINDPASSWORD_CONFIRM_MESSAGE);
   const navigateToLogin = useNavigateHandler(LOGIN_PATH);
+
   const content = (
     <>
-      <Stepper steps={steps} activeStep={state.currentStep === FIND_PASSWORD_PROCESS_STATUS.EMAIL ? 0 : 1} />
+      <Stepper steps={steps} activeStep={state.currentStep === FindPasswordProcessStatus.EMAIL ? 0 : 1} />
       <EmailInputField
         email={state.email}
         isEmailValid={state.isEmailValid}
         helperText={state.emailHelperText}
         onChange={handleChange}
       />
-      {state.currentStep === FIND_PASSWORD_PROCESS_STATUS.CODE && (
+      {state.currentStep === FindPasswordProcessStatus.CODE && (
         <VerificationCodeField
           verificationCode={state.verificationCode}
           remainingTime={state.remainingTime}
@@ -62,13 +67,6 @@ const FindPasswordContent = ({ state, title, handleChange, handleButtonClick, is
       <form className='modal-form'>{content}</form>
     </Modal>
   );
-};
-
-FindPasswordContent.propTypes = {
-  state: PropTypes.object.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleButtonClick: PropTypes.func.isRequired,
-  isButtonDisabled: PropTypes.func.isRequired
 };
 
 export default FindPasswordContent;
