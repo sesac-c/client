@@ -1,4 +1,4 @@
-import { createBrowserRouter, redirect } from 'react-router-dom';
+import { createBrowserRouter, Navigate, redirect } from 'react-router-dom';
 
 import { useAuth } from './common/hooks/auth/useAuth';
 import userRoutes from './user/router';
@@ -17,7 +17,8 @@ import {
   MANAGER_PATH,
   MANAGER_ROLE,
   USER_PATH,
-  USER_ROLE
+  USER_ROLE,
+  LOGIN_PATH
 } from './common/constants/index';
 import managerRoutes from './manager/router';
 import ManagerRootLayout from './manager/layouts/ManagerRoot';
@@ -30,7 +31,11 @@ const ProtectedRoute = ({ children, requiredRole }) => {
     return <PageLoadingSpinner />;
   }
 
-  return isAuthorized ? children : <ErrorPage errorState={403} />;
+  if (!isAuthorized) {
+    return <Navigate to={LOGIN_PATH} />;
+  }
+
+  return children;
 };
 
 const router = createBrowserRouter([

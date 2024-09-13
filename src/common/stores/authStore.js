@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { USER_KEY } from '../constants';
+import { NO_REFRESH_TOKEN_MESSAGE, USER_KEY } from '../constants';
 import TokenUtil from '../utils/auth';
 import authRequest from '../services/api/auth';
 

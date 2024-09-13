@@ -1,22 +1,15 @@
 import React from 'react';
 import { Avatar, Box, Typography } from '@mui/joy';
 import ColorSchemeToggle from '../../UI/ColorSchemeToggle';
-
-interface LoginUserProps {
-  loginUser: {
-    profileImage?: string;
-    nickname: string;
-  };
-}
+import { LoginUserProps } from '@/manager/types/sidebar';
 
 const LoginUser: React.FC<LoginUserProps> = ({ loginUser }) => {
-  const { profileImage, nickname } = loginUser;
   return (
     <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
       <Avatar
         variant='outlined'
         size='sm'
-        src={profileImage ?? '/assets/images/default-profile.png'}
+        src={'/assets/images/default-profile.png'}
         sx={{
           padding: '4px', // 원하는 패딩 값 설정
           '& img': {
@@ -28,7 +21,7 @@ const LoginUser: React.FC<LoginUserProps> = ({ loginUser }) => {
       />
       <Box sx={{ minWidth: 0, flex: 1 }}>
         <Typography level='body-sm' fontWeight={700}>
-          {nickname} 캠퍼스
+          {loginUser?.nickname} 캠퍼스
         </Typography>
       </Box>
 
