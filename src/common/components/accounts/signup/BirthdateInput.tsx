@@ -1,15 +1,20 @@
+import React, { ChangeEvent } from 'react';
 import { TextField } from '@mui/material';
+import { DEFAULT_TEXTFIELD_SETTING, BIRTHDATE_FIELD_SETTING, GENDER_FIELD_SETTING } from '../../../utils';
+import { BirthdateInputProps } from '../../../types';
 
-import { DEFAULT_TEXTFIELD_SETTING, BIRTHDATE_FIELD_SETTING, GENDER_FIELD_SETTING } from '../../../utils/form';
+const BirthdateInput: React.FC<BirthdateInputProps> = ({ birthdate, gender, onChange, errors }) => {
+  const handleChange = (field: 'birthdate' | 'gender') => (e: ChangeEvent<HTMLInputElement>) => {
+    onChange(field, e.target.value);
+  };
 
-const BirthdateInput = ({ birthdate, gender, onChange, errors }) => {
   return (
     <div className='signup__birthdate-filed-container'>
       <div className='signup__birthdate-filed-inner'>
         <TextField
           className='signup__birthdate-filed-birthdate'
           value={birthdate}
-          onChange={e => onChange('birthdate', e.target.value)}
+          onChange={handleChange('birthdate')}
           error={!!errors.birthdate}
           helperText={errors.birthdate}
           {...DEFAULT_TEXTFIELD_SETTING}
@@ -19,7 +24,7 @@ const BirthdateInput = ({ birthdate, gender, onChange, errors }) => {
         <TextField
           className='signup__birthdate-filed-gender'
           value={gender}
-          onChange={e => onChange('gender', e.target.value)}
+          onChange={handleChange('gender')}
           error={!!errors.gender}
           helperText={errors.gender}
           {...DEFAULT_TEXTFIELD_SETTING}

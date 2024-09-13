@@ -1,21 +1,21 @@
+import React, { ChangeEvent } from 'react';
 import { TextField, MenuItem } from '@mui/material';
-
 import { campuses, courses } from '../../../_mock';
+import { DEFAULT_TEXTFIELD_SETTING, CAMPUS_FIELD_SETTING, COURSE_FIELD_SETTING } from '../../../utils';
+import { FormData } from '../../../types';
 
-import { CAMPUS_FIELD_SETTING, COURSE_FIELD_SETTING } from '../../../utils/form';
+interface SignupSecondStepFieldProps {
+  formData: FormData;
+  onChange: (field: keyof FormData, value: string) => void;
+  errors: Partial<FormData>;
+}
 
-// Constants
-const DEFAULT_TEXTFIELD_SETTING = {
-  color: 'success',
-  margin: 'dense',
-  fullWidth: true
-};
-const SignupSecondStepField = ({ formData, onChange, errors }) => {
+const SignupSecondStepField: React.FC<SignupSecondStepFieldProps> = ({ formData, onChange, errors }) => {
   return (
     <>
       <TextField
-        value={formData.campus || ''}
-        onChange={e => onChange('campus', Number(e.target.value))}
+        value={formData.campus}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => onChange('campus', e.target.value)}
         error={!!errors.campus}
         helperText={errors.campus}
         {...DEFAULT_TEXTFIELD_SETTING}
@@ -28,8 +28,8 @@ const SignupSecondStepField = ({ formData, onChange, errors }) => {
         ))}
       </TextField>
       <TextField
-        value={formData.course || ''}
-        onChange={e => onChange('course', Number(e.target.value))}
+        value={formData.course}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => onChange('course', e.target.value)}
         error={!!errors.course}
         helperText={errors.course}
         {...DEFAULT_TEXTFIELD_SETTING}

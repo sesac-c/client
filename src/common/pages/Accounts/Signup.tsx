@@ -1,9 +1,9 @@
-import { STEP, useSignupState } from '../../hooks/accounts/useSignupState';
-
-import ProcessErrorModal from '../../components/common/feedback/ProcessErrorModal.jsx';
-import ProcessSuccessModal from '../../components/common/feedback/ProcessSuccessModal.jsx';
-import SingupContent from '../../components/accounts/signup/SignupContents.jsx';
-
+import React from 'react';
+import { useSignupState } from '../../hooks/accounts/useSignupState';
+import { SignupStep } from '../../types';
+import ProcessErrorModal from '../../components/common/feedback/ProcessErrorModal';
+import ProcessSuccessModal from '../../components/common/feedback/ProcessSuccessModal';
+import SignupContents from '../../components/accounts/signup/SignupContents';
 import { SIGNUP_SUCCESS_MESSAGES } from '../../constants';
 
 const TITLE = '회원가입';
@@ -12,7 +12,7 @@ const MODAL_TITLES = {
   SUCCESS: `${TITLE} 성공`
 };
 
-const SignupPage = () => {
+const SignupPage: React.FC = () => {
   const { state, handleStepChange, handleError, handleClose, handleChange, handleValidate, isButtonDisabled } =
     useSignupState();
 
@@ -20,7 +20,7 @@ const SignupPage = () => {
     return <ProcessErrorModal title={MODAL_TITLES.ERROR} onClose={handleClose} />;
   }
 
-  if (state.currentStep === STEP.SUCCESS) {
+  if (state.currentStep === SignupStep.SUCCESS) {
     return (
       <ProcessSuccessModal title={MODAL_TITLES.SUCCESS} onClose={handleClose}>
         {SIGNUP_SUCCESS_MESSAGES.map((message, index) => (
@@ -31,7 +31,7 @@ const SignupPage = () => {
   }
 
   return (
-    <SingupContent
+    <SignupContents
       title={TITLE}
       currentStep={state.currentStep}
       formData={state.formData}
