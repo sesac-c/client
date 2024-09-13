@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import AccountsLayout from '../../layouts/Accounts.jsx';
-import MascotImage from '../../components/common/layout/MascotImage.jsx';
+import AccountsLayout from '../../layouts/Accounts';
+import MascotImage from '../../components/common/layout/MascotImage';
 import LoginForm from '../../components/accounts/LoginForm.jsx';
 import useAuthStore from '../../stores/authStore';
-import ErrorPage from '../Error/Error.jsx';
+import ErrorPage from '../Error/Error';
 
 const LoginPage = () => {
   const { isAuthenticated } = useAuthStore();

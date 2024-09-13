@@ -6,8 +6,8 @@ import { FormControl, FormHelperText, OutlinedInput } from '@mui/material';
 import useWritePostStore from '../../../store/writePostStore';
 
 import LabeledWrapper from '../../../../common/components/common/UI/LabeledWrapper';
-import { ImageUploaderOpenButton } from './ImageUploaderModal.jsx';
-import { HashTagUploaderOpenButton } from './HashtagUploaderModal.jsx';
+import { ImageUploaderOpenButton } from './ImageUploaderModal';
+import { HashTagUploaderOpenButton } from './HashtagUploaderModal';
 
 import { MAX_TITLE_LENGTH, MAX_CONTENT_LENGTH } from '../../../../common/constants';
 import { CONTENT_FIELD_SETTING, DEFAULT_TEXTFIELD_SETTING, TITLE_FIELD_SETTING } from '../../../../common/utils/form';

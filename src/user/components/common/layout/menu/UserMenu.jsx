@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { BellIcon, EnvelopeIcon } from '@heroicons/react/20/solid';
 
-import ProfileImage from '../../../../../common/components/common/layout/ProfileImage.jsx';
+import ProfileImage from '../../../../../common/components/common/layout/ProfileImage';
 
 const UserMenu = () => {
   const iconClasses = 'user-menu-icon w-6 h-6 text-white';

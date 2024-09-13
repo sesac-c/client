@@ -1,4 +1,4 @@
-import ProfileImage from '../../../../common/components/common/layout/ProfileImage.jsx';
+import ProfileImage from '../../../../common/components/common/layout/ProfileImage';
 
 import { formatDateToKorean } from '../../../../common/utils/formatter.js';
 

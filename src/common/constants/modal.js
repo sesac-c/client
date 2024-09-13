@@ -2,8 +2,6 @@ export const GENERAL_MODAL = 'generalmodal';
 export const PAGE_MODAL = 'pagemodal';
 export const WRITE_MODAL = 'writemodal';
 
-export const MODAL_TYPE_ARR = [GENERAL_MODAL, PAGE_MODAL, WRITE_MODAL];
-
 export const SIGNUP_SUCCESS_MESSAGES = [
     '수강생/수료생 정보 확인 후 승인 절차를 거치게 됩니다.',
     '　',
@@ -12,7 +10,6 @@ export const SIGNUP_SUCCESS_MESSAGES = [
 ];
 
 export const DEFAULT_PROCCESS_ERROR_MESSAGE = '오류가 발생했습니다. 잠시 뒤 시도해주세요.';
-
 
 export const HASHTAG_TITLE = '해시태그';
 export const IMAGE_TITLE = '이미지';

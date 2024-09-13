@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { TextField } from '@mui/material';
 
-import Division from '../../components/common/UI/Division.jsx';
-import Logo from '../../components/common/layout/Logo.jsx';
-import Button from '../../components/common/UI/Button.jsx';
+import Division from '../../components/common/UI/Division';
+import Logo from '../../components/common/layout/Logo';
+import Button from '../../components/common/UI/Button';
 
 import { SIGNUP_PATH, FIND_PASSWORD_PATH } from '../../constants';
 import { DEFAULT_TEXTFIELD_SETTING, USERNAME_FIELD_SETTING, PASSWORD_LOGIN_FIELD_SETTING } from '../../utils/form.js';

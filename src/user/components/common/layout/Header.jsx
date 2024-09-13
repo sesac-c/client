@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import Logo from '../../../../common/components/common/layout/Logo.jsx';
+import Logo from '../../../../common/components/common/layout/Logo';
 import UserMenu from '../layout/menu/UserMenu.jsx';
 import FeedMenu from '../layout/menu/FeedMenu.jsx';
 

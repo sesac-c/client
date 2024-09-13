@@ -6,7 +6,7 @@ import { PhotoIcon } from '@heroicons/react/24/outline';
 import useWritePostStore from '../../../store/writePostStore';
 import { useModal } from '../../../../common/hooks';
 
-import Modal from '../../../../common/components/common/UI/Modal.jsx';
+import Modal from '../../../../common/components/common/UI/Modal';
 import Button from '../../../../common/components/common/UI/Button';
 
 import { IMAGE_TITLE } from '../../../../common/constants';

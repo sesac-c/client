@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { MagnifyingGlassIcon as SearchIcon } from '@heroicons/react/16/solid';
 
 import UserItem from './UserItem.jsx';
-import MascotImage from '../../../common/components/common/layout/MascotImage.jsx';
+import MascotImage from '../../../common/components/common/layout/MascotImage';
 
 const UserSearch = ({ users, searchInputPlaceholder, title, noSearchContent, buttonText }) => {
   function handleButtonClick(onClickUrl) {

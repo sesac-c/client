@@ -6,7 +6,7 @@ import { useModal } from '../../../../../common/hooks/useModal.js';
 import PropTypes from 'prop-types';
 
 import FeedSelectBox from './FeedSelectBox.jsx';
-import WritePostModal from '../../../post/write/WritePostModal.jsx';
+import WritePostModal from '../../../post/write/WritePostModal';
 
 import { FEED_INFO, FEED_ARR } from '../../../../../common/constants';
 

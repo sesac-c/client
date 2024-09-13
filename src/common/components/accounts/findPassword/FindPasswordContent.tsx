@@ -2,8 +2,8 @@ import React from 'react';
 import { useConfirmClose } from '../../../../common/hooks/useConfirmClose';
 import { useNavigateHandler } from '../../../../common/hooks/useNavigateHandler';
 
-import Modal from '../../common/UI/Modal.jsx';
-import Button from '../../common/UI/Button.jsx';
+import Modal from '../../common/UI/Modal';
+import Button from '../../common/UI/Button';
 import Stepper from '../../common/UI/Stepper';
 
 import EmailInputField from './EmailInputField';

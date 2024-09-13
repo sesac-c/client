@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import Division from '../../../../common/components/common/UI/Division.jsx';
+import Division from '../../../../common/components/common/UI/Division';
 import ReplyInput from './ReplyInput.jsx';
 import ReplyList from './ReplyList.jsx';
 import PostLikeButton from './PostLikeButton.jsx';
