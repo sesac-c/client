@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Avatar, Box, Chip, Link, Table, Sheet, Typography, Skeleton } from '@mui/joy';
 import { Dropdown, MenuButton, Menu, MenuItem, IconButton, Divider } from '@mui/joy';
 import { MoreHorizRounded as MoreHorizRoundedIcon } from '@mui/icons-material';
-import { RowContent, Headers, TableContentProps, allHeaders, StatusCode, RowMenuProps } from '../../../../types/table';
+import { RowContent, Headers, TableContentProps, allHeaders, StatusCode, RowMenuProps } from '../../../../types';
 
 import { getStatusTextKorean, getStatusColor, getStatusIcon } from '../../../../utils';
 

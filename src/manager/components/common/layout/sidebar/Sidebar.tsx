@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useState, useCallback, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import useAuthStore from '../../../../../common/stores/authStore';
+
 import GlobalStyles from '@mui/joy/GlobalStyles';
 import Box from '@mui/joy/Box';
 import Divider from '@mui/joy/Divider';
@@ -14,10 +16,11 @@ import LoginUser from './LoginUser';
 import SidebarHeader from './SidebarHeader';
 import SideMenu from './menu/SideMenu';
 
-import { loginUser } from '../../../../_mock';
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { user, logout } = useAuthStore();
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set(['사용자 관리']));
 
@@ -123,9 +126,13 @@ const Sidebar: React.FC = () => {
         handleMenuItemClick={handleMenuItemClick}
         listItemButtonClasses={listItemButtonClasses}
         toggleExpanded={toggleExpanded}
+        handleLogout={() => {
+          const confirmLogout = confirm('정말 로그아웃하시겠습니까?');
+          if (confirmLogout) logout();
+        }}
       />
       <Divider />
-      <LoginUser loginUser={loginUser} />
+      <LoginUser loginUser={user} />
     </Sheet>
   );
 };

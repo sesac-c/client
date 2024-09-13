@@ -5,7 +5,7 @@ import {
   KeyboardArrowRight as KeyboardArrowRightIcon,
   KeyboardArrowLeft as KeyboardArrowLeftIcon
 } from '@mui/icons-material';
-import { PaginationsProps } from '../../../../types/table';
+import { PaginationsProps } from '../../../../types';
 import { createNewPage, getPageNumbers, handleJump } from '../../../../utils';
 
 const Paginations: React.FC<PaginationsProps> = ({ page, onPageChange }) => {

@@ -6,7 +6,7 @@ import { Button, Divider, Input, Modal, ModalDialog, ModalClose, Sheet, Typograp
 import IconButton from '@mui/joy/IconButton';
 
 import { FilterAlt as FilterAltIcon, Search as SearchIcon } from '@mui/icons-material';
-import { MobileSearchProps } from '../../../../../types/table';
+import { MobileSearchProps } from '../../../../../types';
 
 const MobileSearch: React.FC<MobileSearchProps> = ({ open, setOpen, searchTitle }) => (
   <Sheet className='SearchAndFilters-mobile' sx={{ display: { xs: 'flex', sm: 'none' }, my: 1, gap: 1 }}>

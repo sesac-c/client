@@ -3,13 +3,14 @@ import React from 'react';
 import { Input, FormControl, FormLabel, Select, Option, Link, Button } from '@mui/joy';
 import SearchIcon from '@mui/icons-material/Search';
 import { Box } from '@mui/material';
-import { FILTERS, FilterSortGroup, SearchAndFilterProps, SORTS, TableSearchProps } from '../../../../types/table';
+import { FILTERS, FilterSortGroup, SearchAndFilterProps, SORTS, TableSearchProps } from '../../../../types';
 
 export const TableSearch: React.FC<TableSearchProps> = ({ searchTitle }) => {
   return <React.Fragment></React.Fragment>;
 };
 
 export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
+  lazyLoadedFilters,
   onFilterChange,
   onSortChange,
   onSearchChange,
@@ -18,8 +19,8 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   sortOption,
   searchTitle
 }) => {
-  const filters = FILTERS[searchTitle];
   const sort = SORTS[searchTitle];
+  const filters = lazyLoadedFilters || FILTERS[searchTitle];
 
   const handleFilterChange = (name: string) => (event: React.SyntheticEvent | null, newValue: string | null) => {
     if (newValue !== null) {
@@ -72,11 +73,11 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
           <Select
             size='sm'
             placeholder={`${filter.label} 선택`}
-            value={selectedFilters[filter.name] || null}
+            value={selectedFilters[filter.name] ?? null}
             onChange={handleFilterChange(filter.name)}
             slotProps={{ button: { sx: { whiteSpace: 'nowrap' } } }}
           >
-            {filter.options.map(option => (
+            {filter.options?.map(option => (
               <Option key={option.value} value={option.value}>
                 {option.label}
               </Option>
@@ -92,7 +93,7 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
           onChange={handleSortChange}
           slotProps={{ button: { sx: { whiteSpace: 'nowrap' } } }}
         >
-          {sort.options.map(option => (
+          {sort.options?.map(option => (
             <Option key={option.value} value={option.value}>
               {option.label}
             </Option>

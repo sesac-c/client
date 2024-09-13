@@ -1,16 +1,15 @@
 import React from 'react';
 import ContentHeader from '../../common/layout/ContentHeader';
-import { navIcon } from '../../../assets/icon';
-import AddIcon from '@mui/icons-material/Add';
+import { navIcons, addIcon } from '../../../assets/icon';
 
 const page = '캠퍼스 관리';
 const breadcrumb = {
-  homeIcon: navIcon.campus,
+  homeIcon: navIcons.campus,
   breadcrumbTrail: [page]
 };
 const button = {
   buttonText: '캠퍼스 등록',
-  buttonIcon: React.createElement(AddIcon)
+  buttonIcon: addIcon
 };
 const CampusList = () => {
   function handleAddCampus() {

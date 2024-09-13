@@ -2,7 +2,7 @@ import { courses } from '../../common/_mock';
 
 export const userFilter = [
   {
-    name: 'statusCode',
+    name: 'status',
     label: '상태',
     options: [
       { value: 0, label: '신규' },
@@ -14,7 +14,7 @@ export const userFilter = [
   {
     name: 'courseId',
     label: '과정',
-    options: courses
+    options: null //   비동기 로드
   }
 ];
 export const campusFilter = [

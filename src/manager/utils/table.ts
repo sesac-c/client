@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, StatusCode } from '../types/table';
+import { Page, StatusCode } from '../types';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import AutorenewRoundedIcon from '@mui/icons-material/AutorenewRounded';
 import BlockIcon from '@mui/icons-material/Block';

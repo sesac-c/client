@@ -2,6 +2,8 @@ import React from 'react';
 import { Box, List } from '@mui/joy';
 import { bottomMenuItems, menuItems } from './menuConfig';
 import { MenuItem, NestedMenuItem } from './MenuItems';
+import { ListItemButton } from '@mui/material';
+import { navIcons } from '../../../../../assets/icon';
 
 interface MainMenuListProps {
   activeItem: string | null;
@@ -52,11 +54,12 @@ const MainMenuList: React.FC<MainMenuListProps> = ({
 };
 
 interface BottomMenuProps {
+  handleLogout: () => void;
   activeItem: string | null;
   handleMenuItemClick: (title: string, path: string) => void;
 }
 
-const BottomMenu: React.FC<BottomMenuProps> = ({ activeItem, handleMenuItemClick }) => {
+const BottomMenu: React.FC<BottomMenuProps> = ({ activeItem, handleMenuItemClick, handleLogout }) => {
   const renderMenuItem = (item: MenuItem) => {
     return (
       <MenuItem key={item.title} item={item} isActive={activeItem === item.title} onItemClick={handleMenuItemClick} />
@@ -74,6 +77,15 @@ const BottomMenu: React.FC<BottomMenuProps> = ({ activeItem, handleMenuItemClick
       }}
     >
       {bottomMenuItems.map(renderMenuItem)}
+      <MenuItem
+        item={{
+          title: '로그아웃',
+          icon: navIcons.logout,
+          path: ''
+        }}
+        onItemClick={handleLogout}
+        isActive={false}
+      />
     </List>
   );
 };
@@ -86,6 +98,7 @@ export interface SideMenuProps {
     root: string;
   };
   toggleExpanded: (title: string) => void;
+  handleLogout: () => void;
 }
 
 const SideMenu: React.FC<SideMenuProps> = ({
@@ -93,7 +106,8 @@ const SideMenu: React.FC<SideMenuProps> = ({
   expandedItems,
   handleMenuItemClick,
   listItemButtonClasses,
-  toggleExpanded
+  toggleExpanded,
+  handleLogout
 }) => {
   return (
     <Box
@@ -114,7 +128,7 @@ const SideMenu: React.FC<SideMenuProps> = ({
         handleMenuItemClick={handleMenuItemClick}
         toggleExpanded={toggleExpanded}
       />
-      <BottomMenu activeItem={activeItem} handleMenuItemClick={handleMenuItemClick} />
+      <BottomMenu activeItem={activeItem} handleMenuItemClick={handleMenuItemClick} handleLogout={handleLogout} />
     </Box>
   );
 };

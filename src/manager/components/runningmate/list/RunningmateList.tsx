@@ -1,11 +1,11 @@
 import React from 'react';
 import ContentHeader from '../../common/layout/ContentHeader';
-import { navIcon } from '../../../assets/icon';
+import { navIcons } from '../../../assets/icon';
 import AddIcon from '@mui/icons-material/Add';
 
 const page = '러닝메이트 목록 / 관리';
 const breadcrumb = {
-  homeIcon: navIcon.runningmate,
+  homeIcon: navIcons.runningmate,
   breadcrumbTrail: ['러닝메이트 관리', page]
 };
 const button = {

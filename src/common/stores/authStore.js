@@ -1,9 +1,10 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { ACCESS_TOKEN_KEY, NO_REFRESH_TOKEN_MESSAGE, REFRESH_TOKEN_KEY, USER_KEY } from '../constants';
-import { clearTokens, setTokens } from '../utils/auth';
+import { clearTokens, getTokens, setTokens } from '../utils/auth';
 import { loginRequest } from '../services/api/auth';
 import { refreshTokenRequest } from '../services/axios/setupAuth';
+import axios from 'axios';
 
 const useAuthStore = create(
     persist(
@@ -38,8 +39,7 @@ const useAuthStore = create(
             // token 갱신 함수
             refreshAccessToken: async () => {
                 try {
-                    const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
-                    const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+                    const { accessToken, refreshToken } = getTokens();
                     if (!refreshToken || !accessToken) {
                         throw new Error(NO_REFRESH_TOKEN_MESSAGE);
                     }
@@ -53,6 +53,7 @@ const useAuthStore = create(
 
                     setTokens(newAccessToken, newRefreshToken);
                     get().setUser(newNickname, newRole);
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`; // header 재 셋팅
 
                     return true;
                 } catch (error) {

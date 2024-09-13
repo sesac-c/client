@@ -1,11 +1,11 @@
 import React from 'react';
 import ContentHeader from '../../../common/layout/ContentHeader';
-import { navIcon } from '../../../../assets/icon';
+import { navIcons } from '../../../../assets/icon';
 import AddIcon from '@mui/icons-material/Add';
 
 const page = '공지 관리';
 const breadcrumb = {
-  homeIcon: navIcon.feed,
+  homeIcon: navIcons.feed,
   breadcrumbTrail: ['피드 관리', page]
 };
 const button = {

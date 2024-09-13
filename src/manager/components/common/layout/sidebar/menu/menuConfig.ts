@@ -13,7 +13,7 @@ import {
   MANAGER_RUNNINGMATE_CHILDREN_PATH
 } from '../../../../../../common/constants';
 
-import { navIcon } from '../../../../../assets/icon';
+import { navIcons } from '../../../../../assets/icon';
 
 const PREFIX = '/manager/';
 
@@ -26,7 +26,7 @@ const RUNNINGMATE_PREFIX = PREFIX + MANAGER_RUNNINGMATE_PATH;
 export const menuItems: MenuItem[] = [
   {
     title: '사용자 관리',
-    icon: navIcon.user,
+    icon: navIcons.user,
     path: USER_PREFIX,
     children: [
       {
@@ -45,7 +45,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     title: '피드 관리',
-    icon: navIcon.feed,
+    icon: navIcons.feed,
     path: FEED_PREFIX,
     children: [
       {
@@ -60,17 +60,17 @@ export const menuItems: MenuItem[] = [
   },
   {
     title: '캠퍼스 관리',
-    icon: navIcon.campus,
+    icon: navIcons.campus,
     path: CAMPUS_PREFIX
   },
   {
     title: '강의 관리',
-    icon: navIcon.course,
+    icon: navIcons.course,
     path: COURSE_PREFIX
   },
   {
     title: '러닝메이트 관리',
-    icon: navIcon.runningmate,
+    icon: navIcons.runningmate,
     path: RUNNINGMATE_PREFIX,
     children: [
       {
@@ -88,17 +88,12 @@ export const menuItems: MenuItem[] = [
 export const bottomMenuItems: MenuItem[] = [
   {
     title: '설정',
-    icon: navIcon.setting,
+    icon: navIcons.setting,
     path: '/settings'
   },
   {
     title: '쪽지함',
-    icon: navIcon.message,
+    icon: navIcons.message,
     path: '/messages'
-  },
-  {
-    title: '로그아웃',
-    icon: navIcon.logout,
-    path: '/logout'
   }
 ];

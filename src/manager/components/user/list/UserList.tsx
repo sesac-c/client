@@ -1,21 +1,32 @@
 import React from 'react';
 import ContentHeader from '../../common/layout/ContentHeader';
-import { navIcon } from '../../../assets/icon';
+import { navIcons } from '../../../assets/icon';
 import CustomTable from '../../common/UI/table/CustomTable';
-import { Page, RowType, SearchTitle, TableData, UserRowContent } from '../../../types/table';
+import {
+  FilterConfig,
+  FILTERS,
+  FilterSortGroup,
+  Page,
+  RowType,
+  SearchTitle,
+  TableData,
+  UserRowContent
+} from '../../../types';
 import { formatDateToKorean } from '../../../../common/utils';
-import { users } from '../../../_mock';
-import { userListRequest } from '../../../services/api/user';
+import { courseOptionsRequest, userListRequest } from '../../../services/api/user';
+import { transformCourseOptions } from '../../../utils';
 
 const page = '사용자 목록 / 관리';
 const breadcrumb = {
-  homeIcon: navIcon.user,
+  homeIcon: navIcons.user,
   breadcrumbTrail: ['사용자 관리', page]
 };
 
 const UserList: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   const [campusId, setCampusId] = React.useState<number | null>(null);
+  const [filters, setFilters] = React.useState<FilterSortGroup[]>(FILTERS[SearchTitle.USER]);
+
   const [selectedFilters, setSelectedFilters] = React.useState<Record<string, any>>({});
   const [sortOption, setSortOption] = React.useState<string | undefined>(undefined);
   const [currentPage, setCurrentPage] = React.useState<Page>({
@@ -32,23 +43,19 @@ const UserList: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [searchTerm, setSearchTerm] = React.useState<string | undefined>(undefined);
 
-  const loadUsers = async (page: number = 0) => {
+  const loadUsers = async (params: {}) => {
+    console.log(params);
     setIsLoading(true);
     try {
-      //TODO: 실제 데이터 불러오기
-      // const response = await userListRequest();
-      // const data = response.data;
-      const data = users;
+      const response = await userListRequest(params);
+      const data = response.data;
+      const campusId = data.campusId;
 
       const { content, ...pageInfo } = data;
+      const { pageNumber, pageSize, totalElements, totalPages, last } = pageInfo;
 
-      setCurrentPage({
-        pageNumber: pageInfo.pageNumber,
-        pageSize: pageInfo.pageSize,
-        totalElements: pageInfo.totalElements,
-        totalPages: pageInfo.totalPages,
-        last: pageInfo.last
-      });
+      setCurrentPage({ pageNumber, pageSize, totalElements, totalPages, last });
+      setCampusId(campusId);
 
       setUserData({
         type: RowType.USER,
@@ -62,7 +69,7 @@ const UserList: React.FC = () => {
         })) as UserRowContent[]
       });
 
-      setCampusId(data.campusId);
+      return campusId;
     } catch (error) {
       console.error('Failed to fetch users:', error);
       // 에러 처리 로직 추가
@@ -71,10 +78,38 @@ const UserList: React.FC = () => {
     }
   };
 
-  React.useEffect(() => {
-    loadUsers();
-  }, []);
+  const loadCourseOptions = async (campusId: number) => {
+    try {
+      const coursesResponse = await courseOptionsRequest(campusId);
+      const transformedOptions = transformCourseOptions(coursesResponse);
 
+      setFilters(prevFilters =>
+        prevFilters.map(filter => (filter.name === 'courseId' ? { ...filter, options: transformedOptions } : filter))
+      );
+    } catch (error) {
+      console.error('Failed to load course options:', error);
+      // 에러 처리 로직
+    }
+  };
+
+  React.useEffect(() => {
+    const initializeData = async () => {
+      try {
+        const campusId = await loadUsers({ page: currentPage.pageNumber });
+        if (campusId !== undefined) {
+          await loadCourseOptions(campusId);
+        } else {
+          console.error('Failed to get campusId');
+          // campusId를 받지 못했을 때의 에러 처리
+        }
+      } catch (error) {
+        console.error('Error initializing data:', error);
+        // 전체 초기화 과정의 에러 처리
+      }
+    };
+
+    initializeData();
+  }, []);
   const handleFilterChange = (filterName: string, value: string | number) => {
     setSelectedFilters(prev => ({ ...prev, [filterName]: value }));
   };
@@ -87,20 +122,21 @@ const UserList: React.FC = () => {
     setSearchTerm(value);
   };
 
-  const handleApplyFilters = () => {
-    loadUsers(0); // 첫 페이지부터 새로운 필터로 데이터 로드
-
-    const queryParams = {
+  function getQueryParams(page: number) {
+    return {
+      page,
       ...selectedFilters,
       name: searchTerm,
       sort: sortOption
     };
-    console.log(queryParams);
+  }
+  const handleApplyFilters = () => {
+    loadUsers(getQueryParams(currentPage.pageNumber));
   };
 
   const handlePageChange = (newPage: Page) => {
     setCurrentPage(newPage);
-    // loadUsers(newPage.pageNumber); 실제 데이터 시 필요
+    loadUsers(getQueryParams(newPage.pageNumber));
   };
 
   return (
@@ -111,6 +147,7 @@ const UserList: React.FC = () => {
         searchTitle={SearchTitle.USER}
         open={open}
         setOpen={setOpen}
+        lazyLoadedFilters={filters}
         selectedFilters={selectedFilters}
         sortOption={sortOption}
         onFilterChange={handleFilterChange}

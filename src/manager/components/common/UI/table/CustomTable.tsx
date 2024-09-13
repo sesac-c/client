@@ -3,13 +3,14 @@ import MobileSearch from './mobile/MobileSearch';
 import { SearchAndFilter } from './TableFilters';
 import TableContent from './TableContent';
 import Paginations from './Paginations';
-import { CustomTableProps } from '../../../../types/table';
+import { CustomTableProps } from '../../../../types';
 
 const CustomTable: React.FC<CustomTableProps> = ({
   data,
   searchTitle,
   open,
   setOpen,
+  lazyLoadedFilters,
   selectedFilters,
   onFilterChange,
   sortOption,
@@ -36,6 +37,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
         onSearchChange={onSearchChange}
         selectedFilters={selectedFilters}
         onApplyFilters={onApplyFilters}
+        lazyLoadedFilters={lazyLoadedFilters}
       />
       <TableContent data={data} isLoading={isLoading} />
       <Paginations page={page} onPageChange={onPageChange} />

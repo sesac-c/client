@@ -134,18 +134,18 @@ export interface TableData {
 }
 
 // ============================ Filter, Sort Type
-interface FilterSortOption {
+export interface FilterSortOption {
   value: string | number;
   label: string | number;
 }
-interface FilterSortGroup {
+export interface FilterSortGroup {
   name: string;
   label: string;
-  options: FilterSortOption[];
+  options: FilterSortOption[] | null;
 }
 
-type FilterConfig = Record<SearchTitle, FilterSortGroup[]>;
-type SortConfig = Record<SearchTitle, FilterSortGroup>;
+export type FilterConfig = Record<SearchTitle, FilterSortGroup[]>;
+export type SortConfig = Record<SearchTitle, FilterSortGroup>;
 
 export const FILTERS: FilterConfig = {
   [SearchTitle.USER]: userFilter,
@@ -180,22 +180,23 @@ export interface TableContentProps {
   data: TableData;
   isLoading: boolean;
 }
-interface TableSearchProps {
+export interface TableSearchProps {
   // search input 컴포넌트
   // search input 컴포넌트
   searchTitle: SearchTitle;
 }
 
-interface MobileSearchProps extends TableSearchProps {
+export interface MobileSearchProps extends TableSearchProps {
   // 모바일 검색 props 인터페이스
   // 모바일 검색 props 인터페이스
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-interface FilterSortProps {
+export interface FilterSortProps {
   // 필터 정렬 props 인터페이스
   // 필터
+  lazyLoadedFilters?: FilterSortGroup[];
   onFilterChange: (filterName: string, value: string) => void;
   selectedFilters: Record<string, any>;
 
@@ -210,26 +211,13 @@ interface FilterSortProps {
 }
 
 // Select props 인터페이스
-interface SelectProps {
+export interface SelectProps {
   placeholder?: string;
 }
 
 // 전체 검색 및 필터 props 인터페이스
-interface SearchAndFilterProps extends FilterSortProps, TableSearchProps {
+export interface SearchAndFilterProps extends FilterSortProps, TableSearchProps {
   selectProps?: SelectProps;
 }
-
-// 일괄 export
-export type {
-  TableSearchProps,
-  MobileSearchProps,
-  FilterSortOption,
-  FilterSortGroup,
-  FilterConfig,
-  SortConfig,
-  FilterSortProps,
-  SelectProps,
-  SearchAndFilterProps
-};
 
 export interface CustomTableProps extends TableContentProps, PaginationsProps, FilterSortProps, MobileSearchProps {}
