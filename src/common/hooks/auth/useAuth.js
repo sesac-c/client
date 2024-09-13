@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../stores/authStore";
-import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY, LOGIN_PATH, MANAGER_PATH, MANAGER_ROLE, USER_KEY, USER_PATH, USER_ROLE } from "../../constants";
+import { LOGIN_PATH, LOGIN_REQUIRED, UNAUTHORIZED_ACCESS, USER_KEY } from "../../constants";
 import { useEffect, useState } from "react";
-import { getRedirectPath, getTokens } from "../../utils/auth";
+import TokenUtil, { getRedirectPath } from "../../utils/auth";
 
 /**
  * [인증된 사용자인지 router 전, 검사하는 미들웨어]
@@ -16,52 +16,49 @@ import { getRedirectPath, getTokens } from "../../utils/auth";
  * @returns {boolean} isAuthorized - 인증 상태
  */
 export const useAuth = (requiredRole) => {
-    console.log('====================useAuth: 접근 권한이 필요한 페이지를 검사하는 훅');
     const navigate = useNavigate();
     const { refreshAccessToken, logout } = useAuthStore();
     const [isAuthorized, setIsAuthorized] = useState(false);
 
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
         const checkAuth = async () => {
+            setIsLoading(true);
             const userData = localStorage.getItem(USER_KEY);
-            const { accessToken, refreshToken } = getTokens();
-            console.log('====================userData:', userData);
+            const { accessToken, refreshToken } = TokenUtil.getTokens();
 
             let parsedUserData;
             try {
                 parsedUserData = JSON.parse(userData);
             } catch (error) {
-                console.log('====================JSON 파싱 실패:', error);
                 parsedUserData = null;
             }
 
             if (parsedUserData && parsedUserData.state && parsedUserData.state.isAuthenticated && accessToken && refreshToken) {
-                console.log('====================인증된 사용자:', parsedUserData.state.user);
                 const { user } = parsedUserData.state;
 
                 if (user.role === requiredRole) {
                     setIsAuthorized(true);
                 } else {
                     let redirectPath = getRedirectPath(user.role, logout);
-                    window.alert('잘못된 접근입니다');
+                    window.alert(UNAUTHORIZED_ACCESS);
                     navigate(redirectPath, { replace: true });
                 }
             } else {
-                console.log('====================인증된 사용자 정보가 없음 아님');
                 const refreshed = await refreshAccessToken();
                 if (!refreshed) {
-                    console.log('====================토큰 갱신 실패');
-                    window.alert('로그인이 필요합니다.');
+                    window.alert(LOGIN_REQUIRED);
                     navigate(LOGIN_PATH, { replace: true });
                 } else {
-                    console.log('====================토큰 갱신 성공');
                     setIsAuthorized(true);
                 }
             }
+            setIsLoading(false);
         };
 
         checkAuth();
     }, [navigate, refreshAccessToken, requiredRole, logout]);
 
-    return isAuthorized;
+    return { isAuthorized, isLoading };
 };

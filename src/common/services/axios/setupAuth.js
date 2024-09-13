@@ -2,7 +2,7 @@ import axios from 'axios';
 import { StatusCodes } from 'http-status-codes';
 
 import { ACCESS_TOKEN_KEY, LOGIN_PATH, NO_REFRESH_TOKEN_MESSAGE, REFRESH_API_URL, REFRESH_TOKEN_KEY, USER_KEY } from '../../constants';
-import { clearTokens, getAuthErrorDetails, setTokens } from '../../utils/auth';
+import TokenUtil, { clearTokens, getAuthErrorDetails, setTokens } from '../../utils/auth';
 
 /**
  * [setupAuthInterceptor]
@@ -20,35 +20,17 @@ import { clearTokens, getAuthErrorDetails, setTokens } from '../../utils/auth';
  * 
  */
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
-// 리프레시 토큰 요청을 위한 별도의 axios 인스턴스
-const refreshAxiosInstance = axios.create();
-
-export const refreshTokenRequest = async (accessToken, refreshToken) => {
-    try {
-        const response = await refreshAxiosInstance.post(BASE_URL + REFRESH_API_URL,
-            { accessToken, refreshToken },
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-        );
-        return response.data;
-    } catch (error) {
-        console.error('Token refresh failed:', error.response?.data || error.message);
-        throw new Error('토큰 갱신 실패');
-    }
+export const setupAxiosDefaults = () => {
+    axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+    axios.defaults.timeout = 10000; //10초
+    axios.defaults.headers.common['Content-Type'] = 'application/json';
 };
 
 export const setupAuthInterceptor = () => {
-    console.log('==========================요청/응답 인터셉트 셋팅 실행');
-
-    axios.interceptors.request.use( // 요청 인터셉트
+    axios.interceptors.request.use(
         (config) => {
-            const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
-            if (accessToken) { // 모든 요청헤더에 자동으로 액세스 토큰을 추가.
+            const { accessToken } = TokenUtil.getTokens();
+            if (accessToken) {
                 config.headers['Authorization'] = `Bearer ${accessToken}`;
             }
             return config;
@@ -56,43 +38,23 @@ export const setupAuthInterceptor = () => {
         (error) => Promise.reject(error)
     );
 
-    axios.interceptors.response.use( // 응답 인터셉트
-        (response) => response, // 성공적인 응답은 그대로 반환
 
+    axios.interceptors.response.use(
+        (response) => response,
         async (error) => {
             const originalRequest = error.config;
 
             const { needsAccessTokenRefresh } = getAuthErrorDetails(error);
-
-            if (needsAccessTokenRefresh && !originalRequest._retry) { // access token 만료의 상황. _retry 플래그
+            if (needsAccessTokenRefresh && !originalRequest._retry) {
                 originalRequest._retry = true;
-                try {
-                    const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
-                    if (!refreshToken) { // 저장된 refreshToken 없음
-                        throw new Error(NO_REFRESH_TOKEN_MESSAGE);
-                    }
-
-                    // token 갱신 요청
-                    const { accessToken: newAccessToken, refreshToken: newRefreshToken } = await refreshTokenRequest(refreshToken);
-                    setTokens(newAccessToken, newRefreshToken);
-
-                    axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`; // header 재 셋팅
-
-                    return axios(originalRequest); // 원래 요청 재 수행.
-                } catch (refreshError) {
-                    clearTokens();
-                    return Promise.reject(refreshError); // refresh token이 없거나 만료된 상태이므로 clear (로그아웃)
+                const refreshed = await useAuthStore.getState().refreshAccessToken();
+                if (refreshed) {
+                    const { accessToken } = TokenService.getTokens();
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                    return axios(originalRequest);
                 }
             }
             return Promise.reject(error);
         }
     );
-};
-
-
-export const setupAxiosDefaults = () => {
-    console.log('==========================axios 기본 셋팅 실행');
-    axios.defaults.baseURL = BASE_URL;
-    axios.defaults.timeout = 10000; // 10 seconds
-    axios.defaults.headers.common['Content-Type'] = 'application/json';
 };

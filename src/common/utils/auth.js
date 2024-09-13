@@ -15,24 +15,23 @@ import {
     USER_ROLE,
 } from '../constants';
 
-// 토큰 관리 함수들
-export const setTokens = (accessToken, refreshToken) => {
-    localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
-    localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
+const TokenUtil = {
+    setTokens: (accessToken, refreshToken) => {
+        localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+        localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
+    },
+    getTokens: () => ({
+        accessToken: localStorage.getItem(ACCESS_TOKEN_KEY),
+        refreshToken: localStorage.getItem(REFRESH_TOKEN_KEY),
+    }),
+    clearTokens: () => {
+        localStorage.removeItem(ACCESS_TOKEN_KEY);
+        localStorage.removeItem(REFRESH_TOKEN_KEY);
+        localStorage.removeItem(USER_KEY);
+    },
 };
 
-export const getTokens = () => {
-    return {
-        [ACCESS_TOKEN_KEY]: localStorage.getItem(ACCESS_TOKEN_KEY),
-        [REFRESH_TOKEN_KEY]: localStorage.getItem(REFRESH_TOKEN_KEY),
-    }
-};
-
-export const clearTokens = () => {
-    localStorage.removeItem(ACCESS_TOKEN_KEY);
-    localStorage.removeItem(REFRESH_TOKEN_KEY);
-    localStorage.removeItem(USER_KEY);
-};
+export default TokenUtil;
 
 
 export function getAuthErrorDetails(error) {
@@ -69,7 +68,6 @@ export function getAuthErrorDetails(error) {
     };
 }
 
-// 리다이렉트 로직을 별도의 함수로 분리
 export const getRedirectPath = (role, resetUser) => {
     switch (role) {
         case MANAGER_ROLE:

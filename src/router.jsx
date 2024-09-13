@@ -21,10 +21,15 @@ import {
 } from './common/constants/index';
 import managerRoutes from './manager/router';
 import ManagerRootLayout from './manager/layouts/ManagerRoot';
+import PageLoadingSpinner from './common/components/common/UI/PageLoadingSpinner';
 
 const ProtectedRoute = ({ children, requiredRole }) => {
   // 접근 권한이 필요한 컴포넌트 미들웨어
-  const isAuthorized = useAuth(requiredRole);
+  const { isAuthorized, isLoading } = useAuth(requiredRole);
+  if (isLoading) {
+    return <PageLoadingSpinner />;
+  }
+
   return isAuthorized ? children : <ErrorPage errorState={403} />;
 };
 
