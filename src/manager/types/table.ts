@@ -87,7 +87,8 @@ export interface UserRowContent extends BaseRowContent {
   status: StatusCode;
 }
 
-export interface CampusRowContent extends BaseRowContent {
+export interface CampusRowContent {
+  id: number;
   name: string;
 }
 
@@ -219,5 +220,3 @@ export interface SelectProps {
 export interface SearchAndFilterProps extends FilterSortProps, TableSearchProps {
   selectProps?: SelectProps;
 }
-
-export interface CustomTableProps extends TableContentProps, PaginationsProps, FilterSortProps, MobileSearchProps {}

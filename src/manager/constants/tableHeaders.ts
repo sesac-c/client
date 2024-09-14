@@ -8,8 +8,8 @@ export const userHeader = {
 };
 
 export const campusHeader = {
-  id: { label: 'ID', width: 150 },
-  name: { label: '캠퍼스명', width: 150 }
+  id: { label: 'ID', width: '13%' },
+  name: { label: '캠퍼스명', width: '80%' }
 };
 
 export const courseHeader = {

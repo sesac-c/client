@@ -51,12 +51,14 @@ export const useAuth = (requiredRole) => {
                     let redirectPath = getRedirectPath(user.role, logout);
                     window.alert(UNAUTHORIZED_ACCESS);
                     navigate(redirectPath, { replace: true });
+                    return;
                 }
             } else {
                 const refreshed = await refreshAccessToken();
                 if (!refreshed) {
                     window.alert(LOGIN_REQUIRED);
                     navigate(LOGIN_PATH, { replace: true });
+                    return;
                 } else {
                     setIsAuthorized(true);
                 }

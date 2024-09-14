@@ -1,7 +1,6 @@
 import React from 'react';
 import ContentHeader from '../../common/layout/ContentHeader';
 import { navIcons } from '../../../assets/icon';
-import CustomTable from '../../common/UI/table/CustomTable';
 import {
   FilterConfig,
   FILTERS,
@@ -15,6 +14,10 @@ import {
 import { formatDateToKorean } from '../../../../common/utils';
 import { courseOptionsRequest, userListRequest } from '../../../services/api/user';
 import { transformCourseOptions } from '../../../utils';
+import MobileSearch from '../../common/UI/table/mobile/MobileSearch';
+import { SearchAndFilter } from '../../common/UI/table/TableFilters';
+import TableContent from '../../common/UI/table/TableContent';
+import Paginations from '../../common/UI/table/Paginations';
 
 const page = '사용자 목록 / 관리';
 const breadcrumb = {
@@ -24,7 +27,6 @@ const breadcrumb = {
 
 const UserList: React.FC = () => {
   const [open, setOpen] = React.useState(false);
-  const [campusId, setCampusId] = React.useState<number | null>(null);
   const [filters, setFilters] = React.useState<FilterSortGroup[]>(FILTERS[SearchTitle.USER]);
 
   const [selectedFilters, setSelectedFilters] = React.useState<Record<string, any>>({});
@@ -55,7 +57,6 @@ const UserList: React.FC = () => {
       const { pageNumber, pageSize, totalElements, totalPages, last } = pageInfo;
 
       setCurrentPage({ pageNumber, pageSize, totalElements, totalPages, last });
-      setCampusId(campusId);
 
       setUserData({
         type: RowType.USER,
@@ -141,23 +142,30 @@ const UserList: React.FC = () => {
 
   return (
     <React.Fragment>
+      {/* 페이지 헤더 */}
       <ContentHeader breadcrumb={breadcrumb} pageInfo={{ page: '사용자 목록 / 관리' }} />
-      <CustomTable
-        data={userData}
-        searchTitle={SearchTitle.USER}
-        open={open}
-        setOpen={setOpen}
-        lazyLoadedFilters={filters}
-        selectedFilters={selectedFilters}
-        sortOption={sortOption}
-        onFilterChange={handleFilterChange}
-        onSortChange={handleSortChange}
-        onSearchChange={handleSearchChange}
-        onApplyFilters={handleApplyFilters}
-        page={currentPage}
-        onPageChange={handlePageChange}
-        isLoading={isLoading}
-      />
+
+      {/* 테이블 */}
+      <React.Fragment>
+        <MobileSearch
+          open={open}
+          setOpen={setOpen}
+          searchTitle={SearchTitle.USER}
+          // onSearchChange={onSearchChange}
+        />
+        <SearchAndFilter
+          searchTitle={SearchTitle.USER}
+          onFilterChange={handleFilterChange}
+          sortOption={sortOption}
+          onSortChange={handleSortChange}
+          onSearchChange={handleSearchChange}
+          selectedFilters={selectedFilters}
+          onApplyFilters={handleApplyFilters}
+          lazyLoadedFilters={filters}
+        />
+        <TableContent data={userData} isLoading={isLoading} />
+        <Paginations page={currentPage} onPageChange={handlePageChange} />
+      </React.Fragment>
     </React.Fragment>
   );
 };
