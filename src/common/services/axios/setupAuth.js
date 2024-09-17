@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { ACCESS_TOKEN_KEY, LOGIN_PATH, NO_REFRESH_TOKEN_MESSAGE, REFRESH_API_URL, REFRESH_TOKEN_KEY, USER_KEY } from '../../constants';
 import TokenUtil, { clearTokens, getAuthErrorDetails, setTokens } from '../../utils/auth';
+import useAuthStore from '../../stores/authStore';
 
 /**
  * [setupAuthInterceptor]
@@ -49,7 +50,7 @@ export const setupAuthInterceptor = () => {
                 originalRequest._retry = true;
                 const refreshed = await useAuthStore.getState().refreshAccessToken();
                 if (refreshed) {
-                    const { accessToken } = TokenService.getTokens();
+                    const { accessToken } = TokenUtil.getTokens();
                     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                     return axios(originalRequest);
                 }

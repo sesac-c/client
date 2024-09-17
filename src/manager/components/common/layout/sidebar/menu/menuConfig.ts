@@ -34,10 +34,6 @@ export const menuItems: MenuItem[] = [
         path: ''
       },
       {
-        title: '사용자 승인',
-        path: `${USER_PREFIX}/${MANAGER_USER_CHILDREN_PATH.accept}`
-      },
-      {
         title: '캠퍼스 변경 승인',
         path: `${USER_PREFIX}/${MANAGER_USER_CHILDREN_PATH.campusChangeAccept}`
       }
@@ -49,12 +45,20 @@ export const menuItems: MenuItem[] = [
     path: FEED_PREFIX,
     children: [
       {
-        title: '게시글 목록 / 관리',
-        path: `${FEED_PREFIX}/${MANAGER_FEEDS_CHILDREN_PATH.post}`
+        title: '캠퍼스 게시글 목록 / 관리',
+        path: `${FEED_PREFIX}/${MANAGER_FEEDS_CHILDREN_PATH.campusPost}`
       },
       {
-        title: '공지 목록 / 관리',
-        path: `${FEED_PREFIX}/${MANAGER_FEEDS_CHILDREN_PATH.notice}`
+        title: '전체 게시글 목록 / 관리',
+        path: `${FEED_PREFIX}/${MANAGER_FEEDS_CHILDREN_PATH.allPost}`
+      },
+      {
+        title: '전체 공지 목록 / 관리',
+        path: `${FEED_PREFIX}/${MANAGER_FEEDS_CHILDREN_PATH.allNotice}`
+      },
+      {
+        title: '그룹 공지 목록 / 관리',
+        path: `${FEED_PREFIX}/${MANAGER_FEEDS_CHILDREN_PATH.groupNotice}`
       }
     ]
   },

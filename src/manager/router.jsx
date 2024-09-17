@@ -11,10 +11,12 @@ import { MANAGER_FEEDS_CHILDREN_PATH, MANAGER_RUNNINGMATE_CHILDREN_PATH } from '
 import UserListPage from './pages/User/UserList';
 import CampusListPage from './pages/Campus/CampusList';
 import CourseListPage from './pages/Course/CourseList';
-import PostListPage from './pages/Feed/Post/PostList';
-import NoticeListPage from './pages/Feed/Notice/NoticeList';
 import RunningmateListPage from './pages/Runningmate/RunningmateList';
 import ActivityReportListPage from './pages/Runningmate/ActivityReport/ActivityReportList';
+import CampusPostListPage from './pages/Feed/Post/CampusPostList';
+import AllPostListPage from './pages/Feed/Post/AllPostList';
+import AllNoticeListPage from './pages/Feed/Notice/AllNoticeList';
+import GroupNoticeListPage from './pages/Feed/Notice/GroupNoticeList';
 // ----------------------------------------------------------------------
 
 // TODO: 나중에 lazy loading으로 변경하기
@@ -41,13 +43,21 @@ const managerRoutes = [
     children: [
       // 게시글 관리
       {
-        path: MANAGER_FEEDS_CHILDREN_PATH.post,
-        element: <PostListPage />
+        path: MANAGER_FEEDS_CHILDREN_PATH.campusPost,
+        element: <CampusPostListPage />
+      },
+      {
+        path: MANAGER_FEEDS_CHILDREN_PATH.allPost,
+        element: <AllPostListPage />
       },
       // 공지 관리
       {
-        path: MANAGER_FEEDS_CHILDREN_PATH.notice,
-        element: <NoticeListPage />
+        path: MANAGER_FEEDS_CHILDREN_PATH.allNotice,
+        element: <AllNoticeListPage />
+      },
+      {
+        path: MANAGER_FEEDS_CHILDREN_PATH.groupNotice,
+        element: <GroupNoticeListPage />
       }
     ]
   },
@@ -78,12 +88,12 @@ const managerRoutes = [
   {
     path: MANAGER_RUNNINGMATE_PATH,
     children: [
-      // 게시글 관리
+      // 러닝메이트 관리
       {
         index: true,
         element: <RunningmateListPage />
       },
-      // 공지 관리
+      // 활동보고서 관리
       {
         path: MANAGER_RUNNINGMATE_CHILDREN_PATH.report,
         element: <ActivityReportListPage />

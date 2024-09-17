@@ -41,11 +41,11 @@ const ContentHeader: React.FC<ContentHeaderProps> = ({ breadcrumb, pageInfo }: C
         >
           {breadcrumbTrail.map((trail, idx) =>
             idx !== breadcrumbTrail.length - 1 ? (
-              <Link underline='hover' color='neutral' href='#some-link' sx={{ fontSize: 12, fontWeight: 500 }}>
+              <Link key={trail} underline='hover' color='neutral' sx={{ fontSize: 12, fontWeight: 500 }}>
                 {trail}
               </Link>
             ) : (
-              <Typography color='primary' sx={{ fontWeight: 500, fontSize: 12 }}>
+              <Typography key={trail} color='primary' sx={{ fontWeight: 500, fontSize: 12 }}>
                 {trail}
               </Typography>
             )
@@ -67,7 +67,18 @@ const ContentHeader: React.FC<ContentHeaderProps> = ({ breadcrumb, pageInfo }: C
           {page}
         </Typography>
         {button && (
-          <Button color='primary' startDecorator={button.buttonIcon} size='sm' onClick={button.buttonOnclick}>
+          <Button
+            sx={{
+              backgroundColor: 'var(--joy-palette-success-100, #E3FBE3)',
+              color: 'var(--joy-palette-neutral-800, #171A1C)',
+              ':hover': {
+                bgcolor: 'var(--joy-palette-success-300, #A1E8A1)'
+              }
+            }}
+            startDecorator={button.buttonIcon}
+            size='sm'
+            onClick={button.buttonOnclick}
+          >
             {button.buttonText}
           </Button>
         )}

@@ -1,43 +1,26 @@
 import React from 'react';
 
-import { Input, FormControl, FormLabel, Select, Option, Link, Button } from '@mui/joy';
+import { Input, FormControl, FormLabel, Select, Option, Link, Button, Typography } from '@mui/joy';
 import SearchIcon from '@mui/icons-material/Search';
 import { Box } from '@mui/material';
-import { FILTERS, FilterSortGroup, SearchAndFilterProps, SORTS, TableSearchProps } from '../../../../types';
-
-export const TableSearch: React.FC<TableSearchProps> = ({ searchTitle }) => {
-  return <React.Fragment></React.Fragment>;
-};
+import {
+  FILTERS,
+  FilterSortGroup,
+  FiltersProps,
+  SearchAndFilterProps,
+  SearchInputProps,
+  SORTS,
+  SortsProps
+} from '../../../../types';
 
 export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
-  lazyLoadedFilters,
-  onFilterChange,
-  onSortChange,
-  onSearchChange,
+  searchInputProps,
+  filtersProps,
+  sortsProps,
+
   onApplyFilters,
-  selectedFilters,
-  sortOption,
-  searchTitle
+  buttonText = '적용'
 }) => {
-  const sort = SORTS[searchTitle];
-  const filters = lazyLoadedFilters || FILTERS[searchTitle];
-
-  const handleFilterChange = (name: string) => (event: React.SyntheticEvent | null, newValue: string | null) => {
-    if (newValue !== null) {
-      onFilterChange(name, newValue);
-    }
-  };
-
-  const handleSortChange = (event: React.SyntheticEvent | null, newValue: string | null) => {
-    if (newValue !== null) {
-      onSortChange(newValue);
-    }
-  };
-
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onSearchChange(event.target.value);
-  };
-
   return (
     <Box
       className='SearchAndFilters-tabletUp'
@@ -52,26 +35,69 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
         }
       }}
     >
-      <Input
-        size='sm'
-        sx={{
-          flexGrow: 1,
-          '--Input-focusedInset': 'var(--joy-palette-success-500, #1F7A1F)',
-          '&::before': {
-            transition: 'box-shadow .15s ease-in-out'
-          },
-          '&:focus-within': {
-            borderColor: 'var(--joy-palette-success-500, #1F7A1F)'
-          }
-        }}
-        placeholder={`${searchTitle} 검색`}
-        startDecorator={<SearchIcon />}
-        onChange={handleSearchChange}
-      />
+      {searchInputProps && (
+        <SearchInput onSearchChange={searchInputProps.onSearchChange} searchTitle={searchInputProps.searchTitle} />
+      )}
+      {filtersProps && (
+        <Filters
+          onFilterChange={filtersProps.onFilterChange}
+          searchTitle={filtersProps.searchTitle}
+          selectedFilters={filtersProps.selectedFilters}
+          lazyLoadedFilters={filtersProps.lazyLoadedFilters}
+        />
+      )}
+      {sortsProps && (
+        <Sorts
+          onSortChange={sortsProps.onSortChange}
+          searchTitle={sortsProps.searchTitle}
+          sortOption={sortsProps.sortOption}
+        />
+      )}
+      <Button color='success' onClick={onApplyFilters}>
+        {buttonText}
+      </Button>
+    </Box>
+  );
+};
+
+const SearchInput: React.FC<SearchInputProps> = ({ searchTitle, onSearchChange }) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onSearchChange(event.target.value);
+  };
+  return (
+    <Input
+      size='sm'
+      sx={{
+        flexGrow: 1,
+        '--Input-focusedInset': 'var(--joy-palette-success-500, #1F7A1F)',
+        '&::before': {
+          transition: 'box-shadow .15s ease-in-out'
+        },
+        '&:focus-within': {
+          borderColor: 'var(--joy-palette-success-500, #1F7A1F)'
+        }
+      }}
+      placeholder={`${searchTitle} 검색`}
+      startDecorator={<SearchIcon />}
+      onChange={handleSearchChange}
+    />
+  );
+};
+
+const Filters: React.FC<FiltersProps> = ({ searchTitle, lazyLoadedFilters, selectedFilters, onFilterChange }) => {
+  const filters = lazyLoadedFilters || FILTERS[searchTitle];
+
+  const handleFilterChange = (name: string) => (event: React.SyntheticEvent | null, newValue: string | null) => {
+    if (newValue !== null) {
+      onFilterChange(name, newValue);
+    }
+  };
+  return (
+    <React.Fragment>
       {filters.map((filter: FilterSortGroup) => (
         <FormControl size='sm' key={filter.name}>
           <Select
-            size='sm'
+            size='md'
             placeholder={`${filter.label} 선택`}
             value={selectedFilters[filter.name] ?? null}
             onChange={handleFilterChange(filter.name)}
@@ -79,30 +105,39 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
           >
             {filter.options?.map(option => (
               <Option key={option.value} value={option.value}>
-                {option.label}
+                <Typography level='body-sm'>{option.label}</Typography>
               </Option>
             ))}
           </Select>
         </FormControl>
       ))}
-      <FormControl size='sm'>
-        <Select
-          size='sm'
-          placeholder={`${sort.label}`}
-          value={sortOption || null}
-          onChange={handleSortChange}
-          slotProps={{ button: { sx: { whiteSpace: 'nowrap' } } }}
-        >
-          {sort.options?.map(option => (
-            <Option key={option.value} value={option.value}>
-              {option.label}
-            </Option>
-          ))}
-        </Select>
-      </FormControl>
-      <Button color='success' onClick={onApplyFilters}>
-        적용
-      </Button>
-    </Box>
+    </React.Fragment>
+  );
+};
+
+const Sorts: React.FC<SortsProps> = ({ searchTitle, sortOption, onSortChange }) => {
+  const sort = SORTS[searchTitle];
+
+  const handleSortChange = (event: React.SyntheticEvent | null, newValue: string | null) => {
+    if (newValue !== null) {
+      onSortChange(newValue);
+    }
+  };
+  return (
+    <FormControl size='sm'>
+      <Select
+        size='md'
+        placeholder={`${sort.label}`}
+        value={sortOption || null}
+        onChange={handleSortChange}
+        slotProps={{ button: { sx: { whiteSpace: 'nowrap' } } }}
+      >
+        {sort.options?.map(option => (
+          <Option key={option.value} value={option.value}>
+            <Typography level='body-sm'>{option.label}</Typography>
+          </Option>
+        ))}
+      </Select>
+    </FormControl>
   );
 };

@@ -27,9 +27,13 @@ export const campusFilter = [
 ];
 export const courseFilter = [
   {
-    name: '',
-    label: '',
-    options: [{ value: 0, label: '' }]
+    name: 'status',
+    label: '상태',
+    options: [
+      { value: 'upcoming', label: '강의 예정' },
+      { value: 'ongoing', label: '강의 중' },
+      { value: 'finished', label: '종강' }
+    ]
   }
   // ,...etc: TODO: 구현
 ];

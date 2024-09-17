@@ -38,7 +38,7 @@ export enum SearchTitle {
   CAMPUS = '캠퍼스',
   COURSE = '강의',
   RUNNINGMATE = '러닝메이트',
-  POST = '게시글',
+  POST = '게시글 제목으로',
   NOTICE = '공지'
 }
 
@@ -181,42 +181,41 @@ export interface TableContentProps {
   data: TableData;
   isLoading: boolean;
 }
-export interface TableSearchProps {
-  // search input 컴포넌트
-  // search input 컴포넌트
+
+export interface FiltersProps {
+  // 필터 정렬 props 인터페이스
+  // 필터
   searchTitle: SearchTitle;
+  lazyLoadedFilters?: FilterSortGroup[];
+  selectedFilters: Record<string, any>;
+  onFilterChange: (filterName: string, value: string) => void;
 }
 
-export interface MobileSearchProps extends TableSearchProps {
+export interface SortsProps {
+  searchTitle: SearchTitle;
+  onSortChange: (value: string) => void;
+  sortOption?: string;
+}
+
+export interface SearchInputProps {
+  searchTitle: SearchTitle;
+  onSearchChange: (value: string) => void;
+}
+
+export interface MobileSearchProps {
   // 모바일 검색 props 인터페이스
   // 모바일 검색 props 인터페이스
+  searchTitle: SearchTitle;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-export interface FilterSortProps {
-  // 필터 정렬 props 인터페이스
-  // 필터
-  lazyLoadedFilters?: FilterSortGroup[];
-  onFilterChange: (filterName: string, value: string) => void;
-  selectedFilters: Record<string, any>;
-
-  // 서치(필터)
-  onSearchChange: (value: string) => void;
-  searchTerm?: string;
-
-  // 정렬
-  onSortChange: (value: string) => void;
-  sortOption?: string;
-  onApplyFilters: () => void;
-}
-
 // Select props 인터페이스
-export interface SelectProps {
-  placeholder?: string;
-}
-
 // 전체 검색 및 필터 props 인터페이스
-export interface SearchAndFilterProps extends FilterSortProps, TableSearchProps {
-  selectProps?: SelectProps;
+export interface SearchAndFilterProps {
+  searchInputProps?: SearchInputProps;
+  filtersProps?: FiltersProps;
+  sortsProps?: SortsProps;
+
+  buttonText?: string;
+  onApplyFilters: () => void;
 }

@@ -94,13 +94,14 @@ export const MANAGER_RUNNINGMATE_PATH = 'runningmates';
 
 
 export const MANAGER_USER_CHILDREN_PATH = {
-    accept: 'user-accept',
     campusChangeAccept: 'campus-change-accept'
 };
 
 export const MANAGER_FEEDS_CHILDREN_PATH = {
-    post: 'posts',
-    notice: 'notices'
+    campusPost: 'campus-posts',
+    allPost: 'all-posts',
+    allNotice: 'all-notices',
+    groupNotice: 'group-notices'
 };
 
 export const MANAGER_RUNNINGMATE_CHILDREN_PATH = {

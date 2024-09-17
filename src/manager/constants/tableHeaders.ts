@@ -13,13 +13,12 @@ export const campusHeader = {
 };
 
 export const courseHeader = {
-  id: { label: 'ID', width: 150 },
-  name: { label: '과정명', width: 150 },
-  classNumber: { label: '기수', width: 200 },
-  instructorName: { label: '강사명', width: 150 },
-  startDate: { label: '시작일', width: 200 },
-  endDate: { label: '종료일', width: 100 },
-  createdAt: { label: '생성일', width: 100 }
+  id: { label: 'ID', width: '10%' },
+  name: { label: '과정명', width: '25%' },
+  instructorName: { label: '강사명', width: '12%' },
+  startDate: { label: '시작일', width: '15%' },
+  endDate: { label: '종료일', width: '15%' },
+  createdAt: { label: '생성일', width: '15%' }
 };
 
 export const runningmateHeader = {
@@ -32,21 +31,19 @@ export const runningmateHeader = {
 };
 
 export const postHeader = {
-  id: { label: 'ID', width: 150 },
-  title: { label: '제목', width: 150 },
-  writer: { label: '글쓴이', width: 150 },
-  content: { label: '내용', width: 150 },
-  postType: { label: '카테고리', width: 150 },
-  createdAt: { label: '생성일', width: 150 }
+  id: { label: 'ID', width: '5%' },
+  writer: { label: '글쓴이', width: '13%' },
+  title: { label: '제목', width: '20%' },
+  content: { label: '내용', width: '40%' },
+  createdAt: { label: '생성일', width: '14%' }
 };
 
 export const noticeHeader = {
-  id: { label: 'ID', width: 150 },
-  title: { label: '제목', width: 150 },
-  writer: { label: '매니저', width: 150 },
-  content: { label: '내용', width: 150 },
-  noticeType: { label: '카테고리', width: 150 },
-  createdAt: { label: '생성일', width: 150 }
+  id: { label: 'ID', width: '5%' },
+  writer: { label: '매니저', width: '13%' },
+  title: { label: '제목', width: '20%' },
+  content: { label: '내용', width: '40%' },
+  createdAt: { label: '생성일', width: '14%' }
 };
 
 export const activityReportHeader = {

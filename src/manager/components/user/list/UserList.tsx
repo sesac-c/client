@@ -27,7 +27,8 @@ const breadcrumb = {
 
 const UserList: React.FC = () => {
   const [open, setOpen] = React.useState(false);
-  const [filters, setFilters] = React.useState<FilterSortGroup[]>(FILTERS[SearchTitle.USER]);
+  const userSearchTitle = SearchTitle.USER;
+  const [filters, setFilters] = React.useState<FilterSortGroup[]>(FILTERS[userSearchTitle]);
 
   const [selectedFilters, setSelectedFilters] = React.useState<Record<string, any>>({});
   const [sortOption, setSortOption] = React.useState<string | undefined>(undefined);
@@ -150,18 +151,29 @@ const UserList: React.FC = () => {
         <MobileSearch
           open={open}
           setOpen={setOpen}
-          searchTitle={SearchTitle.USER}
+          searchTitle={userSearchTitle}
           // onSearchChange={onSearchChange}
         />
         <SearchAndFilter
-          searchTitle={SearchTitle.USER}
-          onFilterChange={handleFilterChange}
-          sortOption={sortOption}
-          onSortChange={handleSortChange}
-          onSearchChange={handleSearchChange}
-          selectedFilters={selectedFilters}
+          // search
+          searchInputProps={{
+            searchTitle: userSearchTitle,
+            onSearchChange: handleSearchChange
+          }}
+          // filter
+          filtersProps={{
+            searchTitle: userSearchTitle,
+            lazyLoadedFilters: filters,
+            selectedFilters: selectedFilters,
+            onFilterChange: handleFilterChange
+          }}
+          // sort
+          sortsProps={{
+            searchTitle: userSearchTitle,
+            sortOption: sortOption,
+            onSortChange: handleSortChange
+          }}
           onApplyFilters={handleApplyFilters}
-          lazyLoadedFilters={filters}
         />
         <TableContent data={userData} isLoading={isLoading} />
         <Paginations page={currentPage} onPageChange={handlePageChange} />
