@@ -100,7 +100,8 @@ export interface CourseRowContent extends BaseRowContent {
   endDate: string;
 }
 
-export interface RunningmateRowContent extends BaseRowContent {
+export interface RunningmateRowContent {
+  id: number;
   name: string;
   subject: string;
   goal: string;

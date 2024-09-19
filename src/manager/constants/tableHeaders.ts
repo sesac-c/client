@@ -22,12 +22,11 @@ export const courseHeader = {
 };
 
 export const runningmateHeader = {
-  id: { label: 'ID', width: 150 },
-  name: { label: '러닝메이트명', width: 150 },
-  subject: { label: '주제', width: 150 },
-  goal: { label: '목표', width: 150 },
-  course: { label: '과정명', width: 150 },
-  createdAt: { label: '생성일', width: 150 }
+  id: { label: 'ID', width: '5%' },
+  name: { label: '러닝메이트명', width: '15%' },
+  subject: { label: '주제', width: '29%' },
+  goal: { label: '목표', width: '29%' },
+  course: { label: '과정명', width: '14%' }
 };
 
 export const postHeader = {

@@ -15,3 +15,7 @@ export interface CourseListRequest extends BasicListRequest {
 export interface FeedListRequest extends BasicListRequest {
   keyword?: string;
 }
+
+export interface RunningmateListRequest extends BasicListRequest {
+  name?: string;
+}
