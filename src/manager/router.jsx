@@ -4,7 +4,8 @@ import {
   MANAGER_USER_PATH,
   MANAGER_FEEDS_PATH,
   MANAGER_COURSE_PATH,
-  MANAGER_RUNNINGMATE_PATH
+  MANAGER_RUNNINGMATE_PATH,
+  MANAGER_RESTAURANT_PATH
 } from '../common/constants';
 import { MANAGER_FEEDS_CHILDREN_PATH, MANAGER_RUNNINGMATE_CHILDREN_PATH } from '../common/constants';
 
@@ -76,6 +77,17 @@ const managerRoutes = [
   // 강의 관리
   {
     path: MANAGER_COURSE_PATH,
+    children: [
+      {
+        index: true,
+        element: <CourseListPage />
+      }
+    ]
+  },
+
+  // 식당 관리
+  {
+    path: MANAGER_RESTAURANT_PATH,
     children: [
       {
         index: true,

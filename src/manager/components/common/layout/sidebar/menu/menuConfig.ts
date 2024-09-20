@@ -4,7 +4,8 @@ import {
   MANAGER_USER_PATH,
   MANAGER_FEEDS_PATH,
   MANAGER_COURSE_PATH,
-  MANAGER_RUNNINGMATE_PATH
+  MANAGER_RUNNINGMATE_PATH,
+  MANAGER_RESTAURANT_PATH
 } from '../../../../../../common/constants';
 
 import {
@@ -21,6 +22,7 @@ const USER_PREFIX = PREFIX + MANAGER_USER_PATH;
 const FEED_PREFIX = PREFIX + MANAGER_FEEDS_PATH;
 const CAMPUS_PREFIX = PREFIX + MANAGER_CAMPUS_PATH;
 const COURSE_PREFIX = PREFIX + MANAGER_COURSE_PATH;
+const RESTAURANT_PREFIX = PREFIX + MANAGER_RESTAURANT_PATH;
 const RUNNINGMATE_PREFIX = PREFIX + MANAGER_RUNNINGMATE_PATH;
 
 export const menuItems: MenuItemWithChildren[] = [
@@ -67,6 +69,10 @@ export const menuItems: MenuItemWithChildren[] = [
     icon: navIcons.runningmate,
     path: RUNNINGMATE_PREFIX,
     children: [
+      {
+        title: '음식점 목록 / 관리',
+        path: `${RESTAURANT_PREFIX}`
+      },
       {
         title: '러닝메이트 목록 / 관리',
         path: `${RUNNINGMATE_PREFIX}`

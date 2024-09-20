@@ -90,6 +90,7 @@ export const MANAGER_USER_PATH = 'users';
 export const MANAGER_FEEDS_PATH = 'feeds';
 export const MANAGER_CAMPUS_PATH = 'campuses';
 export const MANAGER_COURSE_PATH = 'courses';
+export const MANAGER_RESTAURANT_PATH = 'restaurants';
 export const MANAGER_RUNNINGMATE_PATH = 'runningmates';
 
 

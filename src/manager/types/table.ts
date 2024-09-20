@@ -220,3 +220,5 @@ export interface SearchAndFilterProps {
   buttonText?: string;
   onApplyFilters: () => void;
 }
+
+export interface CourseListProps extends MobileSearchProps, SearchAndFilterProps, TableContentProps, PaginationsProps {}
