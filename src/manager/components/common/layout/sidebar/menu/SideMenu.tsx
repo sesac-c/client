@@ -4,12 +4,13 @@ import { bottomMenuItems, menuItems } from './menuConfig';
 import { MenuItem, NestedMenuItem } from './MenuItems';
 import { navIcons } from '../../../../../assets/icon';
 import ColorSchemeToggle from '../../../UI/ColorSchemeToggle';
-interface MainMenuListProps {
-  activeItem: string | null;
-  expandedItems: Set<string>;
-  handleMenuItemClick: (title: string, path: string) => void;
-  toggleExpanded: (title: string) => void;
-}
+import {
+  MainMenuListProps,
+  MenuItemWithChildren,
+  BottomButtonGroupMenuProps,
+  BottomButtonGroupMenuItem,
+  SideMenuProps
+} from '../../../../../types';
 
 const MainMenuList: React.FC<MainMenuListProps> = ({
   activeItem,
@@ -17,7 +18,7 @@ const MainMenuList: React.FC<MainMenuListProps> = ({
   handleMenuItemClick,
   toggleExpanded
 }) => {
-  const renderMenuItem = (item: MenuItem) => {
+  const renderMenuItem = (item: MenuItemWithChildren) => {
     if (item.children) {
       return (
         <NestedMenuItem
@@ -50,58 +51,6 @@ const MainMenuList: React.FC<MainMenuListProps> = ({
       {menuItems.map(renderMenuItem)}
     </List>
   );
-};
-
-interface BottomMenuProps {
-  handleLogout: () => void;
-  activeItem: string | null;
-  handleMenuItemClick: (title: string, path: string) => void;
-}
-
-const BottomMenu: React.FC<BottomMenuProps> = ({ activeItem, handleMenuItemClick, handleLogout }) => {
-  const renderMenuItem = (item: MenuItem) => {
-    return (
-      <MenuItem key={item.title} item={item} isActive={activeItem === item.title} onItemClick={handleMenuItemClick} />
-    );
-  };
-
-  return (
-    <List
-      size='sm'
-      sx={{
-        mt: 'auto',
-        flexGrow: 0,
-        '--ListItem-radius': theme => theme.vars.radius.sm,
-        '--List-gap': '8px'
-      }}
-    >
-      {bottomMenuItems.map(renderMenuItem)}
-      <MenuItem
-        item={{
-          title: '로그아웃',
-          icon: navIcons.logout,
-          path: ''
-        }}
-        onItemClick={handleLogout}
-        isActive={false}
-      />
-    </List>
-  );
-};
-type BottomButtonGroupMenuItem = {
-  title: string;
-  icon: keyof typeof navIcons;
-  path: string;
-};
-
-type BottomButtonGroupMenuProps = {
-  activeItem: string | null;
-  handleMenuItemClick: (arg0: string, arg1: string) => void;
-  handleLogout: () => void;
-  loginUser: {
-    role?: string;
-    nickname: string;
-  };
 };
 
 const BottomButtonGroupMenu: React.FC<BottomButtonGroupMenuProps> = ({
@@ -153,21 +102,6 @@ const BottomButtonGroupMenu: React.FC<BottomButtonGroupMenuProps> = ({
     </ButtonGroup>
   );
 };
-
-export interface SideMenuProps {
-  activeItem: string | null;
-  expandedItems: Set<string>;
-  handleMenuItemClick: (title: string, path: string) => void;
-  listItemButtonClasses: {
-    root: string;
-  };
-  toggleExpanded: (title: string) => void;
-  loginUser: {
-    role?: string;
-    nickname: string;
-  };
-  handleLogout: () => void;
-}
 
 const SideMenu: React.FC<SideMenuProps> = ({
   activeItem,

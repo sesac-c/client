@@ -5,24 +5,7 @@ import Typography from '@mui/joy/Typography';
 import Link from '@mui/joy/Link';
 import { Breadcrumbs } from '@mui/joy';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
-
-interface Breadcrumb {
-  homeIcon: JSX.Element;
-  breadcrumbTrail: string[];
-}
-
-interface PageInfo {
-  page: String;
-  button?: {
-    buttonText?: String;
-    buttonIcon?: JSX.Element;
-    buttonOnclick?: () => void;
-  };
-}
-interface ContentHeaderProps {
-  breadcrumb: Breadcrumb;
-  pageInfo: PageInfo;
-}
+import { ContentHeaderProps } from '../../../types';
 
 const ContentHeader: React.FC<ContentHeaderProps> = ({ breadcrumb, pageInfo }: ContentHeaderProps) => {
   const { homeIcon, breadcrumbTrail } = breadcrumb;

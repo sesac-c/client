@@ -5,14 +5,12 @@ import useAuthStore from '../../../../../common/stores/authStore';
 
 import GlobalStyles from '@mui/joy/GlobalStyles';
 import Box from '@mui/joy/Box';
-import Divider from '@mui/joy/Divider';
 import Sheet from '@mui/joy/Sheet';
 import { listItemButtonClasses } from '@mui/joy/ListItemButton';
 
 import { closeSidebar } from '../../../../utils';
-import { MenuItem } from './menu/MenuItems';
+import { MenuItemWithChildren } from '../../../../types';
 import { menuItems, bottomMenuItems } from './menu/menuConfig';
-import LoginUser from './LoginUser';
 import SidebarHeader from './SidebarHeader';
 import SideMenu from './menu/SideMenu';
 
@@ -26,7 +24,7 @@ const Sidebar: React.FC = () => {
 
   useEffect(() => {
     const currentPath = location.pathname;
-    const findActiveItem = (items: MenuItem[]): string | null => {
+    const findActiveItem = (items: MenuItemWithChildren[]): string | null => {
       for (const item of items) {
         if (item.path === currentPath) {
           return item.title;
