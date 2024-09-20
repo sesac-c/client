@@ -126,13 +126,12 @@ const Sidebar: React.FC = () => {
         handleMenuItemClick={handleMenuItemClick}
         listItemButtonClasses={listItemButtonClasses}
         toggleExpanded={toggleExpanded}
+        loginUser={user}
         handleLogout={() => {
           const confirmLogout = confirm('정말 로그아웃하시겠습니까?');
           if (confirmLogout) logout();
         }}
       />
-      <Divider />
-      <LoginUser loginUser={user} />
     </Sheet>
   );
 };

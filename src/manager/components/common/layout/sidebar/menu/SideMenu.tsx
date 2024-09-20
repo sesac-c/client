@@ -1,10 +1,9 @@
 import React from 'react';
-import { Box, List } from '@mui/joy';
+import { Box, List, ButtonGroup, Button, IconButton, Typography } from '@mui/joy';
 import { bottomMenuItems, menuItems } from './menuConfig';
 import { MenuItem, NestedMenuItem } from './MenuItems';
-import { ListItemButton } from '@mui/material';
 import { navIcons } from '../../../../../assets/icon';
-
+import ColorSchemeToggle from '../../../UI/ColorSchemeToggle';
 interface MainMenuListProps {
   activeItem: string | null;
   expandedItems: Set<string>;
@@ -89,6 +88,71 @@ const BottomMenu: React.FC<BottomMenuProps> = ({ activeItem, handleMenuItemClick
     </List>
   );
 };
+type BottomButtonGroupMenuItem = {
+  title: string;
+  icon: keyof typeof navIcons;
+  path: string;
+};
+
+type BottomButtonGroupMenuProps = {
+  activeItem: string | null;
+  handleMenuItemClick: (arg0: string, arg1: string) => void;
+  handleLogout: () => void;
+  loginUser: {
+    role?: string;
+    nickname: string;
+  };
+};
+
+const BottomButtonGroupMenu: React.FC<BottomButtonGroupMenuProps> = ({
+  activeItem,
+  handleMenuItemClick,
+  handleLogout,
+  loginUser
+}) => {
+  const renderMenuItem = (item: BottomButtonGroupMenuItem) => {
+    return (
+      <IconButton
+        key={item.title}
+        onClick={() => handleMenuItemClick(item.title, item.path)}
+        variant={activeItem === item.title ? 'solid' : 'plain'}
+      >
+        {navIcons[item.icon]}
+      </IconButton>
+    );
+  };
+
+  return (
+    <ButtonGroup
+      variant='soft'
+      aria-label='soft button group'
+      sx={{
+        width: '100%',
+        '& > *': {
+          flex: 1
+        }
+      }}
+    >
+      <Button>
+        <Typography
+          level='body-sm'
+          sx={{
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+          }}
+        >
+          {loginUser?.nickname}
+        </Typography>
+      </Button>
+      <ColorSchemeToggle />
+      {bottomMenuItems.map(renderMenuItem)}
+      <IconButton onClick={handleLogout} variant='plain'>
+        {navIcons.logout}
+      </IconButton>
+    </ButtonGroup>
+  );
+};
 
 export interface SideMenuProps {
   activeItem: string | null;
@@ -98,6 +162,10 @@ export interface SideMenuProps {
     root: string;
   };
   toggleExpanded: (title: string) => void;
+  loginUser: {
+    role?: string;
+    nickname: string;
+  };
   handleLogout: () => void;
 }
 
@@ -107,7 +175,8 @@ const SideMenu: React.FC<SideMenuProps> = ({
   handleMenuItemClick,
   listItemButtonClasses,
   toggleExpanded,
-  handleLogout
+  handleLogout,
+  loginUser
 }) => {
   return (
     <Box
@@ -128,7 +197,12 @@ const SideMenu: React.FC<SideMenuProps> = ({
         handleMenuItemClick={handleMenuItemClick}
         toggleExpanded={toggleExpanded}
       />
-      <BottomMenu activeItem={activeItem} handleMenuItemClick={handleMenuItemClick} handleLogout={handleLogout} />
+      <BottomButtonGroupMenu
+        activeItem={activeItem}
+        handleMenuItemClick={handleMenuItemClick}
+        handleLogout={handleLogout}
+        loginUser={loginUser}
+      />
     </Box>
   );
 };

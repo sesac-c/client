@@ -18,8 +18,8 @@ const ColorSchemeToggle: React.FC<IconButtonProps> = ({ onClick, sx, ...other })
     <IconButton
       data-screenshot='toggle-mode'
       size='sm'
-      variant='soft'
-      color='neutral'
+      variant='plain'
+      // color='neutral'
       {...other}
       onClick={event => {
         if (mode === 'light') {
