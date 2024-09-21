@@ -3,8 +3,8 @@ import { navIcons } from '../../../../assets/icon';
 
 const page = '러닝메이트 활동 보고서 관리';
 const breadcrumb = {
-  homeIcon: navIcons.runningmate,
-  breadcrumbTrail: ['러닝메이트 관리', page]
+  homeIcon: navIcons.group,
+  breadcrumbTrail: ['그룹 관리', page]
 };
 const ActivityReportList = () => {
   return <ContentHeader breadcrumb={breadcrumb} pageInfo={{ page }} />;

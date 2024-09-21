@@ -69,3 +69,11 @@ export const activityReportFilter = [
   }
   // ,...etc: TODO: 구현
 ];
+export const restaurantFilter = [
+  {
+    name: '',
+    label: '',
+    options: [{ value: 0, label: '' }]
+  }
+  // ,...etc: TODO: 구현
+];

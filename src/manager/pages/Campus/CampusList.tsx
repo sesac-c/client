@@ -1,18 +1,16 @@
 import React from 'react';
 import ContentHeader from '../../components/common/layout/ContentHeader';
 import CampusList from '../../components/campus/list/CampusList';
-import { addIcon, navIcons } from '../../assets/icon';
+import { navIcons } from '../../assets/icon';
 import { useCampusListData } from '../../hooks/campus';
+import CampusRegisterModal from '../../components/campus/register/CampusRegisterModal';
 
 const page = '캠퍼스 관리';
 const breadcrumb = {
   homeIcon: navIcons.campus,
   breadcrumbTrail: [page]
 };
-const button = {
-  buttonText: '캠퍼스 등록',
-  buttonIcon: addIcon
-};
+
 const CampusListPage = () => {
   const [open, setOpen] = React.useState(false);
   const { campusSearchTitle, campusData, isLoading, handleAddCampus } = useCampusListData();
@@ -21,7 +19,7 @@ const CampusListPage = () => {
       {/* 페이지 헤더 */}
       <ContentHeader
         breadcrumb={breadcrumb}
-        pageInfo={{ page, button: { ...button, buttonOnclick: handleAddCampus } }}
+        pageInfo={{ page, register: React.createElement(CampusRegisterModal, { handleClick: handleAddCampus }) }}
       />
 
       {/* 테이블 */}

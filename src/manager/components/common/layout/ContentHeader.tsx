@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Box from '@mui/joy/Box';
-import Button from '@mui/joy/Button';
 import Typography from '@mui/joy/Typography';
 import Link from '@mui/joy/Link';
 import { Breadcrumbs } from '@mui/joy';
@@ -9,7 +8,7 @@ import { ContentHeaderProps } from '../../../types';
 
 const ContentHeader: React.FC<ContentHeaderProps> = ({ breadcrumb, pageInfo }: ContentHeaderProps) => {
   const { homeIcon, breadcrumbTrail } = breadcrumb;
-  const { page, button } = pageInfo;
+  const { page, register } = pageInfo;
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -49,22 +48,7 @@ const ContentHeader: React.FC<ContentHeaderProps> = ({ breadcrumb, pageInfo }: C
         <Typography level='h3' component='h1'>
           {page}
         </Typography>
-        {button && (
-          <Button
-            sx={{
-              backgroundColor: 'var(--joy-palette-success-100, #E3FBE3)',
-              color: 'var(--joy-palette-neutral-800, #171A1C)',
-              ':hover': {
-                bgcolor: 'var(--joy-palette-success-300, #A1E8A1)'
-              }
-            }}
-            startDecorator={button.buttonIcon}
-            size='sm'
-            onClick={button.buttonOnclick}
-          >
-            {button.buttonText}
-          </Button>
-        )}
+        {register && register}
       </Box>
     </>
   );

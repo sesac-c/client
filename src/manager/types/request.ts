@@ -19,3 +19,7 @@ export interface FeedListRequest extends BasicListRequest {
 export interface RunningmateListRequest extends BasicListRequest {
   name?: string;
 }
+
+export interface RestaurantListRequest {
+  name?: string;
+}

@@ -5,7 +5,8 @@ import {
   MANAGER_FEEDS_PATH,
   MANAGER_COURSE_PATH,
   MANAGER_RUNNINGMATE_PATH,
-  MANAGER_RESTAURANT_PATH
+  MANAGER_RESTAURANT_PATH,
+  MANAGER_RESTAURANT_CHILDREN_PATH
 } from '../common/constants';
 import { MANAGER_FEEDS_CHILDREN_PATH, MANAGER_RUNNINGMATE_CHILDREN_PATH } from '../common/constants';
 
@@ -18,6 +19,8 @@ import CampusPostListPage from './pages/Feed/Post/CampusPostList';
 import AllPostListPage from './pages/Feed/Post/AllPostList';
 import AllNoticeListPage from './pages/Feed/Notice/AllNoticeList';
 import GroupNoticeListPage from './pages/Feed/Notice/GroupNoticeList';
+import RestaurantListPage from './pages/Restaurant/RestaurantList';
+import RestaurantRegisterPage from './pages/Restaurant/RestaurantRegister';
 // ----------------------------------------------------------------------
 
 // TODO: 나중에 lazy loading으로 변경하기
@@ -91,16 +94,20 @@ const managerRoutes = [
     children: [
       {
         index: true,
-        element: <CourseListPage />
+        element: <RestaurantListPage />
+      },
+      {
+        path: MANAGER_RESTAURANT_CHILDREN_PATH.register,
+        element: <RestaurantRegisterPage />
       }
     ]
   },
 
-  // 러닝메이트 관리
+  // 그룹 관리
   {
     path: MANAGER_RUNNINGMATE_PATH,
     children: [
-      // 러닝메이트 관리
+      // 그룹 관리
       {
         index: true,
         element: <RunningmateListPage />

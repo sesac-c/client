@@ -2,17 +2,13 @@ import React from 'react';
 import { useCourseListData } from '../../hooks/course';
 import CourseList from '../../components/course/list/CourseList';
 import ContentHeader from '../../components/common/layout/ContentHeader';
-import { navIcons, addIcon } from '../../assets/icon';
-import { SearchTitle } from '../../types';
+import { navIcons } from '../../assets/icon';
+import CourseRegisterModal from '../../components/course/register/CourseRegisterModal';
 
 const page = '강의 관리';
 const breadcrumb = {
   homeIcon: navIcons.course,
   breadcrumbTrail: [page]
-};
-const button = {
-  buttonText: '강의 등록',
-  buttonIcon: addIcon
 };
 const CourseListPage = () => {
   const [open, setOpen] = React.useState(false);
@@ -36,7 +32,7 @@ const CourseListPage = () => {
       {/* 페이지 헤더 */}
       <ContentHeader
         breadcrumb={breadcrumb}
-        pageInfo={{ page, button: { ...button, buttonOnclick: handleAddCourse } }}
+        pageInfo={{ page, register: React.createElement(CourseRegisterModal, { handleClick: handleAddCourse }) }}
       />
       {/* 테이블 */}
       <CourseList

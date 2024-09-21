@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { MANAGER_COURSE_LIST_API_URL } from '../../../common/constants';
-import { CourseListRequest } from '@/manager/types';
+import { CourseListRequest } from '../../types';
 
 export const courseListRequest = async (params: CourseListRequest) => {
   try {

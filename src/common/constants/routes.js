@@ -108,3 +108,7 @@ export const MANAGER_FEEDS_CHILDREN_PATH = {
 export const MANAGER_RUNNINGMATE_CHILDREN_PATH = {
     report: 'activity-reports'
 };
+
+export const MANAGER_RESTAURANT_CHILDREN_PATH = {
+    register: 'register'
+};

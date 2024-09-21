@@ -1,7 +1,7 @@
 import React from 'react';
 import { Avatar, Box, Typography } from '@mui/joy';
 import ColorSchemeToggle from '../../UI/ColorSchemeToggle';
-import { LoginUserProps } from '@/manager/types';
+import { LoginUserProps } from '../../../../types';
 
 const LoginUser: React.FC<LoginUserProps> = ({ loginUser }) => {
   return (

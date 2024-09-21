@@ -1,19 +1,16 @@
 import React from 'react';
 import FeedList from '../../../components/feed/list/FeedList';
-import { navIcons, addIcon } from '../../../assets/icon';
+import { navIcons } from '../../../assets/icon';
 import ContentHeader from '../../../components/common/layout/ContentHeader';
 import { useFeedListData } from '../../../hooks/feed';
 import { RowType } from '../../../types';
 import { allNoticeListRequest } from '../../../services/api';
+import NoticeRegisterModal from '../../../components/feed/register/NoticeRegisterModal';
 
 const page = '전체 공지 관리';
 const breadcrumb = {
   homeIcon: navIcons.feed,
   breadcrumbTrail: ['피드 관리', page]
-};
-const button = {
-  buttonText: '전체 공지 등록',
-  buttonIcon: addIcon
 };
 const AllNoticeListPage: React.FC = () => {
   const [open, setOpen] = React.useState(false);
@@ -38,7 +35,13 @@ const AllNoticeListPage: React.FC = () => {
       {/* 페이지 헤더 */}
       <ContentHeader
         breadcrumb={breadcrumb}
-        pageInfo={{ page, button: { ...button, buttonOnclick: handleAddAllNotice } }}
+        pageInfo={{
+          page,
+          register: React.createElement(NoticeRegisterModal, {
+            handleClick: handleAddAllNotice,
+            type: '전체'
+          })
+        }}
       />
 
       {/* 테이블 */}

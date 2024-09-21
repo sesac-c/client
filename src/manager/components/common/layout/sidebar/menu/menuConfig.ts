@@ -66,11 +66,11 @@ export const menuItems: MenuItemWithChildren[] = [
   },
   {
     title: '그룹 관리',
-    icon: navIcons.runningmate,
+    icon: navIcons.group,
     path: RUNNINGMATE_PREFIX,
     children: [
       {
-        title: '음식점 목록 / 관리',
+        title: '식당 목록 / 관리',
         path: `${RESTAURANT_PREFIX}`
       },
       {

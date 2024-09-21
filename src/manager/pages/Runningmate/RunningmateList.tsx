@@ -2,16 +2,13 @@ import React from 'react';
 import RunningmateList from '../../components/runningmate/list/RunningmateList';
 import { useRunningmateListData } from '../../hooks/runningmate';
 import ContentHeader from '../../components/common/layout/ContentHeader';
-import { navIcons, addIcon } from '../../assets/icon';
+import { navIcons } from '../../assets/icon';
+import RunningmateRegisterModal from '../../components/runningmate/register/RunningmateRegisterModal';
 
 const page = '러닝메이트 목록 / 관리';
 const breadcrumb = {
-  homeIcon: navIcons.runningmate,
-  breadcrumbTrail: ['러닝메이트 관리', page]
-};
-const button = {
-  buttonText: '러닝메이트 등록',
-  buttonIcon: addIcon
+  homeIcon: navIcons.group,
+  breadcrumbTrail: ['그룹 관리', page]
 };
 
 const RunningmateListPage = () => {
@@ -34,7 +31,12 @@ const RunningmateListPage = () => {
       {/* 페이지 헤더 */}
       <ContentHeader
         breadcrumb={breadcrumb}
-        pageInfo={{ page, button: { ...button, buttonOnclick: handleAddRunningmate } }}
+        pageInfo={{
+          page,
+          register: React.createElement(RunningmateRegisterModal, {
+            handleClick: handleAddRunningmate
+          })
+        }}
       />
 
       {/* 테이블 */}
