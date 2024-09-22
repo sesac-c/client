@@ -1,17 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RegisterModal from '../../common/UI/RegisterModal';
 import { RegisterFormItem, RegisterInstanceModalProps } from '../../../types';
-import { FormControl } from '@mui/joy';
+import { Button, FormControl } from '@mui/joy';
 import RegisterInput from '../../common/UI/RegisterInput';
+import DaumPost from '../../common/DaumPost';
 
 const form = [
   {
     label: '식당 이름',
     name: 'name'
-  },
-  {
-    label: '주소',
-    name: 'address'
   },
   {
     label: '카테고리',
@@ -23,7 +20,10 @@ const form = [
   }
 ];
 
-const RestaurantRegisterForm: React.FC = () => {
+const RestaurantRegisterForm: React.FC<{
+  address: string;
+  setAddress: (address: string) => void;
+}> = ({ address, setAddress }) => {
   const renderInputs = (item: RegisterFormItem) => {
     return (
       <FormControl key={item.name}>
@@ -32,9 +32,15 @@ const RestaurantRegisterForm: React.FC = () => {
     );
   };
 
-  return <div>{form.map(renderInputs)}</div>;
+  return (
+    <div>
+      {form.map(renderInputs)}
+      <DaumPost value={address} setFuc={setAddress} />
+    </div>
+  );
 };
 const RestaurantRegisterModal: React.FC<RegisterInstanceModalProps> = ({ handleClick }) => {
+  const [address, setAddress] = useState('');
   return (
     <RegisterModal
       registerButtonText='식당 등록'
@@ -43,7 +49,10 @@ const RestaurantRegisterModal: React.FC<RegisterInstanceModalProps> = ({ handleC
       }}
       submit={{
         handleClick: handleClick,
-        form: React.createElement(RestaurantRegisterForm)
+        form: React.createElement(RestaurantRegisterForm, {
+          address: address,
+          setAddress: setAddress
+        })
       }}
     />
   );
