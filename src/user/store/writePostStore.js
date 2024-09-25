@@ -9,10 +9,12 @@ const useWritePostStore = create((set, get) => ({
     content: '',
     image: null,
     hashtags: [],
+    isPostUpdate: false,
 
     setTitle: (title) => set({ title }),
     setContent: (content) => set({ content }),
     setImage: (image) => set({ image }),
+    setIsPostUpdate: (isPostUpdate) => set({ isPostUpdate }),
 
     addHashtag: (hashtag) => {
         const { hashtags } = get();

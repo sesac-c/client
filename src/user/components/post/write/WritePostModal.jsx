@@ -14,21 +14,24 @@ const TITLE = '글쓰기';
 const BUTTON_SIZE = 'large';
 
 const WritePostModal = React.memo(({ onClose }) => {
-  const { title, content, image, hashtags, isCompleteButtonEnabled, resetStore } = useWritePostStore();
+  const { title, content, image, hashtags, isCompleteButtonEnabled, resetStore, isPostUpdate, setIsPostUpdate } =
+    useWritePostStore();
 
   const { openModal: openErrorModal, closeModal } = useModal(() => (
     <ProcessErrorModal title={`${TITLE} 실패`} onClose={closeModal} />
   ));
 
-  const handleComplete = useCallback(() => {
-    // 여기에 글 작성 완료 로직 추가
-    console.log({ title, content, hashtags, image });
-
-    postsCampusCreate({ title, content, hashtag: hashtags, image });
-
-    resetStore();
-    onClose();
-  }, [title, content, hashtags, image, resetStore, onClose]);
+  const handleComplete = useCallback(async () => {
+    try {
+      await postsCampusCreate({ title, content, hashtag: hashtags, image });
+      setIsPostUpdate(true);
+      resetStore();
+      onClose();
+    } catch (error) {
+      // 에러 핸들링
+      openErrorModal();
+    }
+  }, [title, content, hashtags, image, resetStore, onClose, setIsPostUpdate, openErrorModal]);
 
   const handleClose = useCallback(() => {
     resetStore();

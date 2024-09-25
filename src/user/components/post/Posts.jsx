@@ -7,9 +7,12 @@ import { useNavigateHandler } from '../../../common/hooks';
 
 import { formatDateToKorean } from '../../../common/utils/formatter';
 import { postsCampusList } from '../../services/api/posts.js';
+import useWritePostStore from '../../store/writePostStore';
+import { useCallback, useEffect } from 'react';
 
 const Post = ({ post }) => {
   const formattedDate = formatDateToKorean(post.createdAt);
+
   console.log(post.image);
   return (
     <div className='post'>
@@ -80,7 +83,9 @@ const Posts = () => {
 
   const [posts, setPosts] = React.useState([]);
 
-  const loadPosts = async params => {
+  const { isPostUpdate, setIsPostUpdate } = useWritePostStore();
+
+  const loadPosts = useCallback(async params => {
     setIsLoading(true);
     try {
       const response = await postsCampusList(params);
@@ -105,16 +110,30 @@ const Posts = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (isPostUpdate) {
+      loadPosts({
+        page: 0,
+        size: 2
+      });
+      setIsPostUpdate(false);
+    }
+  }, [isPostUpdate, loadPosts, setIsPostUpdate]);
+
+  useEffect(() => {
     loadPosts({
       page: 0,
       size: 2
     });
-  }, []);
+  }, [loadPosts]);
 
-  if (posts === undefined || posts.length < 0) {
+  if (isLoading) {
+    return <p className='text-center'>Loading...</p>;
+  }
+
+  if (!posts || posts.length === 0) {
     return <p className='text-center'>등록된 게시글이 없습니다.</p>;
   }
   return (
