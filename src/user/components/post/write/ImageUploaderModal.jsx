@@ -49,7 +49,7 @@ const UploadPrompt = memo(() => (
 ));
 
 const ImageUploader = memo(() => {
-  const { image, handleImageUpload, setImage } = useWritePostStore();
+  const { thumbnail, handleImageUpload, setThumbnail } = useWritePostStore();
 
   const handleFileChange = async event => {
     const file = event.target.files[0];
@@ -61,14 +61,14 @@ const ImageUploader = memo(() => {
   const handleRemoveImage = event => {
     event.preventDefault();
     event.stopPropagation();
-    setImage(null);
+    setThumbnail(null);
   };
 
   return (
     <div className='upload-container'>
       <input type='file' id='fileInput' accept='image/*' onChange={handleFileChange} style={{ display: 'none' }} />
       <label htmlFor='fileInput' className='upload-area'>
-        {image ? <ImagePreview image={image} onRemove={handleRemoveImage} /> : <UploadPrompt />}
+        {thumbnail ? <ImagePreview image={thumbnail} onRemove={handleRemoveImage} /> : <UploadPrompt />}
       </label>
     </div>
   );

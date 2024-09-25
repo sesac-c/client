@@ -7,7 +7,7 @@ import PostLikeButton from './PostLikeButton.jsx';
 import PostAuthor from './PostAuthor.jsx';
 import { PostContent, PostImage } from './PostContent.jsx';
 
-import { dummyPostData } from '../../../_mock';
+import { dummyPostData } from '../../../_mock.js/index.js';
 
 const PostDetailModal = ({ postId, onClose, open = true }) => {
   const [post, setPost] = useState(null);

@@ -1,8 +1,4 @@
-import { navIcons } from '../assets/icon';
-import React from 'react';
-
-// 기본 사용자 타입
-export type User = {
+type loginUser = {
   role?: string;
   nickname: string;
 };

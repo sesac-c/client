@@ -7,15 +7,41 @@ import PostLikeButton from './PostLikeButton.jsx';
 import PostAuthor from './PostAuthor.jsx';
 import { PostContent, PostImage } from './PostContent.jsx';
 
-import { dummyPostData } from '../../../_mock';
+import { postsCampusDetail } from '../../../services/api/posts';
 
 const PostDetailInner = ({ postId }) => {
   const [post, setPost] = useState(null);
+  console.log(postId);
+
+  const loadPost = async postId => {
+    try {
+      const response = await postsCampusDetail(postId);
+      const { data } = response;
+      console.log(data);
+      setPost({
+        image: data.imageUrl,
+        title: data.title,
+        content: data.content,
+        user: {
+          profileImage: data.profileImage,
+          campusName: data.wrtier,
+          nickname: data.wrtier
+        },
+        like: {
+          status: true,
+          count: data.likesCount
+        },
+        replyCount: data.replyCount,
+        createdAt: data.createdAt
+      });
+    } catch (error) {
+      console.error('Failed to fetch post:', error);
+    }
+    console.log(post);
+  };
 
   useEffect(() => {
-    // dummy data
-    const selectedPost = dummyPostData.find(post => post.id === postId);
-    setPost(selectedPost);
+    loadPost(postId);
   }, [postId]);
 
   return (
