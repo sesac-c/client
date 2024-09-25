@@ -9,7 +9,7 @@ import ProcessErrorModal from '../../../../common/components/common/feedback/Pro
 import WritePostContent from './WritePostContent.jsx';
 
 import { WRITE_POST_CONFIRM_MESSAGE, WRITE_MODAL } from '../../../../common/constants';
-
+import { postsCampusCreate } from '../../../services/api/posts';
 const TITLE = '글쓰기';
 const BUTTON_SIZE = 'large';
 
@@ -23,6 +23,9 @@ const WritePostModal = React.memo(({ onClose }) => {
   const handleComplete = useCallback(() => {
     // 여기에 글 작성 완료 로직 추가
     console.log({ title, content, hashtags, image });
+
+    postsCampusCreate({ title, content, hashtag: hashtags, image });
+
     resetStore();
     onClose();
   }, [title, content, hashtags, image, resetStore, onClose]);

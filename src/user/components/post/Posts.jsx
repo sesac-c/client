@@ -5,12 +5,12 @@ import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 
 import { useNavigateHandler } from '../../../common/hooks';
 
-import { dummyPostData } from '../../_mock';
 import { formatDateToKorean } from '../../../common/utils/formatter';
+import { postsCampusList } from '../../services/api/posts.js';
 
-const Post = ({ post, user }) => {
+const Post = ({ post }) => {
   const formattedDate = formatDateToKorean(post.createdAt);
-
+  console.log(post.image);
   return (
     <div className='post'>
       <div className='post-container'>
@@ -38,7 +38,7 @@ const Post = ({ post, user }) => {
                 </div>
                 <div className='meta-info'>
                   <div className='meta-item'>
-                    <span className='meta-text nickname'>{user.nickname}</span>
+                    <span className='meta-text nickname'>{post.nickname}</span>
                   </div>
                   <div className='meta-separator' />
                   <div className='meta-item'>
@@ -68,8 +68,52 @@ const Post = ({ post, user }) => {
   );
 };
 
-const Posts = ({ posts = dummyPostData }) => {
-  // TODO: dummyPostData 삭제
+const Posts = () => {
+  const [isLoading, setIsLoading] = React.useState(true);
+  // const [currentPage, setCurrentPage] = React.useState({
+  //   pageNumber: 0,
+  //   pageSize: 10,
+  //   totalElements: 0,
+  //   totalPages: 0,
+  //   last: false
+  // });
+
+  const [posts, setPosts] = React.useState([]);
+
+  const loadPosts = async params => {
+    setIsLoading(true);
+    try {
+      const response = await postsCampusList(params);
+      const { data } = response;
+      console.log(data);
+      setPosts(
+        data.map(post => ({
+          id: post.id,
+          title: post.title,
+          nickname: post.writer,
+          content: post.content,
+          likesCount: post.likesCount,
+          replyCount: post.replyCount,
+          hashtag: post.tags,
+          createdAt: post.createdAt,
+          image: post.imageUrl
+        }))
+      );
+    } catch (error) {
+      console.error('Failed to fetch posts:', error);
+      // 에러 처리 로직 추가
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  React.useEffect(() => {
+    loadPosts({
+      page: 0,
+      size: 2
+    });
+  }, []);
+
   if (posts === undefined || posts.length < 0) {
     return <p className='text-center'>등록된 게시글이 없습니다.</p>;
   }
