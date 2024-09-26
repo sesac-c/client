@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 import { MAX_HASHTAGS } from '../../common/constants';
 
-import { upload } from '../services/api/posts';
+import { removeImage, uploadImage } from '../services/api/posts';
 
 const useWritePostStore = create((set, get) => ({
   title: '',
@@ -36,7 +36,7 @@ const useWritePostStore = create((set, get) => ({
 
   handleImageUpload: async file => {
     try {
-      const response = await upload(file);
+      const response = await uploadImage(file);
       const { data } = response;
 
       if (!data && !data.length) {
@@ -48,7 +48,18 @@ const useWritePostStore = create((set, get) => ({
       set({ image: `${image.uuid}_${image.fileName}` });
       set({ thumbnail: image.link });
     } catch (error) {
-      console.error('Image processing failed:', error);
+      console.error('Image upload failed:', error);
+    }
+  },
+
+  handleImageRemove: async file => {
+    try {
+      await removeImage(file);
+
+      set({ image: null });
+      set({ thumbnail: null });
+    } catch (error) {
+      console.error('Image remove failed:', error);
     }
   },
 
@@ -69,7 +80,8 @@ const useWritePostStore = create((set, get) => ({
   // Getter 함수들
   getTitleLength: () => get().title.length,
   getContentLength: () => get().content.length,
-  getHashtagCount: () => get().hashtags.length
+  getHashtagCount: () => get().hashtags.length,
+  getThumbnail: () => `${process.env.REACT_APP_API_BASE_URL}view/${get().thumbnail}`
 }));
 
 export default useWritePostStore;

@@ -40,7 +40,7 @@ export const replyList = async postId => {
   }
 };
 
-export const upload = async file => {
+export const uploadImage = async file => {
   try {
     // FormData 생성
     const formData = new FormData();
@@ -51,6 +51,14 @@ export const upload = async file => {
         'Content-Type': 'multipart/form-data'
       }
     });
+    return response;
+  } catch (error) {
+    console.error('Failed to upload: ', error);
+  }
+};
+export const removeImage = async fileName => {
+  try {
+    const response = await axios.delete(`/remove/${fileName}`);
     return response;
   } catch (error) {
     console.error('Failed to upload: ', error);

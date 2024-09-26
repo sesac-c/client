@@ -31,7 +31,7 @@ export const ImageUploaderOpenButton = () => {
 const ImagePreview = memo(({ image, onRemove }) => (
   <div className='preview-container'>
     <div className='preview-image-wrapper'>
-      <img src={`${process.env.REACT_APP_API_BASE_URL}view/${image}`} alt='Preview' className='preview-image' />
+      <img src={image} alt='Preview' className='preview-image' />
     </div>
     <div className='remove-overlay' onClick={onRemove}>
       <span>첨부 취소</span>
@@ -49,7 +49,7 @@ const UploadPrompt = memo(() => (
 ));
 
 const ImageUploader = memo(() => {
-  const { thumbnail, handleImageUpload, setThumbnail } = useWritePostStore();
+  const { thumbnail, handleImageUpload, handleImageRemove, image, getThumbnail } = useWritePostStore();
 
   const handleFileChange = async event => {
     const file = event.target.files[0];
@@ -58,19 +58,17 @@ const ImageUploader = memo(() => {
     }
   };
 
-  const handleRemoveImage = event => {
+  const onRemove = event => {
     event.preventDefault();
     event.stopPropagation();
-    setThumbnail(null);
-
-    // todo: 첨부 취소 시 수정
+    handleImageRemove(image);
   };
 
   return (
     <div className='upload-container'>
       <input type='file' id='fileInput' accept='image/*' onChange={handleFileChange} style={{ display: 'none' }} />
       <label htmlFor='fileInput' className='upload-area'>
-        {thumbnail ? <ImagePreview image={thumbnail} onRemove={handleRemoveImage} /> : <UploadPrompt />}
+        {thumbnail ? <ImagePreview image={getThumbnail()} onRemove={onRemove} /> : <UploadPrompt />}
       </label>
     </div>
   );
