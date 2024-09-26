@@ -39,3 +39,20 @@ export const replyList = async postId => {
     console.error('Failed to fetch post detail: ', error);
   }
 };
+
+export const upload = async file => {
+  try {
+    // FormData 생성
+    const formData = new FormData();
+    formData.append('files', file);
+
+    const response = await axios.post(`/upload`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    return response;
+  } catch (error) {
+    console.error('Failed to upload: ', error);
+  }
+};

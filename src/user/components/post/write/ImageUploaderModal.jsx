@@ -31,7 +31,7 @@ export const ImageUploaderOpenButton = () => {
 const ImagePreview = memo(({ image, onRemove }) => (
   <div className='preview-container'>
     <div className='preview-image-wrapper'>
-      <img src={image} alt='Preview' className='preview-image' />
+      <img src={`${process.env.REACT_APP_API_BASE_URL}view/${image}`} alt='Preview' className='preview-image' />
     </div>
     <div className='remove-overlay' onClick={onRemove}>
       <span>첨부 취소</span>
@@ -62,6 +62,8 @@ const ImageUploader = memo(() => {
     event.preventDefault();
     event.stopPropagation();
     setThumbnail(null);
+
+    // todo: 첨부 취소 시 수정
   };
 
   return (
