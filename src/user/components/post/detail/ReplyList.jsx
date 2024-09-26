@@ -9,8 +9,8 @@ const ReplyList = ({ postId }) => {
   const loadReplies = async postId => {
     const response = await replyList(postId);
     const { data } = response;
-    console.log('reply response: ', response);
-    console.log('reply data: ', data);
+    // console.log('reply response: ', response);
+    // console.log('reply data: ', data);
   };
 
   const [replies, setReplies] = useState(null);

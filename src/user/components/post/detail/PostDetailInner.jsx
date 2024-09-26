@@ -8,10 +8,10 @@ import PostAuthor from './PostAuthor.jsx';
 import { PostContent, PostImage } from './PostContent.jsx';
 
 import { postsCampusDetail } from '../../../services/api/posts';
+import { IMAGE_UPLOAD_API_URL } from '../../../../common/constants';
 
 const PostDetailInner = ({ postId }) => {
   const [post, setPost] = useState(null);
-  console.log(postId);
 
   const loadPost = async postId => {
     try {
@@ -24,20 +24,24 @@ const PostDetailInner = ({ postId }) => {
         content: data.content,
         user: {
           profileImage: data.profileImage,
-          campusName: data.wrtier,
-          nickname: data.wrtier
+          campusName: data.campusName,
+          nickname: data.nickname
         },
         like: {
-          status: true,
+          status: data.likesStatus,
           count: data.likesCount
         },
-        replyCount: data.replyCount,
-        createdAt: data.createdAt
+        // replyCount: data.replyCount,
+        createdAt: data.createdAt,
+        hashtags: data.hashtags
       });
     } catch (error) {
       console.error('Failed to fetch post:', error);
     }
-    console.log(post);
+  };
+
+  const imageUrl = image => {
+    return `${IMAGE_UPLOAD_API_URL}/${image}`;
   };
 
   useEffect(() => {
@@ -53,7 +57,7 @@ const PostDetailInner = ({ postId }) => {
             <div className='postdetail__left-side page'>
               {post.image !== null && (
                 <>
-                  <PostImage image={post.image} isPage />
+                  <PostImage image={imageUrl(post.image)} isPage />
                   <Division type='horizontal_custom' variant='custom' className='postdetail__left-side__division' />
                 </>
               )}
@@ -62,6 +66,7 @@ const PostDetailInner = ({ postId }) => {
 
             {/* 우 */}
             <div className='postdetail__right-side page'>
+              <div>{post.user.nickname}</div>
               <PostAuthor user={post.user} isPage />
               <div className='postdetail__reply-container page'>
                 <ReplyList postId={postId} />

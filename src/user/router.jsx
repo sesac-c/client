@@ -14,11 +14,7 @@ export const SearchCampusPostPage = lazy(() => import('./pages/Campus/SearchCamp
 const userRoutes = [
   {
     path: CAMPUS_PATH,
-    element: (
-      <CampusLayout>
-        <Suspense fallback={<p>잠시만여,,</p>}></Suspense>
-      </CampusLayout>
-    ),
+    element: <CampusLayout />,
     children: [
       {
         path: `${CAMPUS_CHILDREN_PATH.postList}/:postId`,

@@ -9,6 +9,7 @@ import { formatDateToKorean } from '../../../common/utils/formatter';
 import { postsCampusList } from '../../services/api/posts.js';
 import useWritePostStore from '../../store/writePostStore';
 import { useCallback, useEffect } from 'react';
+import { IMAGE_UPLOAD_API_URL } from '../../../common/constants';
 
 const Post = ({ post }) => {
   const formattedDate = formatDateToKorean(post.createdAt);
@@ -71,7 +72,7 @@ const Post = ({ post }) => {
 };
 
 const thumbnailUrl = thumbnail => {
-  return `${process.env.REACT_APP_API_BASE_URL}view/${thumbnail}`;
+  return `${IMAGE_UPLOAD_API_URL}view/${thumbnail}`;
 };
 
 const Posts = () => {
