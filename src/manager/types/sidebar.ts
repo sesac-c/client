@@ -1,5 +1,3 @@
-import { loginUser } from '../_mock';
-
 type loginUser = {
   role?: string;
   nickname: string;

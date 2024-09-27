@@ -3,14 +3,19 @@ import { useEffect, useState } from 'react';
 import ReplyItem from './ReplyItem.jsx';
 
 import { dummyReplydata } from '../../../_mock';
+import { replyList } from '../../../services/api/posts.js';
 
 const ReplyList = ({ postId }) => {
-  const [replies, setReplies] = useState(null);
+  const loadReplies = async postId => {
+    const response = await replyList(postId);
+    const { data } = response;
+    // console.log('reply response: ', response);
+    // console.log('reply data: ', data);
+  };
 
+  const [replies, setReplies] = useState(null);
   useEffect(() => {
-    // dummy data
-    const selectedPost = dummyReplydata.filter(reply => reply.postId === postId);
-    setReplies(selectedPost);
+    loadReplies(postId);
   }, [postId]);
   return (
     <div className='postdetail__reply-list'>

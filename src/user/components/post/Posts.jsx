@@ -5,18 +5,21 @@ import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 
 import { useNavigateHandler } from '../../../common/hooks';
 
-import { dummyPostData } from '../../_mock';
 import { formatDateToKorean } from '../../../common/utils/formatter';
+import { postsCampusList } from '../../services/api/posts.js';
+import useWritePostStore from '../../store/writePostStore';
+import { useCallback, useEffect } from 'react';
+import { IMAGE_UPLOAD_API_URL } from '../../../common/constants';
 
-const Post = ({ post, user }) => {
+const Post = ({ post }) => {
   const formattedDate = formatDateToKorean(post.createdAt);
 
   return (
     <div className='post'>
       <div className='post-container'>
-        {post.image && (
+        {post.thumbnail && (
           <div className='post-image'>
-            <img src={post.image} alt='post url' />
+            <img src={thumbnailUrl(post.thumbnail)} alt='post url' />
           </div>
         )}
         <div className='post-content' onClick={useNavigateHandler(`./${post.id}`)}>
@@ -33,12 +36,12 @@ const Post = ({ post, user }) => {
                   </div>
                   <div className='action-item'>
                     <HeartIcon className='favorite-icon' />
-                    <span className='action-count'>{post.likeCount}</span>
+                    <span className='action-count'>{post.likesCount}</span>
                   </div>
                 </div>
                 <div className='meta-info'>
                   <div className='meta-item'>
-                    <span className='meta-text nickname'>{user.nickname}</span>
+                    <span className='meta-text nickname'>{post.nickname}</span>
                   </div>
                   <div className='meta-separator' />
                   <div className='meta-item'>
@@ -68,9 +71,73 @@ const Post = ({ post, user }) => {
   );
 };
 
-const Posts = ({ posts = dummyPostData }) => {
-  // TODO: dummyPostData 삭제
-  if (posts === undefined || posts.length < 0) {
+const thumbnailUrl = thumbnail => {
+  return `${IMAGE_UPLOAD_API_URL}/${thumbnail}`;
+};
+
+const Posts = () => {
+  const [isLoading, setIsLoading] = React.useState(true);
+  // const [currentPage, setCurrentPage] = React.useState({
+  //   pageNumber: 0,
+  //   pageSize: 10,
+  //   totalElements: 0,
+  //   totalPages: 0,
+  //   last: false
+  // });
+
+  const [posts, setPosts] = React.useState([]);
+
+  const { isPostUpdate, setIsPostUpdate } = useWritePostStore();
+
+  const loadPosts = useCallback(async params => {
+    setIsLoading(true);
+    try {
+      const response = await postsCampusList(params);
+      const { data } = response;
+
+      setPosts(
+        data.map(post => ({
+          id: post.id,
+          title: post.title,
+          nickname: post.writer,
+          content: post.content,
+          likesCount: post.likesCount,
+          replyCount: post.replyCount,
+          hashtags: post.tags,
+          createdAt: post.createdAt,
+          thumbnail: post.thumbnail
+        }))
+      );
+    } catch (error) {
+      console.error('Failed to fetch posts:', error);
+      // 에러 처리 로직 추가
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isPostUpdate) {
+      loadPosts({
+        page: 0,
+        size: 10
+      });
+      setIsPostUpdate(false);
+    }
+  }, [isPostUpdate, loadPosts, setIsPostUpdate]);
+
+  useEffect(() => {
+    loadPosts({
+      page: 0,
+      size: 10
+    });
+  }, [loadPosts]);
+
+  if (isLoading) {
+    return <p className='text-center'>Loading...</p>;
+  }
+
+  if (!posts || posts.length === 0) {
     return <p className='text-center'>등록된 게시글이 없습니다.</p>;
   }
   return (
@@ -92,7 +159,7 @@ Posts.propTypes = {
         likesCount: PropTypes.number.isRequired,
         description: PropTypes.string.isRequired,
         hashtags: PropTypes.arrayOf(PropTypes.string),
-        image: PropTypes.string
+        thumbnail: PropTypes.string
       }).isRequired,
       user: PropTypes.shape({
         nickname: PropTypes.string.isRequired
