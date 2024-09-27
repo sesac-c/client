@@ -7,7 +7,7 @@ import PostLikeButton from './PostLikeButton.jsx';
 import PostAuthor from './PostAuthor.jsx';
 import { PostContent, PostImage } from './PostContent.jsx';
 
-import { dummyPostData } from '../../../_mock';
+import { dummyPostData } from '../../../_mock.js/index.js';
 
 const PostDetailModal = ({ postId, onClose, open = true }) => {
   const [post, setPost] = useState(null);
@@ -23,30 +23,32 @@ const PostDetailModal = ({ postId, onClose, open = true }) => {
     }
   };
 
-  if (!open) return null;
+  if (!open) {
+    return null;
+  }
 
   return createPortal(
-    <div className='modal-overlay' onClick={handleOverlayClick}>
-      <div className='postdetailmodal'>
+    <div className="modal-overlay" onClick={handleOverlayClick}>
+      <div className="postdetailmodal">
         {post && (
           <>
             <PostAuthor user={post.user} onClose={onClose} />
 
             {/* 좌, 우 */}
-            <div className='postdetail__side-container'>
+            <div className="postdetail__side-container">
               {post.image !== null && (
-                <div className='postdetail__left-side'>
+                <div className="postdetail__left-side">
                   <PostImage image={post.image} />
                 </div>
               )}
-              <div className='postdetail__right-side'>
+              <div className="postdetail__right-side">
                 <PostContent post={post} hasImage={post.image !== null} />
               </div>
             </div>
-            <div className='postdetail__reply-container'>
+            <div className="postdetail__reply-container">
               <ReplyList postId={postId} />
             </div>
-            <div className='postdetail__reply-input-container'>
+            <div className="postdetail__reply-input-container">
               <PostLikeButton like={post.like} />
               <ReplyInput />
             </div>

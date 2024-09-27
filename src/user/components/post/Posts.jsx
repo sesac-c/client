@@ -5,59 +5,63 @@ import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 
 import { useNavigateHandler } from '../../../common/hooks';
 
-import { dummyPostData } from '../../_mock';
 import { formatDateToKorean } from '../../../common/utils/formatter';
+import { postsCampusList } from '../../services/api/posts.js';
+import useWritePostStore from '../../store/writePostStore';
+import { useCallback, useEffect } from 'react';
 
-const Post = ({ post, user }) => {
+const Post = ({ post }) => {
   const formattedDate = formatDateToKorean(post.createdAt);
 
+  console.log(post.image);
   return (
-    <div className='post'>
-      <div className='post-container'>
+    <div className="post">
+      <div className="post-container">
         {post.image && (
-          <div className='post-image'>
-            <img src={post.image} alt='post url' />
+          <div className="post-image">
+            <img src={post.image} alt="post url" />
           </div>
         )}
-        <div className='post-content' onClick={useNavigateHandler(`./${post.id}`)}>
-          <div className='post-main'>
-            <div className='post-header'>
-              <div className='post-title'>
-                <p className='title-text'>{post.title}</p>
+        <div className="post-content"
+             onClick={useNavigateHandler(`./${post.id}`)}>
+          <div className="post-main">
+            <div className="post-header">
+              <div className="post-title">
+                <p className="title-text">{post.title}</p>
               </div>
-              <div className='post-meta'>
-                <div className='post-actions'>
-                  <div className='action-item'>
-                    <ChatBubbleBottomCenterTextIcon className='comment-icon' />
-                    <span className='action-count'>{post.replyCount}</span>
+              <div className="post-meta">
+                <div className="post-actions">
+                  <div className="action-item">
+                    <ChatBubbleBottomCenterTextIcon className="comment-icon" />
+                    <span className="action-count">{post.replyCount}</span>
                   </div>
-                  <div className='action-item'>
-                    <HeartIcon className='favorite-icon' />
-                    <span className='action-count'>{post.likeCount}</span>
+                  <div className="action-item">
+                    <HeartIcon className="favorite-icon" />
+                    <span className="action-count">{post.likeCount}</span>
                   </div>
                 </div>
-                <div className='meta-info'>
-                  <div className='meta-item'>
-                    <span className='meta-text nickname'>{user.nickname}</span>
+                <div className="meta-info">
+                  <div className="meta-item">
+                    <span className="meta-text nickname">{post.nickname}</span>
                   </div>
-                  <div className='meta-separator' />
-                  <div className='meta-item'>
-                    <span className='meta-text'>{formattedDate}</span>
+                  <div className="meta-separator" />
+                  <div className="meta-item">
+                    <span className="meta-text">{formattedDate}</span>
                   </div>
                 </div>
               </div>
             </div>
-            <div className='post-body'>
-              <div className='post-description'>
-                <p className='description-text'>{post.content}</p>
+            <div className="post-body">
+              <div className="post-description">
+                <p className="description-text">{post.content}</p>
               </div>
             </div>
           </div>
           {post.hashtags && post.hashtags.length > 0 && (
-            <div className='post-hashtags'>
+            <div className="post-hashtags">
               {post.hashtags.map((hashtag, index) => (
-                <div key={index} className='hashtag-item'>
-                  <span className='hashtag-text'>#{hashtag}</span>
+                <div key={index} className="hashtag-item">
+                  <span className="hashtag-text">#{hashtag}</span>
                 </div>
               ))}
             </div>
@@ -68,13 +72,73 @@ const Post = ({ post, user }) => {
   );
 };
 
-const Posts = ({ posts = dummyPostData }) => {
-  // TODO: dummyPostData 삭제
-  if (posts === undefined || posts.length < 0) {
-    return <p className='text-center'>등록된 게시글이 없습니다.</p>;
+const Posts = () => {
+  const [isLoading, setIsLoading] = React.useState(true);
+  // const [currentPage, setCurrentPage] = React.useState({
+  //   pageNumber: 0,
+  //   pageSize: 10,
+  //   totalElements: 0,
+  //   totalPages: 0,
+  //   last: false
+  // });
+
+  const [posts, setPosts] = React.useState([]);
+
+  const { isPostUpdate, setIsPostUpdate } = useWritePostStore();
+
+  const loadPosts = useCallback(async params => {
+    setIsLoading(true);
+    try {
+      const response = await postsCampusList(params);
+      const { data } = response;
+      console.log(data);
+      setPosts(
+        data.map(post => ({
+          id: post.id,
+          title: post.title,
+          nickname: post.writer,
+          content: post.content,
+          likesCount: post.likesCount,
+          replyCount: post.replyCount,
+          hashtag: post.tags,
+          createdAt: post.createdAt,
+          image: post.imageUrl
+        }))
+      );
+    } catch (error) {
+      console.error('Failed to fetch posts:', error);
+      // 에러 처리 로직 추가
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isPostUpdate) {
+      loadPosts({
+        page: 0,
+        size: 2
+      });
+      setIsPostUpdate(false);
+    }
+  }, [isPostUpdate, loadPosts, setIsPostUpdate]);
+
+  useEffect(() => {
+    loadPosts({
+      page: 0,
+      size: 2
+    });
+  }, [loadPosts]);
+
+  if (isLoading) {
+    return <p className="text-center">Loading...</p>;
+  }
+
+  if (!posts || posts.length === 0) {
+    return <p className="text-center">등록된 게시글이 없습니다.</p>;
   }
   return (
-    <div className='posts-container'>
+    <div className="posts-container">
       {posts.map((post, index) => (
         <Post key={index} post={post} user={post.user} />
       ))}

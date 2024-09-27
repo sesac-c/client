@@ -7,40 +7,67 @@ import PostLikeButton from './PostLikeButton.jsx';
 import PostAuthor from './PostAuthor.jsx';
 import { PostContent, PostImage } from './PostContent.jsx';
 
-import { dummyPostData } from '../../../_mock';
+import { postsCampusDetail } from '../../../services/api/posts';
 
 const PostDetailInner = ({ postId }) => {
   const [post, setPost] = useState(null);
+  console.log(postId);
+
+  const loadPost = async postId => {
+    try {
+      const response = await postsCampusDetail(postId);
+      const { data } = response;
+      console.log(data);
+      setPost({
+        image: data.imageUrl,
+        title: data.title,
+        content: data.content,
+        user: {
+          profileImage: data.profileImage,
+          campusName: data.wrtier,
+          nickname: data.wrtier
+        },
+        like: {
+          status: true,
+          count: data.likesCount
+        },
+        replyCount: data.replyCount,
+        createdAt: data.createdAt
+      });
+    } catch (error) {
+      console.error('Failed to fetch post:', error);
+    }
+    console.log(post);
+  };
 
   useEffect(() => {
-    // dummy data
-    const selectedPost = dummyPostData.find(post => post.id === postId);
-    setPost(selectedPost);
+    loadPost(postId);
   }, [postId]);
 
   return (
-    <div className='postdetail-container'>
+    <div className="postdetail-container">
       {post && (
         <>
-          <div className='postdetail__side-container page'>
+          <div className="postdetail__side-container page">
             {/* 좌 */}
-            <div className='postdetail__left-side page'>
+            <div className="postdetail__left-side page">
               {post.image !== null && (
                 <>
                   <PostImage image={post.image} isPage />
-                  <Division type='horizontal_custom' variant='custom' className='postdetail__left-side__division' />
+                  <Division type="horizontal_custom" variant="custom"
+                            className="postdetail__left-side__division" />
                 </>
               )}
               <PostContent post={post} hasImage={post.image !== null} isPage />
             </div>
 
             {/* 우 */}
-            <div className='postdetail__right-side page'>
+            <div className="postdetail__right-side page">
               <PostAuthor user={post.user} isPage />
-              <div className='postdetail__reply-container page'>
+              <div className="postdetail__reply-container page">
                 <ReplyList postId={postId} />
               </div>
-              <div className='postdetail__reply-input-container page'>
+              <div className="postdetail__reply-input-container page">
                 <PostLikeButton like={post.like} />
                 <ReplyInput />
               </div>

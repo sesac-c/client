@@ -16,10 +16,11 @@ const BUTTON_SIZE = 'medium';
 export const ImageUploaderOpenButton = () => {
   const { image } = useWritePostStore();
 
-  const { openModal, closeModal } = useModal(() => <ImageUploaderModal onClose={closeModal} />);
+  const { openModal, closeModal } = useModal(
+    () => <ImageUploaderModal onClose={closeModal} />);
 
   return (
-    <span className='opt-open-btn'>
+    <span className="opt-open-btn">
       <PhotoIcon />
       <p onClick={openModal}>
         {IMAGE_TITLE} {image ? '확인' : '추가'}
@@ -29,11 +30,11 @@ export const ImageUploaderOpenButton = () => {
 };
 
 const ImagePreview = memo(({ image, onRemove }) => (
-  <div className='preview-container'>
-    <div className='preview-image-wrapper'>
-      <img src={image} alt='Preview' className='preview-image' />
+  <div className="preview-container">
+    <div className="preview-image-wrapper">
+      <img src={image} alt="Preview" className="preview-image" />
     </div>
-    <div className='remove-overlay' onClick={onRemove}>
+    <div className="remove-overlay" onClick={onRemove}>
       <span>첨부 취소</span>
     </div>
   </div>
@@ -41,15 +42,15 @@ const ImagePreview = memo(({ image, onRemove }) => (
 
 const UploadPrompt = memo(() => (
   <>
-    <div className='camera-icon'>
+    <div className="camera-icon">
       <CameraIcon />
     </div>
-    <div className='upload-text'>클릭하여 {IMAGE_TITLE}를 첨부합니다.</div>
+    <div className="upload-text">클릭하여 {IMAGE_TITLE}를 첨부합니다.</div>
   </>
 ));
 
 const ImageUploader = memo(() => {
-  const { image, handleImageUpload, setImage } = useWritePostStore();
+  const { thumbnail, handleImageUpload, setThumbnail } = useWritePostStore();
 
   const handleFileChange = async event => {
     const file = event.target.files[0];
@@ -61,14 +62,17 @@ const ImageUploader = memo(() => {
   const handleRemoveImage = event => {
     event.preventDefault();
     event.stopPropagation();
-    setImage(null);
+    setThumbnail(null);
   };
 
   return (
-    <div className='upload-container'>
-      <input type='file' id='fileInput' accept='image/*' onChange={handleFileChange} style={{ display: 'none' }} />
-      <label htmlFor='fileInput' className='upload-area'>
-        {image ? <ImagePreview image={image} onRemove={handleRemoveImage} /> : <UploadPrompt />}
+    <div className="upload-container">
+      <input type="file" id="fileInput" accept="image/*"
+             onChange={handleFileChange} style={{ display: 'none' }} />
+      <label htmlFor="fileInput" className="upload-area">
+        {thumbnail ? <ImagePreview image={thumbnail}
+                                   onRemove={handleRemoveImage} /> :
+          <UploadPrompt />}
       </label>
     </div>
   );
