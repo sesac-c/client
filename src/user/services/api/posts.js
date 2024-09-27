@@ -33,6 +33,16 @@ export const postsCampusUpdate = async ({ data, postId }) => {
   }
 };
 
+export const postsCampusDelete = async postId => {
+  try {
+    const response = await axios.delete(`${POSTS_CAMPUS_API_URL}/${postId}`);
+    return response;
+  } catch (error) {
+    console.error('Failed to delete post: ', error);
+    throw error;
+  }
+};
+
 export const postsCampusDetail = async postId => {
   try {
     const response = await axios.get(`${POSTS_CAMPUS_API_URL}/${postId}`);
