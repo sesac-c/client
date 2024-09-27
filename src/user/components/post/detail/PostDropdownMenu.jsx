@@ -2,8 +2,8 @@ import { useEffect, useState, useRef } from 'react';
 import { useModal } from '../../../../common/hooks/useModal';
 import ModifyPostModal from '../modify/ModifyPostModal';
 
-const PostDropdownMenu = () => {
-  const { openModal, closeModal, isOpen } = useModal(() => <ModifyPostModal onClose={closeModal} />);
+const PostDropdownMenu = ({post}) => {
+  const { openModal, closeModal, isOpen } = useModal(() => <ModifyPostModal post={post} onClose={closeModal} />);
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef();
 

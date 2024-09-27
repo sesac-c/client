@@ -20,6 +20,7 @@ const PostDetailInner = ({ postId }) => {
       const { data } = response;
       console.log(data);
       setPost({
+        id: data.id,
         image: data.imageUrl,
         title: data.title,
         content: data.content,
@@ -66,7 +67,7 @@ const PostDetailInner = ({ postId }) => {
             </div>
             {/* 우 */}
             <div className='postdetail__right-side page'>
-              <PostDropdownMenu></PostDropdownMenu>
+              <PostDropdownMenu post={post}></PostDropdownMenu>
               <PostAuthor user={post.user} isPage />
               <div className='postdetail__reply-container page'>
                 <ReplyList postId={postId} />

@@ -23,6 +23,16 @@ export const postsCampusCreate = async data => {
   }
 };
 
+export const postsCampusUpdate = async ({ data, postId }) => {
+  try {
+    const response = await axios.put(`${POSTS_CAMPUS_API_URL}/${postId}`, data);
+    return response;
+  } catch (error) {
+    console.error('Failed to update post: ', error);
+    throw error;
+  }
+};
+
 export const postsCampusDetail = async postId => {
   try {
     const response = await axios.get(`${POSTS_CAMPUS_API_URL}/${postId}`);
@@ -37,7 +47,7 @@ export const postLikes = async postId => {
     const response = await axios.post(`${POSTS_CAMPUS_API_URL}/${postId}/like`);
     return response;
   } catch (error) {
-    console.log('Failed to fetch likes: ', error);
+    console.error('Failed to fetch likes: ', error);
   }
 };
 
@@ -46,7 +56,7 @@ export const postLikesCancel = async postId => {
     const response = await axios.delete(`${POSTS_CAMPUS_API_URL}/${postId}/like`);
     return response;
   } catch (error) {
-    console.log('Failed to fetch likes cancel: ', error);
+    console.error('Failed to fetch likes cancel: ', error);
   }
 };
 

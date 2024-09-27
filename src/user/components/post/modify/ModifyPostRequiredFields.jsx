@@ -3,7 +3,7 @@ import { memo } from 'react';
 import TextField from '@mui/material/TextField';
 import { FormControl, FormHelperText, OutlinedInput } from '@mui/material';
 
-import useWritePostStore from '../../../store/writePostStore';
+import useModifyPostStore from '../../../store/modifyPostStore';
 
 import LabeledWrapper from '../../../../common/components/common/UI/LabeledWrapper';
 
@@ -17,7 +17,7 @@ const RemainTextCount = ({ current, max }) => (
 );
 
 export const TitleInputField = memo(() => {
-  const { title, setTitle, getTitleLength } = useWritePostStore();
+  const { title, setTitle, getTitleLength } = useModifyPostStore();
 
   const handleChange = e => {
     setTitle(e.target.value);
@@ -41,7 +41,7 @@ export const TitleInputField = memo(() => {
 });
 
 export const ContentInputField = memo(() => {
-  const { content, setContent, getContentLength } = useWritePostStore();
+  const { content, setContent, getContentLength } = useModifyPostStore();
 
   const handleChange = e => {
     setContent(e.target.value);
