@@ -63,8 +63,7 @@ export const postLikes = async postId => {
 
 export const postLikesCancel = async postId => {
   try {
-    const response = await axios.delete(
-      `${POSTS_CAMPUS_API_URL}/${postId}/like`);
+    const response = await axios.delete(`${POSTS_CAMPUS_API_URL}/${postId}/like`);
     return response;
   } catch (error) {
     console.error('Failed to fetch likes cancel: ', error);
@@ -73,8 +72,7 @@ export const postLikesCancel = async postId => {
 
 export const replyList = async postId => {
   try {
-    const response = await axios.get(
-      `${POSTS_CAMPUS_API_URL}/${postId}/replies`);
+    const response = await axios.get(`${POSTS_CAMPUS_API_URL}/${postId}/replies`);
     return response;
   } catch (error) {
     console.error('Failed to fetch post detail: ', error);

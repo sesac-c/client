@@ -51,29 +51,28 @@ const PostDetailInner = ({ postId }) => {
   }, [postId]);
 
   return (
-    <div className="postdetail-container">
+    <div className='postdetail-container'>
       {post && (
         <>
-          <div className="postdetail__side-container page">
+          <div className='postdetail__side-container page'>
             {/* 좌 */}
-            <div className="postdetail__left-side page">
+            <div className='postdetail__left-side page'>
               {post.image !== null && (
                 <>
                   <PostImage image={imageUrl(post.image)} isPage />
-                  <Division type="horizontal_custom" variant="custom"
-                            className="postdetail__left-side__division" />
+                  <Division type='horizontal_custom' variant='custom' className='postdetail__left-side__division' />
                 </>
               )}
               <PostContent post={post} hasImage={post.image !== null} isPage />
             </div>
             {/* 우 */}
-            <div className="postdetail__right-side page">
+            <div className='postdetail__right-side page'>
               <PostDropdownMenu post={post}></PostDropdownMenu>
               <PostAuthor user={post.user} isPage />
-              <div className="postdetail__reply-container page">
+              <div className='postdetail__reply-container page'>
                 <ReplyList postId={postId} />
               </div>
-              <div className="postdetail__reply-input-container page">
+              <div className='postdetail__reply-input-container page'>
                 <PostLikeButton like={post.like} />
                 <ReplyInput />
               </div>

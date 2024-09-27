@@ -15,53 +15,52 @@ const Post = ({ post }) => {
   const formattedDate = formatDateToKorean(post.createdAt);
 
   return (
-    <div className="post">
-      <div className="post-container">
+    <div className='post'>
+      <div className='post-container'>
         {post.thumbnail && (
-          <div className="post-image">
-            <img src={thumbnailUrl(post.thumbnail)} alt="post url" />
+          <div className='post-image'>
+            <img src={thumbnailUrl(post.thumbnail)} alt='post url' />
           </div>
         )}
-        <div className="post-content"
-             onClick={useNavigateHandler(`./${post.id}`)}>
-          <div className="post-main">
-            <div className="post-header">
-              <div className="post-title">
-                <p className="title-text">{post.title}</p>
+        <div className='post-content' onClick={useNavigateHandler(`./${post.id}`)}>
+          <div className='post-main'>
+            <div className='post-header'>
+              <div className='post-title'>
+                <p className='title-text'>{post.title}</p>
               </div>
-              <div className="post-meta">
-                <div className="post-actions">
-                  <div className="action-item">
-                    <ChatBubbleBottomCenterTextIcon className="comment-icon" />
-                    <span className="action-count">{post.replyCount}</span>
+              <div className='post-meta'>
+                <div className='post-actions'>
+                  <div className='action-item'>
+                    <ChatBubbleBottomCenterTextIcon className='comment-icon' />
+                    <span className='action-count'>{post.replyCount}</span>
                   </div>
-                  <div className="action-item">
-                    <HeartIcon className="favorite-icon" />
-                    <span className="action-count">{post.likesCount}</span>
+                  <div className='action-item'>
+                    <HeartIcon className='favorite-icon' />
+                    <span className='action-count'>{post.likesCount}</span>
                   </div>
                 </div>
-                <div className="meta-info">
-                  <div className="meta-item">
-                    <span className="meta-text nickname">{post.nickname}</span>
+                <div className='meta-info'>
+                  <div className='meta-item'>
+                    <span className='meta-text nickname'>{post.nickname}</span>
                   </div>
-                  <div className="meta-separator" />
-                  <div className="meta-item">
-                    <span className="meta-text">{formattedDate}</span>
+                  <div className='meta-separator' />
+                  <div className='meta-item'>
+                    <span className='meta-text'>{formattedDate}</span>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="post-body">
-              <div className="post-description">
-                <p className="description-text">{post.content}</p>
+            <div className='post-body'>
+              <div className='post-description'>
+                <p className='description-text'>{post.content}</p>
               </div>
             </div>
           </div>
           {post.hashtags && post.hashtags.length > 0 && (
-            <div className="post-hashtags">
+            <div className='post-hashtags'>
               {post.hashtags.map((hashtag, index) => (
-                <div key={index} className="hashtag-item">
-                  <span className="hashtag-text">#{hashtag}</span>
+                <div key={index} className='hashtag-item'>
+                  <span className='hashtag-text'>#{hashtag}</span>
                 </div>
               ))}
             </div>
@@ -135,14 +134,14 @@ const Posts = () => {
   }, [loadPosts]);
 
   if (isLoading) {
-    return <p className="text-center">Loading...</p>;
+    return <p className='text-center'>Loading...</p>;
   }
 
   if (!posts || posts.length === 0) {
-    return <p className="text-center">등록된 게시글이 없습니다.</p>;
+    return <p className='text-center'>등록된 게시글이 없습니다.</p>;
   }
   return (
-    <div className="posts-container">
+    <div className='posts-container'>
       {posts.map((post, index) => (
         <Post key={index} post={post} user={post.user} />
       ))}

@@ -18,9 +18,8 @@ const ReplyList = ({ postId }) => {
     loadReplies(postId);
   }, [postId]);
   return (
-    <div className="postdetail__reply-list">
-      {replies !== null && replies.map(
-        reply => <ReplyItem key={reply.id} reply={reply} />)}
+    <div className='postdetail__reply-list'>
+      {replies !== null && replies.map(reply => <ReplyItem key={reply.id} reply={reply} />)}
     </div>
   );
 };

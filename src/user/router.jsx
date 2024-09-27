@@ -4,14 +4,10 @@ import CampusLayout from './layouts/Campus.jsx';
 
 // ----------------------------------------------------------------------
 
-export const CampusNoticeListPage = lazy(
-  () => import('./pages/Campus/CampusNoticeList.jsx'));
-export const CampusPostDetailPage = lazy(
-  () => import('./pages/Campus/CampusPostDetail.jsx'));
-export const CampusPostListPage = lazy(
-  () => import('./pages/Campus/CampusPostList.jsx'));
-export const SearchCampusPostPage = lazy(
-  () => import('./pages/Campus/SearchCampusPost.jsx'));
+export const CampusNoticeListPage = lazy(() => import('./pages/Campus/CampusNoticeList.jsx'));
+export const CampusPostDetailPage = lazy(() => import('./pages/Campus/CampusPostDetail.jsx'));
+export const CampusPostListPage = lazy(() => import('./pages/Campus/CampusPostList.jsx'));
+export const SearchCampusPostPage = lazy(() => import('./pages/Campus/SearchCampusPost.jsx'));
 
 // ----------------------------------------------------------------------
 

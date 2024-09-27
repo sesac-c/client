@@ -5,21 +5,13 @@ import { FormControl, FormHelperText, OutlinedInput } from '@mui/material';
 
 import useModifyPostStore from '../../../store/modifyPostStore';
 
-import LabeledWrapper
-  from '../../../../common/components/common/UI/LabeledWrapper';
+import LabeledWrapper from '../../../../common/components/common/UI/LabeledWrapper';
 
-import {
-  MAX_TITLE_LENGTH,
-  MAX_CONTENT_LENGTH
-} from '../../../../common/constants';
-import {
-  CONTENT_FIELD_SETTING,
-  DEFAULT_TEXTFIELD_SETTING,
-  TITLE_FIELD_SETTING
-} from '../../../../common/utils/form';
+import { MAX_TITLE_LENGTH, MAX_CONTENT_LENGTH } from '../../../../common/constants';
+import { CONTENT_FIELD_SETTING, DEFAULT_TEXTFIELD_SETTING, TITLE_FIELD_SETTING } from '../../../../common/utils/form';
 
 const RemainTextCount = ({ current, max }) => (
-  <p className="mt-1 w-full text-right text-caption text-gray-basic">
+  <p className='mt-1 w-full text-right text-caption text-gray-basic'>
     {current} / {max}
   </p>
 );
@@ -32,15 +24,15 @@ export const TitleInputField = memo(() => {
   };
 
   return (
-    <LabeledWrapper title="제목">
-      <FormControl variant="outlined" {...DEFAULT_TEXTFIELD_SETTING}>
+    <LabeledWrapper title='제목'>
+      <FormControl variant='outlined' {...DEFAULT_TEXTFIELD_SETTING}>
         <OutlinedInput
           value={title}
           onChange={handleChange}
           inputProps={{ maxLength: MAX_TITLE_LENGTH }}
           {...TITLE_FIELD_SETTING}
         />
-        <FormHelperText id="title">
+        <FormHelperText id='title'>
           <RemainTextCount current={getTitleLength()} max={MAX_TITLE_LENGTH} />
         </FormHelperText>
       </FormControl>
@@ -56,9 +48,8 @@ export const ContentInputField = memo(() => {
   };
 
   return (
-    <LabeledWrapper title="내용">
-      <FormControl variant="outlined" {...DEFAULT_TEXTFIELD_SETTING}
-                   sx={{ maxWidth: '100%' }}>
+    <LabeledWrapper title='내용'>
+      <FormControl variant='outlined' {...DEFAULT_TEXTFIELD_SETTING} sx={{ maxWidth: '100%' }}>
         <TextField
           value={content}
           onChange={handleChange}
@@ -71,9 +62,8 @@ export const ContentInputField = memo(() => {
           }}
           {...CONTENT_FIELD_SETTING}
         />
-        <FormHelperText id="content">
-          <RemainTextCount current={getContentLength()}
-                           max={MAX_CONTENT_LENGTH} />
+        <FormHelperText id='content'>
+          <RemainTextCount current={getContentLength()} max={MAX_CONTENT_LENGTH} />
         </FormHelperText>
       </FormControl>
     </LabeledWrapper>

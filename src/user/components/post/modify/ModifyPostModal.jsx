@@ -5,29 +5,17 @@ import { useConfirmClose, useModal } from '../../../../common/hooks';
 
 import Modal from '../../../../common/components/common/UI/Modal';
 import Button from '../../../../common/components/common/UI/Button';
-import ProcessErrorModal
-  from '../../../../common/components/common/feedback/ProcessErrorModal';
+import ProcessErrorModal from '../../../../common/components/common/feedback/ProcessErrorModal';
 import ModifyPostContent from './ModifyPostContent.jsx';
 
-import {
-  WRITE_POST_CONFIRM_MESSAGE,
-  WRITE_MODAL
-} from '../../../../common/constants';
+import { WRITE_POST_CONFIRM_MESSAGE, WRITE_MODAL } from '../../../../common/constants';
 import { postsCampusUpdate } from '../../../services/api/posts';
 
 const TITLE = '게시글 수정';
 const BUTTON_SIZE = 'large';
 
 const ModifyPostModal = React.memo(({ onClose, post }) => {
-  const {
-    title,
-    content,
-    resetStore,
-    isCompleteButtonEnabled,
-    setIsPostUpdate,
-    setTitle,
-    setContent
-  } =
+  const { title, content, resetStore, isCompleteButtonEnabled, setIsPostUpdate, setTitle, setContent } =
     useModifyPostStore();
 
   const { openModal: openErrorModal, closeModal } = useModal(() => (
@@ -65,8 +53,7 @@ const ModifyPostModal = React.memo(({ onClose, post }) => {
       title={TITLE}
       modalType={WRITE_MODAL}
       footer={
-        <Button size={BUTTON_SIZE} onClick={handleComplete}
-                disabled={!isCompleteButtonEnabled()}>
+        <Button size={BUTTON_SIZE} onClick={handleComplete} disabled={!isCompleteButtonEnabled()}>
           완료
         </Button>
       }
