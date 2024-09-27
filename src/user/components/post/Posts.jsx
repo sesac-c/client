@@ -9,17 +9,17 @@ import { formatDateToKorean } from '../../../common/utils/formatter';
 import { postsCampusList } from '../../services/api/posts.js';
 import useWritePostStore from '../../store/writePostStore';
 import { useCallback, useEffect } from 'react';
+import { IMAGE_UPLOAD_API_URL } from '../../../common/constants';
 
 const Post = ({ post }) => {
   const formattedDate = formatDateToKorean(post.createdAt);
 
-  console.log(post.image);
   return (
     <div className="post">
       <div className="post-container">
-        {post.image && (
+        {post.thumbnail && (
           <div className="post-image">
-            <img src={post.image} alt="post url" />
+            <img src={thumbnailUrl(post.thumbnail)} alt="post url" />
           </div>
         )}
         <div className="post-content"
@@ -37,7 +37,7 @@ const Post = ({ post }) => {
                   </div>
                   <div className="action-item">
                     <HeartIcon className="favorite-icon" />
-                    <span className="action-count">{post.likeCount}</span>
+                    <span className="action-count">{post.likesCount}</span>
                   </div>
                 </div>
                 <div className="meta-info">
@@ -72,6 +72,10 @@ const Post = ({ post }) => {
   );
 };
 
+const thumbnailUrl = thumbnail => {
+  return `${IMAGE_UPLOAD_API_URL}/${thumbnail}`;
+};
+
 const Posts = () => {
   const [isLoading, setIsLoading] = React.useState(true);
   // const [currentPage, setCurrentPage] = React.useState({
@@ -91,7 +95,7 @@ const Posts = () => {
     try {
       const response = await postsCampusList(params);
       const { data } = response;
-      console.log(data);
+
       setPosts(
         data.map(post => ({
           id: post.id,
@@ -100,9 +104,9 @@ const Posts = () => {
           content: post.content,
           likesCount: post.likesCount,
           replyCount: post.replyCount,
-          hashtag: post.tags,
+          hashtags: post.tags,
           createdAt: post.createdAt,
-          image: post.imageUrl
+          thumbnail: post.thumbnail
         }))
       );
     } catch (error) {
@@ -117,7 +121,7 @@ const Posts = () => {
     if (isPostUpdate) {
       loadPosts({
         page: 0,
-        size: 2
+        size: 10
       });
       setIsPostUpdate(false);
     }
@@ -126,7 +130,7 @@ const Posts = () => {
   useEffect(() => {
     loadPosts({
       page: 0,
-      size: 2
+      size: 10
     });
   }, [loadPosts]);
 
@@ -156,7 +160,7 @@ Posts.propTypes = {
         likesCount: PropTypes.number.isRequired,
         description: PropTypes.string.isRequired,
         hashtags: PropTypes.arrayOf(PropTypes.string),
-        image: PropTypes.string
+        thumbnail: PropTypes.string
       }).isRequired,
       user: PropTypes.shape({
         nickname: PropTypes.string.isRequired
