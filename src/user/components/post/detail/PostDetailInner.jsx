@@ -9,6 +9,7 @@ import { PostContent, PostImage } from './PostContent.jsx';
 
 import { postsCampusDetail } from '../../../services/api/posts';
 import { IMAGE_UPLOAD_API_URL } from '../../../../common/constants';
+import PostDropdownMenu from './PostDropdownMenu';
 
 const PostDetailInner = ({ postId }) => {
   const [post, setPost] = useState(null);
@@ -63,10 +64,9 @@ const PostDetailInner = ({ postId }) => {
               )}
               <PostContent post={post} hasImage={post.image !== null} isPage />
             </div>
-
             {/* 우 */}
             <div className='postdetail__right-side page'>
-              <div>{post.user.nickname}</div>
+              <PostDropdownMenu></PostDropdownMenu>
               <PostAuthor user={post.user} isPage />
               <div className='postdetail__reply-container page'>
                 <ReplyList postId={postId} />

@@ -72,7 +72,7 @@ const Post = ({ post }) => {
 };
 
 const thumbnailUrl = thumbnail => {
-  return `${IMAGE_UPLOAD_API_URL}view/${thumbnail}`;
+  return `${IMAGE_UPLOAD_API_URL}/${thumbnail}`;
 };
 
 const Posts = () => {
