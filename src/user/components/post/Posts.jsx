@@ -8,7 +8,8 @@ import { useNavigateHandler } from '../../../common/hooks';
 import { formatDateToKorean } from '../../../common/utils/formatter';
 import { postsCampusList } from '../../services/api/posts.js';
 import useWritePostStore from '../../store/writePostStore';
-import { useCallback, useEffect } from 'react';
+
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { IMAGE_UPLOAD_API_URL } from '../../../common/constants';
 
 const Post = ({ post }) => {
@@ -76,75 +77,93 @@ const thumbnailUrl = thumbnail => {
 };
 
 const Posts = () => {
-  const [isLoading, setIsLoading] = React.useState(true);
-  // const [currentPage, setCurrentPage] = React.useState({
-  //   pageNumber: 0,
-  //   pageSize: 10,
-  //   totalElements: 0,
-  //   totalPages: 0,
-  //   last: false
-  // });
-
-  const [posts, setPosts] = React.useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const loader = useRef(null);
 
   const { isPostUpdate, setIsPostUpdate } = useWritePostStore();
 
-  const loadPosts = useCallback(async params => {
+  const loadPosts = useCallback(async () => {
+    if (isLoading || !hasMore) {
+      return;
+    }
+
     setIsLoading(true);
     try {
-      const response = await postsCampusList(params);
-      const { data } = response;
+      const response = await postsCampusList({ page, size: 10 });
+      const { content, last } = response.data;
+      if (content && content.length > 0) {
+        setPosts(prevPosts => {
+          const newPosts = content.filter(newPost => !prevPosts.some(existingPost => existingPost.id === newPost.id));
+          return [...prevPosts, ...newPosts];
+        });
+        setPage(prevPage => prevPage + 1);
+      }
 
-      setPosts(
-        data.map(post => ({
-          id: post.id,
-          title: post.title,
-          nickname: post.writer,
-          content: post.content,
-          likesCount: post.likesCount,
-          replyCount: post.replyCount,
-          hashtags: post.tags,
-          createdAt: post.createdAt,
-          thumbnail: post.thumbnail
-        }))
-      );
+      setHasMore(!last);
     } catch (error) {
       console.error('Failed to fetch posts:', error);
-      // 에러 처리 로직 추가
+      setHasMore(false);
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [isLoading, hasMore, page]);
+
+  const handleObserver = useCallback(
+    entries => {
+      const target = entries[0];
+      if (target.isIntersecting && hasMore) {
+        loadPosts();
+      }
+    },
+    [loadPosts, hasMore]
+  );
+
+  useEffect(() => {
+    const option = {
+      root: null,
+      rootMargin: '20px',
+      threshold: 0
+    };
+    const observer = new IntersectionObserver(handleObserver, option);
+    if (loader.current) {
+      observer.observe(loader.current);
+    }
+    return () => {
+      if (loader.current) {
+        observer.unobserve(loader.current);
+      }
+    };
+  }, [handleObserver]);
 
   useEffect(() => {
     if (isPostUpdate) {
-      loadPosts({
-        page: 0,
-        size: 10
-      });
+      setPosts([]);
+      setPage(0);
+      setHasMore(true);
+      loadPosts();
       setIsPostUpdate(false);
     }
   }, [isPostUpdate, loadPosts, setIsPostUpdate]);
 
   useEffect(() => {
-    loadPosts({
-      page: 0,
-      size: 10
-    });
-  }, [loadPosts]);
-
-  if (isLoading) {
-    return <p className='text-center'>Loading...</p>;
-  }
+    loadPosts();
+  }, []);
 
   if (!posts || posts.length === 0) {
     return <p className='text-center'>등록된 게시글이 없습니다.</p>;
   }
+
   return (
     <div className='posts-container'>
-      {posts.map((post, index) => (
-        <Post key={index} post={post} user={post.user} />
+      {posts.map(post => (
+        <Post key={`${post.id}-${post.createdAt}`} post={post} />
       ))}
+      {isLoading && <p className='text-center'>Loading...</p>}
+      {hasMore && <div ref={loader} style={{ height: '20px' }} />}
+      {!hasMore && <p className='text-center'>모든 게시글을 불러왔습니다.</p>}
     </div>
   );
 };
