@@ -92,13 +92,21 @@ const Posts = () => {
 
     setIsLoading(true);
     try {
-      const response = await postsCampusList({ page, size: 10 });
+      const response = await postsCampusList({ page, size: 2 });
       const { content, last } = response.data;
       if (content && content.length > 0) {
-        setPosts(prevPosts => {
-          const newPosts = content.filter(newPost => !prevPosts.some(existingPost => existingPost.id === newPost.id));
-          return [...prevPosts, ...newPosts];
-        });
+        const newPosts = content.map(post => ({
+          id: post.id,
+          title: post.title,
+          nickname: post.writer,
+          content: post.content,
+          likesCount: post.likesCount,
+          replyCount: post.replyCount,
+          hashtags: post.tags,
+          createdAt: post.createdAt,
+          thumbnail: post.thumbnail
+        }));
+        setPosts(posts.concat(newPosts));
         setPage(prevPage => prevPage + 1);
       }
 
