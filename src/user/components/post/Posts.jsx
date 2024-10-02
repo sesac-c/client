@@ -6,7 +6,6 @@ import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import { useNavigateHandler } from '../../../common/hooks';
 
 import { formatDateToKorean } from '../../../common/utils/formatter';
-import { postsCampusList } from '../../services/api/posts.js';
 import useWritePostStore from '../../store/writePostStore';
 
 import React, { useCallback, useEffect, useState, useRef } from 'react';
@@ -76,7 +75,7 @@ const thumbnailUrl = thumbnail => {
   return `${IMAGE_UPLOAD_API_URL}/${thumbnail}`;
 };
 
-const Posts = () => {
+const Posts = ({ fetchPosts }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(0);
@@ -92,24 +91,9 @@ const Posts = () => {
 
     setIsLoading(true);
     try {
-      const response = await postsCampusList({ page, size: 2 });
-      const { content, last } = response.data;
-      if (content && content.length > 0) {
-        const newPosts = content.map(post => ({
-          id: post.id,
-          title: post.title,
-          nickname: post.writer,
-          content: post.content,
-          likesCount: post.likesCount,
-          replyCount: post.replyCount,
-          hashtags: post.tags,
-          createdAt: post.createdAt,
-          thumbnail: post.thumbnail
-        }));
-        setPosts(posts.concat(newPosts));
-        setPage(prevPage => prevPage + 1);
-      }
-
+      const { newPosts, last } = await fetchPosts({ page, size: 3 });
+      setPosts(posts.concat(newPosts));
+      setPage(prevPage => prevPage + 1);
       setHasMore(!last);
     } catch (error) {
       console.error('Failed to fetch posts:', error);

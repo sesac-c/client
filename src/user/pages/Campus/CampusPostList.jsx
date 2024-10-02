@@ -5,12 +5,13 @@ import Posts from '../../components/post/Posts.jsx';
 import UserSearch from '../../components/user/UserSearch.jsx';
 
 import { dummyNoticesData, dummyUserData } from '../../_mock';
+import { fetchCampusPosts } from '../../services/api/posts';
 
 const CampusPostListPage = () => {
   return (
     <FeedWrapper boardContent={<Carousel items={dummyNoticesData} title='주요 공지' />}>
       <ColumnLayoutWrapper
-        mainArea={<Posts />}
+        mainArea={<Posts fetchPosts={fetchCampusPosts} />}
         rightSide={
           <UserSearch
             // users={dummyUserData}
