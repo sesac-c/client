@@ -70,6 +70,17 @@ export const CAMPUS_MENU = [
   }
 ];
 
+export const ALL_MENU = [
+  {
+    title: '메인',
+    path: CAMPUS_POST_LIST_PATH
+  },
+  {
+    title: '검색',
+    path: CAMPUS_SEARCH_PATH
+  }
+];
+
 export const ALL_PATH = '/feed/all';
 export const GROUP_PATH = '/feed/group';
 
@@ -83,7 +94,8 @@ export const FEED_INFO = {
   all: {
     title: KO_ALL,
     name: `${KO_ALL} ${FEED_SUFFIX}`,
-    path: ALL_PATH
+    path: ALL_PATH,
+    menuList: ALL_MENU
   },
   group: {
     title: KO_GROUP,
