@@ -61,10 +61,9 @@ export const postsCampusDelete = async postId => {
   }
 };
 
-export const postsCampusDetail = async postId => {
+export const fetchPost = async (postId, url) => {
   try {
-    const response = await axios.get(`${POSTS_CAMPUS_API_URL}/${postId}`);
-    return response;
+    return axios.get(`${url}/${postId}`);
   } catch (error) {
     console.error('Failed to fetch post detail: ', error);
   }
