@@ -2,26 +2,30 @@ import { useState } from 'react';
 
 import { TextField } from '@mui/material';
 
-import { REPLY_FIELD_SETTING } from '../../../../common/utils/form';
-const ReplyInput = () => {
+import { REPLY_FIELD_SETTING } from '@/common/utils/form';
+import { createReply } from '@/user/services/api/posts';
+
+const ReplyInput = ({ postId, apiUrl }) => {
   const [reply, setReply] = useState('');
-  const handleReplySubmit = e => {
+  const handleReplySubmit = async e => {
+    if (e.key !== 'Enter') {
+      return;
+    }
+
     e.preventDefault();
-    console.log(reply.trim());
-    // 댓글 작성 로직
+    await createReply(postId, apiUrl, { content: reply.trim() });
+    setReply('');
   };
-  function handleChange(value) {
+
+  const handleChange = value => {
     setReply(value);
-  }
+  };
+
   return (
     <TextField
       value={reply}
       onChange={e => handleChange(e.target.value)}
-      onKeyDown={e => {
-        if (e.key === 'Enter') {
-          handleReplySubmit(e);
-        }
-      }}
+      onKeyDown={handleReplySubmit}
       {...REPLY_FIELD_SETTING}
     />
   );

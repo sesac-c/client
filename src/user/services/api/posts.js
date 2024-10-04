@@ -95,6 +95,14 @@ export const fetchReplies = async (postId, url) => {
   }
 };
 
+export const createReply = async (postId, url, data) => {
+  try {
+    return axios.post(`${url}/${postId}/replies`, data);
+  } catch (error) {
+    console.error('Failed to delete reply: ', error);
+  }
+};
+
 export const deleteReply = async (postId, url, replyId) => {
   try {
     return axios.delete(`${url}/${postId}/replies/${replyId}`);
