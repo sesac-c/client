@@ -87,9 +87,18 @@ export const postLikesCancel = async postId => {
   }
 };
 
-export const replyList = async postId => {
+export const fetchReplies = async (postId, url) => {
   try {
-    const response = await axios.get(`${POSTS_CAMPUS_API_URL}/${postId}/replies`);
+    const response = await axios.get(`${url}/${postId}/replies`);
+    return response;
+  } catch (error) {
+    console.error('Failed to fetch post detail: ', error);
+  }
+};
+
+export const deleteReply = async (postId, url, replyId) => {
+  try {
+    const response = await axios.delete(`${url}/${postId}/replies/${replyId}`);
     return response;
   } catch (error) {
     console.error('Failed to fetch post detail: ', error);

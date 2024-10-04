@@ -65,7 +65,7 @@ const PostDetailInner = ({ postId, apiUrl }) => {
               <PostDropdownMenu post={post}></PostDropdownMenu>
               <PostAuthor user={post.user} isPage />
               <div className='postdetail__reply-container page'>
-                <ReplyList postId={postId} />
+                <ReplyList postId={postId} apiUrl={apiUrl} />
               </div>
               <div className='postdetail__reply-input-container page'>
                 <PostLikeButton like={post.like} postId={postId} />

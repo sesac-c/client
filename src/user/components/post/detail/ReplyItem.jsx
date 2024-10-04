@@ -2,10 +2,19 @@ import ProfileImage from '@/common/components/common/layout/ProfileImage';
 
 import { formatDateToKorean } from '@/common/utils/formatter.js';
 import authStore from '@/common/stores/authStore';
+import { useState } from 'react';
+import { deleteReply } from '@/user/services/api/posts';
 
-const ReplyItem = ({ reply }) => {
+const ReplyItem = ({ postId, reply, apiUrl }) => {
   const formattedDate = formatDateToKorean(reply.createdAt);
   const user = authStore().user;
+  const [editable, setEditable] = useState(false);
+
+  const deleteHandler = async replyId => {
+    if (confirm('댓글을 삭제하시겠습니까?')) {
+      await deleteReply(postId, apiUrl, replyId);
+    }
+  };
 
   return (
     <div className='postdetail__reply-item'>
@@ -23,8 +32,12 @@ const ReplyItem = ({ reply }) => {
               </div>
               {reply.writer === user.nickname ? (
                 <div className='postdetail__reply-options'>
-                  <button className='postdetail__reply-option-button'>수정하기</button>
-                  <button className='postdetail__reply-option-button'>삭제하기</button>
+                  <button className='postdetail__reply-option-button' onClick={() => setEditable(!editable)}>
+                    수정하기
+                  </button>
+                  <button className='postdetail__reply-option-button' onClick={() => deleteHandler(reply.id)}>
+                    삭제하기
+                  </button>
                 </div>
               ) : null}
             </div>
