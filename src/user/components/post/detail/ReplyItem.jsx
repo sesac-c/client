@@ -3,17 +3,37 @@ import ProfileImage from '@/common/components/common/layout/ProfileImage';
 import { formatDateToKorean } from '@/common/utils/formatter.js';
 import authStore from '@/common/stores/authStore';
 import { useState } from 'react';
-import { deleteReply } from '@/user/services/api/posts';
+import { deleteReply, updateReply } from '@/user/services/api/posts';
+import { REPLY_FIELD_SETTING } from '@/common/utils';
+import { TextField } from '@mui/material';
 
 const ReplyItem = ({ postId, reply, apiUrl }) => {
   const formattedDate = formatDateToKorean(reply.createdAt);
   const user = authStore().user;
   const [editable, setEditable] = useState(false);
+  const [content, setContent] = useState(reply.content);
 
   const deleteHandler = async replyId => {
-    if (confirm('댓글을 삭제하시겠습니까?')) {
-      await deleteReply(postId, apiUrl, replyId);
+    if (!confirm('댓글을 삭제하시겠습니까?')) {
+      return;
     }
+
+    await deleteReply(postId, apiUrl, replyId);
+  };
+
+  const updateHandler = async replyId => {
+    if (!confirm('댓글을 수정하시겠습니까?')) {
+      return;
+    }
+
+    await updateReply(postId, apiUrl, replyId, { content });
+    reply.content = content;
+    setEditable(!editable);
+  };
+
+  const cancelHandler = () => {
+    setContent(reply.content);
+    setEditable(!editable);
   };
 
   return (
@@ -31,20 +51,46 @@ const ReplyItem = ({ postId, reply, apiUrl }) => {
                 {/*<span className='postdetail__reply-author-campusName'>{reply.campusName}</span>*/}
               </div>
               {reply.writer === user.nickname ? (
-                <div className='postdetail__reply-options'>
-                  <button className='postdetail__reply-option-button' onClick={() => setEditable(!editable)}>
-                    수정하기
-                  </button>
-                  <button className='postdetail__reply-option-button' onClick={() => deleteHandler(reply.id)}>
-                    삭제하기
-                  </button>
-                </div>
+                editable ? (
+                  <div className='postdetail__reply-options'>
+                    <button className='postdetail__reply-option-button' onClick={() => updateHandler(reply.id)}>
+                      확인
+                    </button>
+                    <button className='postdetail__reply-option-button' onClick={cancelHandler}>
+                      취소
+                    </button>
+                  </div>
+                ) : (
+                  <div className='postdetail__reply-options'>
+                    <button className='postdetail__reply-option-button' onClick={() => setEditable(!editable)}>
+                      수정
+                    </button>
+                    <button className='postdetail__reply-option-button' onClick={() => deleteHandler(reply.id)}>
+                      삭제
+                    </button>
+                  </div>
+                )
               ) : null}
             </div>
-            <p className='postdetail__reply-content'>
-              {reply.content}
-              <span className='postdetail__reply-date ml-3'>{formattedDate}</span>
-            </p>
+            {!editable ? (
+              <p className='postdetail__reply-content'>
+                {reply.content}
+                <span className='postdetail__reply-date ml-3'>{formattedDate}</span>
+              </p>
+            ) : (
+              <div>
+                <TextField
+                  value={content}
+                  onChange={e => setContent(e.target.value)}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') {
+                      handleReplySubmit(e);
+                    }
+                  }}
+                  {...REPLY_FIELD_SETTING}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
