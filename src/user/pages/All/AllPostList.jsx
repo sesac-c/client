@@ -4,14 +4,14 @@ import Carousel from '../../components/common/UI/Carousel.jsx';
 import Posts from '../../components/post/Posts.jsx';
 import UserSearch from '../../components/user/UserSearch.jsx';
 
-import { dummyNoticesData, dummyUserData } from '../../_mock';
-import { fetchCampusPosts } from '../../services/api/posts';
+import { dummyNoticesData } from '../../_mock';
+import { fetchAllPosts } from '../../services/api/posts';
 
-const CampusPostListPage = () => {
+const AllPostListPage = () => {
   return (
     <FeedWrapper boardContent={<Carousel items={dummyNoticesData} title='주요 공지' />}>
       <ColumnLayoutWrapper
-        mainArea={<Posts fetchPosts={fetchCampusPosts} />}
+        mainArea={<Posts fetchPosts={fetchAllPosts} />}
         rightSide={
           <UserSearch
             // users={dummyUserData}
@@ -26,4 +26,4 @@ const CampusPostListPage = () => {
     </FeedWrapper>
   );
 };
-export default CampusPostListPage;
+export default AllPostListPage;

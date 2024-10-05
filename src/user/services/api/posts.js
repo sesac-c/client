@@ -1,12 +1,30 @@
 import axios from 'axios';
-import { POSTS_CAMPUS_API_URL } from '../../../common/constants';
+import { POSTS_CAMPUS_API_URL, POSTS_ALL_API_URL } from '../../../common/constants';
 
-export const postsCampusList = async params => {
+export const fetchCampusPosts = async params => {
+  return fetchPosts(params, POSTS_CAMPUS_API_URL);
+};
+
+export const fetchAllPosts = async params => {
+  return fetchPosts(params, POSTS_ALL_API_URL);
+};
+
+const fetchPosts = async (params, url) => {
   try {
-    const response = await axios.get(POSTS_CAMPUS_API_URL, {
+    const response = await axios.get(url, {
       params
     });
-    return response;
+
+    const { content, last } = response.data;
+
+    return {
+      newPosts: content.map(post => ({
+        ...post,
+        nickname: post.writer,
+        hashtags: post.tags
+      })),
+      last
+    };
   } catch (error) {
     console.error('Failed to fetch post list:', error);
     throw error;

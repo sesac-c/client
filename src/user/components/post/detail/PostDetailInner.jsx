@@ -73,7 +73,7 @@ const PostDetailInner = ({ postId }) => {
                 <ReplyList postId={postId} />
               </div>
               <div className='postdetail__reply-input-container page'>
-                <PostLikeButton like={post.like} />
+                <PostLikeButton like={post.like} postId={postId} />
                 <ReplyInput />
               </div>
             </div>

@@ -8,4 +8,5 @@ export const MANAGER_GROUP_NOTICE_LIST_API_URL = '/notices/group/manager';
 export const MANAGER_RUNNINGMATE_LIST_API_URL = '/runningmates';
 
 export const POSTS_CAMPUS_API_URL = '/posts/campus';
+export const POSTS_ALL_API_URL = '/posts/all';
 export const IMAGE_UPLOAD_API_URL = `${process.env.REACT_APP_API_BASE_URL}view`;

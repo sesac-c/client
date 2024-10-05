@@ -39,30 +39,20 @@ const SelectBox = ({ variant = 'primary', size = 'medium', options, selectedOpti
       </button>
       {isOpen && (
         <ul className='select-box-options'>
-          {options.map(option => (
+          {options.map(({ value, label }) => (
             <li
-              key={option}
-              className={`select-box-option ${option === selected ? 'select-box-option-selected' : ''}`}
-              onClick={() => handleSelect(option)}
+              key={value}
+              className={`select-box-option ${value === selected ? 'select-box-option-selected' : ''}`}
+              onClick={() => handleSelect({ value, label })}
             >
-              {option}
-              {option === selected && <CheckIcon className='select-box-check-icon' />}
+              {label}
+              {value === selected && <CheckIcon className='select-box-check-icon' />}
             </li>
           ))}
         </ul>
       )}
     </div>
   );
-};
-
-SelectBox.propTypes = {
-  variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'quaternary', 'danger', 'feed']),
-  size: PropTypes.oneOf(['small', 'medium', 'large', 'feedSize']),
-  label: PropTypes.string,
-  className: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.string),
-  selectedOption: PropTypes.string,
-  onChange: PropTypes.func
 };
 
 export default SelectBox;
