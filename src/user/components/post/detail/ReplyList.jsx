@@ -2,24 +2,26 @@ import { useEffect, useState } from 'react';
 
 import ReplyItem from './ReplyItem.jsx';
 
-import { dummyReplydata } from '../../../_mock';
-import { replyList } from '../../../services/api/posts.js';
+import { fetchReplies } from '@/user/services/api/posts.js';
 
-const ReplyList = ({ postId }) => {
-  const loadReplies = async postId => {
-    const response = await replyList(postId);
+const ReplyList = ({ postId, apiUrl }) => {
+  const [replies, setReplies] = useState([]);
+
+  const loadReplies = async () => {
+    const response = await fetchReplies(postId, apiUrl);
     const { data } = response;
-    // console.log('reply response: ', response);
-    // console.log('reply data: ', data);
+    console.log('reply data: ', data);
+
+    setReplies(replies.concat(data));
   };
 
-  const [replies, setReplies] = useState(null);
   useEffect(() => {
-    loadReplies(postId);
-  }, [postId]);
+    loadReplies();
+  }, []);
   return (
     <div className='postdetail__reply-list'>
-      {replies !== null && replies.map(reply => <ReplyItem key={reply.id} reply={reply} />)}
+      {replies !== null &&
+        replies.map(reply => <ReplyItem key={reply.id} postId={postId} reply={reply} apiUrl={apiUrl} />)}
     </div>
   );
 };

@@ -61,10 +61,9 @@ export const postsCampusDelete = async postId => {
   }
 };
 
-export const postsCampusDetail = async postId => {
+export const fetchPost = async (postId, url) => {
   try {
-    const response = await axios.get(`${POSTS_CAMPUS_API_URL}/${postId}`);
-    return response;
+    return axios.get(`${url}/${postId}`);
   } catch (error) {
     console.error('Failed to fetch post detail: ', error);
   }
@@ -88,12 +87,35 @@ export const postLikesCancel = async postId => {
   }
 };
 
-export const replyList = async postId => {
+export const fetchReplies = async (postId, url) => {
   try {
-    const response = await axios.get(`${POSTS_CAMPUS_API_URL}/${postId}/replies`);
-    return response;
+    return axios.get(`${url}/${postId}/replies`);
   } catch (error) {
-    console.error('Failed to fetch post detail: ', error);
+    console.error('Failed to fetch replies: ', error);
+  }
+};
+
+export const createReply = async (postId, url, data) => {
+  try {
+    return axios.post(`${url}/${postId}/replies`, data);
+  } catch (error) {
+    console.error('Failed to delete reply: ', error);
+  }
+};
+
+export const deleteReply = async (postId, url, replyId) => {
+  try {
+    return axios.delete(`${url}/${postId}/replies/${replyId}`);
+  } catch (error) {
+    console.error('Failed to delete reply: ', error);
+  }
+};
+
+export const updateReply = async (postId, url, replyId, data) => {
+  try {
+    return axios.patch(`${url}/${postId}/replies/${replyId}`, data);
+  } catch (error) {
+    console.error('Failed to update reply: ', error);
   }
 };
 

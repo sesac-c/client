@@ -1,29 +1,27 @@
 import { useEffect, useState } from 'react';
 
-import Division from '../../../../common/components/common/UI/Division';
+import Division from '@/common/components/common/UI/Division';
 import ReplyInput from './ReplyInput.jsx';
 import ReplyList from './ReplyList.jsx';
 import PostLikeButton from './PostLikeButton.jsx';
 import PostAuthor from './PostAuthor.jsx';
 import { PostContent, PostImage } from './PostContent.jsx';
 
-import { postsCampusDetail } from '../../../services/api/posts';
-import { IMAGE_UPLOAD_API_URL } from '../../../../common/constants';
+import { IMAGE_UPLOAD_API_URL } from '@/common/constants';
 import PostDropdownMenu from './PostDropdownMenu';
+import { fetchPost } from '@/user/services/api/posts';
 
-const PostDetailInner = ({ postId }) => {
+const PostDetailInner = ({ postId, apiUrl }) => {
   const [post, setPost] = useState(null);
 
-  const loadPost = async postId => {
+  const loadPost = async () => {
     try {
-      const response = await postsCampusDetail(postId);
+      const response = await fetchPost(postId, apiUrl);
       const { data } = response;
       console.log(data);
       setPost({
-        id: data.id,
+        ...data,
         image: data.imageUrl,
-        title: data.title,
-        content: data.content,
         user: {
           profileImage: data.profileImage,
           campusName: data.campusName,
@@ -32,10 +30,7 @@ const PostDetailInner = ({ postId }) => {
         like: {
           status: data.likesStatus,
           count: data.likesCount
-        },
-        // replyCount: data.replyCount,
-        createdAt: data.createdAt,
-        hashtags: data.hashtags
+        }
       });
     } catch (error) {
       console.error('Failed to fetch post:', error);
@@ -47,8 +42,8 @@ const PostDetailInner = ({ postId }) => {
   };
 
   useEffect(() => {
-    loadPost(postId);
-  }, [postId]);
+    loadPost();
+  }, []);
 
   return (
     <div className='postdetail-container'>
@@ -70,11 +65,11 @@ const PostDetailInner = ({ postId }) => {
               <PostDropdownMenu post={post}></PostDropdownMenu>
               <PostAuthor user={post.user} isPage />
               <div className='postdetail__reply-container page'>
-                <ReplyList postId={postId} />
+                <ReplyList postId={postId} apiUrl={apiUrl} />
               </div>
               <div className='postdetail__reply-input-container page'>
                 <PostLikeButton like={post.like} postId={postId} />
-                <ReplyInput />
+                <ReplyInput postId={postId} apiUrl={apiUrl} />
               </div>
             </div>
           </div>
