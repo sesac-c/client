@@ -1,19 +1,19 @@
-import FeedWrapper from '../../components/common/layout/FeedWrapper.jsx';
-import ColumnLayoutWrapper from '../../components/common/layout/ColumnLayoutWrapper.jsx';
-import Carousel from '../../components/common/UI/Carousel.jsx';
-import Posts from '../../components/post/Posts.jsx';
-import UserSearch from '../../components/user/UserSearch.jsx';
+import FeedWrapper from '@/user/components/common/layout/FeedWrapper.jsx';
+import ColumnLayoutWrapper from '@/user/components/common/layout/ColumnLayoutWrapper.jsx';
+import Carousel from '@/user/components/common/UI/Carousel.jsx';
+import UserSearch from '@/user/components/user/UserSearch.jsx';
 
-import { dummyNoticeData, dummyNoticesData, dummyManagerData } from '../../_mock';
+import { fetchNotices } from '@/user/services/api/notices';
+import Notices from '@/user/components/notice/Notices';
 
 const CampusNoticeListPage = () => {
   return (
-    <FeedWrapper boardContent={<Carousel items={dummyNoticesData} title='주요 공지' />}>
+    <FeedWrapper boardContent={<Carousel items={[]} title='주요 공지' />}>
       <ColumnLayoutWrapper
-        mainArea={<Posts posts={dummyNoticeData} />}
+        mainArea={<Notices fetchNotices={fetchNotices} />}
         rightSide={
           <UserSearch
-            users={dummyManagerData}
+            users={[]}
             searchInputPlaceholder='캠퍼스 매니저 검색'
             noSearchContent='일치하는 캠퍼스 매니저가 없습니다.'
             buttonText='쪽지하기'

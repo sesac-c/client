@@ -5,7 +5,7 @@ import Posts from '../../components/post/Posts.jsx';
 import UserSearch from '../../components/user/UserSearch.jsx';
 
 import { dummyNoticesData, dummyUserData } from '../../_mock';
-import { fetchCampusPosts } from '../../services/api/posts';
+import { fetchCampusPosts } from '@/user/services/api/posts';
 
 const CampusPostListPage = () => {
   return (

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { POSTS_CAMPUS_API_URL, POSTS_ALL_API_URL } from '../../../common/constants';
+import { POSTS_CAMPUS_API_URL, POSTS_ALL_API_URL } from '@/common/constants';
 
 export const fetchCampusPosts = async params => {
   return fetchPosts(params, POSTS_CAMPUS_API_URL);
