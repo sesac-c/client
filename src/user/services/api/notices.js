@@ -79,3 +79,11 @@ export const updateReply = async (noticeId, url, replyId, data) => {
     console.error('Failed to update reply: ', error);
   }
 };
+
+export const importantNotice = async () => {
+  try {
+    return axios.get(`${NOTICES_ALL_API_URL}/important`);
+  } catch (error) {
+    console.error('Failed to important notice');
+  }
+}

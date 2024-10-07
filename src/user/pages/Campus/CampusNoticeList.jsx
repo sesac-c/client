@@ -3,12 +3,25 @@ import ColumnLayoutWrapper from '@/user/components/common/layout/ColumnLayoutWra
 import Carousel from '@/user/components/common/UI/Carousel.jsx';
 import UserSearch from '@/user/components/user/UserSearch.jsx';
 
-import { fetchNotices } from '@/user/services/api/notices';
+import { fetchNotices, importantNotice } from '@/user/services/api/notices';
 import Notices from '@/user/components/notice/Notices';
+import { useEffect, useState } from 'react';
 
 const CampusNoticeListPage = () => {
+  const [importantNotices, setImportantNotices] = useState([]);
+
+  const load = async () => {
+    const response = await importantNotice();
+    const { data } = response;
+    setImportantNotices(data);
+  };
+
+  useEffect(() => {
+    load();
+  }, []);
+
   return (
-    <FeedWrapper boardContent={<Carousel items={[]} title='주요 공지' />}>
+    <FeedWrapper boardContent={<Carousel items={importantNotices} title='주요 공지' />}>
       <ColumnLayoutWrapper
         mainArea={<Notices fetchNotices={fetchNotices} />}
         rightSide={

@@ -4,12 +4,25 @@ import Carousel from '../../components/common/UI/Carousel.jsx';
 import Posts from '../../components/post/Posts.jsx';
 import UserSearch from '../../components/user/UserSearch.jsx';
 
-import { dummyNoticesData, dummyUserData } from '../../_mock';
 import { fetchCampusPosts } from '@/user/services/api/posts';
+import { importantNotice } from '@/user/services/api/notices';
+import { useEffect, useState } from 'react';
 
 const CampusPostListPage = () => {
+  const [importantNotices, setImportantNotices] = useState([]);
+
+  const load = async () => {
+    const response = await importantNotice();
+    const { data } = response;
+    setImportantNotices(data);
+  };
+
+  useEffect(() => {
+    load();
+  }, []);
+
   return (
-    <FeedWrapper boardContent={<Carousel items={dummyNoticesData} title='주요 공지' />}>
+    <FeedWrapper boardContent={<Carousel items={importantNotices} title='주요 공지' />}>
       <ColumnLayoutWrapper
         mainArea={<Posts fetchPosts={fetchCampusPosts} />}
         rightSide={
