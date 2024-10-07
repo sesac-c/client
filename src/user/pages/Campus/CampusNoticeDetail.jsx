@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import PostDetailInner from '@/user/components/post/detail/PostDetailInner.jsx';
+import NoticeDetailInner from '@/user/components/notice/detail/NoticeDetailInner';
 import { NOTICES_ALL_API_URL } from '@/common/constants';
 
 const CampusPostDetailPage = () => {
@@ -8,7 +8,7 @@ const CampusPostDetailPage = () => {
   const noticeId = +params.noticeId;
   return (
     <div className='main-container'>
-      <PostDetailInner postId={noticeId} apiUrl={NOTICES_ALL_API_URL} />
+      <NoticeDetailInner noticeId={noticeId} apiUrl={NOTICES_ALL_API_URL} />
     </div>
   );
 };
