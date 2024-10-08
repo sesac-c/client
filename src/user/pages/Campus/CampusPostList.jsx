@@ -14,7 +14,14 @@ const CampusPostListPage = () => {
   const load = async () => {
     const response = await importantNotice();
     const { data } = response;
-    setImportantNotices(data);
+
+    const notices = data.map(notice => {
+      return {
+        ...notice,
+        link: `/feed/campus/notices/${notice.id}`
+      };
+    });
+    setImportantNotices(notices);
   };
 
   useEffect(() => {

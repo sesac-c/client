@@ -2,7 +2,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 
 import ProfileImage from '@/common/components/common/layout/ProfileImage';
 
-const PostAuthor = ({ user, onClose, isPage }) => {
+const NoticeAuthor = ({ user, onClose, isPage }) => {
   return (
     <div className={`postdetail__author-container ${isPage && 'page'}`}>
       <div className='postdetail__author-inner'>
@@ -25,4 +25,4 @@ const PostAuthor = ({ user, onClose, isPage }) => {
   );
 };
 
-export default PostAuthor;
+export default NoticeAuthor;
