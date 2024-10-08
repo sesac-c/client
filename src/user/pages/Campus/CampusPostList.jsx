@@ -1,15 +1,17 @@
-import FeedWrapper from '../../components/common/layout/FeedWrapper.jsx';
-import ColumnLayoutWrapper from '../../components/common/layout/ColumnLayoutWrapper.jsx';
-import Carousel from '../../components/common/UI/Carousel.jsx';
-import Posts from '../../components/post/Posts.jsx';
-import UserSearch from '../../components/user/UserSearch.jsx';
+import FeedWrapper from '@/user/components/common/layout/FeedWrapper.jsx';
+import ColumnLayoutWrapper from '@/user/components/common/layout/ColumnLayoutWrapper.jsx';
+import Carousel from '@/user/components/common/UI/Carousel.jsx';
+import Posts from '@/user/components/post/Posts.jsx';
+import UserSearch from '@/user/components/user/UserSearch.jsx';
 
-import { fetchCampusPosts } from '@/user/services/api/posts';
 import { importantNotice } from '@/user/services/api/notices';
 import { useEffect, useState } from 'react';
+import { POSTS_CAMPUS_API_URL } from '@/common/constants';
+import useSearchPostStore from '@/user/store/searchPostStore';
 
 const CampusPostListPage = () => {
   const [importantNotices, setImportantNotices] = useState([]);
+  const { resetStore } = useSearchPostStore();
 
   const load = async () => {
     const response = await importantNotice();
@@ -26,12 +28,13 @@ const CampusPostListPage = () => {
 
   useEffect(() => {
     load();
+    resetStore();
   }, []);
 
   return (
     <FeedWrapper boardContent={<Carousel items={importantNotices} title='주요 공지' />}>
       <ColumnLayoutWrapper
-        mainArea={<Posts fetchPosts={fetchCampusPosts} />}
+        mainArea={<Posts apiUrl={POSTS_CAMPUS_API_URL} />}
         rightSide={
           <UserSearch
             // users={dummyUserData}

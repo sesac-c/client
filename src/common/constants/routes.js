@@ -70,18 +70,22 @@ export const CAMPUS_MENU = [
   }
 ];
 
+export const ALL_PATH = 'feed/all';
+
+export const ALL_POST_LIST_PATH = `/${ALL_PATH}/${CAMPUS_CHILDREN_PATH.postList}`;
+export const ALL_SEARCH_PATH = `/${ALL_PATH}/${CAMPUS_CHILDREN_PATH.search}`;
+
 export const ALL_MENU = [
   {
     title: '메인',
-    path: CAMPUS_POST_LIST_PATH
+    path: ALL_POST_LIST_PATH
   },
   {
     title: '검색',
-    path: CAMPUS_SEARCH_PATH
+    path: ALL_SEARCH_PATH
   }
 ];
 
-export const ALL_PATH = '/feed/all';
 export const GROUP_PATH = '/feed/group';
 
 export const FEED_INFO = {

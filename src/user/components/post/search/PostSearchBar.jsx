@@ -2,18 +2,14 @@ import PropTypes from 'prop-types';
 
 import { MagnifyingGlassIcon as SearchIcon } from '@heroicons/react/16/solid';
 import useSearchPostStore from '@/user/store/searchPostStore';
-import { useEffect } from 'react';
 
 const PostSearchBar = ({ onInputChange }) => {
   const { keyword, setKeyword } = useSearchPostStore();
 
-  const handleChange = async event => {
-    await setKeyword(event.target.value);
+  const handleChange = event => {
+    onInputChange(event.target.value);
+    setKeyword(event.target.value);
   };
-
-  useEffect(() => {
-    onInputChange(keyword);
-  }, [keyword]);
 
   return (
     <div className='post-search-bar'>
@@ -23,6 +19,7 @@ const PostSearchBar = ({ onInputChange }) => {
             type='text'
             className='post-search-bar__input'
             placeholder='어떤 게시물을 찾고 계신가요?'
+            value={keyword}
             onChange={handleChange}
           />
           <SearchIcon className='post-search-bar__icon' />

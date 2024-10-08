@@ -76,43 +76,27 @@ const thumbnailUrl = thumbnail => {
   return `${IMAGE_UPLOAD_API_URL}/${thumbnail}`;
 };
 
-const Posts = ({ fetchPosts }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [posts, setPosts] = useState([]);
-  const [page, setPage] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
+const Posts = ({ apiUrl }) => {
   const loader = useRef(null);
-
   const { isPostUpdate, setIsPostUpdate } = useWritePostStore();
-  const { keyword } = useSearchPostStore();
+  const { isLoading, posts, page, hasMore, keyword, setApiUrl, loadPosts, resetStore } = useSearchPostStore();
 
-  const loadPosts = useCallback(async () => {
-    if (isLoading || !hasMore) {
-      return;
-    }
-    console.log('ㅔㅐㅔㅔㅐ', keyword);
-    setIsLoading(true);
-    try {
-      const { newPosts, last } = await fetchPosts({ page, size: 3, keyword });
-      setPosts(posts.concat(newPosts));
-      setPage(prevPage => prevPage + 1);
-      setHasMore(!last);
-    } catch (error) {
-      console.error('Failed to fetch posts:', error);
-      setHasMore(false);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [isLoading, hasMore, page, keyword]);
+  useEffect(() => {
+    setApiUrl(apiUrl);
+  }, [apiUrl, setApiUrl]);
+
+  useEffect(() => {
+    loadPosts();
+  }, [apiUrl]); // 초기 로딩
 
   const handleObserver = useCallback(
     entries => {
       const target = entries[0];
-      if (target.isIntersecting && hasMore) {
+      if (target.isIntersecting && hasMore && !isLoading) {
         loadPosts();
       }
     },
-    [loadPosts, hasMore]
+    [loadPosts, hasMore, isLoading]
   );
 
   useEffect(() => {
@@ -122,36 +106,21 @@ const Posts = ({ fetchPosts }) => {
       threshold: 0
     };
     const observer = new IntersectionObserver(handleObserver, option);
-    if (loader.current) {
-      observer.observe(loader.current);
-    }
+    if (loader.current) observer.observe(loader.current);
     return () => {
-      if (loader.current) {
-        observer.unobserve(loader.current);
-      }
+      if (loader.current) observer.unobserve(loader.current);
     };
   }, [handleObserver]);
 
   useEffect(() => {
     if (isPostUpdate) {
-      setPosts([]);
-      setPage(0);
-      setHasMore(true);
+      resetStore();
       loadPosts();
       setIsPostUpdate(false);
     }
-  }, [isPostUpdate, loadPosts, setIsPostUpdate]);
-
-  /*useEffect(() => {
-    loadPosts();
-  }, []);*/
+  }, [isPostUpdate, resetStore, loadPosts, setIsPostUpdate]);
 
   useEffect(() => {
-    console.log('aaaa');
-    setPage(0);
-    setHasMore(true);
-    setPosts([]);
-    setIsPostUpdate(false);
     loadPosts();
   }, [keyword, loadPosts]);
 
