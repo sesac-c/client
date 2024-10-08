@@ -6,6 +6,7 @@ import AllLayout from './layouts/All';
 // ----------------------------------------------------------------------
 
 export const CampusNoticeListPage = lazy(() => import('./pages/Campus/CampusNoticeList.jsx'));
+export const CampusNoticeDetailPage = lazy(() => import('./pages/Campus/CampusNoticeDetail.jsx'));
 export const CampusPostDetailPage = lazy(() => import('./pages/Campus/CampusPostDetail.jsx'));
 export const CampusPostListPage = lazy(() => import('./pages/Campus/CampusPostList.jsx'));
 export const SearchCampusPostPage = lazy(() => import('./pages/Campus/SearchCampusPost.jsx'));
@@ -36,6 +37,10 @@ const userRoutes = [
         element: <CampusNoticeListPage />
       },
       {
+        path: `${CAMPUS_CHILDREN_PATH.noticeList}/:noticeId`,
+        element: <CampusNoticeDetailPage />
+      },
+      {
         path: CAMPUS_CHILDREN_PATH.search,
         element: <SearchCampusPostPage />
       }
@@ -53,7 +58,7 @@ const userRoutes = [
         path: CAMPUS_CHILDREN_PATH.postList,
         element: <AllPostListPage />
       },
-   
+
       {
         path: CAMPUS_CHILDREN_PATH.search,
         element: <SearchAllPostPage />

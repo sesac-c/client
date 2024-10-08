@@ -3,11 +3,13 @@ import { useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
+import { useNavigate } from 'react-router-dom';
 
 const ITEMS_PER_PAGE = 4;
 
 const Carousel = ({ items, title, itemsPerPage = ITEMS_PER_PAGE }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate();
 
   const { totalPages, isNextDisabled, isPrevDisabled, displayedItems, emptySpaces } = useMemo(() => {
     const safeItems = items || [];
@@ -31,6 +33,10 @@ const Carousel = ({ items, title, itemsPerPage = ITEMS_PER_PAGE }) => {
     setCurrentIndex(prevIndex => Math.max(prevIndex - 1, 0));
   }, []);
 
+  const onClick = link => {
+    navigate(link);
+  };
+
   return (
     <section className='carousel'>
       <div className='carousel__container'>
@@ -41,7 +47,11 @@ const Carousel = ({ items, title, itemsPerPage = ITEMS_PER_PAGE }) => {
           <ul className='carousel__list'>
             <NavButton direction='prev' onClick={handlePrev} disabled={isPrevDisabled} />
             {displayedItems.map((item, index) => (
-              <CarouselItem key={`item-${currentIndex * itemsPerPage + index}`} text={item.text} />
+              <CarouselItem
+                key={`item-${currentIndex * itemsPerPage + index}`}
+                text={item.text}
+                onClick={() => onClick(item.link)}
+              />
             ))}
             {Array.from({ length: emptySpaces }).map((_, index) => (
               <EmptyItem key={`empty-${index}`} />
@@ -65,9 +75,11 @@ const NavButton = ({ direction, onClick, disabled }) => (
   </div>
 );
 
-const CarouselItem = ({ text }) => (
+const CarouselItem = ({ text, onClick }) => (
   <li className='carousel__item'>
-    <button className='carousel__item-btn'>{text}</button>
+    <button className='carousel__item-btn' onClick={onClick}>
+      {text}
+    </button>
   </li>
 );
 

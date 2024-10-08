@@ -9,4 +9,5 @@ export const MANAGER_RUNNINGMATE_LIST_API_URL = '/runningmates';
 
 export const POSTS_CAMPUS_API_URL = '/posts/campus';
 export const POSTS_ALL_API_URL = '/posts/all';
+export const NOTICES_ALL_API_URL = '/notices/all';
 export const IMAGE_UPLOAD_API_URL = `${process.env.REACT_APP_API_BASE_URL}view`;
