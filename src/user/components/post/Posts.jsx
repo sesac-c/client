@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { HeartIcon } from '@heroicons/react/20/solid';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 
-import { useNavigateHandler } from '../../../common/hooks';
+import { useNavigateHandler } from '@/common/hooks';
 
-import { formatDateToKorean } from '../../../common/utils/formatter';
-import useWritePostStore from '../../store/writePostStore';
+import { formatDateToKorean } from '@/common/utils/formatter';
+import useWritePostStore from '@/user/store/writePostStore';
 
 import React, { useCallback, useEffect, useState, useRef } from 'react';
-import { IMAGE_UPLOAD_API_URL } from '../../../common/constants';
+import { IMAGE_UPLOAD_API_URL } from '@/common/constants';
+import useSearchPostStore from '@/user/store/searchPostStore';
 
 const Post = ({ post }) => {
   const formattedDate = formatDateToKorean(post.createdAt);
@@ -83,15 +84,16 @@ const Posts = ({ fetchPosts }) => {
   const loader = useRef(null);
 
   const { isPostUpdate, setIsPostUpdate } = useWritePostStore();
+  const { keyword } = useSearchPostStore();
 
   const loadPosts = useCallback(async () => {
     if (isLoading || !hasMore) {
       return;
     }
-
+    console.log('ㅔㅐㅔㅔㅐ', keyword);
     setIsLoading(true);
     try {
-      const { newPosts, last } = await fetchPosts({ page, size: 3 });
+      const { newPosts, last } = await fetchPosts({ page, size: 3, keyword });
       setPosts(posts.concat(newPosts));
       setPage(prevPage => prevPage + 1);
       setHasMore(!last);
@@ -101,7 +103,7 @@ const Posts = ({ fetchPosts }) => {
     } finally {
       setIsLoading(false);
     }
-  }, [isLoading, hasMore, page]);
+  }, [isLoading, hasMore, page, keyword]);
 
   const handleObserver = useCallback(
     entries => {
@@ -140,9 +142,18 @@ const Posts = ({ fetchPosts }) => {
     }
   }, [isPostUpdate, loadPosts, setIsPostUpdate]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     loadPosts();
-  }, []);
+  }, []);*/
+
+  useEffect(() => {
+    console.log('aaaa');
+    setPage(0);
+    setHasMore(true);
+    setPosts([]);
+    setIsPostUpdate(false);
+    loadPosts();
+  }, [keyword, loadPosts]);
 
   if (!posts || posts.length === 0) {
     return <p className='text-center'>등록된 게시글이 없습니다.</p>;

@@ -1,11 +1,20 @@
 import PropTypes from 'prop-types';
 
 import { MagnifyingGlassIcon as SearchIcon } from '@heroicons/react/16/solid';
+import useSearchPostStore from '@/user/store/searchPostStore';
+import { useEffect } from 'react';
 
 const PostSearchBar = ({ onInputChange }) => {
-  const handleChange = event => {
-    onInputChange(event.target.value);
+  const { keyword, setKeyword } = useSearchPostStore();
+
+  const handleChange = async event => {
+    await setKeyword(event.target.value);
   };
+
+  useEffect(() => {
+    onInputChange(keyword);
+  }, [keyword]);
+
   return (
     <div className='post-search-bar'>
       <div className='post-search-bar__container'>
