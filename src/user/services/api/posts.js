@@ -23,9 +23,9 @@ export const fetchPosts = async (params, url) => {
   }
 };
 
-export const postsCampusCreate = async data => {
+export const postsCampusCreate = async (data, feedType) => {
   try {
-    const response = await axios.post(POSTS_CAMPUS_API_URL, data);
+    const response = await axios.post(`posts/${feedType}`, data);
     return response;
   } catch (error) {
     console.error('Failed to create post: ', error);
