@@ -87,17 +87,14 @@ const Posts = ({ apiUrl, feedType }) => {
 
   useEffect(() => {
     loadPosts();
-  }, [apiUrl]); // 초기 로딩
+  }, [apiUrl, keyword]); // 초기 로딩
 
-  const handleObserver = useCallback(
-    entries => {
-      const target = entries[0];
-      if (target.isIntersecting && hasMore && !isLoading) {
-        loadPosts();
-      }
-    },
-    [loadPosts, hasMore, isLoading]
-  );
+  const handleObserver = entries => {
+    const target = entries[0];
+    if (target.isIntersecting && hasMore && !isLoading) {
+      loadPosts();
+    }
+  };
 
   useEffect(() => {
     const option = {
@@ -119,10 +116,6 @@ const Posts = ({ apiUrl, feedType }) => {
       setIsPostUpdate(false);
     }
   }, [isPostUpdate, resetStore, loadPosts, setIsPostUpdate]);
-
-  useEffect(() => {
-    loadPosts();
-  }, [keyword, loadPosts]);
 
   if (!posts || posts.length === 0) {
     return <p className='text-center'>등록된 게시글이 없습니다.</p>;
