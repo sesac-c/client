@@ -135,3 +135,11 @@ export const removeImage = async fileName => {
     console.error('Failed to upload: ', error);
   }
 };
+
+export const fetchPopular = async () => {
+  try {
+    return axios.get(`${POSTS_CAMPUS_API_URL}/popular`);
+  } catch (error) {
+    console.error('Failed to fetch: ', error);
+  }
+};
