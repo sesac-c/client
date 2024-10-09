@@ -34,7 +34,7 @@ const AllPostListPage = () => {
   return (
     <FeedWrapper boardContent={<Carousel items={popularPosts} title='인기글' />}>
       <ColumnLayoutWrapper
-        mainArea={<Posts apiUrl={POSTS_ALL_API_URL} />}
+        mainArea={<Posts apiUrl={POSTS_ALL_API_URL} feedType={'all'} />}
         rightSide={
           <UserSearch
             // users={dummyUserData}

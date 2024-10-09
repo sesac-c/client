@@ -12,7 +12,7 @@ import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { IMAGE_UPLOAD_API_URL } from '@/common/constants';
 import useSearchPostStore from '@/user/store/searchPostStore';
 
-const Post = ({ post }) => {
+const Post = ({ post, feedType }) => {
   const formattedDate = formatDateToKorean(post.createdAt);
 
   return (
@@ -23,7 +23,7 @@ const Post = ({ post }) => {
             <img src={thumbnailUrl(post.thumbnail)} alt='post url' />
           </div>
         )}
-        <div className='post-content' onClick={useNavigateHandler(`./${post.id}`)}>
+        <div className='post-content' onClick={useNavigateHandler(`/feed/${feedType}/posts/${post.id}`)}>
           <div className='post-main'>
             <div className='post-header'>
               <div className='post-title'>
@@ -76,7 +76,7 @@ const thumbnailUrl = thumbnail => {
   return `${IMAGE_UPLOAD_API_URL}/${thumbnail}`;
 };
 
-const Posts = ({ apiUrl }) => {
+const Posts = ({ apiUrl, feedType }) => {
   const loader = useRef(null);
   const { isPostUpdate, setIsPostUpdate } = useWritePostStore();
   const { isLoading, posts, page, hasMore, keyword, setApiUrl, loadPosts, resetStore } = useSearchPostStore();
@@ -131,7 +131,7 @@ const Posts = ({ apiUrl }) => {
   return (
     <div className='posts-container'>
       {posts.map(post => (
-        <Post key={`${post.id}-${post.createdAt}`} post={post} />
+        <Post key={`${post.id}-${post.createdAt}`} post={post} feedType={feedType} />
       ))}
       {isLoading && <p className='text-center'>Loading...</p>}
       {hasMore && <div ref={loader} style={{ height: '20px' }} />}
