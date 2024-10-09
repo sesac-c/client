@@ -1,17 +1,24 @@
-import FeedWrapper from '../../components/common/layout/FeedWrapper.jsx';
-import ColumnLayoutWrapper from '../../components/common/layout/ColumnLayoutWrapper.jsx';
-import Carousel from '../../components/common/UI/Carousel.jsx';
-import Posts from '../../components/post/Posts.jsx';
-import UserSearch from '../../components/user/UserSearch.jsx';
+import FeedWrapper from '@/user/components/common/layout/FeedWrapper.jsx';
+import ColumnLayoutWrapper from '@/user/components/common/layout/ColumnLayoutWrapper.jsx';
+import Carousel from '@/user/components/common/UI/Carousel.jsx';
+import Posts from '@/user/components/post/Posts.jsx';
+import UserSearch from '@/user/components/user/UserSearch.jsx';
 
-import { dummyNoticesData } from '../../_mock';
-import { fetchAllPosts } from '../../services/api/posts';
+import { useEffect } from 'react';
+import { POSTS_ALL_API_URL } from '@/common/constants';
+import useSearchPostStore from '@/user/store/searchPostStore';
 
 const AllPostListPage = () => {
+  const { resetStore } = useSearchPostStore();
+
+  useEffect(() => {
+    resetStore();
+  }, []);
+
   return (
-    <FeedWrapper boardContent={<Carousel items={dummyNoticesData} title='주요 공지' />}>
+    <FeedWrapper boardContent={<Carousel items={[]} title='주요 공지' />}>
       <ColumnLayoutWrapper
-        mainArea={<Posts fetchPosts={fetchAllPosts} />}
+        mainArea={<Posts apiUrl={POSTS_ALL_API_URL} />}
         rightSide={
           <UserSearch
             // users={dummyUserData}

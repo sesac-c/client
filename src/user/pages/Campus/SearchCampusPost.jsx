@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-import FeedWrapper from '../../components/common/layout/FeedWrapper.jsx';
-import ColumnLayoutWrapper from '../../components/common/layout/ColumnLayoutWrapper.jsx';
-import Posts from '../../components/post/Posts.jsx';
-import PostSearchBar from '../../components/post/search/PostSearchBar.jsx';
-import SearchLoadingIndicator from '../../components/post/search/SearchLoadingIndicator.jsx';
+import FeedWrapper from '@/user/components/common/layout/FeedWrapper.jsx';
+import ColumnLayoutWrapper from '@/user/components/common/layout/ColumnLayoutWrapper.jsx';
+import Posts from '@/user/components/post/Posts.jsx';
+import PostSearchBar from '@/user/components/post/search/PostSearchBar.jsx';
+import SearchLoadingIndicator from '@/user/components/post/search/SearchLoadingIndicator.jsx';
 
-import { dummyNoticeData } from '../../_mock';
+import { POSTS_CAMPUS_API_URL } from '@/common/constants';
 
 const SearchCampusPostPage = () => {
   const [hasInput, setHasInput] = useState(false);
@@ -18,7 +18,7 @@ const SearchCampusPostPage = () => {
 
   return (
     <FeedWrapper boardContent={<PostSearchBar onInputChange={handleInputChange} />}>
-      <ColumnLayoutWrapper mainArea={hasInput ? <Posts posts={dummyNoticeData} /> : <SearchLoadingIndicator />} />
+      <ColumnLayoutWrapper mainArea={hasInput ? <Posts apiUrl={POSTS_CAMPUS_API_URL} /> : <SearchLoadingIndicator />} />
     </FeedWrapper>
   );
 };

@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { HeartIcon } from '@heroicons/react/20/solid';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 
-import { useNavigateHandler } from '../../../common/hooks';
+import { useNavigateHandler } from '@/common/hooks';
 
-import { formatDateToKorean } from '../../../common/utils/formatter';
-import useWritePostStore from '../../store/writePostStore';
+import { formatDateToKorean } from '@/common/utils/formatter';
+import useWritePostStore from '@/user/store/writePostStore';
 
 import React, { useCallback, useEffect, useState, useRef } from 'react';
-import { IMAGE_UPLOAD_API_URL } from '../../../common/constants';
+import { IMAGE_UPLOAD_API_URL } from '@/common/constants';
+import useSearchPostStore from '@/user/store/searchPostStore';
 
 const Post = ({ post }) => {
   const formattedDate = formatDateToKorean(post.createdAt);
@@ -75,42 +76,27 @@ const thumbnailUrl = thumbnail => {
   return `${IMAGE_UPLOAD_API_URL}/${thumbnail}`;
 };
 
-const Posts = ({ fetchPosts }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [posts, setPosts] = useState([]);
-  const [page, setPage] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
+const Posts = ({ apiUrl }) => {
   const loader = useRef(null);
-
   const { isPostUpdate, setIsPostUpdate } = useWritePostStore();
+  const { isLoading, posts, page, hasMore, keyword, setApiUrl, loadPosts, resetStore } = useSearchPostStore();
 
-  const loadPosts = useCallback(async () => {
-    if (isLoading || !hasMore) {
-      return;
-    }
+  useEffect(() => {
+    setApiUrl(apiUrl);
+  }, [apiUrl, setApiUrl]);
 
-    setIsLoading(true);
-    try {
-      const { newPosts, last } = await fetchPosts({ page, size: 3 });
-      setPosts(posts.concat(newPosts));
-      setPage(prevPage => prevPage + 1);
-      setHasMore(!last);
-    } catch (error) {
-      console.error('Failed to fetch posts:', error);
-      setHasMore(false);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [isLoading, hasMore, page]);
+  useEffect(() => {
+    loadPosts();
+  }, [apiUrl]); // 초기 로딩
 
   const handleObserver = useCallback(
     entries => {
       const target = entries[0];
-      if (target.isIntersecting && hasMore) {
+      if (target.isIntersecting && hasMore && !isLoading) {
         loadPosts();
       }
     },
-    [loadPosts, hasMore]
+    [loadPosts, hasMore, isLoading]
   );
 
   useEffect(() => {
@@ -120,29 +106,23 @@ const Posts = ({ fetchPosts }) => {
       threshold: 0
     };
     const observer = new IntersectionObserver(handleObserver, option);
-    if (loader.current) {
-      observer.observe(loader.current);
-    }
+    if (loader.current) observer.observe(loader.current);
     return () => {
-      if (loader.current) {
-        observer.unobserve(loader.current);
-      }
+      if (loader.current) observer.unobserve(loader.current);
     };
   }, [handleObserver]);
 
   useEffect(() => {
     if (isPostUpdate) {
-      setPosts([]);
-      setPage(0);
-      setHasMore(true);
+      resetStore();
       loadPosts();
       setIsPostUpdate(false);
     }
-  }, [isPostUpdate, loadPosts, setIsPostUpdate]);
+  }, [isPostUpdate, resetStore, loadPosts, setIsPostUpdate]);
 
   useEffect(() => {
     loadPosts();
-  }, []);
+  }, [keyword, loadPosts]);
 
   if (!posts || posts.length === 0) {
     return <p className='text-center'>등록된 게시글이 없습니다.</p>;

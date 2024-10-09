@@ -1,15 +1,7 @@
 import axios from 'axios';
 import { POSTS_CAMPUS_API_URL, POSTS_ALL_API_URL } from '@/common/constants';
 
-export const fetchCampusPosts = async params => {
-  return fetchPosts(params, POSTS_CAMPUS_API_URL);
-};
-
-export const fetchAllPosts = async params => {
-  return fetchPosts(params, POSTS_ALL_API_URL);
-};
-
-const fetchPosts = async (params, url) => {
+export const fetchPosts = async (params, url) => {
   try {
     const response = await axios.get(url, {
       params
