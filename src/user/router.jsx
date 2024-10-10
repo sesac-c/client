@@ -19,6 +19,9 @@ export const AllPostListPage = lazy(() => import('./pages/All/AllPostList.jsx'))
 export const SearchAllPostPage = lazy(() => import('./pages/All/SearchAllPost.jsx'));
 
 // ----------------------------------------------------------------------
+export const GroupCoursePage = lazy(() => import('./pages/Group/GroupCourse'));
+
+// ----------------------------------------------------------------------
 
 const userRoutes = [
   {
@@ -72,11 +75,11 @@ const userRoutes = [
     children: [
       {
         path: GROUP_CHILDREN_PATH.courses,
-        element: <CampusNoticeDetailPage />
+        element: <GroupCoursePage />
       },
       {
         path: GROUP_CHILDREN_PATH.runningmate,
-        element: <CampusNoticeListPage />
+        element: <GroupCoursePage />
       }
     ]
   }
