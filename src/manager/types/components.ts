@@ -1,4 +1,5 @@
-// Shared types
+import { restaurantError, RestaurantFormState } from './form';
+
 interface Breadcrumb {
   homeIcon: JSX.Element;
   breadcrumbTrail: string[];
@@ -16,14 +17,18 @@ export interface ContentHeaderProps {
 }
 
 // RegisterModal related types
+export interface RegisterButtonProps {
+  isFormValid: boolean;
+}
 export interface RegisterFormItem {
   label: string;
   name: string;
 }
 export interface RegisterFormProps {
   buttonText?: string;
-  handleClick: (event?: React.FormEvent<HTMLFormElement>) => void;
+  handleClick: () => void;
   form: JSX.Element;
+  disabled: boolean;
 }
 
 export interface DialogProps {
@@ -31,12 +36,53 @@ export interface DialogProps {
   content?: string;
 }
 
-export interface RegisterModalProps {
+export interface RegisterInstanceModalProps {
+  open: boolean;
+  onClose: () => void;
+  onFormHook: {
+    state: any;
+    errors: any;
+    isFormValid: boolean;
+    handleChange: (field: any, value: string) => void;
+    handleRegister: () => void;
+    validateForm: () => boolean;
+  };
+}
+export interface RegisterModalProps extends RegisterInstanceModalProps {
   registerButtonText: string;
   submit: RegisterFormProps;
   dialog: DialogProps;
 }
 
-export interface RegisterInstanceModalProps {
-  handleClick: (event?: React.FormEvent<HTMLFormElement>) => void;
+export interface RegisterFormFieldProps {
+  name: string;
+  label: string;
+  value: string;
+  onChange: (field: keyof RestaurantFormState, value: string) => void;
+  error?: string;
+}
+
+export interface RegisterSelectorPropsOption {
+  value: string;
+  label: string;
+}
+
+export interface RegisterSelectorProps {
+  title: string;
+  value: string;
+  options: RegisterSelectorPropsOption[];
+  onChange: (value: string) => void;
+  error?: string;
+}
+
+export interface RestaurantRegisterFormProps extends RegisterButtonProps {
+  state: RestaurantFormState;
+  errors: restaurantError;
+  onChange: (field: keyof RestaurantFormState, value: string) => void;
+  onSubmit: () => Promise<void>;
+}
+export interface RestaurantRegisterModalProps extends RestaurantRegisterFormProps {
+  open: boolean;
+  onOpen: () => void;
+  onClose: () => void;
 }

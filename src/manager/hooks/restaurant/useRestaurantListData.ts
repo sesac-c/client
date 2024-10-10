@@ -1,11 +1,8 @@
 import React from 'react';
 import { RowType, SearchTitle, TableData, RestaurantListRequest } from '../../types';
 import { restaurantListRequest } from '../../services/api';
-import { MANAGER_RESTAURANT_CHILDREN_PATH } from '../../../common/constants';
-import { useNavigate } from 'react-router-dom';
 
 export const useRestaurantListData = () => {
-  const navigate = useNavigate();
   const restaurantSearchTitle = SearchTitle.RESTAURANT;
 
   const [restaurantData, setRestaurantData] = React.useState<TableData>({
@@ -33,7 +30,7 @@ export const useRestaurantListData = () => {
         }))
       });
     } catch (error) {
-      console.error('Failed to fetch restaurant:', error);
+      console.error('식당 정보 로드 실패: ', error);
     } finally {
       setIsLoading(false);
     }
@@ -50,11 +47,6 @@ export const useRestaurantListData = () => {
   const handleApplyFilters = () => {
     loadRestaurant({ name: searchTerm });
   };
-  function handleAddRestaurant() {
-    // 식당 등록 요청, 후에 상세 페이지 이동
-    navigate(MANAGER_RESTAURANT_CHILDREN_PATH.register);
-    return;
-  }
 
   return {
     restaurantSearchTitle,
@@ -62,6 +54,6 @@ export const useRestaurantListData = () => {
     isLoading,
     handleSearchChange,
     handleApplyFilters,
-    handleAddRestaurant
+    loadRestaurant
   };
 };

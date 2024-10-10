@@ -1,1 +1,1 @@
-export * from './useRestaurantListData';
+export * from './useRestaurantManagement';

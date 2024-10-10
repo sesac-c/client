@@ -1,7 +1,7 @@
 import React from 'react';
 import RestaurantList from '../../components/restaurant/list/RestaurantList';
 import { navIcons } from '../../assets/icon';
-import { useRestaurantListData } from '../../hooks/restaurant';
+import { useRestaurantManagement } from '../../hooks/restaurant';
 import ContentHeader from '../../components/common/layout/ContentHeader';
 import RestaurantRegisterModal from '../../components/restaurant/register/RestaurantRegisterModal';
 
@@ -12,15 +12,38 @@ const breadcrumb = {
 };
 
 const RestaurantListPage: React.FC = () => {
-  const [open, setOpen] = React.useState(false);
   const {
+    open,
+    setOpen,
+    modalOpen,
     restaurantSearchTitle,
     restaurantData,
     isLoading,
     handleSearchChange,
     handleApplyFilters,
+    state,
+    errors,
+    isFormValid,
+    handleChange,
+    handleOpenModal,
+    handleCloseModal,
     handleAddRestaurant
-  } = useRestaurantListData();
+  } = useRestaurantManagement();
+
+  // Register Modal
+  const registerModal = (
+    <RestaurantRegisterModal
+      open={modalOpen}
+      onOpen={handleOpenModal}
+      onClose={handleCloseModal}
+      state={state}
+      errors={errors}
+      isFormValid={isFormValid}
+      onChange={handleChange}
+      onSubmit={handleAddRestaurant}
+    />
+  );
+
   return (
     <React.Fragment>
       {/* 페이지 헤더 */}
@@ -28,15 +51,15 @@ const RestaurantListPage: React.FC = () => {
         breadcrumb={breadcrumb}
         pageInfo={{
           page,
-          register: React.createElement(RestaurantRegisterModal, { handleClick: handleAddRestaurant })
+          register: registerModal
         }}
       />
 
       {/* 테이블 */}
       <RestaurantList
-        searchTitle={restaurantSearchTitle}
         open={open}
         setOpen={setOpen}
+        searchTitle={restaurantSearchTitle}
         searchInputProps={{
           searchTitle: restaurantSearchTitle,
           onSearchChange: handleSearchChange

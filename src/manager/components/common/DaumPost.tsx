@@ -1,13 +1,19 @@
+import React, { forwardRef, useImperativeHandle } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
-import RegisterInput from './UI/RegisterInput';
-import { Button } from '@mui/joy';
-import { getCoords, handleAddress } from '../../../common/utils';
+import RegisterInput from './UI/register/RegisterInput';
+import { handleAddress } from '../../../common/utils';
 
-const DaumPost: React.FC<{
+export interface DaumPostRef {
+  open: () => void;
+}
+
+interface DaumPostProps {
   value: string;
   setFuc: (result: string) => void;
-}> = ({ value, setFuc }) => {
-  const open = useDaumPostcodePopup(); //클릭 시 수행될 팝업 생성 함수
+}
+
+const DaumPost = forwardRef<DaumPostRef, DaumPostProps>(({ value, setFuc }, ref) => {
+  const openPostcodePopup = useDaumPostcodePopup();
 
   const handleComplete = (data: {
     address: string;
@@ -19,27 +25,34 @@ const DaumPost: React.FC<{
   }) => {
     handleAddress(data, setFuc);
   };
-  //클릭 시 발생할 이벤트
+
   const handleClick = () => {
-    open({ onComplete: handleComplete });
+    openPostcodePopup({ onComplete: handleComplete });
     // 이후 좌표 저장할 것.
   };
+
+  useImperativeHandle(ref, () => ({
+    open: handleClick
+  }));
+
   return (
     <RegisterInput
       required
       name='address'
       placeholder='주소'
-      endDecorator={
-        <Button size='sm' color='success' onClick={handleClick}>
-          주소 찾기
-        </Button>
-      }
+      // endDecorator={
+      //   <Button size='sm' color='success' onClick={handleClick}>
+      //     주소 찾기
+      //   </Button>
+      // }
+      onClick={handleClick}
       size='md'
       fullWidth
       variant='plain'
       value={value}
+      readOnly
     />
   );
-};
+});
 
 export default DaumPost;

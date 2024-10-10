@@ -1,21 +1,41 @@
 const { kakao } = window;
 
-export function getCoords(address: string) {
-  // x좌표, y좌표 얻기
-  var geocoder = new kakao.maps.services.Geocoder();
-  // 주소로 좌표를 검색합니다
-  geocoder.addressSearch(address, function (search: any, status: any) {
-    // 정상적으로 검색이 완료됐으면
-    if (status === kakao.maps.services.Status.OK) {
-      return {
-        longitude: search[0].x,
-        latitude: search[0].y
-      };
+export const getCoordinates = (address: string): Promise<{ longitude: string; latitude: string }> => {
+  return new Promise(resolve => {
+    if (typeof kakao === 'undefined' || !kakao.maps || !kakao.maps.services) {
+      console.error('Kakao Maps API is not loaded');
+      resolve({
+        longitude: '',
+        latitude: ''
+      });
+      return;
+    }
+
+    try {
+      const geocoder = new kakao.maps.services.Geocoder();
+      geocoder.addressSearch(address, function (search: any, status: any) {
+        if (status === kakao.maps.services.Status.OK && search && search.length > 0) {
+          resolve({
+            longitude: search[0].x,
+            latitude: search[0].y
+          });
+        } else {
+          console.warn('Geocoding failed or returned no results:', status);
+          resolve({
+            longitude: '',
+            latitude: ''
+          });
+        }
+      });
+    } catch (error) {
+      console.error('Error in getCoordinates:', error);
+      resolve({
+        longitude: '',
+        latitude: ''
+      });
     }
   });
-
-  return null;
-}
+};
 
 export const handleAddress = (
   data: {
