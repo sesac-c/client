@@ -81,6 +81,9 @@ export const ALL_MENU = [
     path: ALL_POST_LIST_PATH
   },
   {
+    title: '글쓰기'
+  },
+  {
     title: '검색',
     path: ALL_SEARCH_PATH
   }

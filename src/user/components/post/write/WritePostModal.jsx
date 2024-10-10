@@ -1,20 +1,20 @@
 import { useCallback, useEffect } from 'react';
 
-import useWritePostStore from '../../../store/writePostStore';
-import { useConfirmClose, useModal } from '../../../../common/hooks';
+import useWritePostStore from '@/user/store/writePostStore';
+import { useConfirmClose, useModal } from '@/common/hooks';
 
-import Modal from '../../../../common/components/common/UI/Modal';
-import Button from '../../../../common/components/common/UI/Button';
-import ProcessErrorModal from '../../../../common/components/common/feedback/ProcessErrorModal';
+import Modal from '@/common/components/common/UI/Modal';
+import Button from '@/common/components/common/UI/Button';
+import ProcessErrorModal from '@/common/components/common/feedback/ProcessErrorModal';
 import WritePostContent from './WritePostContent.jsx';
 
-import { WRITE_POST_CONFIRM_MESSAGE, WRITE_MODAL } from '../../../../common/constants';
-import { postsCampusCreate } from '../../../services/api/posts';
+import { WRITE_POST_CONFIRM_MESSAGE, WRITE_MODAL } from '@/common/constants';
+import { postsCampusCreate } from '@/user/services/api/posts';
 
 const TITLE = '글쓰기';
 const BUTTON_SIZE = 'large';
 
-const WritePostModal = React.memo(({ onClose }) => {
+const WritePostModal = React.memo(({ onClose, feedType }) => {
   const {
     title,
     content,
@@ -33,7 +33,7 @@ const WritePostModal = React.memo(({ onClose }) => {
 
   const handleComplete = useCallback(async () => {
     try {
-      await postsCampusCreate({ title, content, hashtag: hashtags, image, thumbnail });
+      await postsCampusCreate({ title, content, hashtag: hashtags, image, thumbnail }, feedType);
       setIsPostUpdate(true);
       resetStore();
       onClose();

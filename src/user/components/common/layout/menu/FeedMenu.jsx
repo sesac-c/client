@@ -1,19 +1,21 @@
 import { memo, useCallback, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { useModal } from '../../../../../common/hooks/useModal.js';
+import { useModal } from '@/common/hooks/useModal.js';
 
 import PropTypes from 'prop-types';
 
 import FeedSelectBox from './FeedSelectBox.jsx';
-import WritePostModal from '../../../post/write/WritePostModal';
+import WritePostModal from '@/user/components/post/write/WritePostModal';
 
-import { FEED_INFO, FEED_ARR } from '../../../../../common/constants';
+import { FEED_INFO, FEED_ARR } from '@/common/constants';
 
 const FeedMenu = ({ currentLocation }) => {
   const menuList = useMemo(() => FEED_INFO[currentLocation].menuList, [currentLocation]);
 
-  const { openModal, closeModal, isOpen } = useModal(() => <WritePostModal onClose={closeModal} />);
+  const { openModal, closeModal, isOpen } = useModal(() => (
+    <WritePostModal feedType={currentLocation} onClose={closeModal} />
+  ));
 
   const renderMenuItem = useCallback(
     ({ title, path }) => {

@@ -12,7 +12,7 @@ import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { IMAGE_UPLOAD_API_URL } from '@/common/constants';
 import useSearchPostStore from '@/user/store/searchPostStore';
 
-const Post = ({ post }) => {
+const Post = ({ post, feedType }) => {
   const formattedDate = formatDateToKorean(post.createdAt);
 
   return (
@@ -23,7 +23,7 @@ const Post = ({ post }) => {
             <img src={thumbnailUrl(post.thumbnail)} alt='post url' />
           </div>
         )}
-        <div className='post-content' onClick={useNavigateHandler(`./${post.id}`)}>
+        <div className='post-content' onClick={useNavigateHandler(`/feed/${feedType}/posts/${post.id}`)}>
           <div className='post-main'>
             <div className='post-header'>
               <div className='post-title'>
@@ -76,7 +76,7 @@ const thumbnailUrl = thumbnail => {
   return `${IMAGE_UPLOAD_API_URL}/${thumbnail}`;
 };
 
-const Posts = ({ apiUrl }) => {
+const Posts = ({ apiUrl, feedType }) => {
   const loader = useRef(null);
   const { isPostUpdate, setIsPostUpdate } = useWritePostStore();
   const { isLoading, posts, page, hasMore, keyword, setApiUrl, loadPosts, resetStore } = useSearchPostStore();
@@ -87,17 +87,14 @@ const Posts = ({ apiUrl }) => {
 
   useEffect(() => {
     loadPosts();
-  }, [apiUrl]); // 초기 로딩
+  }, [apiUrl, keyword]); // 초기 로딩
 
-  const handleObserver = useCallback(
-    entries => {
-      const target = entries[0];
-      if (target.isIntersecting && hasMore && !isLoading) {
-        loadPosts();
-      }
-    },
-    [loadPosts, hasMore, isLoading]
-  );
+  const handleObserver = entries => {
+    const target = entries[0];
+    if (target.isIntersecting && hasMore && !isLoading) {
+      loadPosts();
+    }
+  };
 
   useEffect(() => {
     const option = {
@@ -120,10 +117,6 @@ const Posts = ({ apiUrl }) => {
     }
   }, [isPostUpdate, resetStore, loadPosts, setIsPostUpdate]);
 
-  useEffect(() => {
-    loadPosts();
-  }, [keyword, loadPosts]);
-
   if (!posts || posts.length === 0) {
     return <p className='text-center'>등록된 게시글이 없습니다.</p>;
   }
@@ -131,7 +124,7 @@ const Posts = ({ apiUrl }) => {
   return (
     <div className='posts-container'>
       {posts.map(post => (
-        <Post key={`${post.id}-${post.createdAt}`} post={post} />
+        <Post key={`${post.id}-${post.createdAt}`} post={post} feedType={feedType} />
       ))}
       {isLoading && <p className='text-center'>Loading...</p>}
       {hasMore && <div ref={loader} style={{ height: '20px' }} />}

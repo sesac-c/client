@@ -34,7 +34,7 @@ const CampusPostListPage = () => {
   return (
     <FeedWrapper boardContent={<Carousel items={importantNotices} title='주요 공지' />}>
       <ColumnLayoutWrapper
-        mainArea={<Posts apiUrl={POSTS_CAMPUS_API_URL} />}
+        mainArea={<Posts apiUrl={POSTS_CAMPUS_API_URL} feedType={'campus'} />}
         rightSide={
           <UserSearch
             // users={dummyUserData}

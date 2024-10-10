@@ -18,7 +18,9 @@ const SearchCampusPostPage = () => {
 
   return (
     <FeedWrapper boardContent={<PostSearchBar onInputChange={handleInputChange} />}>
-      <ColumnLayoutWrapper mainArea={hasInput ? <Posts apiUrl={POSTS_CAMPUS_API_URL} /> : <SearchLoadingIndicator />} />
+      <ColumnLayoutWrapper
+        mainArea={hasInput ? <Posts apiUrl={POSTS_CAMPUS_API_URL} feedType={'campus'} /> : <SearchLoadingIndicator />}
+      />
     </FeedWrapper>
   );
 };
