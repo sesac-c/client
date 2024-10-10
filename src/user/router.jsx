@@ -1,7 +1,8 @@
 import { lazy, Suspense } from 'react';
-import { ALL_PATH, CAMPUS_CHILDREN_PATH, CAMPUS_PATH } from '../common/constants';
-import CampusLayout from './layouts/Campus.jsx';
+import { ALL_PATH, CAMPUS_CHILDREN_PATH, CAMPUS_PATH, GROUP_CHILDREN_PATH, GROUP_PATH } from '@/common/constants';
+import CampusLayout from './layouts/Campus';
 import AllLayout from './layouts/All';
+import GroupLayout from './layouts/Group';
 
 // ----------------------------------------------------------------------
 
@@ -62,6 +63,20 @@ const userRoutes = [
       {
         path: CAMPUS_CHILDREN_PATH.search,
         element: <SearchAllPostPage />
+      }
+    ]
+  },
+  {
+    path: GROUP_PATH,
+    element: <GroupLayout />,
+    children: [
+      {
+        path: GROUP_CHILDREN_PATH.courses,
+        element: <CampusNoticeDetailPage />
+      },
+      {
+        path: GROUP_CHILDREN_PATH.runningmate,
+        element: <CampusNoticeListPage />
       }
     ]
   }

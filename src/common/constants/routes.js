@@ -21,7 +21,7 @@ export const FEED_SELECT_ITEMS = [
   },
   {
     label: `${KO_GROUP} ${FEED_SUFFIX}`,
-    value: `/feed/${GROUP}/posts`
+    value: `/feed/${GROUP}/courses`
   }
 ];
 
@@ -89,7 +89,27 @@ export const ALL_MENU = [
   }
 ];
 
-export const GROUP_PATH = '/feed/group';
+export const GROUP_PATH = 'feed/group';
+export const GROUP_CHILDREN_PATH = {
+  // notices: 'notices',
+  // restaurants: 'restaurants'
+  courses: 'courses',
+  runningmate: 'runningmate'
+};
+
+export const GROUP_COURSES_PATH = `/${GROUP_PATH}/${GROUP_CHILDREN_PATH.courses}`;
+export const GROUP_RUNNING_MATE_PATH = `/${GROUP_PATH}/${GROUP_CHILDREN_PATH.runningmate}`;
+
+export const GROUP_MENU = [
+  {
+    title: '우리반',
+    path: GROUP_COURSES_PATH
+  },
+  {
+    title: '러닝메이트',
+    path: GROUP_RUNNING_MATE_PATH
+  }
+];
 
 export const FEED_INFO = {
   campus: {
@@ -107,7 +127,8 @@ export const FEED_INFO = {
   group: {
     title: KO_GROUP,
     name: `${KO_GROUP} ${FEED_SUFFIX}`,
-    path: GROUP_PATH
+    path: GROUP_PATH,
+    menuList: GROUP_MENU
   }
 };
 

@@ -2,14 +2,14 @@ import { Outlet } from 'react-router-dom';
 
 import Header from '../components/common/layout/Header.jsx';
 
-import { ALL } from '@/common/constants';
+import { GROUP } from '@/common/constants';
 import { Suspense } from 'react';
 import PageLoadingSpinner from '@/common/components/common/UI/PageLoadingSpinner';
 
-const AllLayout = () => {
+const GroupLayout = () => {
   return (
     <div id='wrap'>
-      <Header currentLocation={ALL} />
+      <Header currentLocation={GROUP} />
       <main id='main'>
         <Suspense fallback={<PageLoadingSpinner />}>
           <Outlet />
@@ -19,4 +19,4 @@ const AllLayout = () => {
   );
 };
 
-export default AllLayout;
+export default GroupLayout;
