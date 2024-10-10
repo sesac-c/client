@@ -30,7 +30,7 @@ const Main = () => {
   return (
     <>
       <GroupTabs tabs={TABS} onChange={onChange} />
-      {active === 'notices' && <Notices fetchNotices={fetchNotices} />}
+      {active === 'notices' && <Notices feedType={'group'} />}
       {active === 'restaurant' && <Restaurant fetchNotices={fetchNotices} />}
     </>
   );

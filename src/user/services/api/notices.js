@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { NOTICES_ALL_API_URL } from '@/common/constants';
 
-export const fetchNotices = async params => {
+export const fetchNotices = async (params, feedType) => {
   try {
-    const response = await axios.get(NOTICES_ALL_API_URL, {
+    const response = await axios.get(`/notices/${feedType}`, {
       params
     });
 
@@ -86,4 +86,4 @@ export const importantNotice = async () => {
   } catch (error) {
     console.error('Failed to important notice');
   }
-}
+};

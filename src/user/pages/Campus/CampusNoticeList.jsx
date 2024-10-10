@@ -3,7 +3,7 @@ import ColumnLayoutWrapper from '@/user/components/common/layout/ColumnLayoutWra
 import Carousel from '@/user/components/common/UI/Carousel.jsx';
 import UserSearch from '@/user/components/user/UserSearch.jsx';
 
-import { fetchNotices, importantNotice } from '@/user/services/api/notices';
+import { importantNotice } from '@/user/services/api/notices';
 import Notices from '@/user/components/notice/Notices';
 import { useEffect, useState } from 'react';
 
@@ -30,7 +30,7 @@ const CampusNoticeListPage = () => {
   return (
     <FeedWrapper boardContent={<Carousel items={importantNotices} title='주요 공지' />}>
       <ColumnLayoutWrapper
-        mainArea={<Notices fetchNotices={fetchNotices} />}
+        mainArea={<Notices feedType={'all'} />}
         rightSide={
           <UserSearch
             users={[]}
