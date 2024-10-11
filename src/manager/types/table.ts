@@ -12,6 +12,9 @@ import {
   postFilter,
   postHeader,
   postSort,
+  restaurantHeader,
+  restaurantFilter,
+  restaurantSort,
   runningmateFilter,
   runningmateHeader,
   runningmateSort,
@@ -28,7 +31,8 @@ export enum RowType {
   RUNNINGMATE = 'RUNNINGMATE',
   ACTIVITY_REPORT = 'ACTIVITY_REPORT',
   POST = 'POST',
-  NOTICE = 'NOTICE'
+  NOTICE = 'NOTICE',
+  RESTAURANT = 'RESTAURANT'
 }
 
 export type StatusCode = 0 | 10 | 20 | 30;
@@ -39,7 +43,8 @@ export enum SearchTitle {
   COURSE = '강의',
   RUNNINGMATE = '러닝메이트',
   POST = '게시글 제목으로',
-  NOTICE = '공지'
+  NOTICE = '공지',
+  RESTAURANT = '식당 이름으로'
 }
 
 // ============================ Pagination Type
@@ -71,7 +76,8 @@ export const allHeaders: { [key in RowType]: Headers<any> } = {
   [RowType.RUNNINGMATE]: runningmateHeader,
   [RowType.POST]: postHeader,
   [RowType.NOTICE]: noticeHeader,
-  [RowType.ACTIVITY_REPORT]: activityReportHeader
+  [RowType.ACTIVITY_REPORT]: activityReportHeader,
+  [RowType.RESTAURANT]: restaurantHeader
 };
 
 // ============================ Row Type
@@ -155,7 +161,8 @@ export const FILTERS: FilterConfig = {
   [SearchTitle.COURSE]: courseFilter,
   [SearchTitle.POST]: postFilter,
   [SearchTitle.NOTICE]: noticeFilter,
-  [SearchTitle.RUNNINGMATE]: runningmateFilter
+  [SearchTitle.RUNNINGMATE]: runningmateFilter,
+  [SearchTitle.RESTAURANT]: restaurantFilter
 };
 
 // 정렬 설정 객체
@@ -165,7 +172,8 @@ export const SORTS: SortConfig = {
   [SearchTitle.COURSE]: courseSort,
   [SearchTitle.POST]: postSort,
   [SearchTitle.NOTICE]: noticeSort,
-  [SearchTitle.RUNNINGMATE]: runningmateSort
+  [SearchTitle.RUNNINGMATE]: runningmateSort,
+  [SearchTitle.RESTAURANT]: restaurantSort
 };
 
 // ============================ Component Prop Type
@@ -220,3 +228,5 @@ export interface SearchAndFilterProps {
   buttonText?: string;
   onApplyFilters: () => void;
 }
+
+export interface CourseListProps extends MobileSearchProps, SearchAndFilterProps, TableContentProps, PaginationsProps {}

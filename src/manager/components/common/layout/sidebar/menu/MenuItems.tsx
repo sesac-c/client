@@ -7,17 +7,7 @@ import List from '@mui/joy/List';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Box } from '@mui/material';
 
-export interface MenuItem {
-  title: string;
-  icon?: React.ReactNode;
-  path: string;
-  children?: MenuItem[];
-}
-interface TogglerProps {
-  defaultExpanded: boolean;
-  renderToggle: (params: { open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>> }) => React.ReactNode;
-  children: React.ReactNode;
-}
+import { MenuItemProps, NestedMenuItemProps, TogglerProps } from '../../../../../types';
 
 const Toggler: React.FC<TogglerProps> = ({ defaultExpanded, renderToggle, children }) => {
   const [open, setOpen] = useState<boolean>(defaultExpanded);
@@ -39,13 +29,6 @@ const Toggler: React.FC<TogglerProps> = ({ defaultExpanded, renderToggle, childr
     </React.Fragment>
   );
 };
-
-interface NestedMenuItemProps {
-  item: MenuItem;
-  isActive: boolean;
-  onItemClick: (title: string, path: string) => void;
-  defaultExpanded: boolean;
-}
 
 export const NestedMenuItem: React.FC<NestedMenuItemProps> = ({ item, isActive, onItemClick, defaultExpanded }) => (
   <ListItem nested>
@@ -74,12 +57,6 @@ export const NestedMenuItem: React.FC<NestedMenuItemProps> = ({ item, isActive, 
     </Toggler>
   </ListItem>
 );
-
-interface MenuItemProps {
-  item: MenuItem;
-  isActive: boolean;
-  onItemClick: (title: string, path: string) => void;
-}
 
 export const MenuItem: React.FC<MenuItemProps> = ({ item, isActive, onItemClick }) => (
   <ListItem>

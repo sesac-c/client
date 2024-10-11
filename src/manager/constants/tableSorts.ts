@@ -58,3 +58,11 @@ export const activityReportSort = {
     // , etc TODO: 구현
   ]
 };
+export const restaurantSort = {
+  name: 'restaurantSort',
+  label: '정렬',
+  options: [
+    { value: '', label: '' }
+    // , etc TODO: 구현
+  ]
+};

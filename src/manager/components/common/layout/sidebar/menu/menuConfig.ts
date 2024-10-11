@@ -1,10 +1,11 @@
-import { MenuItem } from './MenuItems';
+import { MenuItemWithChildren, BottomButtonGroupMenuItem } from '../../../../../types';
 import {
   MANAGER_CAMPUS_PATH,
   MANAGER_USER_PATH,
   MANAGER_FEEDS_PATH,
   MANAGER_COURSE_PATH,
-  MANAGER_RUNNINGMATE_PATH
+  MANAGER_RUNNINGMATE_PATH,
+  MANAGER_RESTAURANT_PATH
 } from '../../../../../../common/constants';
 
 import {
@@ -21,9 +22,10 @@ const USER_PREFIX = PREFIX + MANAGER_USER_PATH;
 const FEED_PREFIX = PREFIX + MANAGER_FEEDS_PATH;
 const CAMPUS_PREFIX = PREFIX + MANAGER_CAMPUS_PATH;
 const COURSE_PREFIX = PREFIX + MANAGER_COURSE_PATH;
+const RESTAURANT_PREFIX = PREFIX + MANAGER_RESTAURANT_PATH;
 const RUNNINGMATE_PREFIX = PREFIX + MANAGER_RUNNINGMATE_PATH;
 
-export const menuItems: MenuItem[] = [
+export const menuItems: MenuItemWithChildren[] = [
   {
     title: '사용자 관리',
     icon: navIcons.user,
@@ -63,20 +65,14 @@ export const menuItems: MenuItem[] = [
     ]
   },
   {
-    title: '캠퍼스 관리',
-    icon: navIcons.campus,
-    path: CAMPUS_PREFIX
-  },
-  {
-    title: '강의 관리',
-    icon: navIcons.course,
-    path: COURSE_PREFIX
-  },
-  {
-    title: '러닝메이트 관리',
-    icon: navIcons.runningmate,
+    title: '그룹 관리',
+    icon: navIcons.group,
     path: RUNNINGMATE_PREFIX,
     children: [
+      {
+        title: '식당 목록 / 관리',
+        path: `${RESTAURANT_PREFIX}`
+      },
       {
         title: '러닝메이트 목록 / 관리',
         path: `${RUNNINGMATE_PREFIX}`
@@ -86,18 +82,20 @@ export const menuItems: MenuItem[] = [
         path: `${RUNNINGMATE_PREFIX}/${MANAGER_RUNNINGMATE_CHILDREN_PATH.report}`
       }
     ]
+  },
+  {
+    title: '캠퍼스 관리',
+    icon: navIcons.campus,
+    path: CAMPUS_PREFIX
+  },
+  {
+    title: '강의 관리',
+    icon: navIcons.course,
+    path: COURSE_PREFIX
   }
 ];
 
-export const bottomMenuItems: MenuItem[] = [
-  {
-    title: '설정',
-    icon: navIcons.setting,
-    path: '/settings'
-  },
-  {
-    title: '쪽지함',
-    icon: navIcons.message,
-    path: '/messages'
-  }
+export const bottomMenuItems: BottomButtonGroupMenuItem[] = [
+  { title: '설정', icon: 'setting', path: '/settings' },
+  { title: '쪽지함', icon: 'message', path: '/messages' }
 ];

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { MANAGER_RUNNINGMATE_LIST_API_URL } from '../../../common/constants';
-import { RunningmateListRequest } from '../../types';
+import { MANAGER_RUNNINGMATE_LIST_API_URL, MANAGER_RUNNINGMATE_REGISTER_API_URL } from '../../../common/constants';
+import { RunningmateListRequest, RunningmateRegisterRequest } from '../../types';
 
 export const runningmateListRequest = async (params: RunningmateListRequest) => {
   try {
@@ -12,4 +12,9 @@ export const runningmateListRequest = async (params: RunningmateListRequest) => 
     console.error('Failed to fetch runningmate list:', error);
     throw error;
   }
+};
+
+export const registerRunningmate = async (data: RunningmateRegisterRequest) => {
+  const response = await axios.post(MANAGER_RUNNINGMATE_REGISTER_API_URL, data);
+  return response.data;
 };

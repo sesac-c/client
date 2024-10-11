@@ -1,16 +1,16 @@
 import React from 'react';
-import { Box, List } from '@mui/joy';
+import { Box, List, ButtonGroup, Button, IconButton, Typography } from '@mui/joy';
 import { bottomMenuItems, menuItems } from './menuConfig';
 import { MenuItem, NestedMenuItem } from './MenuItems';
-import { ListItemButton } from '@mui/material';
 import { navIcons } from '../../../../../assets/icon';
-
-interface MainMenuListProps {
-  activeItem: string | null;
-  expandedItems: Set<string>;
-  handleMenuItemClick: (title: string, path: string) => void;
-  toggleExpanded: (title: string) => void;
-}
+import ColorSchemeToggle from '../../../UI/ColorSchemeToggle';
+import {
+  MainMenuListProps,
+  MenuItemWithChildren,
+  BottomButtonGroupMenuProps,
+  BottomButtonGroupMenuItem,
+  SideMenuProps
+} from '../../../../../types';
 
 const MainMenuList: React.FC<MainMenuListProps> = ({
   activeItem,
@@ -18,7 +18,7 @@ const MainMenuList: React.FC<MainMenuListProps> = ({
   handleMenuItemClick,
   toggleExpanded
 }) => {
-  const renderMenuItem = (item: MenuItem) => {
+  const renderMenuItem = (item: MenuItemWithChildren) => {
     if (item.children) {
       return (
         <NestedMenuItem
@@ -53,53 +53,55 @@ const MainMenuList: React.FC<MainMenuListProps> = ({
   );
 };
 
-interface BottomMenuProps {
-  handleLogout: () => void;
-  activeItem: string | null;
-  handleMenuItemClick: (title: string, path: string) => void;
-}
-
-const BottomMenu: React.FC<BottomMenuProps> = ({ activeItem, handleMenuItemClick, handleLogout }) => {
-  const renderMenuItem = (item: MenuItem) => {
+const BottomButtonGroupMenu: React.FC<BottomButtonGroupMenuProps> = ({
+  activeItem,
+  handleMenuItemClick,
+  handleLogout,
+  loginUser
+}) => {
+  const renderMenuItem = (item: BottomButtonGroupMenuItem) => {
     return (
-      <MenuItem key={item.title} item={item} isActive={activeItem === item.title} onItemClick={handleMenuItemClick} />
+      <IconButton
+        key={item.title}
+        onClick={() => handleMenuItemClick(item.title, item.path)}
+        variant={activeItem === item.title ? 'solid' : 'plain'}
+      >
+        {navIcons[item.icon]}
+      </IconButton>
     );
   };
 
   return (
-    <List
-      size='sm'
+    <ButtonGroup
+      variant='soft'
+      aria-label='soft button group'
       sx={{
-        mt: 'auto',
-        flexGrow: 0,
-        '--ListItem-radius': theme => theme.vars.radius.sm,
-        '--List-gap': '8px'
+        width: '100%',
+        '& > *': {
+          flex: 1
+        }
       }}
     >
+      <Button>
+        <Typography
+          level='body-sm'
+          sx={{
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+          }}
+        >
+          {loginUser?.nickname}
+        </Typography>
+      </Button>
+      <ColorSchemeToggle />
       {bottomMenuItems.map(renderMenuItem)}
-      <MenuItem
-        item={{
-          title: '로그아웃',
-          icon: navIcons.logout,
-          path: ''
-        }}
-        onItemClick={handleLogout}
-        isActive={false}
-      />
-    </List>
+      <IconButton onClick={handleLogout} variant='plain'>
+        {navIcons.logout}
+      </IconButton>
+    </ButtonGroup>
   );
 };
-
-export interface SideMenuProps {
-  activeItem: string | null;
-  expandedItems: Set<string>;
-  handleMenuItemClick: (title: string, path: string) => void;
-  listItemButtonClasses: {
-    root: string;
-  };
-  toggleExpanded: (title: string) => void;
-  handleLogout: () => void;
-}
 
 const SideMenu: React.FC<SideMenuProps> = ({
   activeItem,
@@ -107,7 +109,8 @@ const SideMenu: React.FC<SideMenuProps> = ({
   handleMenuItemClick,
   listItemButtonClasses,
   toggleExpanded,
-  handleLogout
+  handleLogout,
+  loginUser
 }) => {
   return (
     <Box
@@ -128,7 +131,12 @@ const SideMenu: React.FC<SideMenuProps> = ({
         handleMenuItemClick={handleMenuItemClick}
         toggleExpanded={toggleExpanded}
       />
-      <BottomMenu activeItem={activeItem} handleMenuItemClick={handleMenuItemClick} handleLogout={handleLogout} />
+      <BottomButtonGroupMenu
+        activeItem={activeItem}
+        handleMenuItemClick={handleMenuItemClick}
+        handleLogout={handleLogout}
+        loginUser={loginUser}
+      />
     </Box>
   );
 };

@@ -48,3 +48,11 @@ export const noticeHeader = {
 export const activityReportHeader = {
   // TODO: 활동 보고서에 대한 헤더 정의
 };
+
+export const restaurantHeader = {
+  id: { label: 'ID', width: '10%' },
+  type: { label: '유형', width: '12%' },
+  name: { label: '식당명', width: '15%' },
+  category: { label: '카테고리', width: '25%' },
+  address: { label: '주소', width: '30%' }
+};

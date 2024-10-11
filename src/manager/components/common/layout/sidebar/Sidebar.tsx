@@ -5,14 +5,12 @@ import useAuthStore from '../../../../../common/stores/authStore';
 
 import GlobalStyles from '@mui/joy/GlobalStyles';
 import Box from '@mui/joy/Box';
-import Divider from '@mui/joy/Divider';
 import Sheet from '@mui/joy/Sheet';
 import { listItemButtonClasses } from '@mui/joy/ListItemButton';
 
 import { closeSidebar } from '../../../../utils';
-import { MenuItem } from './menu/MenuItems';
+import { MenuItemWithChildren } from '../../../../types';
 import { menuItems, bottomMenuItems } from './menu/menuConfig';
-import LoginUser from './LoginUser';
 import SidebarHeader from './SidebarHeader';
 import SideMenu from './menu/SideMenu';
 
@@ -26,7 +24,7 @@ const Sidebar: React.FC = () => {
 
   useEffect(() => {
     const currentPath = location.pathname;
-    const findActiveItem = (items: MenuItem[]): string | null => {
+    const findActiveItem = (items: MenuItemWithChildren[]): string | null => {
       for (const item of items) {
         if (item.path === currentPath) {
           return item.title;
@@ -76,7 +74,7 @@ const Sidebar: React.FC = () => {
           md: 'none'
         },
         transition: 'transform 0.4s, width 0.4s',
-        zIndex: 10000,
+        zIndex: 1000,
         height: '100dvh',
         width: 'var(--Sidebar-width)',
         top: 0,
@@ -126,13 +124,12 @@ const Sidebar: React.FC = () => {
         handleMenuItemClick={handleMenuItemClick}
         listItemButtonClasses={listItemButtonClasses}
         toggleExpanded={toggleExpanded}
+        loginUser={user}
         handleLogout={() => {
           const confirmLogout = confirm('정말 로그아웃하시겠습니까?');
           if (confirmLogout) logout();
         }}
       />
-      <Divider />
-      <LoginUser loginUser={user} />
     </Sheet>
   );
 };
