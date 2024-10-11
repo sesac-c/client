@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require("dotenv-webpack");
+const Dotenv = require('dotenv-webpack');
+const path = require('path');
 
 module.exports = {
   entry: './src/index.jsx',
@@ -9,7 +10,7 @@ module.exports = {
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: 'ts-loader',
+        use: 'ts-loader'
       },
       {
         test: /\.(js|jsx)$/,
@@ -44,6 +45,9 @@ module.exports = {
     ]
   },
   resolve: {
+    alias: {
+      '@': path.resolve(__dirname, '../src')
+    },
     extensions: ['.tsx', '.ts', '.jsx', '.js']
   },
   plugins: [
@@ -57,7 +61,7 @@ module.exports = {
   ],
   optimization: {
     splitChunks: {
-      chunks: 'all',
-    },
+      chunks: 'all'
+    }
   }
 };

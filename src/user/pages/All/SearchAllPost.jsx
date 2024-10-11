@@ -6,7 +6,7 @@ import Posts from '@/user/components/post/Posts.jsx';
 import PostSearchBar from '@/user/components/post/search/PostSearchBar.jsx';
 import SearchLoadingIndicator from '@/user/components/post/search/SearchLoadingIndicator.jsx';
 
-import { POSTS_CAMPUS_API_URL } from '@/common/constants';
+import { POSTS_ALL_API_URL } from '@/common/constants';
 
 const SearchCampusPostPage = () => {
   const [hasInput, setHasInput] = useState(false);
@@ -19,7 +19,7 @@ const SearchCampusPostPage = () => {
   return (
     <FeedWrapper boardContent={<PostSearchBar onInputChange={handleInputChange} />}>
       <ColumnLayoutWrapper
-        mainArea={hasInput ? <Posts apiUrl={POSTS_CAMPUS_API_URL} feedType={'campus'} /> : <SearchLoadingIndicator />}
+        mainArea={hasInput ? <Posts apiUrl={POSTS_ALL_API_URL} feedType={'all'} /> : <SearchLoadingIndicator />}
       />
     </FeedWrapper>
   );

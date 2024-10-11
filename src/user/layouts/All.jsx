@@ -2,14 +2,14 @@ import { Outlet } from 'react-router-dom';
 
 import Header from '../components/common/layout/Header.jsx';
 
-import { CAMPUS } from '../../common/constants';
+import { ALL } from '../../common/constants';
 import { Suspense } from 'react';
 import PageLoadingSpinner from '../../common/components/common/UI/PageLoadingSpinner';
 
-const CampusLayout = () => {
+const AllLayout = () => {
   return (
     <div id='wrap'>
-      <Header currentLocation={CAMPUS} />
+      <Header currentLocation={ALL} />
       <main id='main'>
         <Suspense fallback={<PageLoadingSpinner />}>
           <Outlet />
@@ -19,4 +19,4 @@ const CampusLayout = () => {
   );
 };
 
-export default CampusLayout;
+export default AllLayout;

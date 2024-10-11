@@ -23,7 +23,9 @@ const PostDetailModal = ({ postId, onClose, open = true }) => {
     }
   };
 
-  if (!open) return null;
+  if (!open) {
+    return null;
+  }
 
   return createPortal(
     <div className='modal-overlay' onClick={handleOverlayClick}>

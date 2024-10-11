@@ -1,11 +1,12 @@
 import { navIcons } from '../assets/icon';
 import React from 'react';
 
-// 기본 사용자 타입
-export type User = {
+type loginUser = {
   role?: string;
   nickname: string;
 };
+
+export type User = loginUser;
 
 // 메뉴 아이템 기본 타입
 export interface BaseMenuItem {

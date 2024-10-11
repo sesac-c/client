@@ -4,26 +4,26 @@ import Carousel from '@/user/components/common/UI/Carousel.jsx';
 import Posts from '@/user/components/post/Posts.jsx';
 import UserSearch from '@/user/components/user/UserSearch.jsx';
 
-import { importantNotice } from '@/user/services/api/notices';
 import { useEffect, useState } from 'react';
-import { POSTS_CAMPUS_API_URL } from '@/common/constants';
+import { POSTS_ALL_API_URL } from '@/common/constants';
 import useSearchPostStore from '@/user/store/searchPostStore';
+import { fetchPopular } from '@/user/services/api/posts';
 
-const CampusPostListPage = () => {
-  const [importantNotices, setImportantNotices] = useState([]);
+const AllPostListPage = () => {
+  const [popularPosts, setPopularPosts] = useState([]);
   const { resetStore } = useSearchPostStore();
 
   const load = async () => {
-    const response = await importantNotice();
+    const response = await fetchPopular();
     const { data } = response;
 
-    const notices = data.map(notice => {
+    const posts = data.map(post => {
       return {
-        ...notice,
-        link: `/feed/campus/notices/${notice.id}`
+        ...post,
+        link: `/feed/${post.type.toLowerCase()}/posts/${post.id}`
       };
     });
-    setImportantNotices(notices);
+    setPopularPosts(posts);
   };
 
   useEffect(() => {
@@ -32,9 +32,9 @@ const CampusPostListPage = () => {
   }, []);
 
   return (
-    <FeedWrapper boardContent={<Carousel items={importantNotices} title='주요 공지' />}>
+    <FeedWrapper boardContent={<Carousel items={popularPosts} title='인기글' />}>
       <ColumnLayoutWrapper
-        mainArea={<Posts apiUrl={POSTS_CAMPUS_API_URL} feedType={'campus'} />}
+        mainArea={<Posts apiUrl={POSTS_ALL_API_URL} feedType={'all'} />}
         rightSide={
           <UserSearch
             // users={dummyUserData}
@@ -49,4 +49,4 @@ const CampusPostListPage = () => {
     </FeedWrapper>
   );
 };
-export default CampusPostListPage;
+export default AllPostListPage;

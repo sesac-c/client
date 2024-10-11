@@ -3,11 +3,11 @@ import ProfileImage from '@/common/components/common/layout/ProfileImage';
 import { formatDateToKorean } from '@/common/utils/formatter.js';
 import authStore from '@/common/stores/authStore';
 import { useState } from 'react';
-import { deleteReply, updateReply } from '@/user/services/api/posts';
+import { deleteReply, updateReply } from '@/user/services/api/notices';
 import { REPLY_FIELD_SETTING } from '@/common/utils';
 import { TextField } from '@mui/material';
 
-const ReplyItem = ({ postId, reply, apiUrl }) => {
+const ReplyItem = ({ noticeId, reply, apiUrl }) => {
   const formattedDate = formatDateToKorean(reply.createdAt);
   const user = authStore().user;
   const [editable, setEditable] = useState(false);
@@ -18,7 +18,7 @@ const ReplyItem = ({ postId, reply, apiUrl }) => {
       return;
     }
 
-    await deleteReply(postId, apiUrl, replyId);
+    await deleteReply(noticeId, apiUrl, replyId);
   };
 
   const updateHandler = async replyId => {
@@ -26,7 +26,7 @@ const ReplyItem = ({ postId, reply, apiUrl }) => {
       return;
     }
 
-    await updateReply(postId, apiUrl, replyId, { content });
+    await updateReply(noticeId, apiUrl, replyId, { content });
     reply.content = content;
     setEditable(!editable);
   };

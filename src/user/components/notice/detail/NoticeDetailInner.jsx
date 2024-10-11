@@ -3,23 +3,22 @@ import { useEffect, useState } from 'react';
 import Division from '@/common/components/common/UI/Division';
 import ReplyInput from './ReplyInput.jsx';
 import ReplyList from './ReplyList.jsx';
-import PostLikeButton from './PostLikeButton.jsx';
-import PostAuthor from './PostAuthor.jsx';
-import { PostContent, PostImage } from './PostContent.jsx';
+import NoticeLikeButton from './NoticeLikeButton.jsx';
+import NoticeAuthor from './NoticeAuthor';
+import { NoticeContent, NoticeImage } from './NoticeContent';
 
 import { IMAGE_UPLOAD_API_URL } from '@/common/constants';
-import PostDropdownMenu from './PostDropdownMenu';
-import { fetchPost } from '@/user/services/api/posts';
+import { fetchNotice } from '@/user/services/api/notices';
 
-const PostDetailInner = ({ postId, apiUrl }) => {
-  const [post, setPost] = useState(null);
+const NoticeDetailInner = ({ noticeId, apiUrl }) => {
+  const [notice, setNotice] = useState(null);
 
-  const loadPost = async () => {
+  const loadNotice = async () => {
     try {
-      const response = await fetchPost(postId, apiUrl);
+      const response = await fetchNotice(noticeId, apiUrl);
       const { data } = response;
       console.log(data);
-      setPost({
+      setNotice({
         ...data,
         image: data.imageUrl,
         user: {
@@ -33,7 +32,7 @@ const PostDetailInner = ({ postId, apiUrl }) => {
         }
       });
     } catch (error) {
-      console.error('Failed to fetch post:', error);
+      console.error('Failed to fetch notice:', error);
     }
   };
 
@@ -42,34 +41,35 @@ const PostDetailInner = ({ postId, apiUrl }) => {
   };
 
   useEffect(() => {
-    loadPost();
+    loadNotice();
   }, []);
 
   return (
     <div className='postdetail-container'>
-      {post && (
+      {notice && (
         <>
           <div className='postdetail__side-container page'>
             {/* 좌 */}
             <div className='postdetail__left-side page'>
-              {post.image !== null && (
+              {notice.image !== null && (
                 <>
-                  <PostImage image={imageUrl(post.image)} isPage />
+                  <NoticeImage image={imageUrl(notice.image)} isPage />
                   <Division type='horizontal_custom' variant='custom' className='postdetail__left-side__division' />
                 </>
               )}
-              <PostContent post={post} hasImage={post.image !== null} isPage />
+              <NoticeContent notice={notice} hasImage={notice.image !== null} isPage />
             </div>
             {/* 우 */}
             <div className='postdetail__right-side page'>
-              <PostDropdownMenu post={post}></PostDropdownMenu>
-              <PostAuthor user={post.user} isPage />
-              <div className='postdetail__reply-container page'>
-                <ReplyList postId={postId} apiUrl={apiUrl} />
-              </div>
+              <NoticeAuthor user={notice.user} isPage />
+              {
+                <div className='postdetail__reply-container page'>
+                  <ReplyList noticeId={noticeId} apiUrl={apiUrl} />
+                </div>
+              }
               <div className='postdetail__reply-input-container page'>
-                <PostLikeButton like={post.like} postId={postId} />
-                <ReplyInput postId={postId} apiUrl={apiUrl} />
+                <NoticeLikeButton like={notice.like} noticeId={noticeId} />
+                <ReplyInput noticeId={noticeId} apiUrl={apiUrl} />
               </div>
             </div>
           </div>
@@ -79,4 +79,4 @@ const PostDetailInner = ({ postId, apiUrl }) => {
   );
 };
 
-export default PostDetailInner;
+export default NoticeDetailInner;

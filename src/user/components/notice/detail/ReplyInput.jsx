@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { TextField } from '@mui/material';
 
 import { REPLY_FIELD_SETTING } from '@/common/utils/form';
-import { createReply } from '@/user/services/api/posts';
+import { createReply } from '@/user/services/api/notices';
 
-const ReplyInput = ({ postId, apiUrl }) => {
+const ReplyInput = ({ noticeId, apiUrl }) => {
   const [reply, setReply] = useState('');
   const handleReplySubmit = async e => {
     if (e.key !== 'Enter') {
@@ -13,7 +13,7 @@ const ReplyInput = ({ postId, apiUrl }) => {
     }
 
     e.preventDefault();
-    await createReply(postId, apiUrl, { content: reply.trim() });
+    await createReply(noticeId, apiUrl, { content: reply.trim() });
     setReply('');
   };
 
