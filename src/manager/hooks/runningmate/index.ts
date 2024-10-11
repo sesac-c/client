@@ -1,1 +1,1 @@
-export * from './useRunningmateListData';
+export * from './useRunningmateManagement';

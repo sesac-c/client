@@ -1,8 +1,8 @@
-import { FormControl, FormHelperText, Typography } from '@mui/joy';
+import React from 'react';
+import { FormLabel, FormControl, FormHelperText, Typography } from '@mui/joy';
 import { RegisterFormFieldProps } from '../../../../types';
-import RegisterInput from './RegisterInput';
 
-const RegisterFormField = <T extends string>({
+const RegisterDateFormField = <T extends string>({
   name,
   label,
   value,
@@ -10,16 +10,22 @@ const RegisterFormField = <T extends string>({
   error
 }: RegisterFormFieldProps<T>): React.ReactElement => (
   <FormControl>
-    <RegisterInput
+    <FormLabel htmlFor={name}>{label}</FormLabel>
+    <input
+      type='date'
       required
       name={name}
       placeholder={label}
-      size='md'
-      fullWidth
-      variant='plain'
       value={value}
       onChange={e => onChange(name, e.target.value)}
-      error={!!error}
+      style={{
+        width: '100%',
+        padding: '0.5rem',
+        border: '1px solid #ccc',
+        borderRadius: '4px',
+        fontSize: '1rem',
+        lineHeight: '1.5'
+      }}
     />
     {error && (
       <FormHelperText>
@@ -30,4 +36,5 @@ const RegisterFormField = <T extends string>({
     )}
   </FormControl>
 );
-export default RegisterFormField;
+
+export default RegisterDateFormField;

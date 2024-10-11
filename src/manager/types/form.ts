@@ -3,7 +3,8 @@ import {
   CampusRegisterRequest,
   CourseRegisterRequest,
   NoticeRegisterRequest,
-  RestaurantRegisterRequest
+  RestaurantRegisterRequest,
+  RunningmateRegisterRequest
 } from './request';
 
 export interface RestaurantFormState
@@ -21,27 +22,37 @@ export interface UseRestaurantRegisterReturn {
 
 export type CampusFormState = CampusRegisterRequest;
 export type campusError = Partial<Record<keyof CampusFormState, string>>;
-export interface UseCampusRegisterReturn {
+interface BasicUseRegisterReturn {
+  validateForm: () => boolean;
+  isFormValid: boolean;
+  resetForm: () => void;
+}
+export interface UseCampusRegisterReturn extends BasicUseRegisterReturn {
   state: CampusFormState;
   errors: campusError;
   handleChange: (field: keyof CampusFormState, value: string) => void;
-  validateForm: () => boolean;
 }
 
 export type CourseFormState = CourseRegisterRequest;
 export type courseError = Partial<Record<keyof CourseRegisterRequest, CourseError>>;
-export interface UseCourseRegisterReturn {
+export interface UseCourseRegisterReturn extends BasicUseRegisterReturn {
   state: CourseRegisterRequest;
   errors: courseError;
   handleChange: (field: keyof CourseFormState, value: string | number) => void;
-  validateForm: () => boolean;
 }
 
 export type NoticeFormState = NoticeRegisterRequest;
 export type noticeError = Partial<Record<keyof NoticeRegisterRequest, string>>;
-export interface UseNoticeRegisterReturn {
+export interface UseNoticeRegisterReturn extends BasicUseRegisterReturn {
   state: NoticeRegisterRequest;
   errors: noticeError;
-  handleChange: (field: keyof NoticeFormState, value: string | number) => void;
-  validateForm: () => boolean;
+  handleChange: (field: keyof NoticeFormState, value: string) => void;
+}
+
+export type RunningmateFormState = RunningmateRegisterRequest;
+export type runningmateError = Partial<Record<keyof RunningmateRegisterRequest, string>>;
+export interface UseRunningmateRegisterReturn extends BasicUseRegisterReturn {
+  state: RunningmateRegisterRequest;
+  errors: runningmateError;
+  handleChange: (field: keyof RunningmateFormState, value: string) => void;
 }

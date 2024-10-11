@@ -27,6 +27,7 @@ const RestaurantRegisterForm: React.FC<RestaurantRegisterFormProps> = ({
         e.preventDefault();
         onSubmit();
       }}
+      className='mt-5'
     >
       <Stack spacing={3} margin='dense'>
         <RegisterSelector

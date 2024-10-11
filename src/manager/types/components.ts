@@ -1,4 +1,15 @@
-import { restaurantError, RestaurantFormState } from './form';
+import {
+  campusError,
+  CampusFormState,
+  courseError,
+  CourseFormState,
+  noticeError,
+  NoticeFormState,
+  restaurantError,
+  RestaurantFormState,
+  runningmateError,
+  RunningmateFormState
+} from './form';
 
 interface Breadcrumb {
   homeIcon: JSX.Element;
@@ -54,11 +65,11 @@ export interface RegisterModalProps extends RegisterInstanceModalProps {
   dialog: DialogProps;
 }
 
-export interface RegisterFormFieldProps {
-  name: string;
+export interface RegisterFormFieldProps<T extends string> {
+  name: T;
   label: string;
   value: string;
-  onChange: (field: keyof RestaurantFormState, value: string) => void;
+  onChange: (field: T, value: string) => void;
   error?: string;
 }
 
@@ -75,14 +86,46 @@ export interface RegisterSelectorProps {
   error?: string;
 }
 
-export interface RestaurantRegisterFormProps extends RegisterButtonProps {
-  state: RestaurantFormState;
-  errors: restaurantError;
-  onChange: (field: keyof RestaurantFormState, value: string) => void;
+interface BasicRegisterFormProps extends RegisterButtonProps {
   onSubmit: () => Promise<void>;
 }
-export interface RestaurantRegisterModalProps extends RestaurantRegisterFormProps {
+interface BasicRegisterModalProps extends BasicRegisterFormProps {
   open: boolean;
   onOpen: () => void;
   onClose: () => void;
 }
+
+export interface RestaurantRegisterFormProps extends BasicRegisterFormProps {
+  state: RestaurantFormState;
+  errors: restaurantError;
+  onChange: (field: keyof RestaurantFormState, value: string) => void;
+}
+export interface RestaurantRegisterModalProps extends RestaurantRegisterFormProps, BasicRegisterModalProps {}
+
+export interface CampusRegisterFormProps extends BasicRegisterFormProps {
+  state: CampusFormState;
+  errors: campusError;
+  onChange: (field: keyof CampusFormState, value: string) => void;
+}
+export interface CampusRegisterModalProps extends CampusRegisterFormProps, BasicRegisterModalProps {}
+
+export interface CourseRegisterFormProps extends BasicRegisterFormProps {
+  state: CourseFormState;
+  errors: courseError;
+  onChange: (field: keyof CourseFormState, value: string) => void;
+}
+export interface CourseRegisterModalProps extends CourseRegisterFormProps, BasicRegisterModalProps {}
+
+export interface NoticeRegisterFormProps extends BasicRegisterFormProps {
+  state: NoticeFormState;
+  errors: noticeError;
+  onChange: (field: keyof NoticeFormState, value: string) => void;
+}
+export interface NoticeRegisterModalProps extends NoticeRegisterFormProps, BasicRegisterModalProps {}
+
+export interface RunningmateRegisterFormProps extends BasicRegisterFormProps {
+  state: RunningmateFormState;
+  errors: runningmateError;
+  onChange: (field: keyof RunningmateFormState, value: string) => void;
+}
+export interface RunningmateRegisterModalProps extends RunningmateRegisterFormProps, BasicRegisterModalProps {}

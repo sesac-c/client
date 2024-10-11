@@ -1,6 +1,6 @@
 import React from 'react';
 import RunningmateList from '../../components/runningmate/list/RunningmateList';
-import { useRunningmateListData } from '../../hooks/runningmate';
+import { useRunningmateManagement } from '../../hooks/runningmate';
 import ContentHeader from '../../components/common/layout/ContentHeader';
 import { navIcons } from '../../assets/icon';
 import RunningmateRegisterModal from '../../components/runningmate/register/RunningmateRegisterModal';
@@ -14,18 +14,41 @@ const breadcrumb = {
 const RunningmateListPage = () => {
   const [open, setOpen] = React.useState(false);
   const {
+    modalOpen,
     runningmateSearchTitle,
+    filters,
+    setFilters,
+    selectedFilters,
+    setSelectedFilters,
     currentPage,
     runningmateData,
     isLoading,
+    state,
+    errors,
+    isFormValid,
+    handleChange,
     handleSearchChange,
     handleApplyFilters,
-    handlePageChange
-  } = useRunningmateListData();
+    handlePageChange,
+    handleOpenModal,
+    handleCloseModal,
+    handleAddRunningmate
+  } = useRunningmateManagement();
 
-  function handleAddRunningmate() {
-    // 러닝메이트 추가 요청
-  }
+  // Register Modal
+  const registerModal = (
+    <RunningmateRegisterModal
+      open={modalOpen}
+      onOpen={handleOpenModal}
+      onClose={handleCloseModal}
+      state={state}
+      errors={errors}
+      isFormValid={isFormValid}
+      onChange={handleChange}
+      onSubmit={handleAddRunningmate}
+    />
+  );
+
   return (
     <React.Fragment>
       {/* 페이지 헤더 */}
@@ -33,9 +56,7 @@ const RunningmateListPage = () => {
         breadcrumb={breadcrumb}
         pageInfo={{
           page,
-          register: React.createElement(RunningmateRegisterModal, {
-            handleClick: handleAddRunningmate
-          })
+          register: registerModal
         }}
       />
 

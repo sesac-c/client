@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCourseListData } from '../../hooks/course';
+import { useCourseManagement } from '../../hooks/course';
 import CourseList from '../../components/course/list/CourseList';
 import ContentHeader from '../../components/common/layout/ContentHeader';
 import { navIcons } from '../../assets/icon';
@@ -11,29 +11,50 @@ const breadcrumb = {
   breadcrumbTrail: [page]
 };
 const CourseListPage = () => {
-  const [open, setOpen] = React.useState(false);
-
   const {
     courseSearchTitle,
-    selectedFilters,
-    sortOption,
-    currentPage,
+    open,
+    setOpen,
+    modalOpen,
     courseData,
     isLoading,
+    currentPage,
+    filters,
+    selectedFilters,
+    sortOption,
+    searchTerm,
+    state,
+    errors,
+    isFormValid,
     handleFilterChange,
     handleSortChange,
     handleSearchChange,
     handleApplyFilters,
     handlePageChange,
-    handleAddCourse
-  } = useCourseListData();
+    handleChange,
+    handleOpenModal,
+    handleCloseModal,
+    handleAddCourse,
+    loadCourse
+  } = useCourseManagement();
+
+  // Register Modal
+  const registerModal = (
+    <CourseRegisterModal
+      open={modalOpen}
+      onOpen={handleOpenModal}
+      onClose={handleCloseModal}
+      state={state}
+      errors={errors}
+      isFormValid={isFormValid}
+      onChange={handleChange}
+      onSubmit={handleAddCourse}
+    />
+  );
   return (
     <React.Fragment>
       {/* 페이지 헤더 */}
-      <ContentHeader
-        breadcrumb={breadcrumb}
-        pageInfo={{ page, register: React.createElement(CourseRegisterModal, { handleClick: handleAddCourse }) }}
-      />
+      <ContentHeader breadcrumb={breadcrumb} pageInfo={{ page, register: registerModal }} />
       {/* 테이블 */}
       <CourseList
         open={open}

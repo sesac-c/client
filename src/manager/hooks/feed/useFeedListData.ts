@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { formatDateToKorean } from '../../../common/utils';
 import { Page, RowType, SearchTitle, TableData, FeedListRequest } from '../../types';
+import useNoticeStore from '../../store/writeNoticeStore';
 
 interface UseFeedListDataProps {
   rowType: RowType;
@@ -18,6 +19,8 @@ function getFeedSearchTitle(rowType: RowType) {
   }
 }
 export const useFeedListData = ({ rowType, requestFunc }: UseFeedListDataProps) => {
+  const { isNoticeUpdate, setIsNoticeUpdate } = useNoticeStore();
+  const [open, setOpen] = useState(false);
   const feedSearchTitle = getFeedSearchTitle(rowType);
   const [currentPage, setCurrentPage] = React.useState<Page>({
     pageNumber: 0,
@@ -66,6 +69,13 @@ export const useFeedListData = ({ rowType, requestFunc }: UseFeedListDataProps) 
     loadFeed({ page: 0 });
   }, []);
 
+  React.useEffect(() => {
+    if (isNoticeUpdate) {
+      loadFeed({ page: 0 });
+      setIsNoticeUpdate(false);
+    }
+  }, [isNoticeUpdate]);
+
   const handleSearchChange = (value: string) => {
     setSearchTerm(value);
   };
@@ -87,12 +97,15 @@ export const useFeedListData = ({ rowType, requestFunc }: UseFeedListDataProps) 
   };
 
   return {
+    open,
+    setOpen,
     feedSearchTitle,
     currentPage,
     feedData,
     isLoading,
     handleSearchChange,
     handleApplyFilters,
-    handlePageChange
+    handlePageChange,
+    loadFeed
   };
 };

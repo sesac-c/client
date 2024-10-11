@@ -30,7 +30,7 @@ export interface CampusRegisterRequest {
 }
 export interface CourseRegisterRequest {
   name: string;
-  classNumber: number;
+  classNumber: string;
   instructorName: string;
   startDate: string;
   endDate: string;
@@ -39,8 +39,10 @@ export interface NoticeRegisterRequest {
   title: string;
   content: string;
   image?: string;
-  hashtages?: string[];
+  hashtags?: string[];
   importance?: number;
+  courseId?: number;
+  type: '' | 'all' | 'group';
 }
 
 export interface RestaurantRegisterRequest {
@@ -50,4 +52,11 @@ export interface RestaurantRegisterRequest {
   type: '' | 'campus' | 'runningmate';
   latitude?: string;
   longitude?: string;
+}
+
+export interface RunningmateRegisterRequest {
+  name: string;
+  subject: string;
+  goal: string;
+  courseId: string;
 }

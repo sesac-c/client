@@ -1,51 +1,81 @@
 import React from 'react';
-import RegisterModal from '../../common/UI/RegisterModal';
-import { RegisterFormItem, RegisterInstanceModalProps } from '../../../types';
-import { FormControl } from '@mui/joy';
-import RegisterInput from '../../common/UI/RegisterInput';
+import { Button, Modal, DialogTitle, DialogContent, Stack } from '@mui/joy';
+import { RunningmateRegisterFormProps, RunningmateRegisterModalProps } from '../../../types';
+import RegisterFormField from '../../common/UI/register/RegisterFormField';
+import RegisterModalDialog from '../../common/UI/register/RegisterModalDialog';
+import RegisterButton from '../../common/UI/register/RegisterButton';
+import { addIcon } from '../../../assets/icon';
+import CourseSelect from '../../common/UI/register/CourseSelect';
 
-const form = [
-  {
-    label: '식당 이름',
-    name: 'name'
-  },
-  {
-    label: '주소',
-    name: 'address'
-  },
-  {
-    label: '카테고리',
-    name: 'category'
-  },
-  {
-    label: '유형',
-    name: 'type'
-  }
-];
-
-const RunningmateRegisterForm: React.FC = () => {
-  const renderInputs = (item: RegisterFormItem) => {
-    return (
-      <FormControl key={item.name}>
-        <RegisterInput required name={item.name} placeholder={item.label} size='md' fullWidth variant='plain' />
-      </FormControl>
-    );
-  };
-
-  return <div>{form.map(renderInputs)}</div>;
-};
-const RunningmateRegisterModal: React.FC<RegisterInstanceModalProps> = ({ handleClick }) => {
+const RunningmateRegisterForm: React.FC<RunningmateRegisterFormProps> = ({
+  state,
+  errors,
+  onChange,
+  onSubmit,
+  isFormValid
+}) => {
   return (
-    <RegisterModal
-      registerButtonText='러닝메이트 등록'
-      dialog={{
-        title: '러닝메이트 등록'
+    <form
+      onSubmit={e => {
+        e.preventDefault();
+        onSubmit();
       }}
-      submit={{
-        handleClick: handleClick,
-        form: React.createElement(RunningmateRegisterForm)
-      }}
-    />
+      className='mt-5'
+    >
+      <Stack spacing={3} margin='dense'>
+        <CourseSelect state={state} onChange={onChange} errors={errors} />
+        <RegisterFormField
+          name='name'
+          label='러닝메이트 이름'
+          value={state.name}
+          onChange={onChange}
+          error={errors.name}
+        />
+        <RegisterFormField
+          name='subject'
+          label='주제'
+          value={state.subject}
+          onChange={onChange}
+          error={errors.subject}
+        />
+        <RegisterFormField name='goal' label='목표' value={state.goal} onChange={onChange} error={errors.goal} />
+      </Stack>
+      <RegisterButton isFormValid={isFormValid} />
+    </form>
+  );
+};
+
+const RunningmateRegisterModal: React.FC<RunningmateRegisterModalProps> = ({
+  open,
+  onOpen,
+  onClose,
+  state,
+  errors,
+  isFormValid,
+  onChange,
+  onSubmit
+}) => {
+  const modalTitle = '러닝메이트 등록';
+  return (
+    <React.Fragment>
+      <Button onClick={onOpen} variant='outlined' color='neutral' startDecorator={addIcon} size='sm'>
+        {modalTitle}
+      </Button>
+      <Modal open={open} onClose={onClose}>
+        <RegisterModalDialog>
+          <DialogTitle>{modalTitle}</DialogTitle>
+          <DialogContent>
+            <RunningmateRegisterForm
+              state={state}
+              errors={errors}
+              onSubmit={onSubmit}
+              onChange={onChange}
+              isFormValid={isFormValid}
+            />
+          </DialogContent>
+        </RegisterModalDialog>
+      </Modal>
+    </React.Fragment>
   );
 };
 export default RunningmateRegisterModal;

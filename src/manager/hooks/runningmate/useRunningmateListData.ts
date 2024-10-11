@@ -76,13 +76,13 @@ export function useRunningmateListData() {
     };
   }
 
-  const handleApplyFilters = () => {
-    loadRunningmates(getQueryParams(currentPage.pageNumber));
+  const handleApplyFilters = async () => {
+    await loadRunningmates(getQueryParams(currentPage.pageNumber));
   };
 
-  const handlePageChange = (newPage: Page) => {
+  const handlePageChange = async (newPage: Page) => {
     setCurrentPage(newPage);
-    loadRunningmates(getQueryParams(newPage.pageNumber));
+    await loadRunningmates(getQueryParams(newPage.pageNumber));
   };
 
   return {

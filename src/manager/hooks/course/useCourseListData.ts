@@ -27,12 +27,9 @@ export function useCourseListData() {
     try {
       const response = await courseListRequest(params);
       const data = response.data;
-
       const { content, ...pageInfo } = data;
       const { pageNumber, pageSize, totalElements, totalPages, last } = pageInfo;
-
       setCurrentPage({ pageNumber, pageSize, totalElements, totalPages, last });
-
       setCourseData({
         type: RowType.COURSE,
         contents: content.map((course: any) => ({
@@ -87,24 +84,20 @@ export function useCourseListData() {
     loadCourse(getQueryParams(newPage.pageNumber));
   };
 
-  const handleAddCourse = () => {
-    // 강의 추가 요청 로직
-  };
-
   return {
     courseSearchTitle,
+    loadCourse,
+    courseData,
+    isLoading,
+    currentPage,
     filters,
     selectedFilters,
     sortOption,
-    currentPage,
-    courseData,
-    isLoading,
     searchTerm,
     handleFilterChange,
     handleSortChange,
     handleSearchChange,
     handleApplyFilters,
-    handlePageChange,
-    handleAddCourse
+    handlePageChange
   };
 }

@@ -1,1 +1,1 @@
-export * from './useCourseListData';
+export * from './useCourseManagement';

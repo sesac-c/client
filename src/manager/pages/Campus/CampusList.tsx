@@ -2,7 +2,7 @@ import React from 'react';
 import ContentHeader from '../../components/common/layout/ContentHeader';
 import CampusList from '../../components/campus/list/CampusList';
 import { navIcons } from '../../assets/icon';
-import { useCampusListData } from '../../hooks/campus';
+import { useCampusManagement } from '../../hooks/campus';
 import CampusRegisterModal from '../../components/campus/register/CampusRegisterModal';
 
 const page = '캠퍼스 관리';
@@ -12,14 +12,45 @@ const breadcrumb = {
 };
 
 const CampusListPage = () => {
-  const [open, setOpen] = React.useState(false);
-  const { campusSearchTitle, campusData, isLoading, handleAddCampus } = useCampusListData();
+  const {
+    open,
+    setOpen,
+    modalOpen,
+    campusSearchTitle,
+    campusData,
+    isLoading,
+    state,
+    errors,
+    isFormValid,
+    handleChange,
+    handleOpenModal,
+    handleCloseModal,
+    handleAddCampus
+  } = useCampusManagement();
+
+  // Register Modal
+  const registerModal = (
+    <CampusRegisterModal
+      open={modalOpen}
+      onOpen={handleOpenModal}
+      onClose={handleCloseModal}
+      state={state}
+      errors={errors}
+      isFormValid={isFormValid}
+      onChange={handleChange}
+      onSubmit={handleAddCampus}
+    />
+  );
+
   return (
     <React.Fragment>
       {/* 페이지 헤더 */}
       <ContentHeader
         breadcrumb={breadcrumb}
-        pageInfo={{ page, register: React.createElement(CampusRegisterModal, { handleClick: handleAddCampus }) }}
+        pageInfo={{
+          page,
+          register: registerModal
+        }}
       />
 
       {/* 테이블 */}

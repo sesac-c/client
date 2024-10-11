@@ -1,11 +1,13 @@
 import React from 'react';
 import FeedList from '../../../components/feed/list/FeedList';
-import { navIcons } from '../../../assets/icon';
+import { addIcon, navIcons } from '../../../assets/icon';
 import ContentHeader from '../../../components/common/layout/ContentHeader';
+import { useModal } from '../../../../common/hooks';
+import WriteNoticeModal from '../../../components/feed/register/NoticeRegisterModal';
+import { Button } from '@mui/joy';
+import { groupNoticeListRequest } from '../../../services/api';
 import { useFeedListData } from '../../../hooks/feed';
 import { RowType } from '../../../types';
-import { groupNoticeListRequest } from '../../../services/api';
-import NoticeRegisterModal from '../../../components/feed/register/NoticeRegisterModal';
 
 const page = '그룹 공지 관리';
 const breadcrumb = {
@@ -13,11 +15,18 @@ const breadcrumb = {
   breadcrumbTrail: ['피드 관리', page]
 };
 const GroupNoticeListPage: React.FC = () => {
-  const [open, setOpen] = React.useState(false);
-  function handleAddGroupNotice() {
-    // 그룹 공지 추가 로직
-  }
+  const { openModal, closeModal } = useModal(() => <WriteNoticeModal onClose={closeModal} type='group' />);
+
+  // Register Modal
+  const registerModal = (
+    <Button onClick={openModal} variant='outlined' color='neutral' startDecorator={addIcon} size='sm'>
+      공지 등록
+    </Button>
+  );
+
   const {
+    open,
+    setOpen,
     feedSearchTitle,
     currentPage,
     feedData,
@@ -37,10 +46,7 @@ const GroupNoticeListPage: React.FC = () => {
         breadcrumb={breadcrumb}
         pageInfo={{
           page,
-          register: React.createElement(NoticeRegisterModal, {
-            handleClick: handleAddGroupNotice,
-            type: '그룹'
-          })
+          register: registerModal
         }}
       />
 

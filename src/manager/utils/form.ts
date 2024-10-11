@@ -1,17 +1,18 @@
-import { CampusError, RestaurantError, CourseError, NoticeError } from '../constants';
+import { CampusError, RestaurantError, CourseError, NoticeError, RunningmateError } from '../constants';
 
 import {
   CampusRegisterRequest,
-  RestaurantRegisterRequest,
   CourseRegisterRequest,
   campusError,
   restaurantError,
   courseError,
   NoticeRegisterRequest,
   noticeError,
-  RestaurantFormState
+  RestaurantFormState,
+  RunningmateRegisterRequest,
+  runningmateError
 } from '../types';
-import { isValid, parse } from 'date-fns';
+import { isBefore, isValid, parse } from 'date-fns';
 
 // 공통 유효성 검사 함수
 const validateStringField = (value: string, minLength: number, maxLength: number): boolean => {
@@ -81,10 +82,13 @@ export const validateCourseForm = (
     errors.name = CourseError.ERROR_NAME_INVALID;
   }
 
-  if (formData.classNumber == null || formData.classNumber === 0) {
+  if (isEmptyField(formData.classNumber)) {
     errors.classNumber = CourseError.ERROR_CLASS_NUMBER_REQUIRED;
-  } else if (!Number.isInteger(formData.classNumber) || formData.classNumber < 1) {
-    errors.classNumber = CourseError.ERROR_CLASS_NUMBER_INVALID;
+  } else {
+    const parsed = Number(formData.classNumber);
+    if (isNaN(parsed) || !Number.isInteger(parsed) || parsed < 1) {
+      errors.classNumber = CourseError.ERROR_CLASS_NUMBER_INVALID;
+    }
   }
 
   if (isEmptyField(formData.instructorName)) {
@@ -107,6 +111,15 @@ export const validateCourseForm = (
     errors.endDate = CourseError.ERROR_END_DATE_INVALID;
   }
 
+  if (!errors.startDate && !errors.endDate) {
+    const startDate = parse(formData.startDate, 'yyyy-MM-dd', new Date());
+    const endDate = parse(formData.endDate, 'yyyy-MM-dd', new Date());
+
+    if (!isBefore(startDate, endDate)) {
+      errors.startDate = CourseError.ERROR_END_DATE_BEFORE_START_DATE;
+      errors.endDate = CourseError.ERROR_END_DATE_BEFORE_START_DATE;
+    }
+  }
   return errors;
 };
 
@@ -128,6 +141,35 @@ export const validateNoticeForm = (formData: NoticeRegisterRequest): noticeError
     errors.content = NoticeError.ERROR_CONTENT_REQUIRED;
   } else if (formData.content.length < 1 || formData.content.length > 500) {
     errors.content = NoticeError.ERROR_CONTENT_INVALID;
+  }
+
+  if (formData.type === 'group' && formData.courseId !== undefined) {
+    errors.type = NoticeError.ERROR_COURSEID_REQUIRED;
+  }
+
+  return errors;
+};
+export const validateRunningmateForm = (formData: RunningmateRegisterRequest): runningmateError => {
+  const errors: runningmateError = {};
+
+  if (!formData.name.trim()) {
+    errors.name = RunningmateError.ERROR_NAME_REQUIRED;
+  } else if (formData.name.length < 1 || formData.name.length > 20) {
+    errors.name = RunningmateError.ERROR_NAME_INVALID;
+  }
+
+  if (!formData.subject.trim()) {
+    errors.subject = RunningmateError.ERROR_SUBJECT_REQUIRED;
+  } else if (formData.subject.length < 1 || formData.subject.length > 100) {
+    errors.subject = RunningmateError.ERROR_SUBJECT_INVALID;
+  }
+  if (!formData.goal.trim()) {
+    errors.goal = RunningmateError.ERROR_GOAL_REQUIRED;
+  } else if (formData.subject.length < 1 || formData.subject.length > 100) {
+    errors.goal = RunningmateError.ERROR_GOAL_INVALID;
+  }
+  if (formData.courseId === undefined) {
+    errors.courseId = RunningmateError.ERROR_COURSEID_REQUIRED;
   }
 
   return errors;

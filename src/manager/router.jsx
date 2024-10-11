@@ -20,7 +20,6 @@ import AllPostListPage from './pages/Feed/Post/AllPostList';
 import AllNoticeListPage from './pages/Feed/Notice/AllNoticeList';
 import GroupNoticeListPage from './pages/Feed/Notice/GroupNoticeList';
 import RestaurantListPage from './pages/Restaurant/RestaurantList';
-import RestaurantRegisterPage from './pages/Restaurant/RestaurantRegister';
 // ----------------------------------------------------------------------
 
 // TODO: 나중에 lazy loading으로 변경하기
@@ -95,10 +94,6 @@ const managerRoutes = [
       {
         index: true,
         element: <RestaurantListPage />
-      },
-      {
-        path: MANAGER_RESTAURANT_CHILDREN_PATH.register,
-        element: <RestaurantRegisterPage />
       }
     ]
   },
