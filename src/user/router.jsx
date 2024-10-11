@@ -20,6 +20,7 @@ export const SearchAllPostPage = lazy(() => import('./pages/All/SearchAllPost.js
 
 // ----------------------------------------------------------------------
 export const GroupCoursePage = lazy(() => import('./pages/Group/GroupCourse'));
+export const GroupRunningMatePage = lazy(() => import('./pages/Group/GroupRunningMate'));
 
 // ----------------------------------------------------------------------
 
@@ -79,7 +80,7 @@ const userRoutes = [
       },
       {
         path: GROUP_CHILDREN_PATH.runningmate,
-        element: <GroupCoursePage />
+        element: <GroupRunningMatePage />
       }
     ]
   }
