@@ -9,3 +9,6 @@
 
 /* components/user */
 @import './components/user/index.css';
+
+/* components/group */
+@import './components/group/index.css';

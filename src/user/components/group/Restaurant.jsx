@@ -4,7 +4,6 @@ import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import { useNavigateHandler } from '@/common/hooks';
 import { formatDateToKorean } from '@/common/utils/formatter';
 import { IMAGE_UPLOAD_API_URL } from '@/common/constants';
-import { fetchNotices } from '@/user/services/api/notices';
 
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 
@@ -72,7 +71,7 @@ const thumbnailUrl = thumbnail => {
   return `${IMAGE_UPLOAD_API_URL}/${thumbnail}`;
 };
 
-const Notices = ({ feedType }) => {
+const Notices = ({ fetchNotices }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [notices, setNotices] = useState([]);
   const [page, setPage] = useState(0);
@@ -86,7 +85,7 @@ const Notices = ({ feedType }) => {
 
     setIsLoading(true);
     try {
-      const { newNotices, last } = await fetchNotices({ page, size: 3 }, feedType);
+      const { newNotices, last } = await fetchNotices({ page, size: 3 });
       setNotices(notices.concat(newNotices));
       setPage(prevPage => prevPage + 1);
       setHasMore(!last);

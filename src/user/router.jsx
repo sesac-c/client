@@ -1,7 +1,8 @@
 import { lazy, Suspense } from 'react';
-import { ALL_PATH, CAMPUS_CHILDREN_PATH, CAMPUS_PATH } from '../common/constants';
-import CampusLayout from './layouts/Campus.jsx';
+import { ALL_PATH, CAMPUS_CHILDREN_PATH, CAMPUS_PATH, GROUP_CHILDREN_PATH, GROUP_PATH } from '@/common/constants';
+import CampusLayout from './layouts/Campus';
 import AllLayout from './layouts/All';
+import GroupLayout from './layouts/Group';
 
 // ----------------------------------------------------------------------
 
@@ -16,6 +17,10 @@ export const SearchCampusPostPage = lazy(() => import('./pages/Campus/SearchCamp
 export const AllPostDetailPage = lazy(() => import('./pages/All/AllPostDetail.jsx'));
 export const AllPostListPage = lazy(() => import('./pages/All/AllPostList.jsx'));
 export const SearchAllPostPage = lazy(() => import('./pages/All/SearchAllPost.jsx'));
+
+// ----------------------------------------------------------------------
+export const GroupCoursePage = lazy(() => import('./pages/Group/GroupCourse'));
+export const GroupRunningMatePage = lazy(() => import('./pages/Group/GroupRunningMate'));
 
 // ----------------------------------------------------------------------
 
@@ -62,6 +67,20 @@ const userRoutes = [
       {
         path: CAMPUS_CHILDREN_PATH.search,
         element: <SearchAllPostPage />
+      }
+    ]
+  },
+  {
+    path: GROUP_PATH,
+    element: <GroupLayout />,
+    children: [
+      {
+        path: GROUP_CHILDREN_PATH.courses,
+        element: <GroupCoursePage />
+      },
+      {
+        path: GROUP_CHILDREN_PATH.runningmate,
+        element: <GroupRunningMatePage />
       }
     ]
   }
