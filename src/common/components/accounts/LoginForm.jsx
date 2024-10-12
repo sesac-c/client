@@ -25,7 +25,12 @@ const LoginForm = () => {
     try {
       const loginResult = await login(email, password);
       if (!loginResult.success) {
-        setError('이메일 또는 비밀번호가 올바르지 않습니다.');
+        const errorMessage = loginResult.error.response.data.message;
+        if (errorMessage) {
+          setError(errorMessage);
+        } else {
+          setError('이메일 또는 비밀번호가 올바르지 않습니다.');
+        }
         return;
       }
       // role에 맞는 경로로 이동
