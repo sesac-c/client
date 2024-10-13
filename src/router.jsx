@@ -23,6 +23,7 @@ import {
 import managerRoutes from './manager/router';
 import ManagerRootLayout from './manager/layouts/ManagerRoot';
 import PageLoadingSpinner from './common/components/common/UI/PageLoadingSpinner';
+import ResetPasswordPage, { loader as resetPasswordLoader } from './common/pages/Accounts/ResetPassword';
 
 const ProtectedRoute = ({ children, requiredRole }) => {
   // 접근 권한이 필요한 컴포넌트 미들웨어
@@ -62,6 +63,12 @@ const router = createBrowserRouter([
         element: <FindPasswordPage />
       }
     ]
+  },
+  {
+    path: `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.resetPassword}/:uuid`,
+    errorElement: <ErrorPage />,
+    element: <ResetPasswordPage />,
+    loader: resetPasswordLoader
   },
   {
     path: MANAGER_PATH,

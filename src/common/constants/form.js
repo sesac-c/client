@@ -27,7 +27,7 @@ export const ERROR_BIRTHDATE_MONTH = '유효한 월을 입력해주세요 (01 ~ 
 export const ERROR_BIRTHDATE_DAY = (maxDay) => `유효한 일을 입력해주세요 (01 ~ ${maxDay})`;
 
 export const ERROR_EMAIL_REQUIRED = '이메일을 입력해 주세요';
-export const ERROR_EMAIL_INVALID = '유효한 이메일을 입력해 주세요';
+export const ERROR_EMAIL_INVALID = '이메일 형식으로 입력해 주세요';
 export const ERROR_EMAIL_EXISTS = '이미 존재하는 이메일입니다';
 
 export const ERROR_PASSWORD_REQUIRED = '비밀번호를 입력해 주세요';

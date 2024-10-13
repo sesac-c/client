@@ -1,10 +1,8 @@
-// hooks/useFindPasswordState.ts
-
 import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { validateFindPasswordForm } from '../../utils/form';
-import { checkEmailExists, verifyCode } from '../../services/api/findPassword';
-import { RESET_PASSWORD_PATH, COUNTDOWN_TIME } from '../../constants';
+import { checkEmailAndSendCode, verifyCode } from '../../services/api';
+import { RESET_PASSWORD_PATH, COUNTDOWN_TIME, EMAIL_REGEX, ERROR_EMAIL_INVALID } from '../../constants';
 import { FindPasswordProcessStatus, FindPasswordState, UseFindPasswordStateReturn } from '../../types/findPassword';
 
 export const useFindPasswordState = (): UseFindPasswordStateReturn => {
@@ -23,12 +21,14 @@ export const useFindPasswordState = (): UseFindPasswordStateReturn => {
 
   const navigate = useNavigate();
 
-  const handleEmailSubmit = useCallback(async () => {
+  const handleEmailVerification = useCallback(async (email: string) => {
     try {
-      const emailExists = await checkEmailExists(state.email);
-      if (emailExists) {
+      const data = await checkEmailAndSendCode(email);
+
+      if (data.success) {
         setState(prevState => ({
           ...prevState,
+          email,
           isEmailValid: true,
           isCodeSent: true,
           emailHelperText: '인증코드가 발송되었습니다!',
@@ -39,8 +39,7 @@ export const useFindPasswordState = (): UseFindPasswordStateReturn => {
       } else {
         setState(prevState => ({
           ...prevState,
-          isError: true,
-          emailHelperText: '존재하지 않는 이메일입니다'
+          emailHelperText: data.message
         }));
       }
     } catch (error) {
@@ -49,17 +48,28 @@ export const useFindPasswordState = (): UseFindPasswordStateReturn => {
         isError: true
       }));
     }
-  }, [state.email]);
+  }, []);
+
+  const handleEmailSubmit = useCallback(async () => {
+    if (!EMAIL_REGEX.test(state.email)) {
+      setState(prevState => ({
+        ...prevState,
+        emailHelperText: ERROR_EMAIL_INVALID
+      }));
+      return;
+    }
+    await handleEmailVerification(state.email);
+  }, [state.email, handleEmailVerification]);
 
   const handleCodeSubmit = useCallback(async () => {
     try {
-      const isCodeValid = await verifyCode(state.verificationCode);
-      if (isCodeValid) {
-        navigate(RESET_PASSWORD_PATH);
+      const data = await verifyCode(state.email, state.verificationCode);
+      if (data.success) {
+        navigate(RESET_PASSWORD_PATH(data.uuid));
       } else {
         setState(prevState => ({
           ...prevState,
-          codeHelperText: '인증번호가 일치하지 않습니다.'
+          codeHelperText: data.message
         }));
       }
     } catch (error) {
@@ -68,7 +78,20 @@ export const useFindPasswordState = (): UseFindPasswordStateReturn => {
         isError: true
       }));
     }
-  }, [state.verificationCode, navigate]);
+  }, [state.email, state.verificationCode, navigate]);
+
+  const resendVerificationCode = useCallback(async () => {
+    setState(prevState => ({
+      ...prevState,
+      isCodeSent: true,
+      remainingTime: COUNTDOWN_TIME,
+      isTimerExpired: false,
+      codeHelperText: '인증코드가 재발송되었습니다!',
+      verificationCode: ''
+    }));
+
+    await handleEmailVerification(state.email);
+  }, [state.email, handleEmailVerification]);
 
   const handleButtonClick = useCallback(() => {
     if (state.currentStep === FindPasswordProcessStatus.EMAIL) {
@@ -78,7 +101,7 @@ export const useFindPasswordState = (): UseFindPasswordStateReturn => {
     } else {
       handleCodeSubmit();
     }
-  }, [state.currentStep, state.isTimerExpired, handleEmailSubmit, handleCodeSubmit]);
+  }, [state.currentStep, state.isTimerExpired, handleEmailSubmit, handleCodeSubmit, resendVerificationCode]);
 
   const startCountdown = useCallback(() => {
     const timer = setInterval(() => {
@@ -98,17 +121,6 @@ export const useFindPasswordState = (): UseFindPasswordStateReturn => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
-
-  const resendVerificationCode = useCallback(() => {
-    setState(prevState => ({
-      ...prevState,
-      isCodeSent: true,
-      remainingTime: COUNTDOWN_TIME,
-      isTimerExpired: false,
-      codeHelperText: '인증코드가 재발송되었습니다!',
-      verificationCode: ''
-    }));
   }, []);
 
   useEffect(() => {

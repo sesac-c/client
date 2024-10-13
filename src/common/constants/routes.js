@@ -36,7 +36,7 @@ export const ACCOUNT_CHILDREN_PATH = {
 export const LOGIN_PATH = `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.login}`;
 export const SIGNUP_PATH = `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.signup}`;
 export const FIND_PASSWORD_PATH = `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.findPassword}`;
-export const RESET_PASSWORD_PATH = `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.resetPassword}`;
+export const RESET_PASSWORD_PATH = (uuid) => `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.resetPassword}/${uuid}`;
 
 export const USER_PATH = '/';
 export const MANAGER_PATH = '/manager';
@@ -155,9 +155,9 @@ export const MANAGER_FEEDS_CHILDREN_PATH = {
 };
 
 export const MANAGER_RUNNINGMATE_CHILDREN_PATH = {
-    report: 'activity-reports'
+  report: 'activity-reports'
 };
 
 export const MANAGER_RESTAURANT_CHILDREN_PATH = {
-    register: 'register'
+  register: 'register'
 };

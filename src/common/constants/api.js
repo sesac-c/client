@@ -21,3 +21,7 @@ export const ACCOUNTS_EMAIL_CHECK_API_URL = '/accounts/signup/check-email'
 export const CAMPUS_LIST_API_URL = MANAGER_CAMPUS_LIST_API_URL;
 export const COURSE_LIST_API_URL = (campusId) => `/campuses/${campusId}/courses`;
 export const SIGNUP_API_URL = '/accounts';
+export const CHECK_EMAIL_AND_SEND_CODE_API_URL = '/accounts/find-password';
+export const VERIFY_CODE_API_URL = '/accounts/find-password/verify-code';
+export const VERIFY_PASSWORD_RESET_PAGE_UUID_API_URL = 'accounts/reset-password/verify-uuid';
+export const RESET_PASSWORD_API_URL = 'accounts/reset-password';

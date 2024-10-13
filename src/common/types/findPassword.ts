@@ -1,3 +1,5 @@
+import { ResetPasswordForm } from './request';
+
 export enum FindPasswordProcessStatus {
   EMAIL = 'EMAIL',
   CODE = 'CODE'
@@ -15,8 +17,17 @@ export interface FindPasswordState {
   codeHelperText: string;
   isTimerExpired: boolean;
 }
+export interface ResetPasswordState {
+  password: string;
+  confirmPassword: string;
+  errors: Record<keyof ResetPasswordForm, string>;
+  resetError: boolean;
+  resetErrorMessage: string;
+  resetSuccess: boolean;
+}
 
 export type FindPasswordField = 'email' | 'verificationCode';
+export type ResetPasswordField = 'password' | 'confirmPassword';
 
 export interface UseFindPasswordStateReturn {
   state: FindPasswordState;
@@ -25,6 +36,14 @@ export interface UseFindPasswordStateReturn {
   isButtonDisabled: () => boolean;
 }
 
+export interface UseResetPasswordStateReturn {
+  state: ResetPasswordState;
+  handleChange: (field: ResetPasswordField, value: string) => void;
+  handleSubmit: () => void;
+  isButtonDisabled: () => boolean;
+  handleSuccessModal: () => void;
+  handleErrorModal: () => void;
+}
 export interface FindPasswordContentProps {
   title: string;
   state: FindPasswordState;
