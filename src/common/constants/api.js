@@ -17,3 +17,11 @@ export const POSTS_CAMPUS_API_URL = '/posts/campus';
 export const POSTS_ALL_API_URL = '/posts/all';
 export const NOTICES_ALL_API_URL = '/notices/all';
 export const IMAGE_UPLOAD_API_URL = `${process.env.REACT_APP_API_BASE_URL}view`;
+export const ACCOUNTS_EMAIL_CHECK_API_URL = '/accounts/signup/check-email'
+export const CAMPUS_LIST_API_URL = MANAGER_CAMPUS_LIST_API_URL;
+export const COURSE_LIST_API_URL = (campusId) => `/campuses/${campusId}/courses`;
+export const SIGNUP_API_URL = '/accounts';
+export const CHECK_EMAIL_AND_SEND_CODE_API_URL = '/accounts/find-password';
+export const VERIFY_CODE_API_URL = '/accounts/find-password/verify-code';
+export const VERIFY_PASSWORD_RESET_PAGE_UUID_API_URL = 'accounts/reset-password/verify-uuid';
+export const RESET_PASSWORD_API_URL = 'accounts/reset-password';

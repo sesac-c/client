@@ -11,12 +11,13 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ errorState }) => {
   const getErrorDetails = (): ErrorDetails => {
     const status = error?.status || errorState;
     let title = '페이지 요청 실패';
-    let message: React.ReactNode = ERROR_MESSAGES.DEFAULT;
+    let message: React.ReactNode = error?.data?.message || ERROR_MESSAGES.DEFAULT;
 
     if (status === 500) {
       message = error?.data?.message || ERROR_MESSAGES.DEFAULT;
     } else if (status === 404) {
       message = ERROR_MESSAGES.NOT_FOUND;
+      3;
     } else if (status === 401 || status === 403) {
       title = '잘못된 접근';
       message = ERROR_MESSAGES.UNAUTHORIZED;

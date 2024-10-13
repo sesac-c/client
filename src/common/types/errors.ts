@@ -1,5 +1,10 @@
 import React from 'react';
 
+export interface ApiError {
+  code: string;
+  message: string;
+}
+
 export type RouteError = {
   status?: number;
   data?: {
@@ -7,8 +12,27 @@ export type RouteError = {
   };
 };
 
+export class RouteBaseError extends Error {
+  errorState: number;
+  data: {
+    message: string;
+  };
+
+  constructor(errorState: number, message: string) {
+    super(message);
+    this.name = 'RouteError';
+    this.errorState = errorState;
+    this.data = {
+      message: message
+    };
+  }
+}
+
 export interface ErrorPageProps {
   errorState?: number;
+  data?: {
+    message: string;
+  };
 }
 
 export type ErrorMessage = string | React.ReactElement;

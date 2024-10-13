@@ -37,6 +37,7 @@ const PasswordInput = ({ id, label, placeholder, value, onChange, error, helperT
         placeholder={placeholder}
         {...DEFAULT_TEXTFIELD_SETTING}
         required={true}
+        error={!!error}
       />
       <FormHelperText error={!!error}>{helperText}</FormHelperText>
     </FormControl>

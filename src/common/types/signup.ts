@@ -28,6 +28,7 @@ export interface UseSignupStateReturn {
   handleError: () => void;
   handleClose: () => void;
   handleChange: (field: keyof FormData, value: string) => void;
+  handleSubmit: () => void;
   handleValidate: (nextStep: SignupStep) => Promise<void>;
   isButtonDisabled: () => boolean;
 }
@@ -40,4 +41,10 @@ export interface BirthdateInputProps {
     birthdate?: string;
     gender?: string;
   };
+}
+
+export interface SignupSecondStepFieldProps {
+  formData: FormData;
+  onChange: (field: keyof FormData, value: string) => void;
+  errors: Partial<FormData>;
 }

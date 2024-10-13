@@ -1,4 +1,6 @@
+import { ReactNode } from 'react';
 import { GENERAL_MODAL, PAGE_MODAL, WRITE_MODAL } from '../constants';
+import { ResetPasswordField, ResetPasswordState } from './findPassword';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
 export type ButtonSize = 'small' | 'medium' | 'large';
@@ -44,7 +46,9 @@ export interface BaseModalProps {
 export interface ModalProps extends BaseModalProps {
   children: React.ReactNode;
 }
-export interface ProcessErrorModalProps extends BaseModalProps {}
+export interface ProcessErrorModalProps extends BaseModalProps {
+  content?: string;
+}
 
 export interface ProcessSuccessModalProps extends BaseModalProps {
   children: React.ReactNode;
@@ -77,4 +81,24 @@ export type MascotType = keyof typeof MASCOT_IMAGES;
 
 export interface MascotImageProps {
   type: MascotType;
+}
+
+type FormSubmitHandler = () => void;
+type ButtonDisabledChecker = () => boolean;
+
+export interface ResetPasswordFieldsProps {
+  state: ResetPasswordState;
+  onChange: (field: ResetPasswordField, value: string) => void;
+}
+
+export interface ResetPasswordFormProps extends ResetPasswordFieldsProps {
+  onSubmit: FormSubmitHandler;
+  isButtonDisabled: ButtonDisabledChecker;
+}
+
+export interface ResetPasswordLayoutProps {
+  title: string;
+  children: ReactNode;
+  onSubmit: FormSubmitHandler;
+  isButtonDisabled: boolean;
 }
