@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { NO_REFRESH_TOKEN_MESSAGE, USER_KEY } from '../constants';
-import TokenUtil from '../utils/auth';
+import { NO_REFRESH_TOKEN_MESSAGE, REFRESH_TOKEN_EXPIRED, USER_KEY } from '../constants';
+import TokenUtil, { getAuthErrorDetails } from '../utils/auth';
 import authRequest from '../services/api/auth';
 
 const useAuthStore = create(
@@ -19,13 +19,14 @@ const useAuthStore = create(
             },
             login: async (email, password) => {
                 try {
-                    const { accessToken, refreshToken, nickname, role } = await authRequest.login(email, password);
+                    const { accessToken, refreshToken, nickname, role, profileImage } = await authRequest.login(email, password);
                     TokenUtil.setTokens(accessToken, refreshToken);
                     set({
                         isAuthenticated: true,
                         user: {
-                            nickname: nickname,
-                            role: role
+                            nickname,
+                            role,
+                            profileImage
                         }
                     });
                     return { success: true, user: { nickname, role } };
@@ -59,6 +60,10 @@ const useAuthStore = create(
                     return true;
                 } catch (error) {
                     console.error('Token refresh failed:', error);
+
+                    const { code } = error?.response?.data;
+                    if (code === REFRESH_TOKEN_EXPIRED) throw error;
+
                     get().logout();
                     return false;
                 }

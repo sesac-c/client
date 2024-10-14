@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { StatusCodes } from 'http-status-codes';
 
-import { ACCESS_TOKEN_KEY, LOGIN_PATH, NO_REFRESH_TOKEN_MESSAGE, REFRESH_API_URL, REFRESH_TOKEN_KEY, USER_KEY } from '../../constants';
-import TokenUtil, { clearTokens, getAuthErrorDetails, setTokens } from '../../utils/auth';
+import { LOGIN_PATH, LOGIN_REQUIRED, } from '../../constants';
+import TokenUtil, { getAuthErrorDetails } from '../../utils/auth';
 import useAuthStore from '../../stores/authStore';
 
 /**
@@ -44,17 +43,26 @@ export const setupAuthInterceptor = () => {
         (response) => response,
         async (error) => {
             const originalRequest = error.config;
-
             const { needsAccessTokenRefresh } = getAuthErrorDetails(error);
+
             if (needsAccessTokenRefresh && !originalRequest._retry) {
                 originalRequest._retry = true;
-                const refreshed = await useAuthStore.getState().refreshAccessToken();
-                if (refreshed) {
-                    const { accessToken } = TokenUtil.getTokens();
-                    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-                    return axios(originalRequest);
+
+                try {
+                    const refreshed = await useAuthStore.getState().refreshAccessToken();
+                    if (refreshed) {
+                        const { accessToken } = TokenUtil.getTokens();
+                        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                        return axios(originalRequest);
+                    }
+                } catch (refreshError) {
+                    useAuthStore.getState().logout();
+                    window.alert(LOGIN_REQUIRED);
+                    window.location.href = LOGIN_PATH;
+                    return Promise.reject(refreshError);
                 }
             }
+
             return Promise.reject(error);
         }
     );

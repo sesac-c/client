@@ -1,12 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { Container, Box, Typography, Button, Stack, Divider } from '@mui/material';
-import {
-  ResetPasswordLayoutProps,
-  ResetPasswordField,
-  ResetPasswordState,
-  ResetPasswordFormProps,
-  ResetPasswordFieldsProps
-} from '@/common/types';
+import { ResetPasswordLayoutProps, ResetPasswordFormProps, ResetPasswordFieldsProps } from '@/common/types';
 import Logo from '../../common/layout/Logo';
 import { LOGIN_PATH } from '@/common/constants';
 import PasswordInput from '../signup/PasswordInput';
