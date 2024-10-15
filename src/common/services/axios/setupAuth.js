@@ -43,7 +43,7 @@ export const setupAuthInterceptor = () => {
         (response) => response,
         async (error) => {
             const originalRequest = error.config;
-            const { needsAccessTokenRefresh } = getAuthErrorDetails(error);
+            const { status, needsAccessTokenRefresh } = getAuthErrorDetails(error);
 
             if (needsAccessTokenRefresh && !originalRequest._retry) {
                 originalRequest._retry = true;
@@ -61,6 +61,13 @@ export const setupAuthInterceptor = () => {
                     window.location.href = LOGIN_PATH;
                     return Promise.reject(refreshError);
                 }
+            }
+
+            if (status === 401 || status === 403) {
+                useAuthStore.getState().logout();
+                window.alert(LOGIN_REQUIRED);
+                window.location.href = LOGIN_PATH;
+                return Promise.reject(refreshError);
             }
 
             return Promise.reject(error);

@@ -7,11 +7,9 @@ import authRequest from '../services/api/auth';
 const useAuthStore = create(
     persist(
         (set, get) => ({
-            // state
             isAuthenticated: false,
             user: null,
 
-            // dispatch
             setUser: (user) => set({ isAuthenticated: true, user }),
             resetUser: () => {
                 TokenUtil.clearTokens();
@@ -23,15 +21,11 @@ const useAuthStore = create(
                     TokenUtil.setTokens(accessToken, refreshToken);
                     set({
                         isAuthenticated: true,
-                        user: {
-                            nickname,
-                            role,
-                            profileImage
-                        }
+                        user: { nickname, role, profileImage }
                     });
                     return { success: true, user: { nickname, role } };
                 } catch (error) {
-                    console.error('Login failed:', error);
+                    console.error('로그인 실패: ', error);
                     return { success: false, error };
                 }
             },
@@ -52,6 +46,7 @@ const useAuthStore = create(
                     TokenUtil.setTokens(newAccessToken, newRefreshToken);
 
                     set({
+                        isAuthenticated: true,
                         user: {
                             nickname: newNickname,
                             role: newRole
@@ -59,11 +54,7 @@ const useAuthStore = create(
                     });
                     return true;
                 } catch (error) {
-                    console.error('Token refresh failed:', error);
-
-                    const { code } = error?.response?.data;
-                    if (code === REFRESH_TOKEN_EXPIRED) throw error;
-
+                    console.error("리프레쉬 토큰 에러: ", error);
                     get().logout();
                     return false;
                 }
