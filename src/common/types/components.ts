@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { GENERAL_MODAL, PAGE_MODAL, WRITE_MODAL } from '../constants';
 import { ResetPasswordField, ResetPasswordState } from './findPassword';
+import { UserPostResponse } from './response';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
 export type ButtonSize = 'small' | 'medium' | 'large';
@@ -101,4 +102,29 @@ export interface ResetPasswordLayoutProps {
   children: ReactNode;
   onSubmit: FormSubmitHandler;
   isButtonDisabled: boolean;
+}
+
+export interface GridItem {
+  id: number;
+  content: string;
+}
+
+export interface ProfileData {
+  name: string;
+  followers: number;
+  following: number;
+}
+
+export interface ProfileLayoutHeaderProps {
+  to: string;
+  title: string;
+  isProfileMine: boolean;
+}
+export interface ProfileLayoutProps {
+  header: ProfileLayoutHeaderProps;
+  children: React.ReactNode;
+}
+
+export interface PostGridProps {
+  posts: UserPostResponse[];
 }

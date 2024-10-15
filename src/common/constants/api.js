@@ -25,3 +25,7 @@ export const CHECK_EMAIL_AND_SEND_CODE_API_URL = '/accounts/find-password';
 export const VERIFY_CODE_API_URL = '/accounts/find-password/verify-code';
 export const VERIFY_PASSWORD_RESET_PAGE_UUID_API_URL = 'accounts/reset-password/verify-uuid';
 export const RESET_PASSWORD_API_URL = 'accounts/reset-password';
+
+export const USER_PROFILE_API_URL = (useId) => `user/${useId}/profiles`;
+export const USER_POSTS_API_URL = (useId) => `user/${useId}/posts`;
+
