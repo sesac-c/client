@@ -1,22 +1,27 @@
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-const GroupTabs = ({ tabs, onChange }) => {
-  const [active, setActive] = useState(tabs[0].value);
+const GroupTabs = ({ tabs, path }) => {
+  const [active, setActive] = useState(path);
+  const navigate = useNavigate();
 
   const handleTab = (e, value) => {
+    navigate(`./../${value}`);
     setActive(value);
-    onChange(value);
   };
 
+  console.log(tabs);
   return (
-    <Tabs value={active} onChange={handleTab}>
-      {tabs.map(({ label, value }) => (
-        <Tab key={value} label={label} value={value} />
-      ))}
-    </Tabs>
+    <div className='group-tab'>
+      <Tabs value={active} onChange={handleTab}>
+        {tabs.map(({ label, value }) => (
+          <Tab key={value} label={label} value={value} />
+        ))}
+      </Tabs>
+    </div>
   );
 };
 

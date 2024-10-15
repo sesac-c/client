@@ -1,12 +1,8 @@
-import { HeartIcon } from '@heroicons/react/20/solid';
-import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
-
-import { useNavigateHandler } from '@/common/hooks';
-import { formatDateToKorean } from '@/common/utils/formatter';
 import { IMAGE_UPLOAD_API_URL } from '@/common/constants';
 
-import React, { useCallback, useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const thumbnailUrl = thumbnail => {
   // return `${IMAGE_UPLOAD_API_URL}/s_${thumbnail}`;
@@ -14,9 +10,10 @@ const thumbnailUrl = thumbnail => {
 };
 
 const ActivityReport = ({ report }) => {
+  const navigate = useNavigate();
   return (
     <>
-      <div className='image-container'>
+      <div className='image-container' onClick={() => navigate(`./${report.id}`)}>
         <img src={thumbnailUrl(report.photo)} alt={report.title} />
         <div className='title-overlay'>{report.title}</div>
       </div>
@@ -34,7 +31,7 @@ const ActivityReports = ({}) => {
   const loadReports = async () => {
     const { data } = await axios.get('runningmates/activities');
     // setReports(data);
-    setReports([...data, ...data]);
+    setReports([...data]);
   };
 
   useEffect(() => {

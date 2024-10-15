@@ -1,8 +1,9 @@
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import { ALL_PATH, CAMPUS_CHILDREN_PATH, CAMPUS_PATH, GROUP_CHILDREN_PATH, GROUP_PATH } from '@/common/constants';
 import CampusLayout from './layouts/Campus';
 import AllLayout from './layouts/All';
 import GroupLayout from './layouts/Group';
+import Restaurant from '@/user/components/group/Restaurant';
 
 // ----------------------------------------------------------------------
 
@@ -63,7 +64,6 @@ const userRoutes = [
         path: CAMPUS_CHILDREN_PATH.postList,
         element: <AllPostListPage />
       },
-
       {
         path: CAMPUS_CHILDREN_PATH.search,
         element: <SearchAllPostPage />
@@ -75,12 +75,36 @@ const userRoutes = [
     element: <GroupLayout />,
     children: [
       {
-        path: GROUP_CHILDREN_PATH.courses,
-        element: <GroupCoursePage />
+        path: `${GROUP_CHILDREN_PATH.courses}/notices`,
+        element: <GroupCoursePage path={'notices'} />
       },
       {
-        path: GROUP_CHILDREN_PATH.runningmate,
-        element: <GroupRunningMatePage />
+        path: `${GROUP_CHILDREN_PATH.courses}/notices/:noticeId`,
+        element: <CampusNoticeDetailPage />
+      },
+      {
+        path: `${GROUP_CHILDREN_PATH.courses}/restaurant`,
+        element: <GroupCoursePage path={'restaurant'} />
+      },
+      {
+        path: `${GROUP_CHILDREN_PATH.courses}/restaurant/:restaurantId`,
+        element: <Restaurant />
+      },
+      {
+        path: `${GROUP_CHILDREN_PATH.runningmate}/reports`,
+        element: <GroupRunningMatePage path={'reports'} />
+      },
+      {
+        path: `${GROUP_CHILDREN_PATH.runningmate}/reports/:reportId`,
+        element: <CampusNoticeDetailPage />
+      },
+      {
+        path: `${GROUP_CHILDREN_PATH.runningmate}/restaurant`,
+        element: <GroupRunningMatePage path={'restaurant'} />
+      },
+      {
+        path: `${GROUP_CHILDREN_PATH.runningmate}/restaurant/:restaurantId`,
+        element: <Restaurant />
       }
     ]
   }

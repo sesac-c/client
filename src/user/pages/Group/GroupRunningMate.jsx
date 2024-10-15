@@ -1,4 +1,3 @@
-import FeedWrapper from '@/user/components/common/layout/FeedWrapper.jsx';
 import ColumnLayoutWrapper from '@/user/components/common/layout/ColumnLayoutWrapper.jsx';
 
 import GroupName from '@/user/components/group/GroupName';
@@ -16,7 +15,7 @@ import ActivityReports from '@/user/components/group/ActivityReports';
 const TABS = [
   {
     label: '활동내역',
-    value: 'activity'
+    value: 'reports'
   },
   {
     label: '음식점',
@@ -24,20 +23,7 @@ const TABS = [
   }
 ];
 
-const Main = () => {
-  const [active, setActive] = useState('activity');
-  const onChange = value => setActive(value);
-
-  return (
-    <>
-      <GroupTabs tabs={TABS} onChange={onChange} />
-      {active === 'activity' && <ActivityReports feedType={'group'} />}
-      {active === 'restaurant' && <Restaurant fetchNotices={fetchNotices} />}
-    </>
-  );
-};
-
-const GroupRunningMate = () => {
+const GroupRunningMate = ({ path }) => {
   const [runningMate, setRunningMate] = useState(null);
   const [users, setUsers] = useState([]);
 
@@ -69,9 +55,22 @@ const GroupRunningMate = () => {
   }, [loadRunningMate]);
 
   return (
-    <FeedWrapper boardContent={<GroupName name={runningMate && `${runningMate.name}`} />}>
-      <ColumnLayoutWrapper mainArea={<Main />} rightSide={<UserList users={users} buttonText={'쪽지하기'} />} />
-    </FeedWrapper>
+    <>
+      <div className='board-container'>
+        <GroupName name={runningMate && `${runningMate.name}`} />
+        <GroupTabs tabs={TABS} path={path} />
+      </div>
+
+      <div className='group-container'>
+        <ColumnLayoutWrapper
+          leftSide={<div></div>}
+          mainArea={
+            path === 'reports' ? <ActivityReports feedType={'group'} /> : <Restaurant fetchNotices={fetchNotices} />
+          }
+          rightSide={<UserList users={users} buttonText={'쪽지하기'} />}
+        ></ColumnLayoutWrapper>
+      </div>
+    </>
   );
 };
 export default GroupRunningMate;
