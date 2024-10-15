@@ -23,6 +23,7 @@ export const SearchAllPostPage = lazy(() => import('./pages/All/SearchAllPost.js
 export const GroupCoursePage = lazy(() => import('./pages/Group/GroupCourse'));
 export const GroupRunningMatePage = lazy(() => import('./pages/Group/GroupRunningMate'));
 export const ActivityReportDetailPage = lazy(() => import('@/user/components/group/ActivityReportDetail'));
+export const ActivityReportWritePage = lazy(() => import('@/user/components/group/ActivityReportWrite'));
 
 // ----------------------------------------------------------------------
 
@@ -94,6 +95,10 @@ const userRoutes = [
       {
         path: `${GROUP_CHILDREN_PATH.runningmate}/reports`,
         element: <GroupRunningMatePage path={'reports'} />
+      },
+      {
+        path: `${GROUP_CHILDREN_PATH.runningmate}/reports/write`,
+        element: <ActivityReportWritePage />
       },
       {
         path: `${GROUP_CHILDREN_PATH.runningmate}/reports/:reportId`,

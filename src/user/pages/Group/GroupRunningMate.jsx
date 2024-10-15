@@ -11,6 +11,8 @@ import GroupTabs from '@/user/components/group/GroupTabs';
 import axios from 'axios';
 import UserList from '@/user/components/common/UI/UserList';
 import ActivityReports from '@/user/components/group/ActivityReports';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const TABS = [
   {
@@ -26,12 +28,12 @@ const TABS = [
 const GroupRunningMate = ({ path }) => {
   const [runningMate, setRunningMate] = useState(null);
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   const loadUsers = useCallback(async runningMateId => {
     if (!runningMateId) return;
     try {
       const { data } = await axios.get(`/members/runningmate/${runningMateId}`);
-      console.log(data);
       setUsers(data);
     } catch (error) {
       console.error('Failed to load users:', error);
@@ -63,7 +65,13 @@ const GroupRunningMate = ({ path }) => {
 
       <div className='group-container'>
         <ColumnLayoutWrapper
-          leftSide={<div></div>}
+          leftSide={
+            <div>
+              <Button variant='outlined' onClick={() => navigate('./write')}>
+                보고서 작성
+              </Button>
+            </div>
+          }
           mainArea={
             path === 'reports' ? <ActivityReports feedType={'group'} /> : <Restaurant fetchNotices={fetchNotices} />
           }
