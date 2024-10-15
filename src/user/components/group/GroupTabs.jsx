@@ -13,7 +13,6 @@ const GroupTabs = ({ tabs, path }) => {
     setActive(value);
   };
 
-  console.log(tabs);
   return (
     <div className='group-tab'>
       <Tabs value={active} onChange={handleTab}>

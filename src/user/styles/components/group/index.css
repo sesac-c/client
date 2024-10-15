@@ -64,3 +64,7 @@
 .image-container:hover .title-overlay {
   opacity: 1;
 }
+
+.activity-head {
+  display: flex;
+}

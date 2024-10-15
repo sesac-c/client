@@ -22,6 +22,7 @@ export const SearchAllPostPage = lazy(() => import('./pages/All/SearchAllPost.js
 // ----------------------------------------------------------------------
 export const GroupCoursePage = lazy(() => import('./pages/Group/GroupCourse'));
 export const GroupRunningMatePage = lazy(() => import('./pages/Group/GroupRunningMate'));
+export const ActivityReportDetailPage = lazy(() => import('@/user/components/group/ActivityReportDetail'));
 
 // ----------------------------------------------------------------------
 
@@ -96,7 +97,7 @@ const userRoutes = [
       },
       {
         path: `${GROUP_CHILDREN_PATH.runningmate}/reports/:reportId`,
-        element: <CampusNoticeDetailPage />
+        element: <ActivityReportDetailPage />
       },
       {
         path: `${GROUP_CHILDREN_PATH.runningmate}/restaurant`,
