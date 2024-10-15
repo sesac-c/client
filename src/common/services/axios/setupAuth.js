@@ -74,3 +74,8 @@ export const setupAuthInterceptor = () => {
         }
     );
 };
+
+export const setUpAxios = () => {
+    setupAxiosDefaults();
+    setupAuthInterceptor();
+}

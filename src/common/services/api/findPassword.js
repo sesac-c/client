@@ -1,7 +1,7 @@
 import axios from "axios";
 import { CHECK_EMAIL_AND_SEND_CODE_API_URL, VERIFY_CODE_API_URL, VERIFY_PASSWORD_RESET_PAGE_UUID_API_URL, RESET_PASSWORD_API_URL } from "@/common/constants";
 import { RouteBaseError } from "@/common/types";
-import { setupAuthInterceptor, setupAxiosDefaults } from "../axios/setupAuth";
+import { setUpAxios } from "../axios/setupAuth";
 
 export const checkEmailAndSendCode = async (email) => {
     console.log(email)
@@ -69,8 +69,7 @@ export const verifyCode = async (email, verificationCode) => {
 };
 
 export const verifyPasswordResetUuid = async (uuid) => {
-    setupAxiosDefaults();
-    setupAuthInterceptor();
+    setUpAxios();
     try {
         const response = await axios.post(VERIFY_PASSWORD_RESET_PAGE_UUID_API_URL,
             { uuid });

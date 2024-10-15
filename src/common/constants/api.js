@@ -27,5 +27,6 @@ export const VERIFY_PASSWORD_RESET_PAGE_UUID_API_URL = 'accounts/reset-password/
 export const RESET_PASSWORD_API_URL = 'accounts/reset-password';
 
 export const USER_PROFILE_API_URL = (useId) => `user/${useId}/profiles`;
+export const USER_INFO_API_URL = 'user/info';
 export const USER_POSTS_API_URL = (useId) => `user/${useId}/posts`;
 

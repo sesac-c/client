@@ -1,10 +1,9 @@
 import router from './router';
-import { setupAxiosDefaults, setupAuthInterceptor } from './common/services/axios/setupAuth';
+import { setUpAxios } from './common/services/axios/setupAuth';
 import { RouterProvider } from 'react-router-dom';
 import ModalProvider from './common/ModalProvider';
 
-setupAxiosDefaults();
-setupAuthInterceptor();
+setUpAxios();
 
 function App() {
   return (
