@@ -21,21 +21,55 @@ const ActivityReport = ({ report }) => {
 };
 
 const ActivityReports = ({}) => {
-  const [reports, setReports] = useState();
+  const [reports, setReports] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const loader = useRef(null);
 
   const loadReports = async () => {
-    const { data } = await axios.get('runningmates/activities');
-    // setReports(data);
-    setReports([...data]);
+    if (!hasMore) return;
+
+    try {
+      const { data } = await axios.get('runningmates/activities', {
+        params: {
+          page,
+          size: 12
+        }
+      });
+
+      if (!data.length) setHasMore(false);
+      setPage(page + 1);
+
+      setReports([...reports, ...data]);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   useEffect(() => {
     loadReports();
   }, []);
+
+  const handleObserver = entries => {
+    const target = entries[0];
+    if (target.isIntersecting && hasMore && !isLoading) {
+      loadReports();
+    }
+  };
+
+  useEffect(() => {
+    const option = {
+      root: null,
+      rootMargin: '20px',
+      threshold: 0
+    };
+    const observer = new IntersectionObserver(handleObserver, option);
+    if (loader.current) observer.observe(loader.current);
+    return () => {
+      if (loader.current) observer.unobserve(loader.current);
+    };
+  }, [handleObserver]);
 
   if (!reports || reports.length === 0) {
     return <p className='text-center'>등록된 활동이 없습니다.</p>;

@@ -106,7 +106,7 @@ const ActivityReportWrite = () => {
         photo,
         memberIds: participants
       });
-
+      resetStore();
       navigate('/feed/group/runningmate/reports');
     } catch (error) {
       console.error(error.response);
