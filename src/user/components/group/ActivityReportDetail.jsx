@@ -25,8 +25,7 @@ const TABS = [
 ];
 
 const thumbnailUrl = thumbnail => {
-  // return `${IMAGE_UPLOAD_API_URL}/s_${thumbnail}`;
-  return `${IMAGE_UPLOAD_API_URL}/s_f07171be-acac-47b7-875b-5ab636161ed7_python.jpg`;
+  return `${IMAGE_UPLOAD_API_URL}/s_${thumbnail}`;
 };
 
 const Report = ({ report }) => {

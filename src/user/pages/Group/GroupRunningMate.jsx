@@ -66,7 +66,7 @@ const GroupRunningMate = ({ path }) => {
       <div className='group-container'>
         <ColumnLayoutWrapper
           leftSide={
-            <div>
+            <div className='flex justify-end pt-5'>
               <Button variant='outlined' onClick={() => navigate('./write')}>
                 보고서 작성
               </Button>

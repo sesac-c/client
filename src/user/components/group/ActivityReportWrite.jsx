@@ -10,13 +10,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, TextField } from '@mui/material';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import useWriteReportStore from '@/user/store/writeReportStore';
+import ImageUploader from '@/user/components/group/image/ImageUploader';
+import useAuthStore from '@/common/stores/authStore';
 
 const TABS = [
   {
@@ -38,11 +38,20 @@ const ActivityReportWrite = () => {
   const [runningMate, setRunningMate] = useState(null);
   const [members, setMembers] = useState([]);
   const navigate = useNavigate();
-  const [participants, setParticipants] = useState([]);
-  const [achievementSummary, setAchievement] = useState('');
-  const [mainContent, setMainContent] = useState('');
-  const [activityAt, setActivityAt] = useState(null);
-  const [duration, setDuration] = useState(null);
+  const { user } = useAuthStore();
+
+  const {
+    participants,
+    achievementSummary,
+    mainContent,
+    duration,
+    photo,
+    setParticipants,
+    setAchievementSummary,
+    setMainContent,
+    setDuration,
+    resetStore
+  } = useWriteReportStore();
 
   const handleCheckBox = e => {
     const { checked, value } = e.target;
@@ -52,10 +61,6 @@ const ActivityReportWrite = () => {
     } else {
       setParticipants(participants.filter(id => id !== value));
     }
-  };
-
-  const handleActifityAt = newDate => {
-    setActivityAt(newDate);
   };
 
   const loadMembers = useCallback(async runningMateId => {
@@ -86,18 +91,43 @@ const ActivityReportWrite = () => {
   }, [loadRunningMate]);
 
   const cancel = () => {
-    if (confirm('페이지를 벗어나시겠습니까?')) navigate(-1);
+    if (confirm('페이지를 벗어나시겠습니까?')) {
+      resetStore();
+      navigate(-1);
+    }
   };
 
   const submit = async () => {
-    console.log('aaa');
-    await axios.post(`runningmates/activities`, {
-      duration,
-      mainContent,
-      achievementSummary,
-      memberIds: participants,
-      photo: 'dd'
-    });
+    try {
+      await axios.post(`runningmates/activities`, {
+        duration,
+        mainContent,
+        achievementSummary,
+        photo,
+        memberIds: participants
+      });
+
+      navigate('/feed/group/runningmate/reports');
+    } catch (error) {
+      console.error(error.response);
+    }
+  };
+
+  const removeMember = async member => {
+    console.log(member);
+    if (
+      confirm(
+        `정말 ${member.userN서ame}님을 러닝메이트 멤버에서 삭제하시겠습니까? \n해당 멤버는 영구적으로 삭제되 복구되지 않습니다.`
+      )
+    ) {
+      try {
+        await axios.delete(`/runningmates/members/${member.userId}`);
+
+        setMembers([...members.filter(m => m.userId !== member.userId)]);
+      } catch (e) {
+        console.error(e);
+      }
+    }
   };
 
   useEffect(() => {
@@ -110,16 +140,6 @@ const ActivityReportWrite = () => {
         <GroupName name={'러닝메이트 활동 결과 보고서 작성'} />
       </div>
 
-      <div className='group-container'>
-        <div>
-          <Button variant='outlined' onClick={cancel}>
-            취소
-          </Button>
-          <Button variant='outlined' onClick={submit}>
-            제출하기
-          </Button>
-        </div>
-      </div>
       <div className='group-container'>
         <div>
           {runningMate && members.length && (
@@ -148,7 +168,7 @@ const ActivityReportWrite = () => {
                       <TableCell>성명</TableCell>
                       <TableCell>연락처</TableCell>
                       <TableCell>기타(역할)</TableCell>
-                      <TableCell>삭제</TableCell>
+                      <TableCell></TableCell>
                     </TableRow>
                     {members.map((member, idx) => (
                       <TableRow key={idx}>
@@ -156,26 +176,23 @@ const ActivityReportWrite = () => {
                         <TableCell>{member.phoneNumber}</TableCell>
                         <TableCell>{member.role}</TableCell>
                         <TableCell>
-                          <Button variant={'danger'}>삭제</Button>
+                          <Button
+                            disabled={(user && user.role === 'STUDENT') || member.role === 'LEADER'}
+                            color='error'
+                            variant='outlined'
+                            onClick={() => removeMember(member)}
+                          >
+                            삭제
+                          </Button>
                         </TableCell>
                       </TableRow>
                     ))}
                     <TableRow>
-                      <TableCell>활동날짜</TableCell>
-                      <TableCell colSpan={4}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <DemoContainer components={['DatePicker']}>
-                            <DatePicker size={'small'} value={activityAt} onChange={handleActifityAt} />
-                          </DemoContainer>
-                        </LocalizationProvider>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
                       <TableCell>활동시간</TableCell>
                       <TableCell colSpan={4}>
                         <TextField
-                          size={'small'}
-                          type={'number'}
+                          size='small'
+                          type='number'
                           fullWidth={true}
                           onChange={e => setDuration(e.target.value)}
                         />
@@ -184,28 +201,23 @@ const ActivityReportWrite = () => {
                     <TableRow>
                       <TableCell>주요 추진 내용</TableCell>
                       <TableCell colSpan={4}>
-                        <TextField size={'small'} fullWidth={true} onChange={e => setMainContent(e.target.value)} />
+                        <TextField size='small' fullWidth={true} onChange={e => setMainContent(e.target.value)} />
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>성과 요약</TableCell>
                       <TableCell colSpan={4}>
-                        <TextField size={'small'} fullWidth={true} onChange={e => setAchievement(e.target.value)} />
+                        <TextField
+                          size='small'
+                          fullWidth={true}
+                          onChange={e => setAchievementSummary(e.target.value)}
+                        />
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>활동 사진</TableCell>
                       <TableCell colSpan={4}>
-                        {/*<div className="upload-container">
-                          <input type="file" id="fileInput" accept="image/*"
-                                 onChange={handleFileChange}
-                                 style={{ display: 'none' }} />
-                          <label htmlFor="fileInput" className="upload-area">
-                            {thumbnail ? <ImagePreview image={getThumbnail()}
-                                                       onRemove={onRemove} /> :
-                              <UploadPrompt />}
-                          </label>
-                        </div>*/}
+                        <ImageUploader />
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -225,13 +237,20 @@ const ActivityReportWrite = () => {
                   </TableHead>
                 </Table>
               </TableContainer>
-              {participants}
-              {achievementSummary}
-              {duration}
-              {activityAt?.format('YYYY-MM-DD')}
-              {mainContent}
             </div>
           )}
+        </div>
+      </div>
+      <div className='mb-4 flex justify-center'>
+        <div className='mr-2'>
+          <Button variant='outlined' color='error' onClick={cancel}>
+            취소
+          </Button>
+        </div>
+        <div>
+          <Button variant='outlined' onClick={submit}>
+            제출하기
+          </Button>
         </div>
       </div>
     </>
