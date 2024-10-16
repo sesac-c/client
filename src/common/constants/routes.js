@@ -21,7 +21,7 @@ export const FEED_SELECT_ITEMS = [
   },
   {
     label: `${KO_GROUP} ${FEED_SUFFIX}`,
-    value: `/feed/${GROUP}/courses`
+    value: `/feed/${GROUP}/courses/notices`
   }
 ];
 
@@ -40,7 +40,7 @@ export const PROFILECHILDREN_PATH = {
 export const LOGIN_PATH = `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.login}`;
 export const SIGNUP_PATH = `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.signup}`;
 export const FIND_PASSWORD_PATH = `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.findPassword}`;
-export const RESET_PASSWORD_PATH = (uuid) => `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.resetPassword}/${uuid}`;
+export const RESET_PASSWORD_PATH = uuid => `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.resetPassword}/${uuid}`;
 
 export const USER_PATH = '/';
 export const MANAGER_PATH = '/manager';
@@ -107,11 +107,11 @@ export const GROUP_RUNNING_MATE_PATH = `/${GROUP_PATH}/${GROUP_CHILDREN_PATH.run
 export const GROUP_MENU = [
   {
     title: '우리반',
-    path: GROUP_COURSES_PATH
+    path: `${GROUP_COURSES_PATH}/notices`
   },
   {
     title: '러닝메이트',
-    path: GROUP_RUNNING_MATE_PATH
+    path: `${GROUP_RUNNING_MATE_PATH}/reports`
   }
 ];
 

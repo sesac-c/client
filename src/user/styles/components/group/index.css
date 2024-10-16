@@ -2,6 +2,69 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200px;
+  margin-top: 30px;
+  height: 140px;
   font-size: 50px;
+}
+
+.group-tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.group-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* 이미지 그리드 컨테이너 */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* 개별 이미지 컨테이너 */
+.image-container {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  min-height: 150px;
+  min-width: 150px;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 마우스 오버 시 표시되는 제목 오버레이 */
+.title-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* 마우스 오버 시 제목 표시 */
+.image-container:hover .title-overlay {
+  opacity: 1;
+}
+
+.activity-head {
+  display: flex;
 }
