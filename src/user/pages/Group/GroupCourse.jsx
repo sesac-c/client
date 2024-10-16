@@ -1,6 +1,4 @@
-import FeedWrapper from '@/user/components/common/layout/FeedWrapper.jsx';
 import ColumnLayoutWrapper from '@/user/components/common/layout/ColumnLayoutWrapper.jsx';
-import UserSearch from '@/user/components/user/UserSearch.jsx';
 
 import GroupName from '@/user/components/group/GroupName';
 
@@ -25,20 +23,7 @@ const TABS = [
   }
 ];
 
-const Main = () => {
-  const [active, setActive] = useState('notices');
-  const onChange = value => setActive(value);
-
-  return (
-    <>
-      <GroupTabs tabs={TABS} onChange={onChange} />
-      {active === 'notices' && <Notices feedType={'group'} />}
-      {active === 'restaurant' && <Restaurant fetchNotices={fetchNotices} />}
-    </>
-  );
-};
-
-const GroupCourse = () => {
+const GroupCourse = ({ path }) => {
   const [course, setCourse] = useState(null);
   const [users, setUsers] = useState([]);
 
@@ -69,9 +54,20 @@ const GroupCourse = () => {
   }, [loadCourse]);
 
   return (
-    <FeedWrapper boardContent={<GroupName name={course && `${course.campusName} ${course.courseName}`} />}>
-      <ColumnLayoutWrapper mainArea={<Main />} rightSide={<UserList users={users} buttonText={'쪽지하기'} />} />
-    </FeedWrapper>
+    <>
+      <div className='board-container'>
+        <GroupName name={course && `${course.campusName} ${course.courseName}`} />
+        <GroupTabs tabs={TABS} path={path} />
+      </div>
+
+      <div className='group-container'>
+        <ColumnLayoutWrapper
+          leftSide={<div></div>}
+          mainArea={path === 'notices' ? <Notices feedType={'group'} /> : <Restaurant fetchNotices={fetchNotices} />}
+          rightSide={<UserList users={users} buttonText={'쪽지하기'} />}
+        ></ColumnLayoutWrapper>
+      </div>
+    </>
   );
 };
 export default GroupCourse;

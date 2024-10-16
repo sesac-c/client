@@ -1,4 +1,3 @@
-import FeedWrapper from '@/user/components/common/layout/FeedWrapper.jsx';
 import ColumnLayoutWrapper from '@/user/components/common/layout/ColumnLayoutWrapper.jsx';
 
 import GroupName from '@/user/components/group/GroupName';
@@ -12,11 +11,13 @@ import GroupTabs from '@/user/components/group/GroupTabs';
 import axios from 'axios';
 import UserList from '@/user/components/common/UI/UserList';
 import ActivityReports from '@/user/components/group/ActivityReports';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const TABS = [
   {
     label: '활동내역',
-    value: 'activity'
+    value: 'reports'
   },
   {
     label: '음식점',
@@ -24,28 +25,15 @@ const TABS = [
   }
 ];
 
-const Main = () => {
-  const [active, setActive] = useState('activity');
-  const onChange = value => setActive(value);
-
-  return (
-    <>
-      <GroupTabs tabs={TABS} onChange={onChange} />
-      {active === 'activity' && <ActivityReports feedType={'group'} />}
-      {active === 'restaurant' && <Restaurant fetchNotices={fetchNotices} />}
-    </>
-  );
-};
-
-const GroupRunningMate = () => {
+const GroupRunningMate = ({ path }) => {
   const [runningMate, setRunningMate] = useState(null);
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   const loadUsers = useCallback(async runningMateId => {
     if (!runningMateId) return;
     try {
       const { data } = await axios.get(`/members/runningmate/${runningMateId}`);
-      console.log(data);
       setUsers(data);
     } catch (error) {
       console.error('Failed to load users:', error);
@@ -69,9 +57,28 @@ const GroupRunningMate = () => {
   }, [loadRunningMate]);
 
   return (
-    <FeedWrapper boardContent={<GroupName name={runningMate && `${runningMate.name}`} />}>
-      <ColumnLayoutWrapper mainArea={<Main />} rightSide={<UserList users={users} buttonText={'쪽지하기'} />} />
-    </FeedWrapper>
+    <>
+      <div className='board-container'>
+        <GroupName name={runningMate && `${runningMate.name}`} />
+        <GroupTabs tabs={TABS} path={path} />
+      </div>
+
+      <div className='group-container'>
+        <ColumnLayoutWrapper
+          leftSide={
+            <div className='flex justify-end pt-5'>
+              <Button variant='outlined' onClick={() => navigate('./write')}>
+                보고서 작성
+              </Button>
+            </div>
+          }
+          mainArea={
+            path === 'reports' ? <ActivityReports feedType={'group'} /> : <Restaurant fetchNotices={fetchNotices} />
+          }
+          rightSide={<UserList users={users} buttonText={'쪽지하기'} />}
+        ></ColumnLayoutWrapper>
+      </div>
+    </>
   );
 };
 export default GroupRunningMate;
