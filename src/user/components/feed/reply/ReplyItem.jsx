@@ -1,24 +1,30 @@
 import ProfileImage from '@/common/components/common/layout/ProfileImage';
 
 import { formatDateToKorean } from '@/common/utils/formatter.js';
-import authStore from '@/common/stores/authStore';
-import { useState } from 'react';
-import { deleteReply, updateReply } from '@/user/services/api/posts';
+import { forwardRef, useState } from 'react';
+import { deleteReply, updateReply } from '@/user/services/api';
 import { REPLY_FIELD_SETTING } from '@/common/utils';
 import { TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { PROFILE_PATH } from '@/common/constants';
 
-const ReplyItem = ({ postId, reply, apiUrl }) => {
+const ReplyItem = forwardRef(({ feedId, reply, apiUrl, onUpdate }, ref) => {
   const formattedDate = formatDateToKorean(reply.createdAt);
-  const user = authStore().user;
   const [editable, setEditable] = useState(false);
   const [content, setContent] = useState(reply.content);
+  const navigate = useNavigate();
 
   const deleteHandler = async replyId => {
     if (!confirm('댓글을 삭제하시겠습니까?')) {
       return;
     }
 
-    await deleteReply(postId, apiUrl, replyId);
+    try {
+      await deleteReply(feedId, apiUrl, replyId);
+      onUpdate(true);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const updateHandler = async replyId => {
@@ -26,7 +32,7 @@ const ReplyItem = ({ postId, reply, apiUrl }) => {
       return;
     }
 
-    await updateReply(postId, apiUrl, replyId, { content });
+    await updateReply(feedId, apiUrl, replyId, { content });
     reply.content = content;
     setEditable(!editable);
   };
@@ -37,12 +43,16 @@ const ReplyItem = ({ postId, reply, apiUrl }) => {
   };
 
   return (
-    <div className='postdetail__reply-item'>
+    <div ref={ref} className='postdetail__reply-item'>
       <div className='postdetail__reply-author'>
         <div className='postdetail__reply-author-inner'>
-          <div className='postdetail__reply-profile-image'>
-            {/* onClick={프로필 페이지 이동}*/}
-            <ProfileImage image={reply.ProfileImage} hasShadow={false} />
+          <div
+            className='postdetail__reply-profile-image'
+            onClick={() => {
+              navigate(`${PROFILE_PATH}/${reply.writerId}`);
+            }}
+          >
+            <ProfileImage image={`${process.env.REACT_APP_API_BASE_URL}view/${reply.profileImage}`} hasShadow={false} />
           </div>
           <div className='postdetail__reply-author-info'>
             <div className='postdetail__reply-author-info-header'>
@@ -50,7 +60,7 @@ const ReplyItem = ({ postId, reply, apiUrl }) => {
                 <span className='postdetail__reply-author-nickname'>{reply.writer}</span>
                 {/*<span className='postdetail__reply-author-campusName'>{reply.campusName}</span>*/}
               </div>
-              {reply.writer === user.nickname ? (
+              {reply.isReplyMine ? (
                 editable ? (
                   <div className='postdetail__reply-options'>
                     <button className='postdetail__reply-option-button' onClick={() => updateHandler(reply.id)}>
@@ -96,6 +106,5 @@ const ReplyItem = ({ postId, reply, apiUrl }) => {
       </div>
     </div>
   );
-};
-
+});
 export default ReplyItem;

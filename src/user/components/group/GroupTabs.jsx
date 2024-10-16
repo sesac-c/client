@@ -1,10 +1,10 @@
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import * as React from 'react';
 import { useState } from 'react';
 
 const GroupTabs = ({ tabs, onChange }) => {
   const [active, setActive] = useState(tabs[0].value);
+  const color = 'success.main';
 
   const handleTab = (e, value) => {
     setActive(value);
@@ -12,9 +12,24 @@ const GroupTabs = ({ tabs, onChange }) => {
   };
 
   return (
-    <Tabs value={active} onChange={handleTab}>
+    <Tabs
+      value={active}
+      onChange={handleTab}
+      textColor='inherit'
+      TabIndicatorProps={{ style: { backgroundColor: 'green' } }}
+    >
       {tabs.map(({ label, value }) => (
-        <Tab key={value} label={label} value={value} />
+        <Tab
+          key={value}
+          label={label}
+          value={value}
+          sx={{
+            color: 'grey.500',
+            '&.Mui-selected': { color, fontWeight: 550 },
+            '&.Mui-focused': { color },
+            '&:hover': { color }
+          }}
+        />
       ))}
     </Tabs>
   );

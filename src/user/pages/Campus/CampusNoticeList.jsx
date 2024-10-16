@@ -3,8 +3,8 @@ import ColumnLayoutWrapper from '@/user/components/common/layout/ColumnLayoutWra
 import Carousel from '@/user/components/common/UI/Carousel.jsx';
 import UserSearch from '@/user/components/user/UserSearch.jsx';
 
-import { importantNotice } from '@/user/services/api/notices';
-import Notices from '@/user/components/notice/Notices';
+import { importantNotice } from '@/user/services/api';
+import Notices from '@/user/components/feed/Notices';
 import { useEffect, useState } from 'react';
 
 const CampusNoticeListPage = () => {

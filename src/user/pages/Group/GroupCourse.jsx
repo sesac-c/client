@@ -1,13 +1,11 @@
 import FeedWrapper from '@/user/components/common/layout/FeedWrapper.jsx';
 import ColumnLayoutWrapper from '@/user/components/common/layout/ColumnLayoutWrapper.jsx';
-import UserSearch from '@/user/components/user/UserSearch.jsx';
 
 import GroupName from '@/user/components/group/GroupName';
 
-import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
-import Notices from '@/user/components/notice/Notices';
+import Notices from '@/user/components/feed/Notices';
 import { fetchNotices } from '@/user/services/api/notices';
 import Restaurant from '@/user/components/group/Restaurant';
 import GroupTabs from '@/user/components/group/GroupTabs';
@@ -47,6 +45,7 @@ const GroupCourse = () => {
     try {
       const { data } = await axios.get(`/members/course/${courseId}`);
       setUsers(data);
+      console.log(users);
     } catch (error) {
       console.error('Failed to load users:', error);
     }

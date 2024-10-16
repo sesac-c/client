@@ -3,12 +3,14 @@ import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 
 import { useNavigateHandler } from '@/common/hooks';
 import { formatDateToKorean } from '@/common/utils/formatter';
-import { IMAGE_UPLOAD_API_URL } from '@/common/constants';
-import { fetchNotices } from '@/user/services/api/notices';
+import { FEED_ROOT_API_URL, FEED_TYPE, IMAGE_UPLOAD_API_URL, NOTICE_TYPE } from '@/common/constants';
+import useSearchNoticeStore from '@/user/store/useSearchNoticeStore';
 
 import React, { useCallback, useEffect, useState, useRef } from 'react';
+import { LinearProgress } from '@mui/material';
+import Logo from '@/common/components/common/layout/Logo';
 
-const Notice = ({ notice }) => {
+const Notice = ({ notice, feedType }) => {
   const formattedDate = formatDateToKorean(notice.createdAt);
 
   return (
@@ -16,10 +18,10 @@ const Notice = ({ notice }) => {
       <div className='post-container'>
         {notice.thumbnail && (
           <div className='post-image'>
-            <img src={thumbnailUrl(notice.thumbnail)} alt='post url' />
+            <img src={thumbnailUrl(notice.thumbnail)} alt='notice thumbnail' />
           </div>
         )}
-        <div className='post-content' onClick={useNavigateHandler(`./${notice.id}`)}>
+        <div className='post-content' onClick={useNavigateHandler(`/feed/${feedType}/notices/${notice.id}`)}>
           <div className='post-main'>
             <div className='post-header'>
               <div className='post-title'>
@@ -72,40 +74,38 @@ const thumbnailUrl = thumbnail => {
   return `${IMAGE_UPLOAD_API_URL}/${thumbnail}`;
 };
 
-const Notices = ({ feedType }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [notices, setNotices] = useState([]);
-  const [page, setPage] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
+const Notices = ({ apiUrl, feedType }) => {
+  const [isNoticeLoading, setIsNoticeLoading] = useState(true);
   const loader = useRef(null);
+  const { isLoading, notices, page, hasMore, keyword, setApiUrl, loadNotices, resetStore } = useSearchNoticeStore();
 
-  const loadNotices = useCallback(async () => {
-    if (isLoading || !hasMore) {
-      return;
-    }
+  useEffect(() => {
+    setApiUrl(FEED_ROOT_API_URL(FEED_TYPE.NOTICE, feedType));
+  }, [apiUrl, setApiUrl]);
 
-    setIsLoading(true);
+  const getInitialNotices = async () => {
     try {
-      const { newNotices, last } = await fetchNotices({ page, size: 3 }, feedType);
-      setNotices(notices.concat(newNotices));
-      setPage(prevPage => prevPage + 1);
-      setHasMore(!last);
+      setIsNoticeLoading(true);
+      await loadNotices();
     } catch (error) {
-      console.error('Failed to fetch notices:', error);
-      setHasMore(false);
+      console.error(error);
     } finally {
-      setIsLoading(false);
+      setIsNoticeLoading(false);
     }
-  }, [isLoading, hasMore, page]);
+  };
+
+  useEffect(() => {
+    getInitialNotices();
+  }, [apiUrl, keyword]); // 초기 로딩
 
   const handleObserver = useCallback(
     entries => {
       const target = entries[0];
-      if (target.isIntersecting && hasMore) {
+      if (target.isIntersecting && hasMore && !isLoading) {
         loadNotices();
       }
     },
-    [loadNotices, hasMore]
+    [hasMore, isLoading, loadNotices]
   );
 
   useEffect(() => {
@@ -115,34 +115,34 @@ const Notices = ({ feedType }) => {
       threshold: 0
     };
     const observer = new IntersectionObserver(handleObserver, option);
-    if (loader.current) {
-      observer.observe(loader.current);
-    }
+    if (loader.current) observer.observe(loader.current);
     return () => {
-      if (loader.current) {
-        observer.unobserve(loader.current);
-      }
+      if (loader.current) observer.unobserve(loader.current);
     };
   }, [handleObserver]);
 
-  useEffect(() => {
-    loadNotices();
-  }, []);
-
-  if (!notices || notices.length === 0) {
-    return <p className='text-center'>등록된 게시글이 없습니다.</p>;
+  if (!isNoticeLoading) {
+    if (!notices || notices.length === 0) {
+      return <p className='text-center'>등록된 공지사항이 없습니다.</p>;
+    } else {
+      return (
+        <div className='notices-container'>
+          {notices.map(notice => (
+            <Notice key={`${notice.id}-${notice.createdAt}`} notice={notice} feedType={feedType} />
+          ))}
+          {isLoading && <LinearProgress color='success' />}
+          {hasMore && <div ref={loader} style={{ height: '20px' }} />}
+          {!hasMore && (
+            <p className='mt-5 flex w-full items-center justify-center'>
+              <Logo size='small' />
+            </p>
+          )}
+        </div>
+      );
+    }
   }
 
-  return (
-    <div className='notices-container'>
-      {notices.map(notice => (
-        <Notice key={`${notice.id}-${notice.createdAt}`} notice={notice} />
-      ))}
-      {isLoading && <p className='text-center'>Loading...</p>}
-      {hasMore && <div ref={loader} style={{ height: '20px' }} />}
-      {!hasMore && <p className='text-center'>모든 게시글을 불러왔습니다.</p>}
-    </div>
-  );
+  return <LinearProgress color='success' />;
 };
 
 export default Notices;

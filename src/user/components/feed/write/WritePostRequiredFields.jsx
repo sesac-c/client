@@ -3,12 +3,14 @@ import { memo } from 'react';
 import TextField from '@mui/material/TextField';
 import { FormControl, FormHelperText, OutlinedInput } from '@mui/material';
 
-import useModifyPostStore from '../../../store/modifyPostStore';
+import useWritePostStore from '@/user/store/writePostStore';
 
-import LabeledWrapper from '../../../../common/components/common/UI/LabeledWrapper';
+import LabeledWrapper from '@/common/components/common/UI/LabeledWrapper';
+import { ImageUploaderOpenButton } from './ImageUploaderModal';
+import { HashTagUploaderOpenButton } from './HashtagUploaderModal';
 
-import { MAX_TITLE_LENGTH, MAX_CONTENT_LENGTH } from '../../../../common/constants';
-import { CONTENT_FIELD_SETTING, DEFAULT_TEXTFIELD_SETTING, TITLE_FIELD_SETTING } from '../../../../common/utils/form';
+import { MAX_TITLE_LENGTH, MAX_CONTENT_LENGTH } from '@/common/constants';
+import { CONTENT_FIELD_SETTING, DEFAULT_TEXTFIELD_SETTING, TITLE_FIELD_SETTING } from '@/common/utils/form';
 
 const RemainTextCount = ({ current, max }) => (
   <p className='mt-1 w-full text-right text-caption text-gray-basic'>
@@ -17,14 +19,14 @@ const RemainTextCount = ({ current, max }) => (
 );
 
 export const TitleInputField = memo(() => {
-  const { title, setTitle, getTitleLength } = useModifyPostStore();
+  const { title, setTitle, getTitleLength } = useWritePostStore();
 
   const handleChange = e => {
     setTitle(e.target.value);
   };
 
   return (
-    <LabeledWrapper title='제목'>
+    <LabeledWrapper title='제목' ExtraInfoElement={HashTagUploaderOpenButton}>
       <FormControl variant='outlined' {...DEFAULT_TEXTFIELD_SETTING}>
         <OutlinedInput
           value={title}
@@ -41,14 +43,14 @@ export const TitleInputField = memo(() => {
 });
 
 export const ContentInputField = memo(() => {
-  const { content, setContent, getContentLength } = useModifyPostStore();
+  const { content, setContent, getContentLength } = useWritePostStore();
 
   const handleChange = e => {
     setContent(e.target.value);
   };
 
   return (
-    <LabeledWrapper title='내용'>
+    <LabeledWrapper title='내용' ExtraInfoElement={ImageUploaderOpenButton}>
       <FormControl variant='outlined' {...DEFAULT_TEXTFIELD_SETTING} sx={{ maxWidth: '100%' }}>
         <TextField
           value={content}

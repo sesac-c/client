@@ -4,7 +4,7 @@ import Logo from '../../../../common/components/common/layout/Logo';
 import UserMenu from '../layout/menu/UserMenu.jsx';
 import FeedMenu from '../layout/menu/FeedMenu.jsx';
 
-import { FEED_ARR } from '../../../../common/constants/routes.js';
+import { FEED_ARR } from '@/common/constants/routes.js';
 
 const Header = ({ currentLocation }) => {
   return (

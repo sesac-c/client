@@ -1,22 +1,12 @@
-import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import ReplyInput from './ReplyInput.jsx';
 import ReplyList from './ReplyList.jsx';
-import PostLikeButton from './PostLikeButton.jsx';
-import PostAuthor from './PostAuthor.jsx';
-import { PostContent, PostImage } from './PostContent.jsx';
+import { Content, Image } from './Content.jsx';
+import LikeButton from './LikeButton.jsx';
+import Author from './Author.jsx';
 
-import { dummyPostData } from '../../../_mock';
-
-const PostDetailModal = ({ postId, onClose, open = true }) => {
-  const [post, setPost] = useState(null);
-  useEffect(() => {
-    // dummy data
-    const selectedPost = dummyPostData.find(post => post.id === postId);
-    setPost(selectedPost);
-  }, [postId]);
-
+const DetailModal = ({ feed, onClose, open = true }) => {
   const handleOverlayClick = e => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -30,26 +20,26 @@ const PostDetailModal = ({ postId, onClose, open = true }) => {
   return createPortal(
     <div className='modal-overlay' onClick={handleOverlayClick}>
       <div className='postdetailmodal'>
-        {post && (
+        {feed && (
           <>
-            <PostAuthor user={post.user} onClose={onClose} />
+            <Author user={feed.user} onClose={onClose} />
 
             {/* 좌, 우 */}
             <div className='postdetail__side-container'>
-              {post.image !== null && (
+              {feed.image !== null && (
                 <div className='postdetail__left-side'>
-                  <PostImage image={post.image} />
+                  <Image image={feed.image} />
                 </div>
               )}
               <div className='postdetail__right-side'>
-                <PostContent post={post} hasImage={post.image !== null} />
+                <Content feed={feed} hasImage={feed.image !== null} />
               </div>
             </div>
             <div className='postdetail__reply-container'>
-              <ReplyList postId={postId} />
+              <ReplyList feedId={feedId} />
             </div>
             <div className='postdetail__reply-input-container'>
-              <PostLikeButton like={post.like} />
+              <LikeButton like={feed.like} />
               <ReplyInput />
             </div>
           </>
@@ -60,4 +50,4 @@ const PostDetailModal = ({ postId, onClose, open = true }) => {
   );
 };
 
-export default PostDetailModal;
+export default DetailModal;

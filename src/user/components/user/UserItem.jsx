@@ -1,14 +1,17 @@
 import PropTypes from 'prop-types';
 
 import ProfileImage from '../../../common/components/common/layout/ProfileImage';
+import { IMAGE_UPLOAD_API_URL, PROFILE_PATH } from '@/common/constants';
+import { useNavigate } from 'react-router-dom';
 
-const UserItem = ({ user }) => {
-  const { profileImageUrl, nickname, description, buttonText, onClick } = user;
+const UserItem = ({ user, className }) => {
+  const naviate = useNavigate();
+  const { id, profileImage, nickname, description, buttonText, onClick } = user;
 
   return (
-    <li className='user-list__user-item'>
-      <div className='user-list__profile-image'>
-        <ProfileImage hasShadow={false} image={profileImageUrl || undefined} />
+    <li className={`user-list__user-item ${className}`}>
+      <div className='user-list__profile-image' onClick={() => naviate(`${PROFILE_PATH}/${id}`)}>
+        <ProfileImage hasShadow={false} image={`${IMAGE_UPLOAD_API_URL}/${profileImage}`} />
       </div>
       <div className='user-list__user-info'>
         <span className='user-list__nickname'>{nickname}</span>

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { TitleInputField, ContentInputField } from './ModifyPostRequiredFields.jsx';
+import { TitleInputField, ContentInputField } from './ModifyRequiredFields.jsx';
 
-const ModifyPostContent = React.memo(() => {
+const ModifyContent = React.memo(() => {
   return (
     <div className='write__modal-form'>
       <div className='req-field-container'>
@@ -17,4 +17,4 @@ const ModifyPostContent = React.memo(() => {
   );
 });
 
-export default ModifyPostContent;
+export default ModifyContent;

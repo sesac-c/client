@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import { TextField } from '@mui/material';
 import { HashtagIcon } from '@heroicons/react/24/outline';
 
-import useWritePostStore from '../../../store/writePostStore';
-import { useModal } from '../../../../common/hooks';
+import useWritePostStore from '@/user/store/writePostStore';
+import { useModal } from '@/common/hooks';
 
-import Modal from '../../../../common/components/common/UI/Modal';
-import Button from '../../../../common/components/common/UI/Button';
+import Modal from '@/common/components/common/UI/Modal';
+import Button from '@/common/components/common/UI/Button';
 
-import { HASHTAGS_NAME, MAX_HASHTAGS, MAX_HASHTAG_LENGTH } from '../../../../common/constants';
-import { DEFAULT_TEXTFIELD_SETTING } from '../../../../common/utils/form';
+import { HASHTAGS_NAME, MAX_HASHTAGS, MAX_HASHTAG_LENGTH } from '@/common/constants';
+import { DEFAULT_TEXTFIELD_SETTING } from '@/common/utils/form';
 
 const INPUT_SIZE = 'small';
 const BUTTON_SIZE = 'medium';

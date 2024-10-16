@@ -11,6 +11,8 @@ import useWritePostStore from '@/user/store/writePostStore';
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { IMAGE_UPLOAD_API_URL } from '@/common/constants';
 import useSearchPostStore from '@/user/store/searchPostStore';
+import { LinearProgress } from '@mui/material';
+import Logo from '@/common/components/common/layout/Logo';
 
 const Post = ({ post, feedType }) => {
   const formattedDate = formatDateToKorean(post.createdAt);
@@ -77,6 +79,7 @@ const thumbnailUrl = thumbnail => {
 };
 
 const Posts = ({ apiUrl, feedType }) => {
+  const [isPostLoading, setIsPostLoading] = useState(true);
   const loader = useRef(null);
   const { isPostUpdate, setIsPostUpdate } = useWritePostStore();
   const { isLoading, posts, page, hasMore, keyword, setApiUrl, loadPosts, resetStore } = useSearchPostStore();
@@ -85,8 +88,19 @@ const Posts = ({ apiUrl, feedType }) => {
     setApiUrl(apiUrl);
   }, [apiUrl, setApiUrl]);
 
+  const getInitailPost = async () => {
+    try {
+      setIsPostLoading(true);
+      await loadPosts();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsPostLoading(false);
+    }
+  };
+
   useEffect(() => {
-    loadPosts();
+    getInitailPost();
   }, [apiUrl, keyword]); // 초기 로딩
 
   const handleObserver = entries => {
@@ -117,20 +131,26 @@ const Posts = ({ apiUrl, feedType }) => {
     }
   }, [isPostUpdate, resetStore, loadPosts, setIsPostUpdate]);
 
-  if (!posts || posts.length === 0) {
-    return <p className='text-center'>등록된 게시글이 없습니다.</p>;
+  if (!isPostLoading) {
+    if (!posts || posts.length === 0) {
+      return <p className='text-center'>등록된 게시글이 없습니다.</p>;
+    } else {
+      return (
+        <div className='posts-container'>
+          {posts.map(post => (
+            <Post key={`${post.id}-${post.createdAt}`} post={post} feedType={feedType} />
+          ))}
+          {isLoading && <LinearProgress color='success' />}
+          {hasMore && <div ref={loader} style={{ height: '20px' }} />}
+          {!hasMore && (
+            <p className='mt-5 flex w-full items-center justify-center'>
+              <Logo size='small' />
+            </p>
+          )}
+        </div>
+      );
+    }
   }
-
-  return (
-    <div className='posts-container'>
-      {posts.map(post => (
-        <Post key={`${post.id}-${post.createdAt}`} post={post} feedType={feedType} />
-      ))}
-      {isLoading && <p className='text-center'>Loading...</p>}
-      {hasMore && <div ref={loader} style={{ height: '20px' }} />}
-      {!hasMore && <p className='text-center'>모든 게시글을 불러왔습니다.</p>}
-    </div>
-  );
 };
 
 Posts.propTypes = {

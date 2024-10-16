@@ -1,9 +1,9 @@
+import { useState } from 'react';
 import { HeartIcon as NotFilledHeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as FilledHeartIcon } from '@heroicons/react/20/solid';
-import { useState } from 'react';
-import { postLikes, postLikesCancel } from '../../../../user/services/api/posts';
+import { feedLikes, feedLikesCancel } from '@/user/services/api';
 
-const PostLikeButton = ({ like, postId }) => {
+const LikeButton = ({ like, feedId, apiUrl }) => {
   const [status, setStatus] = useState(like.status);
   const [count, setCount] = useState(like.count);
   const [flag, setFlag] = useState(status ? -1 : 1);
@@ -13,9 +13,9 @@ const PostLikeButton = ({ like, postId }) => {
     e.stopPropagation();
 
     if (flag > 0) {
-      await postLikes(postId);
+      await feedLikes(apiUrl, feedId);
     } else {
-      await postLikesCancel(postId);
+      await feedLikesCancel(apiUrl, feedId);
     }
 
     setStatus(!status);
@@ -42,4 +42,4 @@ const PostLikeButton = ({ like, postId }) => {
   );
 };
 
-export default PostLikeButton;
+export default LikeButton;

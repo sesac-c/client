@@ -1,6 +1,6 @@
-import { formatDateToKorean } from '../../../../common/utils/formatter';
+import { formatDateToKorean } from '@/common/utils/formatter';
 
-export const PostImage = ({ image, isPage }) => {
+export const Image = ({ image, isPage }) => {
   return (
     <div className={`postdatil__image-container ${isPage && 'page'}`}>
       <img className='w-auto' src={image} alt='첨부 이미지' />
@@ -8,12 +8,12 @@ export const PostImage = ({ image, isPage }) => {
   );
 };
 
-export const PostContent = ({ post, hasImage, isPage }) => {
-  const formattedDate = formatDateToKorean(post.createdAt);
+export const Content = ({ feed, hasImage, isPage }) => {
+  const formattedDate = formatDateToKorean(feed.createdAt);
   const content = (
     <>
       <p className={`mb-2 font-bold text-gray-dark ${isPage && 'w-full text-left'}`}>{formattedDate} 포스팅</p>
-      <p className='w-full text-gray-dark'>{post.content}</p>
+      <p className='w-full text-gray-dark'>{feed.content}</p>
     </>
   );
 

@@ -2,7 +2,17 @@ import PropTypes from 'prop-types';
 
 import { MagnifyingGlassIcon as SearchIcon } from '@heroicons/react/16/solid';
 import useSearchPostStore from '@/user/store/searchPostStore';
-
+import MascotImage from '@/common/components/common/layout/MascotImage';
+export const SearchLoadingIndicator = () => {
+  return (
+    <div className='post-search-loading-indicator'>
+      <div className='post-search-loading-indicator__image'>
+        <MascotImage type='searchLoading' />
+      </div>
+      <p>검색어를 기다리는 중...</p>
+    </div>
+  );
+};
 const PostSearchBar = ({ onInputChange }) => {
   const { keyword, setKeyword } = useSearchPostStore();
 

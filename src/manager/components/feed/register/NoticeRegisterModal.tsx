@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect } from 'react';
 
 import useNoticeStore from '../../../store/writeNoticeStore';
-import { useConfirmClose, useModal } from '../../../../common/hooks';
+import { useConfirmClose, useModal } from '@/common/hooks';
 
-import Modal from '../../../../common/components/common/UI/Modal';
-import Button from '../../../../common/components/common/UI/Button';
-import ProcessErrorModal from '../../../../common/components/common/feedback/ProcessErrorModal';
+import Modal from '@/common/components/common/UI/Modal';
+import Button from '@/common/components/common/UI/Button';
+import ProcessErrorModal from '@/common/components/common/feedback/ProcessErrorModal';
 import WriteNoticeContent from './WriteNoticeContent';
 
-import { WRITE_NOTICE_CONFIRM_MESSAGE, WRITE_MODAL } from '../../../../common/constants';
+import { WRITE_NOTICE_CONFIRM_MESSAGE, WRITE_MODAL } from '@/common/constants';
 import { writeNotice } from '../../../services/api';
 
 const WriteNoticeModal: React.FC<{

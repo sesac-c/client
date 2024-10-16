@@ -1,14 +1,13 @@
 import { useParams } from 'react-router-dom';
-
-import NoticeDetailInner from '@/user/components/notice/detail/NoticeDetailInner';
-import { NOTICES_ALL_API_URL } from '@/common/constants';
+import DetailInner from '@/user/components/feed/detail/DetailInner';
+import { FEED_TYPE, NOTICE_TYPE } from '@/common/constants';
 
 const CampusPostDetailPage = () => {
   const params = useParams();
   const noticeId = +params.noticeId;
   return (
     <div className='main-container'>
-      <NoticeDetailInner noticeId={noticeId} apiUrl={NOTICES_ALL_API_URL} />
+      <DetailInner feedId={noticeId} category={NOTICE_TYPE.CAMPUS} feedType={FEED_TYPE.NOTICE} />
     </div>
   );
 };
