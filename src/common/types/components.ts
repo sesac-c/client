@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { GENERAL_MODAL, PAGE_MODAL, WRITE_MODAL } from '../constants';
 import { ResetPasswordField, ResetPasswordState } from './findPassword';
-import { UserPostResponse } from './response';
+import { FollowResponse, UserPostResponse } from './response';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
 export type ButtonSize = 'small' | 'medium' | 'large';
@@ -129,4 +129,42 @@ export interface PostGridProps {
   posts: UserPostResponse[];
   profileId: number;
   onIsModalClose: (isModalClose: boolean) => void;
+}
+
+export type OnCountUpdateFunction = (change: number) => void;
+
+export interface FollowUserListProps {
+  users: FollowResponse[];
+  onFollowToggle: (userId: number) => void;
+  onDelete?: (userId: number) => void;
+  onClose: () => void;
+  isProfileMine: boolean;
+  isFollowing: boolean;
+  isLoading: boolean;
+}
+
+export interface FollowListModalProps {
+  open: boolean;
+  handleClose: () => void;
+  userId: number;
+  isFollower: boolean;
+  title: string;
+  isProfileMine: boolean;
+  onCountUpdate: OnCountUpdateFunction;
+}
+
+export interface RelationListButtonProps {
+  title: string;
+  num: number;
+  onOpen: () => void;
+}
+
+export interface FollowListButtonProps {
+  userId: number;
+  num: number;
+  onCountUpdate: OnCountUpdateFunction;
+}
+
+export interface FollowingListButtonProps extends FollowListButtonProps {
+  isProfileMine: boolean;
 }

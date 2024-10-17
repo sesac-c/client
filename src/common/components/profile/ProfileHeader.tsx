@@ -1,24 +1,9 @@
-import React, { useState } from 'react';
-import { Box, Stack, Typography, Avatar, IconButton, Divider, Button } from '@mui/material';
+import React, { useState, useCallback } from 'react';
+import { Box, Stack, Typography, Avatar, IconButton, Divider, Button, Tooltip } from '@mui/material';
 import { MoreHoriz } from '@mui/icons-material';
 import { ProfileHeaderProps } from '@/common/types';
 import { followUser, unfollowUser } from '@/common/services/api/profile';
-
-const NetworkInfo: React.FC<{ title: string; num: number }> = ({ title, num }) => {
-  const typographyProps = {
-    variant: 'body2' as const,
-    color: 'grey.700',
-    fontWeight: 550
-  };
-  return (
-    <Button variant='text' color='success'>
-      <Stack spacing={2} direction='row'>
-        <Typography {...typographyProps}>{title}</Typography>
-        <Typography {...typographyProps}>{num}</Typography>
-      </Stack>
-    </Button>
-  );
-};
+import { FollowListButton, FollowingListButton } from './FollowList';
 
 const MenuButton: React.FC = () => (
   <IconButton
@@ -40,7 +25,11 @@ const MenuButton: React.FC = () => (
       }
     }}
   >
-    <MoreHoriz fontSize='small' />
+    <Tooltip title='프로필 편집/설정'>
+      <IconButton onClick={() => {}} size='small' sx={{ padding: 0 }}>
+        <MoreHoriz fontSize='small' />
+      </IconButton>
+    </Tooltip>
   </IconButton>
 );
 
@@ -91,6 +80,7 @@ const FollowButton: React.FC<{
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({ profileId, ...profile }) => {
   const [isFollowing, setIsFollowing] = useState(profile.isFollowing);
   const [followerCount, setFollowerCount] = useState(profile.followerCount);
+  const [followCount, setFollowCount] = useState(profile.followCount);
 
   const handleFollowToggle = async () => {
     try {
@@ -106,6 +96,14 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ profileId, ...profile }) 
       console.error('팔로우/언팔로우 실패:', error);
     }
   };
+
+  const handleFollowerCountUpdate = useCallback((change: number) => {
+    setFollowerCount(prev => prev + change);
+  }, []);
+
+  const handleFollowCountUpdate = useCallback((change: number) => {
+    setFollowCount(prev => prev + change);
+  }, []);
 
   return (
     <Box display='flex' flexDirection='column' alignItems='center' pt={9}>
@@ -133,11 +131,16 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ profileId, ...profile }) 
             alignItems: 'center'
           }}
         >
-          <NetworkInfo title='팔로워' num={followerCount} />
+          <FollowingListButton
+            num={followerCount}
+            userId={profileId}
+            isProfileMine={profile.isProfileMine}
+            onCountUpdate={handleFollowerCountUpdate}
+          />
           <Typography variant='body2' color='success'>
             {profile.affiliation}
           </Typography>
-          <NetworkInfo title='팔로잉' num={profile.followCount} />
+          <FollowListButton num={followCount} userId={profileId} onCountUpdate={handleFollowCountUpdate} />
         </Stack>
       </div>
     </Box>

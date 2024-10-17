@@ -81,7 +81,7 @@ export const unfollowUser = async (userId: number): Promise<void> => {
 
 export const deleteFollowingUser = async (userId: number): Promise<void> => {
   try {
-    await axios.delete(FOLLOW_ROOT_API_URL(userId));
+    await axios.delete(FOLLOW_ROOT_API_URL(userId) + 'er');
   } catch (error) {
     console.error('Error deleting following user:', error);
     throw error;

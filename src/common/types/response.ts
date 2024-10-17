@@ -31,7 +31,8 @@ export interface UserPostResponse {
 export interface FollowResponse {
   id: number;
   nickname: string;
-  courseName: string;
+  discription: string;
   profileImage: string;
   isFollowing: boolean;
+  isThisMe: boolean;
 }

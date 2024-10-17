@@ -3,12 +3,12 @@ import MascotImage from '@/common/components/common/layout/MascotImage';
 import { Divider, Stack } from '@mui/material';
 import Logo from '@/common/components/common/layout/Logo';
 
-const UserList = ({ users, buttonText }) => {
+const UserList = ({ users, buttonText, className = '' }) => {
   const handleButtonClick = onClickUrl => {};
   const renderConditon = users && users.length > 0;
   return (
     <>
-      <div className='user-search'>
+      <div className={`user-search ${className}`}>
         <ul className='user-search__user-list'>
           {renderConditon ? (
             <Stack divider={<Divider flexItem />}>
@@ -18,7 +18,7 @@ const UserList = ({ users, buttonText }) => {
                   user={{
                     id: user.id,
                     nickname: user.nickname,
-                    description: user.courseName || user.address || undefined,
+                    description: user.courseName || user.address || user.description || undefined,
                     profileImage: user.profileImage,
                     buttonText,
                     onClick: () => handleButtonClick(user.onClickUrl)
