@@ -7,7 +7,7 @@ const useMessageStore = create((set, get) => ({
   messageId: null,
   message: null,
 
-  receiverId: null, // 쪽지를 보낼 때 받을 사람
+  receiver: null, // 쪽지를 보낼 때 받을 사람
 
   setMessageType: messageType => set({ messageType }),
   setPageType: pageType => set({ pageType }),
@@ -43,17 +43,18 @@ const useMessageStore = create((set, get) => ({
   },
 
   sendMessage: async content => {
-    const { toList, receiverId } = get();
+    const { toList, receiver } = get();
     try {
-      await axios.post(`/user/messages/${receiverId}`, { content });
+      await axios.post(`/user/messages/${receiver.id}`, { content });
+
       toList();
     } catch (e) {
       console.error(e);
     }
   },
 
-  writeForm: receiverId => {
-    set({ receiverId, pageType: 'write' });
+  writeForm: receiver => {
+    set({ receiver, pageType: 'write' });
   },
 
   cancel: () => {
@@ -65,7 +66,8 @@ const useMessageStore = create((set, get) => ({
       messageType: 'received',
       pageType: 'list',
       messageId: null,
-      message: null
+      message: null,
+      receiver: null
     })
 }));
 

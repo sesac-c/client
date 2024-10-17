@@ -45,7 +45,12 @@ const MessageDetail = ({ messageType }) => {
           <Button fullWidth={true} variant='outlined' color='error' onClick={removeMessage}>
             삭제
           </Button>
-          <Button fullWidth={true} variant='outlined' color='success' onClick={() => writeForm(message.senderId)}>
+          <Button
+            fullWidth={true}
+            variant='outlined'
+            color='success'
+            onClick={() => writeForm({ nickname: message.sender, id: message.senderId })}
+          >
             답장
           </Button>
         </div>

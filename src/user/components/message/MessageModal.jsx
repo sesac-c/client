@@ -14,7 +14,7 @@ import MessageWrite from '@/user/components/message/MessageWrite';
 
 const TITLE = '쪽지';
 
-const MessageModal = React.memo(({ onClose, feedType }) => {
+const MessageModal = React.memo(({ onClose }) => {
   const { messageType, pageType, setMessageType, resetStore } = useMessageStore();
 
   const { openModal: openErrorModal, closeModal } = useModal(() => (
@@ -25,10 +25,6 @@ const MessageModal = React.memo(({ onClose, feedType }) => {
     resetStore();
     onClose();
   }, [resetStore, onClose]);
-
-  useEffect(() => {
-    return () => resetStore();
-  }, [resetStore]);
 
   const tabChange = (e, value) => {
     resetStore();

@@ -1,7 +1,18 @@
 import UserItem from '@/user/components/user/UserItem';
 import MascotImage from '@/common/components/common/layout/MascotImage';
+import { useModal } from '@/common/hooks';
+import MessageModal from '@/user/components/message/MessageModal';
+import useMessageStore from '@/user/store/messageStore';
 
 const UserList = ({ users, buttonText }) => {
+  const { openModal, closeModal } = useModal(() => <MessageModal onClose={closeModal} />);
+  const { writeForm } = useMessageStore();
+
+  const openMessage = user => {
+    openModal();
+    writeForm(user);
+  };
+
   return (
     <>
       <ul className='user-search__user-list'>
@@ -14,7 +25,7 @@ const UserList = ({ users, buttonText }) => {
                 description: user.courseName || user.address || undefined,
                 profileImageUrl: user.profileImageUrl,
                 buttonText,
-                onClick: () => handleButtonClick(user.onClickUrl)
+                onClick: () => openMessage(user)
               }}
             />
           ))
