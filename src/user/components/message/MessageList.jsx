@@ -9,6 +9,9 @@ const MessageList = ({ messageType }) => {
   const [newCount, setNewCount] = useState(0);
   const { readMessage } = useMessageStore();
   const isReceived = () => messageType === 'received';
+  const profileImage = profile => {
+    return `${process.env.REACT_APP_API_BASE_URL}view/${profile}`;
+  };
 
   const load = async () => {
     try {
@@ -42,7 +45,10 @@ const MessageList = ({ messageType }) => {
           className={`my-1 flex px-1 py-3 ${isReceived() && !message.isRead ? 'bg-emerald-50' : ''}`}
         >
           <div className='user-list__profile-image'>
-            <ProfileImage hasShadow={false} />
+            <ProfileImage
+              image={isReceived() ? profileImage(message.receiverProfile) : profileImage(message.senderProfile)}
+              hasShadow={false}
+            />
           </div>
           <div onClick={() => readMessage(message)}>
             <div className='flex'>
