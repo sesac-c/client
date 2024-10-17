@@ -12,7 +12,7 @@ import { HashTagUploaderOpenButton } from './HashtagUploaderModal';
 import { MAX_TITLE_LENGTH, MAX_CONTENT_LENGTH } from '@/common/constants';
 import { CONTENT_FIELD_SETTING, DEFAULT_TEXTFIELD_SETTING, TITLE_FIELD_SETTING } from '@/common/utils/form';
 
-const RemainTextCount = ({ current, max }) => (
+export const RemainTextCount = ({ current, max }) => (
   <p className='mt-1 w-full text-right text-caption text-gray-basic'>
     {current} / {max}
   </p>

@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { ChevronLeftIcon } from '@heroicons/react/16/solid';
 
 const MessageDetail = ({ messageType }) => {
-  const { message, toList, removeMessage } = useMessageStore();
+  const { message, toList, removeMessage, writeForm } = useMessageStore();
 
   return (
     <>
@@ -45,7 +45,7 @@ const MessageDetail = ({ messageType }) => {
           <Button fullWidth={true} variant='outlined' color='error' onClick={removeMessage}>
             삭제
           </Button>
-          <Button fullWidth={true} variant='outlined' color='success'>
+          <Button fullWidth={true} variant='outlined' color='success' onClick={() => writeForm(message.senderId)}>
             답장
           </Button>
         </div>

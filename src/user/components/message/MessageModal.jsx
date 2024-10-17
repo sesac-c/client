@@ -10,6 +10,7 @@ import MessageList from '@/user/components/message/MessageList';
 import MessageDetail from '@/user/components/message/MessageDetail';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
+import MessageWrite from '@/user/components/message/MessageWrite';
 
 const TITLE = '쪽지';
 
@@ -45,7 +46,9 @@ const MessageModal = React.memo(({ onClose, feedType }) => {
         </div>
       )}
       <div className='message-modal'>
-        {pageType === 'list' ? <MessageList messageType={messageType} /> : <MessageDetail messageType={messageType} />}
+        {pageType === 'list' && <MessageList messageType={messageType} />}
+        {pageType === 'detail' && <MessageDetail messageType={messageType} />}
+        {pageType === 'write' && <MessageWrite />}
       </div>
     </Modal>
   );
