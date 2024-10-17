@@ -4,12 +4,12 @@ import { CameraIcon } from '@heroicons/react/20/solid';
 import { PhotoIcon } from '@heroicons/react/24/outline';
 
 import useWriteNoticeStore from '../../../store/writeNoticeStore';
-import { useModal } from '../../../../common/hooks';
+import { useModal } from '@/common/hooks';
 
-import Modal from '../../../../common/components/common/UI/Modal';
-import Button from '../../../../common/components/common/UI/Button';
+import Modal from '@/common/components/common/UI/Modal';
+import Button from '@/common/components/common/UI/Button';
 
-import { IMAGE_TITLE } from '../../../../common/constants';
+import { IMAGE_TITLE } from '@/common/constants';
 
 const BUTTON_SIZE = 'medium';
 

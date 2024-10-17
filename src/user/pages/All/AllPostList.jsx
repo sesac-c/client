@@ -1,11 +1,11 @@
 import FeedWrapper from '@/user/components/common/layout/FeedWrapper.jsx';
 import ColumnLayoutWrapper from '@/user/components/common/layout/ColumnLayoutWrapper.jsx';
 import Carousel from '@/user/components/common/UI/Carousel.jsx';
-import Posts from '@/user/components/post/Posts.jsx';
+import Posts from '@/user/components/feed/Posts.jsx';
 import UserSearch from '@/user/components/user/UserSearch.jsx';
 
 import { useEffect, useState } from 'react';
-import { POSTS_ALL_API_URL } from '@/common/constants';
+import { FEED_ROOT_API_URL, FEED_TYPE, POST_TYPE } from '@/common/constants';
 import useSearchPostStore from '@/user/store/searchPostStore';
 import { fetchPopular } from '@/user/services/api/posts';
 
@@ -34,7 +34,7 @@ const AllPostListPage = () => {
   return (
     <FeedWrapper boardContent={<Carousel items={popularPosts} title='인기글' />}>
       <ColumnLayoutWrapper
-        mainArea={<Posts apiUrl={POSTS_ALL_API_URL} feedType={'all'} />}
+        mainArea={<Posts apiUrl={FEED_ROOT_API_URL(FEED_TYPE.POST, POST_TYPE.ALL)} feedType={'all'} />}
         rightSide={
           <UserSearch
             // users={dummyUserData}

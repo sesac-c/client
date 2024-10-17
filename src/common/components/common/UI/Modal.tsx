@@ -1,8 +1,8 @@
 import React, { memo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { ModalProps } from '../../../types';
-import { GENERAL_MODAL, PAGE_MODAL } from '../../../constants';
+import { ModalProps } from '@/common/types';
+import { GENERAL_MODAL, PAGE_MODAL } from '@/common/constants';
 
 const Modal: React.FC<ModalProps> = memo(
   ({ modalType = GENERAL_MODAL, title, footer, onClose, hasCloseButton = false, onBeforeClose, children, open }) => {

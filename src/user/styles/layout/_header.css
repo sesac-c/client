@@ -42,11 +42,16 @@
     border: 2px solid var(--secondary);
 }
 
-.feed-menu {
+.feed-menu,
+.move-btn {
     user-select: none;
     display: flex;
     justify-content: start;
     align-items: center;
+}
+
+.move-btn {
+    height: 100%;
 }
 
 .feed-menu nav {

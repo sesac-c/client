@@ -1,14 +1,15 @@
-import { useParams } from 'react-router-dom';
-
-import PostDetailInner from '../../components/post/detail/PostDetailInner.jsx';
-import { POSTS_ALL_API_URL } from '@/common/constants';
+import { useLocation, useParams } from 'react-router-dom';
+import DetailInner from '@/user/components/feed/detail/DetailInner';
+import { FEED_TYPE, POST_TYPE } from '@/common/constants';
 
 const AllPostDetailPage = () => {
   const params = useParams();
   const postId = +params.postId;
+  const location = useLocation();
+
   return (
     <div className='main-container'>
-      <PostDetailInner postId={postId} apiUrl={POSTS_ALL_API_URL} />
+      <DetailInner feedId={postId} category={POST_TYPE.ALL} feedType={FEED_TYPE.POST} />
     </div>
   );
 };

@@ -6,13 +6,13 @@ import {
   MANAGER_COURSE_PATH,
   MANAGER_RUNNINGMATE_PATH,
   MANAGER_RESTAURANT_PATH
-} from '../../../../../../common/constants';
+} from '@/common/constants';
 
 import {
   MANAGER_USER_CHILDREN_PATH,
   MANAGER_FEEDS_CHILDREN_PATH,
   MANAGER_RUNNINGMATE_CHILDREN_PATH
-} from '../../../../../../common/constants';
+} from '@/common/constants';
 
 import { navIcons } from '../../../../../assets/icon';
 

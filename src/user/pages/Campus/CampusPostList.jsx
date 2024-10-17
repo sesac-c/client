@@ -1,12 +1,12 @@
 import FeedWrapper from '@/user/components/common/layout/FeedWrapper.jsx';
 import ColumnLayoutWrapper from '@/user/components/common/layout/ColumnLayoutWrapper.jsx';
 import Carousel from '@/user/components/common/UI/Carousel.jsx';
-import Posts from '@/user/components/post/Posts.jsx';
+import Posts from '@/user/components/feed/Posts.jsx';
 import UserSearch from '@/user/components/user/UserSearch.jsx';
 
-import { importantNotice } from '@/user/services/api/notices';
+import { importantNotice } from '@/user/services/api';
 import { useEffect, useState } from 'react';
-import { POSTS_CAMPUS_API_URL } from '@/common/constants';
+import { FEED_ROOT_API_URL, FEED_TYPE, POST_TYPE } from '@/common/constants';
 import useSearchPostStore from '@/user/store/searchPostStore';
 
 const CampusPostListPage = () => {
@@ -34,7 +34,7 @@ const CampusPostListPage = () => {
   return (
     <FeedWrapper boardContent={<Carousel items={importantNotices} title='주요 공지' />}>
       <ColumnLayoutWrapper
-        mainArea={<Posts apiUrl={POSTS_CAMPUS_API_URL} feedType={'campus'} />}
+        mainArea={<Posts apiUrl={FEED_ROOT_API_URL(FEED_TYPE.POST, POST_TYPE.CAMPUS)} feedType={POST_TYPE.CAMPUS} />}
         rightSide={
           <UserSearch
             // users={dummyUserData}

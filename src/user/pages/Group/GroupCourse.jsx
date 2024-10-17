@@ -2,10 +2,9 @@ import ColumnLayoutWrapper from '@/user/components/common/layout/ColumnLayoutWra
 
 import GroupName from '@/user/components/group/GroupName';
 
-import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
-import Notices from '@/user/components/notice/Notices';
+import Notices from '@/user/components/feed/Notices';
 import { fetchNotices } from '@/user/services/api/notices';
 import Restaurant from '@/user/components/group/Restaurant';
 import GroupTabs from '@/user/components/group/GroupTabs';
@@ -32,6 +31,7 @@ const GroupCourse = ({ path }) => {
     try {
       const { data } = await axios.get(`/members/course/${courseId}`);
       setUsers(data);
+      console.log(users);
     } catch (error) {
       console.error('Failed to load users:', error);
     }
@@ -60,9 +60,8 @@ const GroupCourse = ({ path }) => {
         <GroupTabs tabs={TABS} path={path} />
       </div>
 
-      <div className='group-container'>
+      <div className='main-container'>
         <ColumnLayoutWrapper
-          leftSide={<div></div>}
           mainArea={path === 'notices' ? <Notices feedType={'group'} /> : <Restaurant fetchNotices={fetchNotices} />}
           rightSide={<UserList users={users} buttonText={'쪽지하기'} />}
         ></ColumnLayoutWrapper>
