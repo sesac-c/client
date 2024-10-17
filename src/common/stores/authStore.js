@@ -25,7 +25,7 @@ const useAuthStore = create(
                     });
                     return { success: true, user: { nickname, role } };
                 } catch (error) {
-                    console.error('로그인 실패: ', error);
+                    console.error('로그인 실패');
                     return { success: false, error };
                 }
             },

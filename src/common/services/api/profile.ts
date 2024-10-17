@@ -1,5 +1,5 @@
 import { RouteBaseError, UserPostResponse } from '@/common/types';
-import { USER_INFO_API_URL, USER_POSTS_API_URL, USER_PROFILE_API_URL } from '@/common/constants';
+import { FEED_ROOT_API_URL, USER_INFO_API_URL, USER_POSTS_API_URL, USER_PROFILE_API_URL } from '@/common/constants';
 import axios, { AxiosError } from 'axios';
 import { isNumber } from '@/common/utils';
 import { setUpAxios } from '../axios/setupAuth';

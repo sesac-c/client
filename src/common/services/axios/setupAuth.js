@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { LOGIN_PATH, LOGIN_REQUIRED, } from '../../constants';
+import { LOGIN_API_URL, LOGIN_PATH, LOGIN_REQUIRED, } from '../../constants';
 import TokenUtil, { getAuthErrorDetails } from '../../utils/auth';
 import useAuthStore from '../../stores/authStore';
 
@@ -45,32 +45,42 @@ export const setupAuthInterceptor = () => {
             const originalRequest = error.config;
             const { status, needsAccessTokenRefresh } = getAuthErrorDetails(error);
 
-            if (needsAccessTokenRefresh && !originalRequest._retry) {
-                originalRequest._retry = true;
+            const isLoginRequest = originalRequest.url.includes(LOGIN_API_URL);
 
-                try {
-                    const refreshed = await useAuthStore.getState().refreshAccessToken();
-                    if (refreshed) {
-                        const { accessToken } = TokenUtil.getTokens();
-                        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-                        return axios(originalRequest);
+            if (!isLoginRequest) {
+                if (needsAccessTokenRefresh && !originalRequest._retry) {
+                    originalRequest._retry = true;
+
+                    try {
+                        const refreshed = await useAuthStore.getState().refreshAccessToken();
+                        if (refreshed) {
+                            const { accessToken } = TokenUtil.getTokens();
+                            axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                            return axios(originalRequest);
+                        }
+                    } catch (refreshError) {
+                        useAuthStore.getState().logout();
+                        window.alert(LOGIN_REQUIRED);
+                        window.location.href = LOGIN_PATH;
+                        return Promise.reject(refreshError);
                     }
-                } catch (refreshError) {
+                }
+
+                if (status === 401 || status === 403) {
                     useAuthStore.getState().logout();
+
                     window.alert(LOGIN_REQUIRED);
                     window.location.href = LOGIN_PATH;
                     return Promise.reject(refreshError);
                 }
-            }
 
-            if (status === 401 || status === 403) {
-                useAuthStore.getState().logout();
-                window.alert(LOGIN_REQUIRED);
-                window.location.href = LOGIN_PATH;
-                return Promise.reject(refreshError);
-            }
+                return Promise.reject(error);
 
-            return Promise.reject(error);
+            } else {
+
+                return Promise.reject(error);
+
+            }
         }
     );
 };
