@@ -26,6 +26,11 @@ export const FEED_TYPE = {
     POST: 'post',
     NOTICE: 'notice'
 }
+export const ARCHIVE_TYPE = {
+    POST: 'post',
+    LIKES: 'likes',
+    REPLY: 'reply',
+}
 
 export const FEED_ROOT_API_URL = (feedType, category) => `${feedType}s/${(feedType === FEED_TYPE.NOTICE && category === NOTICE_TYPE.CAMPUS) ? 'all' : category}`;
 export const IMAGE_UPLOAD_API_URL = `${process.env.REACT_APP_API_BASE_URL}view`;
@@ -41,6 +46,8 @@ export const RESET_PASSWORD_API_URL = 'accounts/reset-password';
 export const USER_PROFILE_API_URL = (useId) => `user/${useId}/profiles`;
 export const USER_INFO_API_URL = 'user/info';
 export const USER_POSTS_API_URL = (useId) => `user/${useId}/posts`;
+export const USER_LIKE_POSTS_API_URL = 'user/likes';
+export const USER_REPLY_POSTS_API_URL = 'user/replies';
 
 
 export const FOLLOW_ROOT_API_URL = (userId) => `user/${userId}/follow`;

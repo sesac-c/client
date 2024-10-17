@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
-import { GENERAL_MODAL, PAGE_MODAL, WRITE_MODAL } from '../constants';
+import { ARCHIVE_TYPE, GENERAL_MODAL, PAGE_MODAL, WRITE_MODAL } from '../constants';
 import { ResetPasswordField, ResetPasswordState } from './findPassword';
 import { FollowResponse, UserPostResponse } from './response';
 
@@ -124,10 +124,12 @@ export interface ProfileLayoutProps {
   header: ProfileLayoutHeaderProps;
   children: React.ReactNode;
 }
+export type ArchiveType = (typeof ARCHIVE_TYPE)[keyof typeof ARCHIVE_TYPE];
 
 export interface PostGridProps {
   posts: UserPostResponse[];
-  profileId: number;
+  archiveType: ArchiveType;
+  profileId?: number;
   onIsModalClose: (isModalClose: boolean) => void;
 }
 

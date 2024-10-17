@@ -17,28 +17,7 @@ const ArchiveContentLayout: React.FC<{ title: string; children: ReactNode }> = (
         <Typography variant='h5' fontWeight={650} component='h1' gutterBottom>
           {title}
         </Typography>
-        <Box
-          component='form'
-          noValidate
-          sx={{
-            my: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 3
-          }}
-        >
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 2,
-              maxWidth: 400,
-              p: 2
-            }}
-          >
-            {children}
-          </Box>
-        </Box>
+        <Box mt={3}>{children}</Box>
       </Box>
     </Box>
   );
