@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { RemainTextCount } from '@/user/components/post/write/WritePostRequiredFields';
 
 const MessageWrite = () => {
-  const { message, removeMessage, cancel, sendMessage } = useMessageStore();
+  const { cancel, sendMessage, receiver } = useMessageStore();
   const [content, setContent] = useState('');
 
   return (
@@ -22,7 +22,7 @@ const MessageWrite = () => {
           </div>
 
           <div>
-            <span className='text-emerald-500'>받는 사람</span> | {message.sender}
+            <span className='text-emerald-500'>받는 사람</span> | {receiver.nickname}
           </div>
         </div>
       </div>

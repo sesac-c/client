@@ -15,17 +15,8 @@ const TITLE = '글쓰기';
 const BUTTON_SIZE = 'large';
 
 const WritePostModal = React.memo(({ onClose, feedType }) => {
-  const {
-    title,
-    content,
-    image,
-    thumbnail,
-    hashtags,
-    isCompleteButtonEnabled,
-    resetStore,
-    isPostUpdate,
-    setIsPostUpdate
-  } = useWritePostStore();
+  const { title, content, image, thumbnail, hashtags, isCompleteButtonEnabled, resetStore, setIsPostUpdate } =
+    useWritePostStore();
 
   const { openModal: openErrorModal, closeModal } = useModal(() => (
     <ProcessErrorModal title={`${TITLE} 실패`} onClose={closeModal} />
