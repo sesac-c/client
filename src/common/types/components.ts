@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { GENERAL_MODAL, PAGE_MODAL, WRITE_MODAL } from '../constants';
 import { ResetPasswordField, ResetPasswordState } from './findPassword';
 import { FollowResponse, UserPostResponse } from './response';
@@ -167,4 +167,12 @@ export interface FollowListButtonProps {
 
 export interface FollowingListButtonProps extends FollowListButtonProps {
   isProfileMine: boolean;
+}
+
+export interface SettingsContentLayoutProps {
+  title: string;
+  form: ReactElement;
+  buttonText?: string;
+  onSubmit: FormSubmitHandler;
+  isButtonDisabled: boolean;
 }

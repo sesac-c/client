@@ -19,13 +19,23 @@ import {
   USER_PATH,
   USER_ROLE,
   LOGIN_PATH,
-  PROFILE_PATH
+  PROFILE_PATH,
+  USER_SETTING_CHILDREN_PATH,
+  USER_SETTING_AND_ARCHIVE_PATH,
+  USER_SETTING_AND_ARCHIVE_CHILDREN_PATH,
+  USER_ARCHIVE_CHILDREN_PATH
 } from './common/constants/index';
 import managerRoutes from './manager/router';
 import ManagerRootLayout from './manager/layouts/ManagerRoot';
 import PageLoadingSpinner from './common/components/common/UI/PageLoadingSpinner';
 import ResetPasswordPage, { loader as resetPasswordLoader } from './common/pages/Accounts/ResetPassword';
 import ProfilePage, { MyProfilePage, myProfileloader, loader as profileLoader } from './common/pages/Profile/Profile';
+import EditProfilePage from './common/pages/Settings/EditProfile';
+import SettingAndArchiveRoot from './common/layouts/SettingAndArchive';
+import UpdatePasswordPage from './common/pages/Settings/UpdatePassword';
+import AccountInfoPage from './common/pages/Settings/AccountInfo';
+import RepliesPage from './common/pages/Archives/Replies';
+import LikesPage from './common/pages/Archives/Likes';
 
 const ProtectedRoute = ({ children, requiredRole }) => {
   // 접근 권한이 필요한 컴포넌트 미들웨어
@@ -44,7 +54,6 @@ const ProtectedRoute = ({ children, requiredRole }) => {
 
 const router = createBrowserRouter([
   {
-    // TODO: 로그인 상태면 접근 못하도록
     id: 'accounts',
     path: ACCOUNTS_PATH,
     element: <LoginPage />,
@@ -78,6 +87,43 @@ const router = createBrowserRouter([
     path: PROFILE_PATH,
     element: <MyProfilePage />,
     loader: myProfileloader
+  },
+  {
+    path: USER_SETTING_AND_ARCHIVE_PATH,
+    element: <SettingAndArchiveRoot />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: USER_SETTING_AND_ARCHIVE_CHILDREN_PATH.settings,
+        children: [
+          {
+            path: USER_SETTING_CHILDREN_PATH.profile,
+            element: <EditProfilePage />
+          },
+          {
+            path: USER_SETTING_CHILDREN_PATH.updatePassword,
+            element: <UpdatePasswordPage />
+          },
+          {
+            path: USER_SETTING_CHILDREN_PATH.accountInfo,
+            element: <AccountInfoPage />
+          }
+        ]
+      },
+      {
+        path: USER_SETTING_AND_ARCHIVE_CHILDREN_PATH.archive,
+        children: [
+          {
+            path: USER_ARCHIVE_CHILDREN_PATH.likes,
+            element: <LikesPage />
+          },
+          {
+            path: USER_ARCHIVE_CHILDREN_PATH.replies,
+            element: <RepliesPage />
+          }
+        ]
+      }
+    ]
   },
   {
     path: `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.resetPassword}/:uuid`,
