@@ -14,12 +14,28 @@ const useMessageStore = create((set, get) => ({
 
   readMessage: async message => {
     set({ pageType: 'detail', message });
-    await axios.get(`/user/messages/${message.id}`);
+    try {
+      await axios.get(`/user/messages/${message.id}`);
+    } catch (e) {
+      console.error(e);
+    }
     message.isRead = true;
   },
 
   toList: () => {
     set({ pageType: 'list', message: null });
+  },
+
+  removeMessage: async () => {
+    const { toList, message } = get();
+
+    try {
+      await axios.delete(`/user/messages/${message.id}`);
+    } catch (e) {
+      console.error(e);
+    }
+
+    toList();
   },
 
   resetStore: () =>
