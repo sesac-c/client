@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import { MAX_CONTENT_LENGTH } from '@/common/constants';
 import { CONTENT_FIELD_SETTING } from '@/common/utils';
 import { useState } from 'react';
-import { RemainTextCount } from '@/user/components/post/write/WritePostRequiredFields';
+import { RemainTextCount } from '@/user/components/feed/write/WritePostRequiredFields';
 
 const MessageWrite = () => {
   const { cancel, sendMessage, receiver } = useMessageStore();
