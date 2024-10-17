@@ -1,3 +1,5 @@
+import { POST_TYPE } from '../constants';
+
 export interface CampusResponse {
   id: number;
   name: string;
@@ -21,4 +23,5 @@ export interface UserPostResponse {
   title: string;
   content: string;
   image?: string;
+  postType: typeof POST_TYPE;
 }

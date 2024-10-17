@@ -4,11 +4,11 @@ import { formatDateToKorean } from '@/common/utils/formatter.js';
 import { forwardRef, useState } from 'react';
 import { deleteReply, updateReply } from '@/user/services/api';
 import { REPLY_FIELD_SETTING } from '@/common/utils';
-import { TextField } from '@mui/material';
+import { Stack, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { PROFILE_PATH } from '@/common/constants';
 
-const ReplyItem = forwardRef(({ feedId, reply, apiUrl, onUpdate }, ref) => {
+const ReplyItem = forwardRef(({ feedId, reply, apiUrl, onUpdate, isModal, onModalClose }, ref) => {
   const formattedDate = formatDateToKorean(reply.createdAt);
   const [editable, setEditable] = useState(false);
   const [content, setContent] = useState(reply.content);
@@ -49,7 +49,13 @@ const ReplyItem = forwardRef(({ feedId, reply, apiUrl, onUpdate }, ref) => {
           <div
             className='postdetail__reply-profile-image'
             onClick={() => {
-              navigate(`${PROFILE_PATH}/${reply.writerId}`);
+              const path = `${PROFILE_PATH}/${reply.writerId}`;
+              if (isModal) {
+                onModalClose();
+                window.location.href = path;
+              } else {
+                navigate(path);
+              }
             }}
           >
             <ProfileImage image={`${process.env.REACT_APP_API_BASE_URL}view/${reply.profileImage}`} hasShadow={false} />

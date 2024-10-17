@@ -127,4 +127,6 @@ export interface ProfileLayoutProps {
 
 export interface PostGridProps {
   posts: UserPostResponse[];
+  profileId: number;
+  onIsModalClose: (isModalClose: boolean) => void;
 }

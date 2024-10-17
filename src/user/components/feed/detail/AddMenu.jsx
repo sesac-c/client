@@ -9,7 +9,7 @@ import { feedDelete } from '@/user/services/api/feeds';
 
 function AddDialog(props) {
   const navigate = useNavigate();
-  const { feedId, feedType, apiUrl, listPagePath, openModifyModal, onClose, open } = props;
+  const { feedId, feedType, apiUrl, backPagePath, openModifyModal, onClose, open } = props;
   const dialogs = useDialogs();
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [deleteError, setDeleteError] = React.useState(false);
@@ -36,7 +36,7 @@ function AddDialog(props) {
         setIsDeleting(true);
         await feedDelete(apiUrl, feedId);
         handleClose();
-        navigate(listPagePath, { replace: true });
+        navigate(backPagePath, { replace: true });
       } catch (error) {
         console.error(error);
         setDeleteError(true);

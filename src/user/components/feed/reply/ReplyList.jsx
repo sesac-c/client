@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import ReplyItem from './ReplyItem.jsx';
 import { fetchReplies } from '@/user/services/api';
 
-const ReplyList = ({ feedId, apiUrl, isUpdate, onUpdate }) => {
+const ReplyList = ({ feedId, apiUrl, isUpdate, onUpdate, isModal = false, onModalClose }) => {
   const [replies, setReplies] = useState([]);
   const lastReplyRef = useRef(null);
 
@@ -39,6 +39,8 @@ const ReplyList = ({ feedId, apiUrl, isUpdate, onUpdate }) => {
           apiUrl={apiUrl}
           onUpdate={onUpdate}
           ref={index === replies.length - 1 ? lastReplyRef : null}
+          isModal={isModal}
+          onModalClose={onModalClose}
         />
       ))}
     </div>

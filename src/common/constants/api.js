@@ -29,7 +29,7 @@ export const FEED_TYPE = {
     NOTICE: 'notice'
 }
 
-export const FEED_ROOT_API_URL = (feedType, category) => `${feedType}s/${category === NOTICE_TYPE.CAMPUS ? 'all' : category}`;
+export const FEED_ROOT_API_URL = (feedType, category) => `${feedType}s/${(feedType === FEED_TYPE.NOTICE && category === NOTICE_TYPE.CAMPUS) ? 'all' : category}`;
 export const IMAGE_UPLOAD_API_URL = `${process.env.REACT_APP_API_BASE_URL}view`;
 export const ACCOUNTS_EMAIL_CHECK_API_URL = 'accounts/signup/check-email'
 export const CAMPUS_LIST_API_URL = MANAGER_CAMPUS_LIST_API_URL;

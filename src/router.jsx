@@ -25,11 +25,7 @@ import managerRoutes from './manager/router';
 import ManagerRootLayout from './manager/layouts/ManagerRoot';
 import PageLoadingSpinner from './common/components/common/UI/PageLoadingSpinner';
 import ResetPasswordPage, { loader as resetPasswordLoader } from './common/pages/Accounts/ResetPassword';
-import ProfilePage, {
-  MyProfilePage,
-  myProfileloader,
-  loader as profileLoader
-} from './common/pages/Profile/ProfilePage';
+import ProfilePage, { MyProfilePage, myProfileloader, loader as profileLoader } from './common/pages/Profile/Profile';
 
 const ProtectedRoute = ({ children, requiredRole }) => {
   // 접근 권한이 필요한 컴포넌트 미들웨어

@@ -11,7 +11,7 @@ const UserMenu = () => {
   const navigate = useNavigate();
 
   const { user } = useAuthStore();
-  const profileImage = `${process.env.REACT_APP_API_BASE_URL}view/${user.profileImage}`;
+  const profileImage = `${process.env.REACT_APP_API_BASE_URL}view/${user?.profileImage}`;
 
   return (
     <div className='user-menu'>

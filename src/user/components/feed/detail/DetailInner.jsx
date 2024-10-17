@@ -1,89 +1,16 @@
-import { useEffect, useState, useCallback } from 'react';
-
-import { useModal } from '@/common/hooks';
 import { CircularProgress } from '@mui/material';
-
 import AddTooltip from './AddMenu';
 import ReplyInput from '../reply/ReplyInput';
 import ReplyList from '../reply/ReplyList.jsx';
 import LikeButton from './LikeButton';
 import Author from './Author.jsx';
-import ModifyModal from '../modify/ModifyModal';
-
 import Division from '@/common/components/common/UI/Division';
-
-import { IMAGE_UPLOAD_API_URL, FEED_ROOT_API_URL } from '@/common/constants';
-import { fetchFeed } from '@/user/services/api/feeds';
 import { Content, Image } from './Content';
+import { useFeedDetail } from '@/user/hooks/useFeedDetail';
 
 const DetailInner = ({ feedId, feedType, category }) => {
-  const [feed, setFeed] = useState(null);
-  const [isReplyUpdate, setIsReplyUpdate] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isUpdating, setIsUpdating] = useState(false);
-  const apiUrl = FEED_ROOT_API_URL(feedType, category);
-  const listPagePath = `/feed/${category}/${feedType}s`;
-
-  const { openModal, closeModal } = useModal(() => {
-    const handleClose = useCallback(changes => {
-      setIsUpdating(true);
-      setTimeout(() => {
-        setFeed(prevState => ({
-          ...prevState,
-          ...changes
-        }));
-        setIsUpdating(false);
-      }, 700);
-    }, []);
-    return (
-      <ModifyModal
-        apiUrl={apiUrl}
-        feed={feed}
-        onChange={changes => {
-          handleClose(changes);
-        }}
-        onClose={closeModal}
-      />
-    );
-  });
-
-  const imageUrl = image => {
-    return `${IMAGE_UPLOAD_API_URL}/${image}`;
-  };
-  const loadFeed = async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetchFeed(feedId, apiUrl);
-      const { data } = response;
-      setFeed({
-        ...data,
-        isMine: data.isPostMine || data.isNoticeMine,
-        image: data.imageUrl,
-        user: {
-          id: data.userId,
-          profileImage: imageUrl(data.profileImage),
-          campusName: data.campusName,
-          nickname: data.nickname
-        },
-        like: {
-          status: data.likesStatus,
-          count: data.likesCount
-        }
-      });
-    } catch (error) {
-      console.error('Failed to fetch feed:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    loadFeed();
-  }, []);
-
-  function handleReplyUpdate(condition) {
-    setIsReplyUpdate(condition);
-  }
+  const { feed, isReplyUpdate, isLoading, isUpdating, apiUrl, backPagePath, openModal, imageUrl, handleReplyUpdate } =
+    useFeedDetail(feedId, feedType, category);
 
   if (isLoading || isUpdating) {
     return (
@@ -116,7 +43,7 @@ const DetailInner = ({ feedId, feedType, category }) => {
               <Author
                 addToolTip={
                   feed.isMine && (
-                    <AddTooltip {...{ apiUrl, feedId, feedType, listPagePath }} openModifyModal={openModal} />
+                    <AddTooltip {...{ apiUrl, feedId, feedType, backPagePath }} openModifyModal={openModal} />
                   )
                 }
                 user={feed.user}
