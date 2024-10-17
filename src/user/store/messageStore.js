@@ -58,7 +58,10 @@ const useMessageStore = create((set, get) => ({
   },
 
   cancel: () => {
-    set({ pageType: 'detail' });
+    const { toList, message } = get();
+    if (message) return set({ pageType: 'detail' });
+
+    toList();
   },
 
   resetStore: () =>
