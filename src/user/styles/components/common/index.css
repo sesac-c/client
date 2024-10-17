@@ -2,6 +2,13 @@
 @import './_selectbox.css';
 
 .message-modal {
-  max-height: 550px;
+  height: 550px;
   overflow: auto;
+}
+
+.single-line-content {
+  max-width: 350px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
