@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { FollowResponse } from '@/common/types';
 import {
   getFollows,
@@ -10,22 +10,18 @@ import {
 
 export const useFollowList = (userId: number, isFollower: boolean, onCountUpdate: (change: number) => void) => {
   const [users, setUsers] = useState<FollowResponse[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      setIsLoading(true);
-      try {
-        const data = isFollower ? await getFollows(userId) : await getFollowings(userId);
-        setUsers(data);
-      } catch (error) {
-        console.error('Failed to fetch users:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchUsers();
+  const loadUsers = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const data = isFollower ? await getFollows(userId) : await getFollowings(userId);
+      setUsers(data);
+    } catch (error) {
+      console.error('Failed to fetch users:', error);
+    } finally {
+      setIsLoading(false);
+    }
   }, [userId, isFollower]);
 
   const handleFollowToggle = useCallback(
@@ -65,5 +61,5 @@ export const useFollowList = (userId: number, isFollower: boolean, onCountUpdate
     [users, onCountUpdate]
   );
 
-  return { users, isLoading, handleFollowToggle, handleDelete };
+  return { users, isLoading, handleFollowToggle, handleDelete, loadUsers };
 };

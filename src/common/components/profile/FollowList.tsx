@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Box, Button, Stack, Typography, Divider, Skeleton } from '@mui/material';
 import {
   FollowListButtonProps,
@@ -87,7 +87,26 @@ const FollowListModal: React.FC<FollowListModalProps> = ({
   isProfileMine,
   onCountUpdate
 }) => {
-  const { users, isLoading, handleFollowToggle, handleDelete } = useFollowList(userId, isFollower, onCountUpdate);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+  const { users, isLoading, handleFollowToggle, handleDelete, loadUsers } = useFollowList(
+    userId,
+    isFollower,
+    onCountUpdate
+  );
+
+  React.useEffect(() => {
+    if (open && !isDataLoaded) {
+      loadUsers();
+      setIsDataLoaded(true);
+    }
+  }, [open, isDataLoaded, loadUsers]);
+
+  React.useEffect(() => {
+    if (!open) {
+      setIsDataLoaded(false);
+    }
+  }, [open]);
 
   return (
     <Modal
