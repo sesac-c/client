@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { ChevronLeftIcon } from '@heroicons/react/16/solid';
 
 const MessageDetail = ({ messageType }) => {
-  const { message, toList } = useMessageStore();
+  const { message, toList, removeMessage } = useMessageStore();
 
   return (
     <>
@@ -42,7 +42,7 @@ const MessageDetail = ({ messageType }) => {
       <hr className='my-5' />
       {messageType === 'received' ? (
         <div className='flex gap-2'>
-          <Button fullWidth={true} variant='outlined' color='error'>
+          <Button fullWidth={true} variant='outlined' color='error' onClick={removeMessage}>
             삭제
           </Button>
           <Button fullWidth={true} variant='outlined' color='success'>
@@ -53,7 +53,7 @@ const MessageDetail = ({ messageType }) => {
         <div className='flex gap-2'>
           <Button fullWidth={true} disabled={true} />
 
-          <Button fullWidth={true} variant='outlined' color='error'>
+          <Button fullWidth={true} variant='outlined' color='error' onClick={removeMessage}>
             삭제
           </Button>
         </div>
