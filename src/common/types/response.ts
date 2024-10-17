@@ -18,10 +18,20 @@ export interface ProfileResponse {
   followerCount: number;
   isFollowing: boolean;
 }
+export interface ProfileHeaderProps extends ProfileResponse {
+  profileId: number;
+}
 export interface UserPostResponse {
   id: number;
   title: string;
   content: string;
   image?: string;
   postType: typeof POST_TYPE;
+}
+export interface FollowResponse {
+  id: number;
+  nickname: string;
+  courseName: string;
+  profileImage: string;
+  isFollowing: boolean;
 }

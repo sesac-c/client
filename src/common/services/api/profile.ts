@@ -1,5 +1,12 @@
-import { RouteBaseError, UserPostResponse } from '@/common/types';
-import { FEED_ROOT_API_URL, USER_INFO_API_URL, USER_POSTS_API_URL, USER_PROFILE_API_URL } from '@/common/constants';
+import { FollowResponse, RouteBaseError, UserPostResponse } from '@/common/types';
+import {
+  FOLLOW_LIST_API_URL,
+  FOLLOW_ROOT_API_URL,
+  FOLLOWING_LIST_API_URL,
+  USER_INFO_API_URL,
+  USER_POSTS_API_URL,
+  USER_PROFILE_API_URL
+} from '@/common/constants';
 import axios, { AxiosError } from 'axios';
 import { isNumber } from '@/common/utils';
 import { setUpAxios } from '../axios/setupAuth';
@@ -51,5 +58,52 @@ export const getUserInfo = async () => {
     console.error(error);
     const message = '프로필 페이지를 로드 중에 오류가 발생했습니다.\n다시 시도해주세요.';
     throw new RouteBaseError(500, message);
+  }
+};
+
+export const followUser = async (userId: number): Promise<void> => {
+  try {
+    await axios.post(FOLLOW_ROOT_API_URL(userId));
+  } catch (error) {
+    console.error('Error following user:', error);
+    throw error;
+  }
+};
+
+export const unfollowUser = async (userId: number): Promise<void> => {
+  try {
+    await axios.delete(FOLLOW_ROOT_API_URL(userId));
+  } catch (error) {
+    console.error('Error unfollowing user:', error);
+    throw error;
+  }
+};
+
+export const deleteFollowingUser = async (userId: number): Promise<void> => {
+  try {
+    await axios.delete(FOLLOW_ROOT_API_URL(userId));
+  } catch (error) {
+    console.error('Error deleting following user:', error);
+    throw error;
+  }
+};
+
+export const getFollows = async (userId: number): Promise<FollowResponse[]> => {
+  try {
+    const response = await axios.get<FollowResponse[]>(FOLLOW_LIST_API_URL(userId));
+    return response.data;
+  } catch (error) {
+    console.error('Error getting follows:', error);
+    throw error;
+  }
+};
+
+export const getFollowings = async (userId: number): Promise<FollowResponse[]> => {
+  try {
+    const response = await axios.get<FollowResponse[]>(FOLLOWING_LIST_API_URL(userId));
+    return response.data;
+  } catch (error) {
+    console.error('Error getting followings:', error);
+    throw error;
   }
 };

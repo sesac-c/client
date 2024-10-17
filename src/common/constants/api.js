@@ -1,5 +1,3 @@
-import { GROUP } from "./routes";
-
 export const MANAGER_USER_LIST_API_URL = 'user/students';
 export const MANAGER_CAMPUS_LIST_API_URL = 'campuses';
 export const MANAGER_COURSE_LIST_API_URL = 'campuses/courses-extended';
@@ -43,3 +41,8 @@ export const RESET_PASSWORD_API_URL = 'accounts/reset-password';
 export const USER_PROFILE_API_URL = (useId) => `user/${useId}/profiles`;
 export const USER_INFO_API_URL = 'user/info';
 export const USER_POSTS_API_URL = (useId) => `user/${useId}/posts`;
+
+
+export const FOLLOW_ROOT_API_URL = (userId) => `user/${userId}/follow`;
+export const FOLLOW_LIST_API_URL = (userId) => `user/${userId}/follows`;
+export const FOLLOWING_LIST_API_URL = (userId) => `user/${userId}/followers`;

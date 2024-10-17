@@ -9,7 +9,9 @@ const ProfileContent: React.FC<{ profileId: number; profile: ProfileResponse }> 
     <Box sx={{ height: '90vh', display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flexShrink: 0 }}>
         <div className='board-container'>
-          <div className='board-inner justify-end'>{profile && <ProfileHeader {...profile} />}</div>
+          <div className='board-inner justify-end'>
+            {profile && <ProfileHeader profileId={profileId} {...profile} />}
+          </div>
         </div>
         <Divider sx={{ marginBottom: 1, userSelect: 'none' }}>
           <Chip size='small' label='게시글' sx={{ opacity: 0.8, color: 'text.primary' }} variant='outlined' />
