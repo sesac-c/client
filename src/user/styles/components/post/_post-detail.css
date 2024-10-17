@@ -36,7 +36,7 @@
 .postdetail__author-extra-info-wrap {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     gap: 0.7rem;
 }
 
@@ -44,14 +44,15 @@
 .postdetail__author-profile-image,
 .postdetail__reply-profile-image {
     height: 2.75rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-/* Author and reply info */
-.postdetail__author-info,
-.postdetail__reply-author-info {
-    display: flex;
-    flex-direction: column;
+.postdetail__author-profile-image:hover,
+.postdetail__reply-profile-image:hover {
+    transform: scale(1.05);
 }
+
 
 .postdetail__author-info {
     justify-content: space-between;

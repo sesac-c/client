@@ -1,6 +1,6 @@
 import React from 'react';
-import { useConfirmClose } from '../../../../common/hooks/useConfirmClose';
-import { useNavigateHandler } from '../../../../common/hooks/useNavigateHandler';
+import { useConfirmClose } from '@/common/hooks/useConfirmClose';
+import { useNavigateHandler } from '@/common/hooks/useNavigateHandler';
 
 import Modal from '../../common/UI/Modal';
 import Button from '../../common/UI/Button';
@@ -9,8 +9,8 @@ import Stepper from '../../common/UI/Stepper';
 import EmailInputField from './EmailInputField';
 import VerificationCodeField from './VerificationCodeField';
 
-import { PAGE_MODAL, LOGIN_PATH, FINDPASSWORD_CONFIRM_MESSAGE } from '../../../../common/constants';
-import { FindPasswordContentProps, FindPasswordProcessStatus } from '../../../../common/types';
+import { PAGE_MODAL, LOGIN_PATH, FINDPASSWORD_CONFIRM_MESSAGE } from '@/common/constants';
+import { FindPasswordContentProps, FindPasswordProcessStatus } from '@/common/types';
 
 // Constants
 const steps = ['이메일 인증', '인증번호 인증', '비밀번호 변경'];

@@ -59,8 +59,26 @@
     flex-shrink: 0;
 }
 
+.user-list__button.gray {
+    color: var(--gray-500);
+    background-color: var(--gray-100);
+}
+
+.user-list__button.red {
+    color: white;
+    background-color: var(--red-200);
+}
+
 .user-list__button:hover {
     background-color: var(--primary-200);
+}
+
+.user-list__button.gray:hover {
+    background-color: var(--gray-200);
+}
+
+.user-list__button.red:hover {
+    background-color: var(--red-300);
 }
 
 /* ====================================================================UserItem end*/

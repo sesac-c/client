@@ -1,13 +1,19 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { BellIcon, EnvelopeIcon } from '@heroicons/react/20/solid';
 
 import ProfileImage from '@/common/components/common/layout/ProfileImage';
+import { PROFILE_PATH } from '@/common/constants';
+import useAuthStore from '@/common/stores/authStore';
 import { useModal } from '@/common/hooks';
 import MessageModal from '@/user/components/message/MessageModal';
 
 const UserMenu = () => {
   const iconClasses = 'user-menu-icon w-6 h-6 text-white';
+  const navigate = useNavigate();
+
+  const { user } = useAuthStore();
+  const profileImage = `${process.env.REACT_APP_API_BASE_URL}view/${user?.profileImage}`;
 
   const { openModal: openMessage, closeModal: closeMessage } = useModal(() => <MessageModal onClose={closeMessage} />);
 
@@ -26,8 +32,8 @@ const UserMenu = () => {
             </button>
           </li>
           <li className='user-menu-item profile'>
-            <button className='user-menu-link'>
-              <ProfileImage className='profile-image' />
+            <button className='user-menu-link' onClick={() => navigate(PROFILE_PATH)}>
+              <ProfileImage className='profile-image' image={profileImage} />
             </button>
           </li>
         </ul>

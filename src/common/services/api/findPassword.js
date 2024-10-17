@@ -1,6 +1,7 @@
 import axios from "axios";
 import { CHECK_EMAIL_AND_SEND_CODE_API_URL, VERIFY_CODE_API_URL, VERIFY_PASSWORD_RESET_PAGE_UUID_API_URL, RESET_PASSWORD_API_URL } from "@/common/constants";
-import { RouteBaseError, RouteError } from "@/common/types";
+import { RouteBaseError } from "@/common/types";
+import { setUpAxios } from "../axios/setupAuth";
 
 export const checkEmailAndSendCode = async (email) => {
     console.log(email)
@@ -68,15 +69,10 @@ export const verifyCode = async (email, verificationCode) => {
 };
 
 export const verifyPasswordResetUuid = async (uuid) => {
-    const apiUrl = process.env.REACT_APP_API_BASE_URL + VERIFY_PASSWORD_RESET_PAGE_UUID_API_URL;
+    setUpAxios();
     try {
-        const response = await axios.post(apiUrl,
-            { uuid },
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+        const response = await axios.post(VERIFY_PASSWORD_RESET_PAGE_UUID_API_URL,
+            { uuid });
 
         const { message, success } = response.data;
 

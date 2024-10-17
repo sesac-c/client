@@ -5,11 +5,11 @@ import { FormControl, FormHelperText, OutlinedInput } from '@mui/material';
 
 import useWriteNoticeStore from '../../../store/writeNoticeStore';
 
-import LabeledWrapper from '../../../../common/components/common/UI/LabeledWrapper';
+import LabeledWrapper from '@/common/components/common/UI/LabeledWrapper';
 import { ImageUploaderOpenButton } from './ImageUploader';
 import { HashTagUploaderOpenButton } from './HashtagUploader';
 
-import { MAX_TITLE_LENGTH, MAX_CONTENT_LENGTH } from '../../../../common/constants';
+import { MAX_TITLE_LENGTH, MAX_CONTENT_LENGTH } from '@/common/constants';
 
 interface RemainTextCountProps {
   current: number;

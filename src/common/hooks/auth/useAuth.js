@@ -14,61 +14,63 @@ import TokenUtil, { getRedirectPath } from "../../utils/auth";
  * 
  * @param {string} requiredRole - 요구되는 사용자 역할
  * @returns {boolean} isAuthorized - 인증 상태
- */
-export const useAuth = (requiredRole) => {
-    console.log(requiredRole)
+ */export const useAuth = (requiredRole) => {
     const navigate = useNavigate();
-    const { refreshAccessToken, logout, user } = useAuthStore();
+    const { user, isAuthenticated, logout, refreshAccessToken } = useAuthStore();
     const [isAuthorized, setIsAuthorized] = useState(false);
-
     const [isLoading, setIsLoading] = useState(true);
-
-
-    useEffect(() => {
-        setIsAuthorized(false);
-        setIsLoading(false);
-    }, [user]);
 
     useEffect(() => {
         const checkAuth = async () => {
             setIsLoading(true);
-            const userData = localStorage.getItem(USER_KEY);
-            const { accessToken, refreshToken } = TokenUtil.getTokens();
 
-            let parsedUserData;
-            try {
-                parsedUserData = JSON.parse(userData);
-            } catch (error) {
-                parsedUserData = null;
-            }
-
-            if (parsedUserData && parsedUserData.state && parsedUserData.state.isAuthenticated && accessToken && refreshToken) {
-                const { user } = parsedUserData.state;
-
+            if (isAuthenticated && user) {
                 if (user.role === requiredRole) {
                     setIsAuthorized(true);
                 } else {
                     let redirectPath = getRedirectPath(user.role, logout);
                     window.alert(UNAUTHORIZED_ACCESS);
                     navigate(redirectPath, { replace: true });
-                    return;
                 }
             } else {
-                const refreshed = await refreshAccessToken();
-                if (!refreshed) {
+                // 토큰이 있는지 확인
+                const { accessToken, refreshToken } = TokenUtil.getTokens();
+
+                if (accessToken || refreshToken) {
+                    try {
+                        // 리프레시 토큰으로 사용자 정보 다시 로드 시도
+                        const refreshed = await refreshAccessToken();
+                        if (refreshed) {
+                            // 리프레시 성공, 사용자 정보 업데이트됨
+                            const updatedUser = useAuthStore.getState().user;
+                            if (updatedUser.role === requiredRole) {
+                                setIsAuthorized(true);
+                            } else {
+                                let redirectPath = getRedirectPath(updatedUser.role, logout);
+                                window.alert(UNAUTHORIZED_ACCESS);
+                                navigate(redirectPath, { replace: true });
+                            }
+                        } else {
+                            // 리프레시 실패
+                            throw new Error('Refresh failed');
+                        }
+                    } catch (error) {
+                        console.error('Failed to refresh token:', error);
+                        window.alert(LOGIN_REQUIRED);
+                        navigate(LOGIN_PATH, { replace: true });
+                    }
+                } else {
+                    // 토큰이 없음
                     window.alert(LOGIN_REQUIRED);
                     navigate(LOGIN_PATH, { replace: true });
-                    return;
-                } else {
-                    setIsAuthorized(true);
                 }
             }
+
             setIsLoading(false);
         };
 
         checkAuth();
-    }, [navigate, refreshAccessToken, requiredRole, logout]);
-
+    }, [isAuthenticated, user, navigate, requiredRole, logout, refreshAccessToken]);
 
     return { isAuthorized, isLoading };
 };

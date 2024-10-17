@@ -32,6 +32,10 @@ export const ACCOUNT_CHILDREN_PATH = {
   findPassword: 'find/password',
   resetPassword: 'reset/password'
 };
+export const PROFILE_PATH = '/profile';
+export const PROFILECHILDREN_PATH = {
+
+};
 
 export const LOGIN_PATH = `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.login}`;
 export const SIGNUP_PATH = `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.signup}`;

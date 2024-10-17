@@ -75,6 +75,16 @@ export const validateEmail = async (email) => {
     return '';
 };
 
+export const isNumber = (number) => {
+    const parsedNumber = Number(number);
+
+    if (isNaN(parsedNumber) || parsedNumber <= 0) {
+        throw false;
+    }
+
+    return true;
+};
+
 export const validatePassword = (password) => {
     if (!password) return ERROR_PASSWORD_REQUIRED;
     if (password.length < 8 || password.length > 20) return ERROR_PASSWORD_LENGTH;

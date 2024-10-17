@@ -5,7 +5,7 @@ import ContentHeader from '../../../components/common/layout/ContentHeader';
 import { useFeedListData } from '../../../hooks/feed';
 import { RowType } from '../../../types';
 import { allNoticeListRequest } from '../../../services/api';
-import { useModal } from '../../../../common/hooks';
+import { useModal } from '@/common/hooks';
 import WriteNoticeModal from '../../../components/feed/register/NoticeRegisterModal';
 import { Button } from '@mui/joy';
 

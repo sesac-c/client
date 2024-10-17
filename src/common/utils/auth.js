@@ -36,8 +36,10 @@ export default TokenUtil;
 
 export function getAuthErrorDetails(error) {
     const defaultErrorInfo = {
+        code: "UNEXPECTED_TOKEN_MESSAGE",
         message: UNEXPECTED_TOKEN_MESSAGE,
-        needsAccessTokenRefresh: false
+        needsAccessTokenRefresh: false,
+        status: undefined
     };
 
     if (!error.response) {
@@ -51,20 +53,25 @@ export function getAuthErrorDetails(error) {
         switch (code) {
             case ACCESS_TOKEN_EXPIRED:
                 return {
+                    code,
                     message: message || ACCESS_TOKEN_EXPIRED_MESSAGE,
-                    needsAccessTokenRefresh: true
+                    needsAccessTokenRefresh: true,
+                    status
                 };
             case REFRESH_TOKEN_EXPIRED:
                 return {
+                    code,
                     message: message || REFRESH_TOKEN_EXPIRED_MESSAGE,
-                    needsAccessTokenRefresh: false
+                    needsAccessTokenRefresh: false,
+                    status
                 };
         }
     }
 
     return {
+        code: code || defaultErrorInfo.code,
         message: message || defaultErrorInfo.message,
-        needsAccessTokenRefresh: false
+        needsAccessTokenRefresh: false, status
     };
 }
 

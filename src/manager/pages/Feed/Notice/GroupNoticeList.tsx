@@ -2,7 +2,7 @@ import React from 'react';
 import FeedList from '../../../components/feed/list/FeedList';
 import { addIcon, navIcons } from '../../../assets/icon';
 import ContentHeader from '../../../components/common/layout/ContentHeader';
-import { useModal } from '../../../../common/hooks';
+import { useModal } from '@/common/hooks';
 import WriteNoticeModal from '../../../components/feed/register/NoticeRegisterModal';
 import { Button } from '@mui/joy';
 import { groupNoticeListRequest } from '../../../services/api';
