@@ -38,6 +38,7 @@ export const ACCOUNTS_EMAIL_CHECK_API_URL = 'accounts/signup/check-email'
 export const CAMPUS_LIST_API_URL = MANAGER_CAMPUS_LIST_API_URL;
 export const COURSE_LIST_API_URL = (campusId) => `campuses/${campusId}/courses`;
 export const SIGNUP_API_URL = 'accounts';
+export const DELETE_ACCOUNT_API_URL = SIGNUP_API_URL;
 export const CHECK_EMAIL_AND_SEND_CODE_API_URL = 'accounts/find-password';
 export const VERIFY_CODE_API_URL = 'accounts/find-password/verify-code';
 export const VERIFY_PASSWORD_RESET_PAGE_UUID_API_URL = 'accounts/reset-password/verify-uuid';
@@ -46,6 +47,7 @@ export const RESET_PASSWORD_API_URL = 'accounts/reset-password';
 export const USER_PROFILE_API_URL = (useId) => `user/${useId}/profiles`;
 export const USER_INFO_API_URL = 'user/info';
 export const UPDATE_PASSWORD_API_URL = 'user/update-password';
+export const ACCOUNT_INFO_API_URL = 'user/account-info';
 export const USER_POSTS_API_URL = (useId) => `user/${useId}/posts`;
 export const USER_LIKE_POSTS_API_URL = 'user/likes';
 export const USER_REPLY_POSTS_API_URL = 'user/replies';

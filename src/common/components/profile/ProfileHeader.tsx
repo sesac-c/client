@@ -4,34 +4,45 @@ import { MoreHoriz } from '@mui/icons-material';
 import { ProfileHeaderProps } from '@/common/types';
 import { followUser, unfollowUser } from '@/common/services/api';
 import { FollowListButton, FollowingListButton } from './FollowList';
+import { useNavigate } from 'react-router-dom';
+import { USER_SETTING_CHILDREN_PATH, USER_SETTING_PATH } from '@/common/constants';
 
-const MenuButton: React.FC = () => (
-  <IconButton
-    size='small'
-    sx={{
-      position: 'absolute',
-      top: 0,
-      right: 0,
-      border: '1px solid rgba(24, 123, 70, 0.7)',
-      backgroundColor: 'white',
-      opacity: 0.8,
-      boxShadow: 2,
-      transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-      '&:hover': {
+const MenuButton: React.FC = () => {
+  const navigate = useNavigate();
+  return (
+    <IconButton
+      size='small'
+      sx={{
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        border: '1px solid rgba(24, 123, 70, 0.7)',
         backgroundColor: 'white',
-        opacity: 0.9,
-        transform: 'scale(1.05)',
-        boxShadow: 3
-      }
-    }}
-  >
-    <Tooltip title='프로필 편집/설정'>
-      <IconButton onClick={() => {}} size='small' sx={{ padding: 0 }}>
-        <MoreHoriz fontSize='small' />
-      </IconButton>
-    </Tooltip>
-  </IconButton>
-);
+        opacity: 0.8,
+        boxShadow: 2,
+        transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+        '&:hover': {
+          backgroundColor: 'white',
+          opacity: 0.9,
+          transform: 'scale(1.05)',
+          boxShadow: 3
+        }
+      }}
+    >
+      <Tooltip title='프로필 편집/설정'>
+        <IconButton
+          onClick={() => {
+            navigate(`${USER_SETTING_PATH}/${USER_SETTING_CHILDREN_PATH.profile}`);
+          }}
+          size='small'
+          sx={{ padding: 0 }}
+        >
+          <MoreHoriz fontSize='small' />
+        </IconButton>
+      </Tooltip>
+    </IconButton>
+  );
+};
 
 const FollowButton: React.FC<{
   isFollowing: boolean;

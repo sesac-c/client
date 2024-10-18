@@ -36,3 +36,9 @@ export interface FollowResponse {
   isFollowing: boolean;
   isThisMe: boolean;
 }
+export interface AccountInfoResponse {
+  name?: string;
+  campusName?: string;
+  email: string;
+  birthdate?: string;
+}

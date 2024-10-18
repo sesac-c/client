@@ -33,9 +33,10 @@ import ProfilePage, { MyProfilePage, myProfileloader, loader as profileLoader } 
 import EditProfilePage from './common/pages/Settings/EditProfile';
 import SettingAndArchiveRoot from './common/layouts/SettingAndArchive';
 import UpdatePasswordPage from './common/pages/Settings/UpdatePassword';
-import AccountInfoPage from './common/pages/Settings/AccountInfo';
+import AccountInfoPage, { loader as accountInfoLoader } from './common/pages/Settings/AccountInfo';
 import RepliesPage from './common/pages/Archives/Replies';
 import LikesPage from './common/pages/Archives/Likes';
+import AccountDeletionPage from './common/pages/Settings/AccountDeletion';
 
 const ProtectedRoute = ({ children, requiredRole }) => {
   // 접근 권한이 필요한 컴포넌트 미들웨어
@@ -106,7 +107,12 @@ const router = createBrowserRouter([
           },
           {
             path: USER_SETTING_CHILDREN_PATH.accountInfo,
-            element: <AccountInfoPage />
+            element: <AccountInfoPage />,
+            loader: accountInfoLoader
+          },
+          {
+            path: USER_SETTING_CHILDREN_PATH.accountDeletion,
+            element: <AccountDeletionPage />
           }
         ]
       },

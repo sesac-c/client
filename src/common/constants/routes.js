@@ -47,7 +47,8 @@ export const USER_SETTING_PATH = `/user/${USER_SETTING_AND_ARCHIVE_CHILDREN_PATH
 export const USER_SETTING_CHILDREN_PATH = {
   profile: 'profile',
   updatePassword: 'update-password',
-  accountInfo: 'account-info'
+  accountInfo: 'account-info',
+  accountDeletion: 'account-deletion',
 };
 export const USER_ARCHIVE_PATH = `/user/${USER_SETTING_AND_ARCHIVE_CHILDREN_PATH.archive}`;
 export const USER_ARCHIVE_CHILDREN_PATH = {

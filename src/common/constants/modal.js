@@ -20,6 +20,12 @@ export const UPDATE_PASSWORD_SUCCESS_MESSAGES = [
     '이후 변경된 비밀번호로',
     '서비스를 이용하실 수 있습니다.',
 ];
+export const DELETE_ACCOUNT_SUCCESS_MESSAGES = [
+    '회원 탈퇴(계정 삭제)가 완료되었습니다.',
+    '　',
+    '회원님의 모든 정보는 안전하게 삭제되었습니다.',
+    '그동안 저희 서비스를 이용해 주셔서 감사합니다.',
+];
 
 export const DEFAULT_PROCCESS_ERROR_MESSAGE = '오류가 발생했습니다. 잠시 뒤 시도해주세요.';
 
