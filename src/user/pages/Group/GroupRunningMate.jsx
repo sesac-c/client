@@ -66,11 +66,13 @@ const GroupRunningMate = ({ path }) => {
       <div className='group-container'>
         <ColumnLayoutWrapper
           leftSide={
-            <div className='flex justify-end pt-5'>
-              <Button variant='outlined' onClick={() => navigate('./write')}>
-                보고서 작성
-              </Button>
-            </div>
+            path === 'reports' && (
+              <div className='flex justify-end pt-5'>
+                <Button variant='outlined' onClick={() => navigate('./write')}>
+                  보고서 작성
+                </Button>
+              </div>
+            )
           }
           mainArea={
             path === 'reports' ? <ActivityReports feedType={'group'} /> : <Restaurant fetchNotices={fetchNotices} />

@@ -2,10 +2,21 @@ import UserItem from '@/user/components/user/UserItem';
 import MascotImage from '@/common/components/common/layout/MascotImage';
 import { Divider, Stack } from '@mui/material';
 import Logo from '@/common/components/common/layout/Logo';
+import { useModal } from '@/common/hooks';
+import MessageModal from '@/user/components/message/MessageModal';
+import useMessageStore from '@/user/store/messageStore';
 
 const UserList = ({ users, buttonText, className = '' }) => {
   const handleButtonClick = onClickUrl => {};
   const renderConditon = users && users.length > 0;
+  const { openModal, closeModal } = useModal(() => <MessageModal onClose={closeModal} />);
+  const { writeForm } = useMessageStore();
+
+  const openMessage = user => {
+    openModal();
+    writeForm(user);
+  };
+
   return (
     <>
       <div className={`user-search ${className}`}>
@@ -21,7 +32,7 @@ const UserList = ({ users, buttonText, className = '' }) => {
                     description: user.courseName || user.address || user.description || undefined,
                     profileImage: user.profileImage,
                     buttonText,
-                    onClick: () => handleButtonClick(user.onClickUrl)
+                    onClick: () => openMessage(user)
                   }}
                   className='p-3'
                 />
