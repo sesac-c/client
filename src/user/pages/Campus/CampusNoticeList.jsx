@@ -30,7 +30,7 @@ const CampusNoticeListPage = () => {
   return (
     <FeedWrapper boardContent={<Carousel items={importantNotices} title='주요 공지' />}>
       <ColumnLayoutWrapper
-        mainArea={<Notices feedType={'all'} />}
+        mainArea={<Notices feedType={'campus'} />}
         rightSide={
           <UserSearch
             users={[]}
