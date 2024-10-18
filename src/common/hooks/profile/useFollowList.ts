@@ -1,12 +1,6 @@
 import { useState, useCallback } from 'react';
 import { FollowResponse } from '@/common/types';
-import {
-  getFollows,
-  getFollowings,
-  followUser,
-  unfollowUser,
-  deleteFollowingUser
-} from '@/common/services/api/profile';
+import { getFollows, getFollowings, followUser, unfollowUser, deleteFollowingUser } from '@/common/services/api';
 
 export const useFollowList = (userId: number, isFollower: boolean, onCountUpdate: (change: number) => void) => {
   const [users, setUsers] = useState<FollowResponse[]>([]);

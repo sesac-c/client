@@ -21,3 +21,9 @@ export interface ResetPasswordRequest {
   passwordConfirm: string;
   uuid: string;
 }
+
+export interface UpdatePasswordForm extends ResetPasswordForm {}
+export interface UpdatePasswordRequest {
+  password: string;
+  passwordConfirm: string;
+}

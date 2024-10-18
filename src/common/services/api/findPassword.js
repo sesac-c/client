@@ -103,7 +103,7 @@ export const resetPassword = async (data) => {
                 throw new RouteBaseError(code, message);
             }
         }
-        console.error('회원가입 중 오류 발생:', error);
-        throw new RouteBaseError(500, '회원가입 처리 중 오류가 발생했습니다.');
+        console.error('비밀번호 재설정 중 오류 발생:', error);
+        throw new RouteBaseError(500, '비밀번호 재설정 처리 중 오류가 발생했습니다.');
     }
 };

@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Box, Stack, Typography, Avatar, IconButton, Divider, Button, Tooltip } from '@mui/material';
 import { MoreHoriz } from '@mui/icons-material';
 import { ProfileHeaderProps } from '@/common/types';
-import { followUser, unfollowUser } from '@/common/services/api/profile';
+import { followUser, unfollowUser } from '@/common/services/api';
 import { FollowListButton, FollowingListButton } from './FollowList';
 
 const MenuButton: React.FC = () => (

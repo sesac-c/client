@@ -14,6 +14,12 @@ export const RESET_PASSWORD_SUCCESS_MESSAGES = [
     '변경된 비밀번호로 로그인 후',
     '서비스를 이용하실 수 있습니다.',
 ];
+export const UPDATE_PASSWORD_SUCCESS_MESSAGES = [
+    '비밀번호 재설정이 완료되었습니다',
+    '　',
+    '이후 변경된 비밀번호로',
+    '서비스를 이용하실 수 있습니다.',
+];
 
 export const DEFAULT_PROCCESS_ERROR_MESSAGE = '오류가 발생했습니다. 잠시 뒤 시도해주세요.';
 

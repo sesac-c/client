@@ -36,11 +36,11 @@ const SettingsContentLayout: React.FC<SettingsContentLayoutProps> = ({
         >
           <Box
             sx={{
+              mt: 3,
               display: 'flex',
               flexDirection: 'column',
               gap: 2,
-              maxWidth: 400,
-              p: 2
+              maxWidth: '50vw'
             }}
           >
             {form}

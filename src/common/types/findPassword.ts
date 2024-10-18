@@ -25,6 +25,7 @@ export interface ResetPasswordState {
   resetErrorMessage: string;
   resetSuccess: boolean;
 }
+export interface UpdatePasswordState extends ResetPasswordState {}
 
 export type FindPasswordField = 'email' | 'verificationCode';
 export type ResetPasswordField = 'password' | 'confirmPassword';
@@ -44,6 +45,8 @@ export interface UseResetPasswordStateReturn {
   handleSuccessModal: () => void;
   handleErrorModal: () => void;
 }
+
+export interface UserUpdatePasswordStateReturn extends UseResetPasswordStateReturn {}
 export interface FindPasswordContentProps {
   title: string;
   state: FindPasswordState;

@@ -2,7 +2,7 @@ import React from 'react';
 import { ProfileLayout } from '@/common/layouts/Profile';
 import ProfileContent from '@/common/components/profile/ProfileContent';
 import { LoaderFunctionArgs, Navigate, Outlet, redirect, useLoaderData, useParams } from 'react-router-dom';
-import { getProfile, getUserInfo } from '@/common/services/api/profile';
+import { getProfile, getUserInfo } from '@/common/services/api';
 import { ProfileResponse } from '@/common/types';
 import { PROFILE_PATH } from '@/common/constants';
 

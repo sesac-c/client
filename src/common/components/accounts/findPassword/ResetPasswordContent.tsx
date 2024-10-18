@@ -76,7 +76,7 @@ export const Header: React.FC = () => {
   );
 };
 
-const ResetPasswordFields: React.FC<ResetPasswordFieldsProps> = ({ state, onChange }) => {
+export const ResetPasswordFields: React.FC<ResetPasswordFieldsProps> = ({ state, onChange }) => {
   return (
     <React.Fragment>
       <PasswordInput

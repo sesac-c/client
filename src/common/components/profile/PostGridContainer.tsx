@@ -3,7 +3,7 @@ import { Typography, Container, Paper, Skeleton, Stack } from '@mui/material';
 import Grid2 from '@mui/material/Grid2';
 import { ArchiveType, PostGridProps, UserPostResponse } from '@/common/types';
 import { FEED_TYPE, POST_TYPE, ARCHIVE_TYPE } from '@/common/constants';
-import { getUserPosts, getUserLikePosts, getUserReplyPosts } from '@/common/services/api/archives';
+import { getUserPosts, getUserLikePosts, getUserReplyPosts } from '@/common/services/api';
 
 const DetailModal = lazy(() => import('@/user/components/feed/detail/DetailModal'));
 
