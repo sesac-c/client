@@ -20,7 +20,6 @@ const Menu: React.FC<{ title: string; items: { name: string; to: string }[] }> =
           <Typography key={index} variant='body2'>
             <NavLink
               to={item.to}
-              end
               className={({ isActive }) => (isActive ? 'font-bold text-gray-basic' : undefined)}
               style={{
                 display: 'inline-block',
@@ -45,7 +44,7 @@ const Menu: React.FC<{ title: string; items: { name: string; to: string }[] }> =
 const SideMenu = () => {
   return (
     <Paper elevation={3} sx={{ width: '20vw', p: 3, bgcolor: '#f5f5f5', borderRadius: 2 }}>
-      <Stack spacing={4} mt={2}>
+      <Stack spacing={4} mt={4}>
         <Menu title='설정' items={settings} />
         <Menu title='보관함' items={archives} />
       </Stack>

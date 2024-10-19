@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { MAX_HASHTAGS } from '../../common/constants';
-import { removeImage, uploadImage } from '../services/api';
+import { removeImage, uploadImage } from '@/common/services/api';
 import { NoticeFormState, noticeError } from '../types';
 import { validateNoticeForm } from '../utils';
 

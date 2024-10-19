@@ -13,6 +13,8 @@ export const EMAIL_REGEX = /\S+@\S+\.\S+/;
 export const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 export const NUMBER_REGEX = /^\d+$/;
 export const BIRTHDATE_REGEX = /^\d{6}$/;
+export const NICKNAME_VALID_PATTERN_REGEX = /^[가-힣0-9\s]+$/; // 한글, 숫자, 띄어쓰기 허용
+
 
 // Error Messages
 export const ERROR_NAME_REQUIRED = '이름을 입력해 주세요';
@@ -40,6 +42,14 @@ export const ERROR_CAMPUS_REQUIRED = '캠퍼스를 선택해 주세요';
 export const ERROR_COURSE_REQUIRED = '강의를 선택해 주세요';
 
 export const ERROR_VERIFICATION_CODE_REQUIRED = '인증 코드를 입력해주세요.';
+
+export const NicknameError = {
+    REQUIRED: '닉네임을 입력해주세요.',
+    INVALID_LENGTH: '닉네임은 1 ~ 10자로 입력해주세요',
+    INVALID_PATTERN: '한글, 숫자, 띄어쓰기만 사용 가능합니다.',
+    INVALID_COMBINATION: '닉네임을 숫자만으로 구성할 수 없습니다.',
+    DUPLICATE: '이미 닉네임이 존재합니다.'
+}
 
 /** Field Names
  * 회원가입 필드
@@ -69,6 +79,7 @@ export const ERROR_VERIFICATION_CODE_REQUIRED = '인증 코드를 입력해주�
  *      2. 내용
  */
 export const NAME_NAME = 'name'
+export const NICKNAME_NAME = 'nickname'
 export const BIRTHDATE_NAME = 'birthdate'
 export const GENDER_NAME = 'gender'
 export const EMAIL_NAME = 'email'

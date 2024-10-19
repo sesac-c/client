@@ -12,66 +12,77 @@ const SettingsContentLayout: React.FC<SettingsContentLayoutProps> = ({
   return (
     <Box
       sx={{
-        px: 15,
-        pt: 6,
-        height: '85%',
         display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between'
+        justifyContent: 'center',
+        minHeight: '100vh',
+        width: '100%'
       }}
     >
-      <Box>
-        <Typography variant='h5' fontWeight={650} component='h1' gutterBottom>
-          {title}
-        </Typography>
-        <Box
-          component='form'
-          noValidate
-          sx={{
-            my: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 3
-          }}
-        >
-          <Box
-            sx={{
-              mt: 3,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 2,
-              maxWidth: '50vw'
-            }}
-          >
-            {form}
-          </Box>
-        </Box>
-      </Box>
-
       <Box
         sx={{
+          width: '62vw',
           display: 'flex',
-          justifyContent: 'flex-end',
-          mt: 'auto',
-          mb: 2
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          height: '85%',
+          padding: 4,
+          boxSizing: 'border-box',
+          mt: 3
         }}
       >
-        <Button
-          disabled={isButtonDisabled}
-          size='large'
-          onClick={onSubmit}
-          variant='contained'
+        <Box>
+          <Typography variant='h5' fontWeight={650} component='h1' gutterBottom>
+            {title}
+          </Typography>
+          <Box
+            component='form'
+            noValidate
+            sx={{
+              my: 2,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 3
+            }}
+          >
+            <Box
+              sx={{
+                mt: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2
+              }}
+            >
+              {form}
+            </Box>
+          </Box>
+        </Box>
+
+        <Box
           sx={{
-            width: '20%',
-            bgcolor: '#187b46',
-            color: 'white',
-            '&:hover': {
-              bgcolor: '#165132'
-            }
+            display: 'flex',
+            justifyContent: 'flex-end',
+            mt: 'auto',
+            mb: 2
           }}
         >
-          {buttonText ? buttonText : '확인'}
-        </Button>
+          <Button
+            disabled={isButtonDisabled}
+            size='large'
+            onClick={onSubmit}
+            variant='contained'
+            sx={{
+              mt: 3,
+              width: '20%',
+              bgcolor: '#187b46',
+              color: 'white',
+              '&:hover': {
+                bgcolor: '#165132'
+              }
+            }}
+          >
+            {buttonText ? buttonText : '확인'}
+          </Button>
+        </Box>
       </Box>
     </Box>
   );

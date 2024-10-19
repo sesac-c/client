@@ -25,7 +25,6 @@ export interface ResetPasswordState {
   resetErrorMessage: string;
   resetSuccess: boolean;
 }
-export interface UpdatePasswordState extends ResetPasswordState {}
 
 export type FindPasswordField = 'email' | 'verificationCode';
 export type ResetPasswordField = 'password' | 'confirmPassword';
@@ -36,7 +35,6 @@ export interface UseFindPasswordStateReturn {
   handleButtonClick: () => void;
   isButtonDisabled: () => boolean;
 }
-
 export interface UseResetPasswordStateReturn {
   state: ResetPasswordState;
   handleChange: (field: ResetPasswordField, value: string) => void;
@@ -46,7 +44,6 @@ export interface UseResetPasswordStateReturn {
   handleErrorModal: () => void;
 }
 
-export interface UserUpdatePasswordStateReturn extends UseResetPasswordStateReturn {}
 export interface FindPasswordContentProps {
   title: string;
   state: FindPasswordState;

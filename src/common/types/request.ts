@@ -27,3 +27,17 @@ export interface UpdatePasswordRequest {
   password: string;
   passwordConfirm: string;
 }
+
+export interface UpdateProfileForm {
+  nickname: string;
+  profileImage: string;
+}
+export interface UpdateProfileRequest {
+  nickname?: string;
+  profileImage?: string;
+  removed: boolean;
+}
+export interface ManagerUpdateProfileRequest {
+  profileImage: string;
+  removed: boolean;
+}

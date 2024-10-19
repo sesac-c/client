@@ -5,19 +5,30 @@ const ArchiveContentLayout: React.FC<{ title: string; children: ReactNode }> = (
   return (
     <Box
       sx={{
-        px: 15,
-        pt: 6,
-        height: '85%',
         display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between'
+        justifyContent: 'center',
+        minHeight: '100vh',
+        width: '100%'
       }}
     >
-      <Box>
-        <Typography variant='h5' fontWeight={650} component='h1' gutterBottom>
-          {title}
-        </Typography>
-        <Box mt={3}>{children}</Box>
+      <Box
+        sx={{
+          width: '62vw',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          height: '85%',
+          padding: 4,
+          boxSizing: 'border-box',
+          mt: 3
+        }}
+      >
+        <Box>
+          <Typography variant='h5' fontWeight={650} component='h1' gutterBottom>
+            {title}
+          </Typography>
+          <Box mt={3}>{children}</Box>
+        </Box>
       </Box>
     </Box>
   );

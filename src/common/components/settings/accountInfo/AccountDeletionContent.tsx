@@ -12,6 +12,7 @@ import ProcessErrorModal from '../../common/feedback/ProcessErrorModal';
 import ProcessSuccessModal from '../../common/feedback/ProcessSuccessModal';
 import useAuthStore from '@/common/stores/authStore';
 import { confirmAction } from '@/common/utils';
+import LoadingStatus from '../LoadingStatus';
 
 const AccountDeletionContent: React.FC = () => {
   const [checked, setChecked] = useState(false);
@@ -93,24 +94,7 @@ const AccountDeletionContent: React.FC = () => {
         position: 'relative'
       }}
     >
-      {loading && (
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: 'rgba(255, 255, 255, 0.7)',
-            zIndex: 1000
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
+      {loading && <LoadingStatus />}
       <Typography variant='body2' color='text.secondary' gutterBottom>
         {DELETE_ACCOUNT_MESSAGES[0]}
       </Typography>

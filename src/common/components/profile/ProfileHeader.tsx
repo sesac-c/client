@@ -6,6 +6,7 @@ import { followUser, unfollowUser } from '@/common/services/api';
 import { FollowListButton, FollowingListButton } from './FollowList';
 import { useNavigate } from 'react-router-dom';
 import { USER_SETTING_CHILDREN_PATH, USER_SETTING_PATH } from '@/common/constants';
+import useAuthStore from '@/common/stores/authStore';
 
 const MenuButton: React.FC = () => {
   const navigate = useNavigate();

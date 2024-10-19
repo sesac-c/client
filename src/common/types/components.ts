@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from 'react';
-import { ARCHIVE_TYPE, GENERAL_MODAL, PAGE_MODAL, WRITE_MODAL } from '../constants';
+import { ARCHIVE_TYPE, GENERAL_MODAL, PAGE_MODAL, USER_TYPE, WRITE_MODAL } from '../constants';
 import { ResetPasswordField, ResetPasswordState } from './findPassword';
-import { FollowResponse, UserPostResponse } from './response';
+import { FollowResponse, ProfileFormResponse, UserPostResponse } from './response';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
 export type ButtonSize = 'small' | 'medium' | 'large';
@@ -177,4 +177,9 @@ export interface SettingsContentLayoutProps {
   buttonText?: string;
   onSubmit: FormSubmitHandler;
   isButtonDisabled: boolean;
+}
+export type UserType = (typeof USER_TYPE)[keyof typeof USER_TYPE];
+
+export interface EditProfileFormProps extends ProfileFormResponse {
+  userType: UserType;
 }
