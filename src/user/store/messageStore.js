@@ -4,14 +4,11 @@ import axios from 'axios';
 const useMessageStore = create((set, get) => ({
   messageType: 'received', // received or sent
   pageType: 'list', // list or detail or write
-  messageId: null,
   message: null,
-
   receiver: null, // 쪽지를 보낼 때 받을 사람
 
   setMessageType: messageType => set({ messageType }),
   setPageType: pageType => set({ pageType }),
-  setMessageId: messageId => set({ messageId }),
   setMessage: message => set({ message }),
 
   readMessage: async message => {
@@ -68,7 +65,6 @@ const useMessageStore = create((set, get) => ({
     set({
       messageType: 'received',
       pageType: 'list',
-      messageId: null,
       message: null,
       receiver: null
     })

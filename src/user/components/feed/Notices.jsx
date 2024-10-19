@@ -21,7 +21,7 @@ const Notice = ({ notice, feedType }) => {
             <img src={thumbnailUrl(notice.thumbnail)} alt='notice thumbnail' />
           </div>
         )}
-        <div className='post-content' onClick={useNavigateHandler(`/feed/${feedType}/notices/${notice.id}`)}>
+        <div className='post-content' onClick={useNavigateHandler(`./${notice.id}`)}>
           <div className='post-main'>
             <div className='post-header'>
               <div className='post-title'>
