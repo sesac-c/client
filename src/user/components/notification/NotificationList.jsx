@@ -3,14 +3,13 @@ import { useEffect, useState } from 'react';
 import ProfileImage from '@/common/components/common/layout/ProfileImage';
 import useNotificationStore from '@/user/store/notificationStore';
 import { IMAGE_API_URL } from '@/common/constants';
-
 const NotificationList = () => {
   const [notifications, setNotifications] = useState([]);
   const [newCount, setNewCount] = useState(0);
 
   const { readNotification, content } = useNotificationStore();
   const profileImage = profile => {
-    return IMAGE_API_URL(profile);
+    return IMAGE_API_URL(profile)
   };
 
   const load = async () => {

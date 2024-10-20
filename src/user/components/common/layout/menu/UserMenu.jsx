@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { BellIcon, EnvelopeIcon } from '@heroicons/react/20/solid';
 import ProfileImage from '@/common/components/common/layout/ProfileImage';
 import { IMAGE_API_URL, PROFILE_PATH } from '@/common/constants';
@@ -31,6 +32,11 @@ const UserMenu = () => {
       setProfileImageLink(IMAGE_API_URL(profileImage));
     }
   }, [profileImage]);
+
+  const { openModal: openMessage, closeModal: closeMessage } = useModal(() => <MessageModal onClose={closeMessage} />);
+  const { openModal: openNotification, closeModal: closeNotification } = useModal(() => (
+    <NotificationModal onClose={closeNotification} />
+  ));
 
   const { openModal: openMessage, closeModal: closeMessage } = useModal(() => <MessageModal onClose={closeMessage} />);
   const { openModal: openNotification, closeModal: closeNotification } = useModal(() => (
