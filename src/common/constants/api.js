@@ -54,6 +54,7 @@ export const USER_ID_API_URL = 'user/id';
 export const USER_INFO_API_URL = 'user/info';
 export const UPDATE_PASSWORD_API_URL = 'user/update-password';
 export const ACCOUNT_INFO_API_URL = 'user/account-info';
+export const COURSE_CHANGE_REQUEST_API_URL = (campusId, courseId) => `user/campus/${campusId}/course/${courseId}`;
 export const USER_POSTS_API_URL = (useId) => `user/${useId}/posts`;
 export const USER_LIKE_POSTS_API_URL = 'user/likes';
 export const USER_REPLY_POSTS_API_URL = 'user/replies';

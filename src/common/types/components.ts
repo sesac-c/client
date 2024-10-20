@@ -50,6 +50,11 @@ export interface ModalProps extends BaseModalProps {
 export interface ProcessErrorModalProps extends BaseModalProps {
   content?: string;
 }
+export interface ConfirmModalProps extends BaseModalProps {
+  children: ReactNode;
+  confirmButtonText?: string;
+  onClick: () => void;
+}
 
 export interface ProcessSuccessModalProps extends BaseModalProps {
   children: React.ReactNode;

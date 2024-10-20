@@ -1,16 +1,18 @@
 import {
   ACCOUNT_INFO_API_URL,
+  CAMPUS_LIST_API_URL,
+  COURSE_CHANGE_REQUEST_API_URL,
   DELETE_ACCOUNT_API_URL,
   NICKNAME_CHECK_API_URL,
   UPDATE_PASSWORD_API_URL,
   USER_PROFILE_FORM_API_URL
 } from '@/common/constants';
 import {
+  CampusResponse,
   ManagerUpdateProfileRequest,
   RouteBaseError,
   UpdatePasswordRequest,
   UpdateProfileRequest,
-  UploadResponse,
   UserType
 } from '@/common/types';
 import axios from 'axios';
@@ -113,5 +115,36 @@ export const updateProfile = async (userType: UserType, data: UpdateProfileReque
     }
     console.error('프로필 수정 중 오류 발생:', error);
     throw new RouteBaseError(500, '프로필 수정 중 오류가 발생했습니다.');
+  }
+};
+
+export const getCampusesForLoader = async () => {
+  setUpAxios();
+  try {
+    const response = await axios.get<CampusResponse[]>(CAMPUS_LIST_API_URL);
+    return response.data;
+  } catch (error: any) {
+    const status = error.errorState || error.response?.status || 500;
+    const message =
+      error.data.message ||
+      error.response?.data?.message ||
+      '캠퍼스 정보를 가져오는 데 오류가 발생했습니다. 다시 시도해 주세요.';
+    throw new RouteBaseError(status, message);
+  }
+};
+
+export const courseChangeRequest = async (campusId: string, courseId: string) => {
+  try {
+    await axios.post(COURSE_CHANGE_REQUEST_API_URL(campusId, courseId));
+    return;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        const { code, message } = error.response.data;
+        throw new RouteBaseError(code, message);
+      }
+    }
+    console.error('강의 변경 중 오류 발생:', error);
+    throw new RouteBaseError(500, '강의 변경 처리 중 오류가 발생했습니다.');
   }
 };

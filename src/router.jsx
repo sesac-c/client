@@ -40,6 +40,7 @@ import AccountInfoPage, { loader as accountInfoLoader } from './common/pages/Set
 import RepliesPage from './common/pages/Archives/Replies';
 import LikesPage from './common/pages/Archives/Likes';
 import AccountDeletionPage from './common/pages/Settings/AccountDeletion';
+import ChangeCoursePage, { loader as changeCourseLoader } from './common/pages/Settings/ChangeCourse';
 
 const ProtectedRoute = ({ children, requiredRole }) => {
   // 접근 권한이 필요한 컴포넌트 미들웨어
@@ -121,6 +122,11 @@ const router = createBrowserRouter([
           {
             path: USER_SETTING_CHILDREN_PATH.accountDeletion,
             element: <AccountDeletionPage />
+          },
+          {
+            path: USER_SETTING_CHILDREN_PATH.courseChangeRequest,
+            element: <ChangeCoursePage />,
+            loader: changeCourseLoader
           }
         ]
       },

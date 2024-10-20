@@ -17,3 +17,5 @@ export const DELETE_ACCOUNT_MESSAGES = [
     '2.　　게시글 및 댓글, 팔로우/팔로워, 좋아요의 기록은 모두 삭제되며 그룹  활동의 기록도 모두  복구할 수 없습니다.',
     '위 유의 사항을 확인하였습니다.'
 ];
+
+export const CONFIRM_COURSE_CHANGE = '강의 변경을 신청하시겠습니까??';

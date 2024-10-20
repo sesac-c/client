@@ -32,6 +32,13 @@ export interface UpdateProfileForm {
   nickname: string;
   profileImage: string;
 }
+
+export interface CourseChangeRequestForm {
+  campusId: string;
+  courseId: string;
+  campusName: string;
+  courseName: string;
+}
 export interface UpdateProfileRequest {
   nickname?: string;
   profileImage?: string;

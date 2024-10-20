@@ -1,7 +1,14 @@
 import { HandleUpdateProfileFieldChange, UpdateProfileErrors } from '@/common/types';
 import { NICKNAME_FIELD_SETTING } from '@/common/utils';
-import { Box, Button, Stack, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import React, { ChangeEvent } from 'react';
+import ConfirmModal from '../../common/feedback/ConfirmModal';
+import {
+  COURSE_CHANGE_REQUEST_CONFIRM_MESSAGES,
+  USER_SETTING_CHILDREN_PATH,
+  USER_SETTING_PATH
+} from '@/common/constants';
+import { useModal } from '@/common/hooks';
 
 const DEFAULT_TEXTFIELD_SETTING = {
   color: 'success' as const,
@@ -57,6 +64,22 @@ export const CampusAndCourseFields: React.FC<{ campusName: string; courseName: s
   courseName,
   isCourseChanging
 }) => {
+  const { openModal, closeModal } = useModal(() => (
+    <ConfirmModal
+      title='캠퍼스 변경 신청'
+      confirmButtonText='신청'
+      onClose={closeModal}
+      onClick={() => {
+        closeModal();
+        window.location.href = `${USER_SETTING_PATH}/${USER_SETTING_CHILDREN_PATH.courseChangeRequest}`;
+      }}
+    >
+      {COURSE_CHANGE_REQUEST_CONFIRM_MESSAGES.map((message, index) => (
+        <p key={index}>{message}</p>
+      ))}
+    </ConfirmModal>
+  ));
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
       {/* 라벨과 버튼 컨테이너 */}
@@ -65,6 +88,7 @@ export const CampusAndCourseFields: React.FC<{ campusName: string; courseName: s
         <Button
           variant='text'
           disabled={isCourseChanging}
+          onClick={openModal}
           sx={{ color: 'green', textDecoration: 'underline', fontWeight: 550 }}
         >
           {isCourseChanging ? '강의 변경 신청 중' : '강의 변경 신청'}
