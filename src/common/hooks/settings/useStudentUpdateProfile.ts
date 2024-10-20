@@ -22,7 +22,7 @@ type InitialValue = {
   profileImage: string;
 };
 
-export const useUpdateProfile = (initialValue: InitialValue): UseUpdateProfileStateReturn => {
+export const useStudentUpdateProfile = (initialValue: InitialValue): UseUpdateProfileStateReturn => {
   const { setProfileImage } = useAuthStore();
   const resetState = {
     profileImage: '',
@@ -105,57 +105,61 @@ export const useUpdateProfile = (initialValue: InitialValue): UseUpdateProfileSt
     }
   };
 
-  const handleSubmit = useCallback(async () => {
-    let profileImage = state.profileImage;
-    try {
-      let isNickNameExist;
-      if (state.nickname && initialValue.nickname !== state.nickname) {
-        isNickNameExist = await checkNickname(state.nickname);
-      }
-      console.log('isNickNameExist1: ', isNickNameExist);
+  const validateAndCheckNickname = async (nickname: string): Promise<string | null> => {
+    if (nickname && initialValue.nickname !== nickname) {
+      const isNickNameExist = await checkNickname(nickname);
       if (isNickNameExist) {
-        setState(prevState => ({ ...prevState, errors: { ...state.errors, nickname: NicknameError.DUPLICATE } }));
-        return;
+        return NicknameError.DUPLICATE;
       }
-      const nicknameError = validateNickname(state.nickname);
+    }
+    return validateNickname(nickname);
+  };
+
+  const updateProfileImage = async (): Promise<string> => {
+    if (fileState) {
+      return (await handleImageUpload(fileState)) || '';
+    }
+    return state.profileImage;
+  };
+
+  const handleProfileUpdate = async (updateProfileData: UpdateProfileRequest) => {
+    await updateProfile(USER_TYPE.STUDENT, updateProfileData);
+    setProfileImage(updateProfileData.profileImage);
+
+    if (updateProfileData.removed && !fileState) {
+      await removeImage(initialState.profileImage);
+      setProfileImage(DEFAULT_PROFILE_IMAGE);
+    }
+  };
+
+  const handleSubmit = useCallback(async () => {
+    try {
+      const nicknameError = await validateAndCheckNickname(state.nickname);
       if (nicknameError) {
         setState(prevState => ({ ...prevState, errors: { ...state.errors, nickname: nicknameError } }));
         return;
       }
+
       setState(prevState => ({ ...prevState, isLoading: true }));
 
-      if (fileState) {
-        profileImage = (await handleImageUpload(fileState)) || '';
-      }
+      const profileImage = await updateProfileImage();
 
-      const removedProfileImageCondition = state.removed && !fileState;
       const updateProfileData: UpdateProfileRequest = {
         nickname: state.nickname,
         profileImage,
-        removed: removedProfileImageCondition
+        removed: state.removed && !fileState
       };
 
-      await updateProfile(USER_TYPE.STUDENT, updateProfileData);
-      setProfileImage(profileImage);
-      if (removedProfileImageCondition) {
-        removeImage(initialState.profileImage);
-        setProfileImage(DEFAULT_PROFILE_IMAGE);
-      }
+      await handleProfileUpdate(updateProfileData);
 
-      setState(prevState => ({
-        ...prevState,
-        isLoading: true
-      }));
+      setState(prevState => ({ ...prevState, isLoading: true }));
 
       timerRef.current = setTimeout(() => {
-        setState(prevState => ({
-          ...prevState,
-          isLoading: false
-        }));
+        setState(prevState => ({ ...prevState, isLoading: false }));
       }, 1000);
     } catch (error: any) {
       if (fileState) {
-        await removeImage(profileImage);
+        await removeImage(state.profileImage);
       }
       const message = error?.data?.message || '오류가 발생했습니다. 잠시 뒤 시도해주세요.';
       setState(prevState => ({
@@ -165,7 +169,7 @@ export const useUpdateProfile = (initialValue: InitialValue): UseUpdateProfileSt
         updateErrorMessage: message
       }));
     }
-  }, [state.nickname, fileState, state.removed, state.profileImage, navigate]);
+  }, [state.nickname, fileState, state.removed, state.profileImage, initialValue]);
 
   return {
     state,

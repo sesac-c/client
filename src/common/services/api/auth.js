@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { LOGIN_API_URL, REFRESH_API_URL, USER_INFO_API_URL } from '../../constants';
+import { RouteBaseError } from '@/common/types';
 
 
 const authRequest = {

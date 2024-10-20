@@ -180,6 +180,6 @@ export interface SettingsContentLayoutProps {
 }
 export type UserType = (typeof USER_TYPE)[keyof typeof USER_TYPE];
 
-export interface EditProfileFormProps extends ProfileFormResponse {
+export interface UpdateProfileFormProps extends ProfileFormResponse {
   userType: UserType;
 }

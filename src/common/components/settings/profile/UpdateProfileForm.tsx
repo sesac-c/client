@@ -9,7 +9,7 @@ import {
 import ProfileField from './ProfileField';
 import { CampusAndCourseFields, NicknameField } from './StudentProfileFields';
 
-export const ManagerEditProfileForm: React.FC<
+export const ManagerUpdateProfileForm: React.FC<
   ManagerProfileFormResponse & {
     onRemovedButtonClick: () => void;
     onFileChange: (file: File | null) => void;
@@ -26,7 +26,7 @@ export const ManagerEditProfileForm: React.FC<
   );
 };
 
-export const StudentEditProfileForm: React.FC<
+export const StudentUpdateProfileForm: React.FC<
   StudentProfileFormResponse & {
     onChange: HandleUpdateProfileFieldChange;
     onRemovedButtonClick: () => void;

@@ -30,10 +30,10 @@ import ManagerRootLayout from './manager/layouts/ManagerRoot';
 import PageLoadingSpinner from './common/components/common/UI/PageLoadingSpinner';
 import ResetPasswordPage, { loader as resetPasswordLoader } from './common/pages/Accounts/ResetPassword';
 import ProfilePage, { MyProfilePage, myProfileloader, loader as profileLoader } from './common/pages/Profile/Profile';
-import EditProfilePage, {
-  loader as editProfileLoader,
-  RedirectEditProfilePage
-} from './common/pages/Settings/EditProfile';
+import UpdateProfilePage, {
+  loader as updateProfileLoader,
+  RedirectUpdateProfilePage
+} from './common/pages/Settings/UpdateProfile';
 import SettingAndArchiveRoot from './common/layouts/SettingAndArchive';
 import UpdatePasswordPage from './common/pages/Settings/UpdatePassword';
 import AccountInfoPage, { loader as accountInfoLoader } from './common/pages/Settings/AccountInfo';
@@ -102,12 +102,12 @@ const router = createBrowserRouter([
         children: [
           {
             path: `${USER_SETTING_CHILDREN_PATH.profile}`,
-            element: <RedirectEditProfilePage />
+            element: <RedirectUpdateProfilePage />
           },
           {
             path: `${USER_SETTING_CHILDREN_PATH.profile}/:role`,
-            element: <EditProfilePage />,
-            loader: editProfileLoader
+            element: <UpdateProfilePage />,
+            loader: updateProfileLoader
           },
           {
             path: USER_SETTING_CHILDREN_PATH.updatePassword,

@@ -1,99 +1,36 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import SettingsContentLayout from '@/common/components/settings/layout/SettingsContent';
-import { ManagerEditProfileForm, StudentEditProfileForm } from '@/common/components/settings/profile/EditProfileForm';
-import { getUpdateProfileForm, updateProfile, uploadImage } from '@/common/services/api';
+import {
+  ManagerUpdateProfileForm,
+  StudentUpdateProfileForm
+} from '@/common/components/settings/profile/UpdateProfileForm';
+import { getUpdateProfileForm } from '@/common/services/api';
 import { LoaderFunctionArgs, Navigate, useLoaderData } from 'react-router-dom';
 import { USER_SETTING_CHILDREN_PATH, USER_SETTING_PATH, USER_TYPE } from '@/common/constants';
-import { EditProfileFormProps, ManagerProfileFormResponse, StudentProfileFormResponse } from '@/common/types';
+import { UpdateProfileFormProps, ManagerProfileFormResponse, StudentProfileFormResponse } from '@/common/types';
 import useAuthStore from '@/common/stores/authStore';
-import { useUpdateProfile } from '@/common/hooks/settings/useUpdateProfile';
+import { useStudentUpdateProfile } from '@/common/hooks/settings/useStudentUpdateProfile';
 import LoadingStatus from '@/common/components/settings/LoadingStatus';
 import ProcessErrorModal from '@/common/components/common/feedback/ProcessErrorModal';
+import { useManagerUpdateProfile } from '@/common/hooks/settings/useManagerUpdateProfile';
 
-export const RedirectEditProfilePage: React.FC = () => {
+export const RedirectUpdateProfilePage: React.FC = () => {
   const { role } = useAuthStore().user;
   return <Navigate to={`${USER_SETTING_PATH}/${USER_SETTING_CHILDREN_PATH.profile}/${role.toLowerCase()}`} replace />;
 };
 
-const ManagerEditProfilePage: React.FC<ManagerProfileFormResponse> = ({ profileImage: initialProfileImage }) => {
-  const [profileImage, setProfileImage] = useState(initialProfileImage);
-  const [removed, setRemoved] = useState(false);
-  const [isChange, setIsChange] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<{ isError: boolean; message: string }>({ isError: false, message: '' });
-  const [fileState, setFileState] = useState<File | null>(null);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-
-  const handleRemovedButtonClick = () => {
-    setRemoved(true);
-    setProfileImage('');
-    setFileState(null);
-    if (!isChange) {
-      setIsChange(true);
-    }
-  };
-
-  const handleChange = (field: string, value: string) => {
-    setProfileImage(value);
-    if (!isChange) {
-      setIsChange(true);
-    }
-  };
-
-  const onFileChange = (file: File | null) => {
-    setFileState(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-    if (!isChange) {
-      setIsChange(true);
-    }
-  };
-
-  const handleImageUpload = async (file: File) => {
-    try {
-      const response = await uploadImage(file);
-      const { data } = response;
-      if (!data || !data.length) return;
-
-      const [image] = data;
-      setProfileImage(`${image.uuid}_${image.fileName}`);
-    } catch (error) {
-      console.error('Image upload failed:', error);
-    }
-  };
-
-  const handleSubmit = async () => {
-    try {
-      setIsLoading(true);
-
-      let profileImageUrl = profileImage;
-
-      if (fileState) {
-        await handleImageUpload(fileState);
-      }
-
-      const updateProfileData = {
-        profileImage: profileImageUrl,
-        removed: removed
-      };
-
-      await updateProfile(USER_TYPE.MANAGER, updateProfileData);
-
-      timerRef.current = setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
-    } catch (error: any) {
-      const message = error?.data?.message || '오류가 발생했습니다. 잠시 뒤 시도해주세요.';
-      setError({ isError: true, message });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+const ManagerUpdateProfilePage: React.FC<ManagerProfileFormResponse> = ({ profileImage: initialProfileImage }) => {
+  const {
+    profileImage,
+    isChange,
+    isLoading,
+    error,
+    fileState,
+    handleRemovedButtonClick,
+    onFileChange,
+    handleSubmit,
+    setError
+  } = useManagerUpdateProfile(initialProfileImage);
 
   if (error.isError) {
     return (
@@ -112,7 +49,7 @@ const ManagerEditProfilePage: React.FC<ManagerProfileFormResponse> = ({ profileI
         isLoading ? (
           <LoadingStatus />
         ) : (
-          <ManagerEditProfileForm
+          <ManagerUpdateProfileForm
             profileImage={profileImage}
             onRemovedButtonClick={handleRemovedButtonClick}
             onFileChange={onFileChange}
@@ -127,7 +64,7 @@ const ManagerEditProfilePage: React.FC<ManagerProfileFormResponse> = ({ profileI
   );
 };
 
-const StudentEditProfilePage: React.FC<StudentProfileFormResponse> = ({
+const StudentUpdateProfilePage: React.FC<StudentProfileFormResponse> = ({
   nickname,
   profileImage,
   campusId,
@@ -145,7 +82,7 @@ const StudentEditProfilePage: React.FC<StudentProfileFormResponse> = ({
     handleSubmit,
     handleErrorModal,
     fileState
-  } = useUpdateProfile({
+  } = useStudentUpdateProfile({
     nickname,
     profileImage
   });
@@ -161,7 +98,7 @@ const StudentEditProfilePage: React.FC<StudentProfileFormResponse> = ({
         state.isLoading ? (
           <LoadingStatus />
         ) : (
-          <StudentEditProfileForm
+          <StudentUpdateProfileForm
             profileImage={state.profileImage}
             nickname={state.nickname}
             campusId={campusId}
@@ -184,7 +121,7 @@ const StudentEditProfilePage: React.FC<StudentProfileFormResponse> = ({
   );
 };
 
-const EditProfileFormPage: React.FC = () => {
+const UpdateProfileFormPage: React.FC = () => {
   const emptyData = {
     nickname: '',
     campusId: 0,
@@ -193,12 +130,12 @@ const EditProfileFormPage: React.FC = () => {
     courseName: '',
     isCourseChanging: false
   };
-  const data = useLoaderData() as EditProfileFormProps;
+  const data = useLoaderData() as UpdateProfileFormProps;
 
   return data.userType === USER_TYPE.STUDENT ? (
-    <StudentEditProfilePage {...{ ...emptyData, ...data }} />
+    <StudentUpdateProfilePage {...{ ...emptyData, ...data }} />
   ) : (
-    <ManagerEditProfilePage profileImage={data.profileImage} />
+    <ManagerUpdateProfilePage profileImage={data.profileImage} />
   );
 };
 
@@ -214,4 +151,4 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   }
 };
 
-export default EditProfileFormPage;
+export default UpdateProfileFormPage;
