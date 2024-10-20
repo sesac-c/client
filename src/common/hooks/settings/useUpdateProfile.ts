@@ -1,5 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import { NicknameError, USER_SETTING_CHILDREN_PATH, USER_SETTING_PATH, USER_TYPE } from '@/common/constants';
+import {
+  DEFAULT_PROFILE_IMAGE,
+  NicknameError,
+  USER_SETTING_CHILDREN_PATH,
+  USER_SETTING_PATH,
+  USER_TYPE
+} from '@/common/constants';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   UpdateProfileForm,
@@ -9,6 +15,7 @@ import {
 } from '@/common/types';
 import { validateNickname } from '@/common/utils';
 import { checkNickname, updateProfile, uploadImage, removeImage } from '@/common/services/api';
+import useAuthStore from '@/common/stores/authStore';
 
 type InitialValue = {
   nickname: string;
@@ -16,6 +23,7 @@ type InitialValue = {
 };
 
 export const useUpdateProfile = (initialValue: InitialValue): UseUpdateProfileStateReturn => {
+  const { setProfileImage } = useAuthStore();
   const resetState = {
     profileImage: '',
     nickname: '',
@@ -120,13 +128,19 @@ export const useUpdateProfile = (initialValue: InitialValue): UseUpdateProfileSt
         profileImage = (await handleImageUpload(fileState)) || '';
       }
 
+      const removedProfileImageCondition = state.removed && !fileState;
       const updateProfileData: UpdateProfileRequest = {
         nickname: state.nickname,
         profileImage,
-        removed: state.removed && !fileState
+        removed: removedProfileImageCondition
       };
 
       await updateProfile(USER_TYPE.STUDENT, updateProfileData);
+      setProfileImage(profileImage);
+      if (removedProfileImageCondition) {
+        removeImage(initialState.profileImage);
+        setProfileImage(DEFAULT_PROFILE_IMAGE);
+      }
 
       setState(prevState => ({
         ...prevState,

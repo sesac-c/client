@@ -5,8 +5,7 @@ import { ProfileHeaderProps } from '@/common/types';
 import { followUser, unfollowUser } from '@/common/services/api';
 import { FollowListButton, FollowingListButton } from './FollowList';
 import { useNavigate } from 'react-router-dom';
-import { USER_SETTING_CHILDREN_PATH, USER_SETTING_PATH } from '@/common/constants';
-import useAuthStore from '@/common/stores/authStore';
+import { IMAGE_API_URL, USER_SETTING_CHILDREN_PATH, USER_SETTING_PATH } from '@/common/constants';
 
 const MenuButton: React.FC = () => {
   const navigate = useNavigate();
@@ -120,10 +119,30 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ profileId, ...profile }) 
   return (
     <Box display='flex' flexDirection='column' alignItems='center' pt={9}>
       <Box position='relative'>
-        <Avatar
-          sx={{ width: 90, height: 90, bgcolor: 'white', padding: 1, boxShadow: 3 }}
-          src='/assets/images/default-profile.png'
-        />
+        <Box
+          sx={{
+            width: 100,
+            height: 100,
+            borderRadius: '50%',
+            border: '2px solid rgba(24,123,70,0.5)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '2px',
+            boxSizing: 'border-box',
+            bgcolor: '#f8fff6',
+            boxShadow: 5
+          }}
+        >
+          <Avatar
+            src={IMAGE_API_URL(profile.profileImage)}
+            alt='Uploaded Image'
+            sx={{
+              width: '100%',
+              height: '100%'
+            }}
+          />
+        </Box>
         {profile.isProfileMine ? (
           <MenuButton />
         ) : (

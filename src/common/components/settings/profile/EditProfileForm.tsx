@@ -11,17 +11,15 @@ import { CampusAndCourseFields, NicknameField } from './StudentProfileFields';
 
 export const ManagerEditProfileForm: React.FC<
   ManagerProfileFormResponse & {
-    onChange: HandleUpdateProfileFieldChange;
     onRemovedButtonClick: () => void;
     onFileChange: (file: File | null) => void;
     fileState: File | null;
   }
-> = ({ profileImage, onRemovedButtonClick, onChange, onFileChange, fileState }) => {
+> = ({ profileImage, onRemovedButtonClick, onFileChange, fileState }) => {
   return (
     <ProfileField
       profileImage={profileImage}
       onRemovedButtonClick={onRemovedButtonClick}
-      onChange={onChange}
       onFileChange={onFileChange}
       fileState={fileState}
     />
@@ -41,7 +39,6 @@ export const StudentEditProfileForm: React.FC<
     <Stack spacing={3}>
       <ProfileField
         profileImage={props.profileImage}
-        onChange={onChange}
         onRemovedButtonClick={onRemovedButtonClick}
         onFileChange={onFileChange}
         fileState={fileState}

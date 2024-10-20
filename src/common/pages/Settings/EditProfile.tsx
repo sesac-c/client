@@ -115,7 +115,6 @@ const ManagerEditProfilePage: React.FC<ManagerProfileFormResponse> = ({ profileI
           <ManagerEditProfileForm
             profileImage={profileImage}
             onRemovedButtonClick={handleRemovedButtonClick}
-            onChange={handleChange}
             onFileChange={onFileChange}
             fileState={fileState}
           />
@@ -204,6 +203,7 @@ const EditProfileFormPage: React.FC = () => {
 };
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
+  // todo: 접근 권한이 없는 역할이 접근했을 재 user/info로 setUser하기
   const { role } = params;
   const userType = role === USER_TYPE.STUDENT ? USER_TYPE.STUDENT : USER_TYPE.MANAGER;
   try {

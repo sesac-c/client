@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { formateDateTimeToKorean } from '@/common/utils';
 import ProfileImage from '@/common/components/common/layout/ProfileImage';
 import useMessageStore from '@/user/store/messageStore';
+import { IMAGE_API_URL } from '@/common/constants';
 
 const MessageList = ({ messageType }) => {
   const [messages, setMessages] = useState([]);
@@ -10,7 +11,7 @@ const MessageList = ({ messageType }) => {
   const { readMessage } = useMessageStore();
   const isReceived = () => messageType === 'received';
   const profileImage = profile => {
-    return `${process.env.REACT_APP_API_BASE_URL}view/${profile}`;
+    return IMAGE_API_URL(profile);
   };
 
   const load = async () => {

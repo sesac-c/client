@@ -3,7 +3,7 @@ import {
   FOLLOW_LIST_API_URL,
   FOLLOW_ROOT_API_URL,
   FOLLOWING_LIST_API_URL,
-  USER_INFO_API_URL,
+  USER_ID_API_URL,
   USER_PROFILE_API_URL
 } from '@/common/constants';
 import axios from 'axios';
@@ -30,10 +30,10 @@ export const getProfile = async (userId: string) => {
     throw new RouteBaseError(status || 500, message);
   }
 };
-export const getUserInfo = async () => {
+export const getUserId = async () => {
   setUpAxios();
   try {
-    const response = await axios.get(USER_INFO_API_URL);
+    const response = await axios.get(USER_ID_API_URL);
 
     const { data } = response;
     return data;

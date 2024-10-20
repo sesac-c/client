@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import ProfileImage from '@/common/components/common/layout/ProfileImage';
 import useNotificationStore from '@/user/store/notificationStore';
+import { IMAGE_API_URL } from '@/common/constants';
 
 const NotificationList = () => {
   const [notifications, setNotifications] = useState([]);
@@ -9,7 +10,7 @@ const NotificationList = () => {
 
   const { readNotification, content } = useNotificationStore();
   const profileImage = profile => {
-    return `${process.env.REACT_APP_API_BASE_URL}view/${profile}`;
+    return IMAGE_API_URL(profile);
   };
 
   const load = async () => {

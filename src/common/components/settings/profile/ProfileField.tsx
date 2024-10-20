@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, Button, Avatar } from '@mui/material';
-import { HandleUpdateProfileFieldChange } from '@/common/types';
+import { DEFAULT_PROFILE_IMAGE, IMAGE_API_URL } from '@/common/constants';
 
 const ProfileField: React.FC<{
   profileImage: string;
-  onChange: HandleUpdateProfileFieldChange;
   onRemovedButtonClick: () => void;
   onFileChange: (file: File | null) => void;
   fileState: File | null;
-}> = ({ profileImage, onChange, onRemovedButtonClick, onFileChange, fileState }) => {
-  const defaultImageName = 'default-profile.png';
-  const requestImageUrl = (image: string) => `${process.env.REACT_APP_API_BASE_URL}view/${image}`;
+}> = ({ profileImage, onRemovedButtonClick, onFileChange, fileState }) => {
+  const requestImageUrl = (image: string) => IMAGE_API_URL(image);
 
   const [isChange, setIsChange] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(requestImageUrl(profileImage));
 
-  const isDefaultProfileImage = profileImage === defaultImageName;
+  const isDefaultProfileImage = profileImage === DEFAULT_PROFILE_IMAGE;
 
   useEffect(() => {
     if (fileState) {
@@ -28,7 +26,7 @@ const ProfileField: React.FC<{
     } else if (profileImage) {
       setPreviewUrl(requestImageUrl(profileImage));
     } else {
-      setPreviewUrl(requestImageUrl(defaultImageName));
+      setPreviewUrl(requestImageUrl(DEFAULT_PROFILE_IMAGE));
     }
   }, [fileState, profileImage]);
 
@@ -90,7 +88,7 @@ const ProfileField: React.FC<{
           }}
         >
           <Avatar
-            src={previewUrl || requestImageUrl(defaultImageName)}
+            src={previewUrl || requestImageUrl(DEFAULT_PROFILE_IMAGE)}
             alt='Uploaded Image'
             sx={{
               width: '100%',
