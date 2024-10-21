@@ -9,11 +9,13 @@ const useAuthStore = create(
         (set, get) => ({
             isAuthenticated: false,
             user: null,
+            profileImage: null,
 
             setUser: (user) => set({ isAuthenticated: true, user }),
+            setProfileImage: (profileImage) => set({ profileImage }),
             resetUser: () => {
                 TokenUtil.clearTokens();
-                set({ isAuthenticated: false, user: null });
+                set({ isAuthenticated: false, user: null, profileImage: null });
             },
             login: async (email, password) => {
                 try {
@@ -21,7 +23,8 @@ const useAuthStore = create(
                     TokenUtil.setTokens(accessToken, refreshToken);
                     set({
                         isAuthenticated: true,
-                        user: { nickname, role, profileImage }
+                        user: { nickname, role },
+                        profileImage
                     });
                     return { success: true, user: { nickname, role } };
                 } catch (error) {
@@ -40,7 +43,8 @@ const useAuthStore = create(
                         accessToken: newAccessToken,
                         refreshToken: newRefreshToken,
                         nickname: newNickname,
-                        role: newRole
+                        role: newRole,
+                        profileImage: newProfileImage
                     } = await authRequest.refreshToken(accessToken, refreshToken);
 
                     TokenUtil.setTokens(newAccessToken, newRefreshToken);
@@ -50,7 +54,8 @@ const useAuthStore = create(
                         user: {
                             nickname: newNickname,
                             role: newRole
-                        }
+                        },
+                        profileImage: newProfileImage
                     });
                     return true;
                 } catch (error) {
@@ -59,6 +64,20 @@ const useAuthStore = create(
                     return false;
                 }
             },
+            fetchUserInfo: async () => {
+                try {
+                    const { nickname, role, profileImage } = await authRequest.getUserInfo();
+
+                    set({
+                        user: { nickname, role },
+                        profileImage
+                    });
+                    return true;
+                } catch (error) {
+                    console.error('유저 정보 로드 중 오류: ', error);
+                    return false;
+                }
+            }
         }),
         {
             name: USER_KEY,

@@ -19,14 +19,36 @@ import {
     USERNAME_NAME,
     REPLY_NAME,
     TITLE_NAME,
-    CONTENT_NAME
+    CONTENT_NAME,
+    NICKNAME_NAME,
+    NicknameError,
+    NICKNAME_VALID_PATTERN_REGEX
 } from '../constants';
 
 // Form Validations
+
+const validateStringField = (value, minLength, maxLength) => {
+    return value.trim().length >= minLength && value.trim().length <= maxLength;
+};
+
+const isEmptyField = (value) => {
+    return value.trim().length === 0;
+};
+
+export const isNumber = (number) => {
+    const parsedNumber = Number(number);
+
+    if (isNaN(parsedNumber) || parsedNumber <= 0) {
+        throw false;
+    }
+
+    return true;
+};
+
 export const validateName = (name) => {
-    if (!name.trim()) return ERROR_NAME_REQUIRED;
+    if (isEmptyField(name)) return ERROR_NAME_REQUIRED;
     if (!NAME_REGEX.test(name)) return ERROR_NAME_INVALID;
-    if (name.length < 2 || name.length > 5) return ERROR_NAME_LENGTH;
+    if (!validateStringField(name, 2, 5)) return ERROR_NAME_LENGTH;
     return '';
 };
 
@@ -48,8 +70,8 @@ function isLeapYear(year) {
 }
 
 export const validateBirthdate = (birthdate, gender) => {
-    if (!birthdate) return ERROR_BIRTHDATE_REQUIRED;
-    if (!gender) return ERROR_GENDER_REQUIRED;
+    if (isEmptyField(birthdate)) return ERROR_BIRTHDATE_REQUIRED;
+    if (isEmptyField(gender)) return ERROR_GENDER_REQUIRED;
     if (!NUMBER_REGEX.test(birthdate) || !NUMBER_REGEX.test(gender)) return ERROR_NUMBER_ONLY;
     if (!BIRTHDATE_REGEX.test(birthdate)) return ERROR_BIRTHDATE_FORMAT;
 
@@ -66,7 +88,7 @@ export const validateBirthdate = (birthdate, gender) => {
 };
 
 export const validateEmail = async (email) => {
-    if (!email) return ERROR_EMAIL_REQUIRED;
+    if (isEmptyField(email)) return ERROR_EMAIL_REQUIRED;
     if (!EMAIL_REGEX.test(email)) return ERROR_EMAIL_INVALID;
 
     const emailExists = await checkEmailExists(email);
@@ -75,46 +97,36 @@ export const validateEmail = async (email) => {
     return '';
 };
 
-export const isNumber = (number) => {
-    const parsedNumber = Number(number);
-
-    if (isNaN(parsedNumber) || parsedNumber <= 0) {
-        throw false;
-    }
-
-    return true;
-};
-
 export const validatePassword = (password) => {
-    if (!password) return ERROR_PASSWORD_REQUIRED;
-    if (password.length < 8 || password.length > 20) return ERROR_PASSWORD_LENGTH;
+    if (isEmptyField(password)) return ERROR_PASSWORD_REQUIRED;
+    if (!validateStringField(password, 8, 20)) return ERROR_PASSWORD_LENGTH;
     if (!PASSWORD_REGEX.test(password)) return ERROR_PASSWORD_INVALID;
     return '';
 };
 
 export const validateConfirmPassword = (password, confirmPassword) => {
-    if (!confirmPassword) return ERROR_CONFIRM_PASSWORD_REQUIRED;
+    if (isEmptyField(confirmPassword)) return ERROR_CONFIRM_PASSWORD_REQUIRED;
     if (password !== confirmPassword) return ERROR_PASSWORD_MISMATCH;
     return '';
 };
 
 export const validateCampus = (campus) => {
-    return campus ? '' : ERROR_CAMPUS_REQUIRED;
+    return !isEmptyField(campus) ? '' : ERROR_CAMPUS_REQUIRED;
 };
 
 export const validateCourse = (course) => {
-    return course ? '' : ERROR_COURSE_REQUIRED;
+    return !isEmptyField(course) ? '' : ERROR_COURSE_REQUIRED;
 };
 
 export const validateFindPasswordForm = (formData, step) => {
     const errors = {};
 
     if (step === 'EMAIL') {
-        if (!formData.email) {
+        if (isEmptyField(formData.email)) {
             errors.email = ERROR_EMAIL_REQUIRED;
         }
     } else if (step === 'CODE') {
-        if (!formData.verificationCode) {
+        if (isEmptyField(formData.verificationCode)) {
             errors.verificationCode = ERROR_VERIFICATION_CODE_REQUIRED;
         }
     }
@@ -157,6 +169,19 @@ export const validateSignupForm = async (formData, currentStep) => {
 };
 
 
+export const validateNickname = (nickname) => {
+    if (isEmptyField(nickname)) return NicknameError.REQUIRED;
+    if (!validateStringField(nickname, 2, 10)) return NicknameError.INVALID_LENGTH;
+    if (!NICKNAME_VALID_PATTERN_REGEX.test(nickname)) return NicknameError.INVALID_PATTERN
+    try {
+        isNumber(nickname)
+        return NicknameError.INVALID_COMBINATION;
+    } catch {
+    }
+
+    return '';
+};
+
 export const DEFAULT_TEXTFIELD_SETTING = {
     color: 'success',
     margin: 'dense',
@@ -187,6 +212,7 @@ const filedSet = (name, label, placeholder, required) => {
  */
 
 export const NAME_FIELD_SETTING = filedSet(NAME_NAME, '이름', '한글로 구성된 1~5자 이름 입력', true);
+export const NICKNAME_FIELD_SETTING = filedSet(NICKNAME_NAME, '닉네임', '한글, 또는 한글과 숫자로 구성된 1~10자 입력', true);
 export const BIRTHDATE_FIELD_SETTING = { ...filedSet(BIRTHDATE_NAME, '주민번호 7자리', 'yyyymmdd', true), fullWidth: false };
 export const GENDER_FIELD_SETTING = { ...filedSet(GENDER_NAME, '', '', true), fullWidth: false };
 export const EMAIL_FIELD_SETTING = { ...filedSet(EMAIL_NAME, '이메일', 'example@example.com', true), type: 'email' };

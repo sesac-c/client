@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import { GENERAL_MODAL, PAGE_MODAL, WRITE_MODAL } from '../constants';
+import { ReactElement, ReactNode } from 'react';
+import { ARCHIVE_TYPE, GENERAL_MODAL, PAGE_MODAL, USER_TYPE, WRITE_MODAL } from '../constants';
 import { ResetPasswordField, ResetPasswordState } from './findPassword';
-import { FollowResponse, UserPostResponse } from './response';
+import { FollowResponse, ProfileFormResponse, UserPostResponse } from './response';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
 export type ButtonSize = 'small' | 'medium' | 'large';
@@ -49,6 +49,11 @@ export interface ModalProps extends BaseModalProps {
 }
 export interface ProcessErrorModalProps extends BaseModalProps {
   content?: string;
+}
+export interface ConfirmModalProps extends BaseModalProps {
+  children: ReactNode;
+  confirmButtonText?: string;
+  onClick: () => void;
 }
 
 export interface ProcessSuccessModalProps extends BaseModalProps {
@@ -124,10 +129,12 @@ export interface ProfileLayoutProps {
   header: ProfileLayoutHeaderProps;
   children: React.ReactNode;
 }
+export type ArchiveType = (typeof ARCHIVE_TYPE)[keyof typeof ARCHIVE_TYPE];
 
 export interface PostGridProps {
   posts: UserPostResponse[];
-  profileId: number;
+  archiveType: ArchiveType;
+  profileId?: number;
   onIsModalClose: (isModalClose: boolean) => void;
 }
 
@@ -167,4 +174,17 @@ export interface FollowListButtonProps {
 
 export interface FollowingListButtonProps extends FollowListButtonProps {
   isProfileMine: boolean;
+}
+
+export interface SettingsContentLayoutProps {
+  title: string;
+  form: ReactElement;
+  buttonText?: string;
+  onSubmit: FormSubmitHandler;
+  isButtonDisabled: boolean;
+}
+export type UserType = (typeof USER_TYPE)[keyof typeof USER_TYPE];
+
+export interface UpdateProfileFormProps extends ProfileFormResponse {
+  userType: UserType;
 }

@@ -5,7 +5,9 @@ import {
   MANAGER_FEEDS_PATH,
   MANAGER_COURSE_PATH,
   MANAGER_RUNNINGMATE_PATH,
-  MANAGER_RESTAURANT_PATH
+  MANAGER_RESTAURANT_PATH,
+  USER_SETTING_PATH,
+  USER_SETTING_CHILDREN_PATH
 } from '@/common/constants';
 
 import {
@@ -96,6 +98,6 @@ export const menuItems: MenuItemWithChildren[] = [
 ];
 
 export const bottomMenuItems: BottomButtonGroupMenuItem[] = [
-  { title: '설정', icon: 'setting', path: '/settings' },
+  { title: '설정', icon: 'setting', path: `${USER_SETTING_PATH}/${USER_SETTING_CHILDREN_PATH.profile}` },
   { title: '쪽지함', icon: 'message', path: '/messages' }
 ];

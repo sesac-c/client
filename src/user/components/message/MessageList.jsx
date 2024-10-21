@@ -3,15 +3,13 @@ import { useEffect, useState } from 'react';
 import { formateDateTimeToKorean } from '@/common/utils';
 import ProfileImage from '@/common/components/common/layout/ProfileImage';
 import useMessageStore from '@/user/store/messageStore';
+import { IMAGE_API_URL } from '@/common/constants';
 
 const MessageList = ({ messageType }) => {
   const [messages, setMessages] = useState([]);
   const [newCount, setNewCount] = useState(0);
   const { readMessage } = useMessageStore();
   const isReceived = () => messageType === 'received';
-  const profileImage = profile => {
-    return `${process.env.REACT_APP_API_BASE_URL}view/${profile}`;
-  };
 
   const load = async () => {
     try {
@@ -46,7 +44,7 @@ const MessageList = ({ messageType }) => {
         >
           <div className='user-list__profile-image'>
             <ProfileImage
-              image={isReceived() ? profileImage(message.receiverProfile) : profileImage(message.senderProfile)}
+              image={isReceived() ? IMAGE_API_URL(message.receiverProfile) : IMAGE_API_URL(message.senderProfile)}
               hasShadow={false}
             />
           </div>

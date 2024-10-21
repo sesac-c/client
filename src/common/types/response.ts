@@ -36,3 +36,36 @@ export interface FollowResponse {
   isFollowing: boolean;
   isThisMe: boolean;
 }
+export interface AccountInfoResponse {
+  name?: string;
+  campusName?: string;
+  email: string;
+  birthdate?: string;
+}
+
+type OnButtonDisabled = (condition: boolean) => void;
+export interface ManagerProfileFormResponse {
+  profileImage: string;
+}
+export interface ProfileFormResponse extends ManagerProfileFormResponse {
+  nickname?: string;
+  campusId?: number;
+  campusName?: string;
+  courseId?: number;
+  courseName?: string;
+  isCourseChanging?: boolean;
+}
+export type StudentProfileFormResponse = Required<ProfileFormResponse>;
+
+interface ImageData {
+  uuid: string;
+  fileName: string;
+  link: string;
+}
+
+export interface UploadResponse {
+  data: ImageData[];
+}
+export interface RemoveResponse {
+  result: boolean;
+}

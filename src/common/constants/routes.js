@@ -33,9 +33,40 @@ export const ACCOUNT_CHILDREN_PATH = {
   resetPassword: 'reset/password'
 };
 export const PROFILE_PATH = '/profile';
-export const PROFILECHILDREN_PATH = {
+export const PROFILE_CHILDREN_PATH = {
 
 };
+
+export const USER_SETTING_AND_ARCHIVE_PATH = '/user';
+export const USER_SETTING_AND_ARCHIVE_CHILDREN_PATH = {
+  settings: 'settings',
+  archive: 'archive'
+};
+
+export const USER_SETTING_PATH = `/user/${USER_SETTING_AND_ARCHIVE_CHILDREN_PATH.settings}`;
+export const USER_SETTING_CHILDREN_PATH = {
+  profile: 'profile',
+  updatePassword: 'update-password',
+  accountInfo: 'account-info',
+  accountDeletion: 'account-deletion',
+  courseChangeRequest: 'change-course',
+};
+export const USER_ARCHIVE_PATH = `/user/${USER_SETTING_AND_ARCHIVE_CHILDREN_PATH.archive}`;
+export const USER_ARCHIVE_CHILDREN_PATH = {
+  likes: 'likes',
+  replies: 'replies',
+};
+
+export const settings = [
+  { name: '프로필 수정', to: `${USER_SETTING_PATH}/${USER_SETTING_CHILDREN_PATH.profile}` },
+  { name: '비밀번호 변경', to: `${USER_SETTING_PATH}/${USER_SETTING_CHILDREN_PATH.updatePassword}` },
+  { name: '계정 정보', to: `${USER_SETTING_PATH}/${USER_SETTING_CHILDREN_PATH.accountInfo}` }
+];
+
+export const archives = [
+  { name: '좋아요', to: `${USER_ARCHIVE_PATH}/${USER_ARCHIVE_CHILDREN_PATH.likes}` },
+  { name: '내가 쓴 댓글', to: `${USER_ARCHIVE_PATH}/${USER_ARCHIVE_CHILDREN_PATH.replies}` }
+];
 
 export const LOGIN_PATH = `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.login}`;
 export const SIGNUP_PATH = `${ACCOUNTS_PATH}/${ACCOUNT_CHILDREN_PATH.signup}`;

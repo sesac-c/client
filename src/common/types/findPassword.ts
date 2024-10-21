@@ -35,7 +35,6 @@ export interface UseFindPasswordStateReturn {
   handleButtonClick: () => void;
   isButtonDisabled: () => boolean;
 }
-
 export interface UseResetPasswordStateReturn {
   state: ResetPasswordState;
   handleChange: (field: ResetPasswordField, value: string) => void;
@@ -44,6 +43,7 @@ export interface UseResetPasswordStateReturn {
   handleSuccessModal: () => void;
   handleErrorModal: () => void;
 }
+
 export interface FindPasswordContentProps {
   title: string;
   state: FindPasswordState;

@@ -1,34 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { Typography, Container, Paper, Skeleton, Stack } from '@mui/material';
 import Grid2 from '@mui/material/Grid2';
-import { PostGridProps, UserPostResponse } from '@/common/types';
-import { getUserPosts } from '@/common/services/api/profile';
-import { FEED_TYPE, POST_TYPE } from '@/common/constants';
-import DetailModal from '@/user/components/feed/detail/DetailModal';
+import { ArchiveType, PostGridProps, UserPostResponse } from '@/common/types';
+import { FEED_TYPE, POST_TYPE, ARCHIVE_TYPE, IMAGE_API_URL } from '@/common/constants';
+import { getUserPosts, getUserLikePosts, getUserReplyPosts } from '@/common/services/api';
+
+const DetailModal = lazy(() => import('@/user/components/feed/detail/DetailModal'));
 
 const PostWrapper: React.FC<{
   children: React.ReactNode;
   category: typeof POST_TYPE;
   feedId: number;
-  profileId: number;
+  archiveType: ArchiveType;
+  profileId?: number;
   onIsModalClose: (isModalClose: boolean) => void;
-}> = ({ children, category, feedId, profileId, onIsModalClose }) => {
+}> = ({ children, category, feedId, archiveType, profileId, onIsModalClose }) => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleOpenModal = (event: React.MouseEvent) => {
-    event.stopPropagation(); // 이벤트 버블링 차단
+    event.stopPropagation();
     setModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    console.log('handleCloseModal');
     setModalOpen(false);
+    onIsModalClose(true);
   };
 
   return (
     <Paper
       component='div'
-      onClick={handleOpenModal} // Paper 클릭 시 모달 열림
+      onClick={handleOpenModal}
       elevation={3}
       sx={{
         aspectRatio: '1/1',
@@ -40,11 +42,9 @@ const PostWrapper: React.FC<{
         cursor: 'pointer',
         position: 'relative',
         transition: 'background-color 0.3s ease',
-
         '&:hover': {
           bgcolor: 'grey.200'
         },
-
         '&:hover img': {
           opacity: 0.85,
           transform: 'scale(1.05)',
@@ -53,23 +53,32 @@ const PostWrapper: React.FC<{
       }}
     >
       {children}
-      <DetailModal
-        open={isModalOpen}
-        onClose={handleCloseModal}
-        feedId={feedId}
-        feedType={FEED_TYPE.POST}
-        category={category}
-        profileId={profileId}
-        onIsModalClose={onIsModalClose}
-      />
+      {isModalOpen && (
+        <Suspense fallback={<div>Loading...</div>}>
+          <DetailModal
+            open={isModalOpen}
+            onClose={handleCloseModal}
+            feedId={feedId}
+            feedType={FEED_TYPE.POST}
+            category={category}
+            archiveType={archiveType}
+            profileId={profileId}
+            onIsModalClose={onIsModalClose}
+          />
+        </Suspense>
+      )}
     </Paper>
   );
 };
 
-export const PostGridSkeleton: React.FC<{ itemCount?: number }> = ({ itemCount = 12 }) => (
+export const PostGridSkeleton: React.FC<{ archiveType: ArchiveType; itemCount?: number }> = ({
+  archiveType,
+  itemCount = 12
+}) => (
   <Container
     disableGutters
     sx={{
+      margin: archiveType === ARCHIVE_TYPE.POST ? undefined : 0,
       minHeight: 'calc(100vh - 380px)',
       padding: 1
     }}
@@ -93,12 +102,14 @@ export const PostGridSkeleton: React.FC<{ itemCount?: number }> = ({ itemCount =
   </Container>
 );
 
-const PostGrid: React.FC<PostGridProps> = ({ posts, profileId, onIsModalClose }) => {
+const PostGrid: React.FC<PostGridProps> = ({ posts, archiveType, profileId, onIsModalClose }) => {
+  const isPostArchive = archiveType === ARCHIVE_TYPE.POST;
   return (
     <Container
       disableGutters
       sx={{
-        maxHeight: 'calc(100vh - 380px)',
+        margin: isPostArchive ? undefined : 0,
+        maxHeight: `calc(100vh - ${isPostArchive ? '380' : '200'}px)`,
         overflowY: 'auto',
         '&::-webkit-scrollbar': {
           width: '8px'
@@ -126,12 +137,13 @@ const PostGrid: React.FC<PostGridProps> = ({ posts, profileId, onIsModalClose })
               <PostWrapper
                 category={post.postType}
                 feedId={post.id}
+                archiveType={archiveType}
                 profileId={profileId}
                 onIsModalClose={onIsModalClose}
               >
                 {post.image ? (
                   <img
-                    src={`${process.env.REACT_APP_API_BASE_URL}view/${post.image}`}
+                    src={IMAGE_API_URL(post.image)}
                     loading='lazy'
                     style={{
                       width: '100%',
@@ -163,16 +175,35 @@ const PostGrid: React.FC<PostGridProps> = ({ posts, profileId, onIsModalClose })
   );
 };
 
-const PostGridContainer: React.FC<{ profileId: number }> = ({ profileId }) => {
+const getFetchFunction = (archiveType: ArchiveType, profileId?: number) => {
+  switch (archiveType) {
+    case ARCHIVE_TYPE.POST:
+      if (profileId) {
+        return () => getUserPosts(profileId);
+      } else {
+        return undefined;
+      }
+    case ARCHIVE_TYPE.LIKES:
+      return getUserLikePosts;
+    case ARCHIVE_TYPE.REPLY:
+      return getUserReplyPosts;
+  }
+};
+
+const PostGridContainer: React.FC<{ archiveType?: ArchiveType; profileId?: number }> = ({
+  archiveType = ARCHIVE_TYPE.POST,
+  profileId
+}) => {
   const [isPostLoading, setIsPostLoading] = useState(true);
   const [posts, setPosts] = useState<UserPostResponse[]>([]);
-  const [isModalClose, setIsModalClose] = useState(false);
+  const fetchFunction = getFetchFunction(archiveType, profileId);
+
   const fetchPosts = async () => {
     let timer: NodeJS.Timeout;
     try {
       setIsPostLoading(true);
-      const fetchedPosts = await getUserPosts(profileId);
-      setPosts(fetchedPosts);
+      const fetchedPosts = fetchFunction && (await fetchFunction());
+      setPosts(fetchedPosts || []);
       timer = setTimeout(() => setIsPostLoading(false), 800);
     } catch (error) {
       console.error('게시물 로딩 중 오류 발생:', error);
@@ -186,17 +217,16 @@ const PostGridContainer: React.FC<{ profileId: number }> = ({ profileId }) => {
     fetchPosts();
   }, [profileId]);
 
-  useEffect(() => {
+  const handleModalClose = (isModalClose: boolean) => {
     if (isModalClose) {
       fetchPosts();
-      setIsModalClose(false);
     }
-  }, [isModalClose]);
+  };
 
   return isPostLoading ? (
-    <PostGridSkeleton itemCount={3} />
+    <PostGridSkeleton archiveType={archiveType} itemCount={3} />
   ) : (
-    <PostGrid posts={posts} profileId={profileId} onIsModalClose={setIsModalClose} />
+    <PostGrid posts={posts} archiveType={archiveType} profileId={profileId} onIsModalClose={handleModalClose} />
   );
 };
 

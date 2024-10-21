@@ -1,9 +1,9 @@
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { BellIcon, EnvelopeIcon } from '@heroicons/react/20/solid';
-
 import ProfileImage from '@/common/components/common/layout/ProfileImage';
-import { PROFILE_PATH } from '@/common/constants';
+import { IMAGE_API_URL, PROFILE_PATH } from '@/common/constants';
 import useAuthStore from '@/common/stores/authStore';
 import { useModal } from '@/common/hooks';
 import MessageModal from '@/user/components/message/MessageModal';
@@ -12,9 +12,25 @@ import NotificationModal from '@/user/components/notification/NotificationModal'
 const UserMenu = () => {
   const iconClasses = 'user-menu-icon w-6 h-6 text-white';
   const navigate = useNavigate();
+  const { profileImage, fetchUserInfo } = useAuthStore();
+  const [profileImageLink, setProfileImageLink] = useState(null);
 
-  const { user } = useAuthStore();
-  const profileImage = `${process.env.REACT_APP_API_BASE_URL}view/${user?.profileImage}`;
+  useEffect(() => {
+    const loadUserInfo = async () => {
+      if (!profileImage) {
+        console.log('프로필 이미지가 없음');
+        await fetchUserInfo();
+      }
+    };
+
+    loadUserInfo();
+  }, [profileImage, fetchUserInfo]);
+
+  useEffect(() => {
+    if (profileImage) {
+      setProfileImageLink(IMAGE_API_URL(profileImage));
+    }
+  }, [profileImage]);
 
   const { openModal: openMessage, closeModal: closeMessage } = useModal(() => <MessageModal onClose={closeMessage} />);
   const { openModal: openNotification, closeModal: closeNotification } = useModal(() => (
@@ -37,7 +53,7 @@ const UserMenu = () => {
           </li>
           <li className='user-menu-item profile'>
             <button className='user-menu-link' onClick={() => navigate(PROFILE_PATH)}>
-              <ProfileImage className='profile-image' image={profileImage} />
+              <ProfileImage className='profile-image' image={profileImageLink} />
             </button>
           </li>
         </ul>

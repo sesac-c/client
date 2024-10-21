@@ -5,7 +5,7 @@ import ReplyList from '../reply/ReplyList';
 import { Content, Image } from './Content';
 import LikeButton from './LikeButton';
 import Author from './Author';
-import { PROFILE_PATH } from '@/common/constants';
+import { ARCHIVE_TYPE, PROFILE_PATH, USER_ARCHIVE_CHILDREN_PATH, USER_ARCHIVE_PATH } from '@/common/constants';
 import { useFeedDetail } from '@/user/hooks/useFeedDetail';
 import { DialogsProvider } from '@toolpad/core';
 import { IconButton, Tooltip, List, ListItem, ListItemButton, ListItemText, Dialog } from '@mui/material';
@@ -49,8 +49,11 @@ const AddTooltip = ({ detailPath }) => {
 };
 
 const DetailModal = ({ onClose, open = true, ...props }) => {
-  const { onIsModalClose, feedId, feedType, category, profileId } = props;
-  const backPagePath = `${PROFILE_PATH}/${profileId}`;
+  const { onIsModalClose, feedId, feedType, category, archiveType, profileId } = props;
+  const backPagePath =
+    profileId === undefined
+      ? `${PROFILE_PATH}/${profileId}`
+      : `${USER_ARCHIVE_PATH}/${archiveType === ARCHIVE_TYPE.LIKES ? USER_ARCHIVE_CHILDREN_PATH.likes : USER_ARCHIVE_CHILDREN_PATH.replies}`;
 
   const { feed, isReplyUpdate, isLoading, isUpdating, apiUrl, imageUrl, handleReplyUpdate } = useFeedDetail(
     feedId,

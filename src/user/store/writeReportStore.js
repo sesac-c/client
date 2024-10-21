@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { removeImage, uploadImage } from '../services/api/posts';
+import { IMAGE_API_URL } from '@/common/constants';
 
 const useWriteReportStore = create((set, get) => ({
   achievementSummary: '',
@@ -50,7 +51,7 @@ const useWriteReportStore = create((set, get) => ({
       photo: null
     }),
 
-  getPhoto: () => `${process.env.REACT_APP_API_BASE_URL}view/${get().photo}`
+  getPhoto: () => IMAGE_API_URL(get().photo)
 }));
 
 export default useWriteReportStore;

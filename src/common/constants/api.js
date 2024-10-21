@@ -26,6 +26,15 @@ export const FEED_TYPE = {
     POST: 'post',
     NOTICE: 'notice'
 }
+export const ARCHIVE_TYPE = {
+    POST: 'post',
+    LIKES: 'likes',
+    REPLY: 'reply',
+}
+export const USER_TYPE = {
+    STUDENT: 'student',
+    MANAGER: 'manager'
+}
 
 export const FEED_ROOT_API_URL = (feedType, category) => `${feedType}s/${(feedType === FEED_TYPE.NOTICE && category === NOTICE_TYPE.CAMPUS) ? 'all' : category}`;
 export const IMAGE_UPLOAD_API_URL = `${process.env.REACT_APP_API_BASE_URL}view`;
@@ -33,16 +42,28 @@ export const ACCOUNTS_EMAIL_CHECK_API_URL = 'accounts/signup/check-email'
 export const CAMPUS_LIST_API_URL = MANAGER_CAMPUS_LIST_API_URL;
 export const COURSE_LIST_API_URL = (campusId) => `campuses/${campusId}/courses`;
 export const SIGNUP_API_URL = 'accounts';
+export const DELETE_ACCOUNT_API_URL = SIGNUP_API_URL;
 export const CHECK_EMAIL_AND_SEND_CODE_API_URL = 'accounts/find-password';
 export const VERIFY_CODE_API_URL = 'accounts/find-password/verify-code';
 export const VERIFY_PASSWORD_RESET_PAGE_UUID_API_URL = 'accounts/reset-password/verify-uuid';
 export const RESET_PASSWORD_API_URL = 'accounts/reset-password';
 
 export const USER_PROFILE_API_URL = (useId) => `user/${useId}/profiles`;
+export const USER_PROFILE_FORM_API_URL = (userType) => `user/${userType}/profiles`;
+export const USER_ID_API_URL = 'user/id';
 export const USER_INFO_API_URL = 'user/info';
+export const UPDATE_PASSWORD_API_URL = 'user/update-password';
+export const ACCOUNT_INFO_API_URL = 'user/account-info';
+export const COURSE_CHANGE_REQUEST_API_URL = (campusId, courseId) => `user/campus/${campusId}/course/${courseId}`;
 export const USER_POSTS_API_URL = (useId) => `user/${useId}/posts`;
+export const USER_LIKE_POSTS_API_URL = 'user/likes';
+export const USER_REPLY_POSTS_API_URL = 'user/replies';
 
+export const NICKNAME_CHECK_API_URL = 'user/check-nickname';
 
 export const FOLLOW_ROOT_API_URL = (userId) => `user/${userId}/follow`;
 export const FOLLOW_LIST_API_URL = (userId) => `user/${userId}/follows`;
 export const FOLLOWING_LIST_API_URL = (userId) => `user/${userId}/followers`;
+
+export const IMAGE_API_URL = profileImage => `${process.env.REACT_APP_API_BASE_URL}view/${profileImage}`;
+export const DEFAULT_PROFILE_IMAGE = 'default-profile.png';

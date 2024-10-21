@@ -2,7 +2,7 @@ import React from 'react';
 import { ProfileLayout } from '@/common/layouts/Profile';
 import ProfileContent from '@/common/components/profile/ProfileContent';
 import { LoaderFunctionArgs, Navigate, Outlet, redirect, useLoaderData, useParams } from 'react-router-dom';
-import { getProfile, getUserInfo } from '@/common/services/api/profile';
+import { getProfile, getUserId } from '@/common/services/api';
 import { ProfileResponse } from '@/common/types';
 import { PROFILE_PATH } from '@/common/constants';
 
@@ -40,7 +40,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 };
 export const myProfileloader = async () => {
   try {
-    const fetchedUserInfo = await getUserInfo();
+    const fetchedUserInfo = await getUserId();
     return { user: fetchedUserInfo };
   } catch (error) {
     console.error('프로필 로딩 중 오류 발생:', error);

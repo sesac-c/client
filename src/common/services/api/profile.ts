@@ -1,31 +1,14 @@
-import { FollowResponse, RouteBaseError, UserPostResponse } from '@/common/types';
+import { FollowResponse, RouteBaseError } from '@/common/types';
 import {
   FOLLOW_LIST_API_URL,
   FOLLOW_ROOT_API_URL,
   FOLLOWING_LIST_API_URL,
-  USER_INFO_API_URL,
-  USER_POSTS_API_URL,
+  USER_ID_API_URL,
   USER_PROFILE_API_URL
 } from '@/common/constants';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { isNumber } from '@/common/utils';
 import { setUpAxios } from '../axios/setupAuth';
-
-export const getUserPosts = async (userId: number): Promise<UserPostResponse[]> => {
-  try {
-    const response = await axios.get<UserPostResponse[]>(USER_POSTS_API_URL(userId));
-    return response.data;
-  } catch (error) {
-    console.error('사용자 게시물 로딩 중 오류 발생:', error);
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      if (axiosError.response?.status === 404) {
-        throw new Error('사용자 게시물을 찾을 수 없습니다.');
-      }
-    }
-    throw new Error('사용자 게시물을 가져오는 데 실패했습니다.');
-  }
-};
 
 export const getProfile = async (userId: string) => {
   setUpAxios();
@@ -47,10 +30,10 @@ export const getProfile = async (userId: string) => {
     throw new RouteBaseError(status || 500, message);
   }
 };
-export const getUserInfo = async () => {
+export const getUserId = async () => {
   setUpAxios();
   try {
-    const response = await axios.get(USER_INFO_API_URL);
+    const response = await axios.get(USER_ID_API_URL);
 
     const { data } = response;
     return data;

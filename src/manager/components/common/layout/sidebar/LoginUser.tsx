@@ -2,14 +2,17 @@ import React from 'react';
 import { Avatar, Box, Typography } from '@mui/joy';
 import ColorSchemeToggle from '../../UI/ColorSchemeToggle';
 import { LoginUserProps } from '../../../../types';
+import useAuthStore from '@/common/stores/authStore';
+import { IMAGE_API_URL } from '@/common/constants';
 
 const LoginUser: React.FC<LoginUserProps> = ({ loginUser }) => {
+  const { profileImage } = useAuthStore();
   return (
     <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
       <Avatar
         variant='outlined'
         size='sm'
-        src={'/assets/images/default-profile.png'}
+        src={IMAGE_API_URL(profileImage)}
         sx={{
           padding: '4px', // 원하는 패딩 값 설정
           '& img': {
