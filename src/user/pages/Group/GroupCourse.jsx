@@ -10,6 +10,8 @@ import Restaurant from '@/user/components/group/Restaurant';
 import GroupTabs from '@/user/components/group/GroupTabs';
 import axios from 'axios';
 import UserList from '@/user/components/common/UI/UserList';
+import SideMenu from '@/common/components/common/layout/SideMenu';
+import { chatting } from '@/common/constants';
 
 const TABS = [
   {
@@ -55,15 +57,20 @@ const GroupCourse = ({ path }) => {
 
   return (
     <>
-      <div className='board-container'>
+      <div className='board-container pr-16'>
         <GroupName name={course && `${course.campusName} ${course.courseName}`} />
         <GroupTabs tabs={TABS} path={path} />
       </div>
 
       <div className='main-container'>
         <ColumnLayoutWrapper
-          mainArea={path === 'notices' ? <Notices feedType={'group'} /> : <Restaurant fetchNotices={fetchNotices} />}
-          rightSide={<UserList users={users} buttonText={'쪽지하기'} />}
+          leftSide={<SideMenu page='group' menu={[{ title: '채팅', items: chatting }]} />}
+          mainArea={
+            <div className='pr-16'>
+              {path === 'notices' ? <Notices feedType={'group'} /> : <Restaurant fetchNotices={fetchNotices} />}
+            </div>
+          }
+          rightSide={<UserList users={users} buttonText={'쪽지하기'} className='mr-5' />}
         ></ColumnLayoutWrapper>
       </div>
     </>

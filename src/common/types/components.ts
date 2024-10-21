@@ -188,3 +188,17 @@ export type UserType = (typeof USER_TYPE)[keyof typeof USER_TYPE];
 export interface UpdateProfileFormProps extends ProfileFormResponse {
   userType: UserType;
 }
+
+export type SideMenuItems = { name: string; to: string }[];
+
+export interface SideMenuItemProps {
+  title: string;
+  items: SideMenuItems;
+}
+
+export type SideMenuPage = 'group' | 'settings';
+
+export interface SideMenuProps {
+  page: SideMenuPage;
+  menu: SideMenuItemProps[];
+}

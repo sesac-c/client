@@ -2,9 +2,9 @@ import React from 'react';
 import { Box, Paper, Typography, Stack } from '@mui/material';
 import GradientDivider from '@/common/components/settings/layout/GradientDivider';
 import { NavLink } from 'react-router-dom';
-import { archives, settings } from '@/common/constants';
+import { SideMenuItemProps, SideMenuPage, SideMenuProps } from '@/common/types';
 
-const Menu: React.FC<{ title: string; items: { name: string; to: string }[] }> = ({ title, items }) => {
+const SideMenuItem: React.FC<SideMenuItemProps> = ({ title, items }) => {
   return (
     <Box>
       <Typography
@@ -41,12 +41,28 @@ const Menu: React.FC<{ title: string; items: { name: string; to: string }[] }> =
   );
 };
 
-const SideMenu = () => {
+const getStyle = (page: SideMenuPage) => {
+  let style = { py: 0, px: 0, mt: 0 };
+  switch (page) {
+    case 'group':
+      style = { ...style, px: 3, mt: 1 };
+      break;
+    case 'settings':
+      style = { py: 3, px: 3, mt: 4 };
+  }
+  return style;
+};
+const SideMenu: React.FC<SideMenuProps> = ({ page, menu }) => {
+  const style = getStyle(page);
   return (
-    <Paper elevation={3} sx={{ width: '20vw', p: 3, bgcolor: '#f5f5f5', borderRadius: 2 }}>
-      <Stack spacing={4} mt={4}>
-        <Menu title='설정' items={settings} />
-        <Menu title='보관함' items={archives} />
+    <Paper
+      elevation={0}
+      sx={{ width: '20vw', height: '100vh', px: style.px, py: style.py, bgcolor: 'inherit', borderRadius: 2 }}
+    >
+      <Stack spacing={4} mt={style.mt}>
+        {menu.map(item => (
+          <SideMenuItem title={item.title} items={item.items} />
+        ))}
       </Stack>
     </Paper>
   );

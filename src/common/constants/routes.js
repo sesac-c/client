@@ -146,6 +146,13 @@ export const GROUP_MENU = [
   }
 ];
 
+export const chatting = [
+  { name: '채팅방 바로가기', to: `` }
+];
+export const writeReport = [
+  { name: '새 보고서 작성하기', to: `${GROUP_RUNNING_MATE_PATH}/reports/write` }
+];
+
 export const FEED_INFO = {
   campus: {
     title: KO_CAMPUS,

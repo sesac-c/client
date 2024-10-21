@@ -13,6 +13,8 @@ import UserList from '@/user/components/common/UI/UserList';
 import ActivityReports from '@/user/components/group/ActivityReports';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { writeReport } from '@/common/constants';
+import SideMenu from '@/common/components/common/layout/SideMenu';
 
 const TABS = [
   {
@@ -58,26 +60,20 @@ const GroupRunningMate = ({ path }) => {
 
   return (
     <>
-      <div className='board-container'>
+      <div className='board-container pr-16'>
         <GroupName name={runningMate && `${runningMate.name}`} />
         <GroupTabs tabs={TABS} path={path} />
       </div>
 
       <div className='group-container'>
         <ColumnLayoutWrapper
-          leftSide={
-            path === 'reports' && (
-              <div className='flex justify-end pt-5'>
-                <Button variant='outlined' onClick={() => navigate('./write')}>
-                  보고서 작성
-                </Button>
-              </div>
-            )
-          }
+          leftSide={<SideMenu page='group' menu={[{ title: '보고서', items: writeReport }]} />}
           mainArea={
-            path === 'reports' ? <ActivityReports feedType={'group'} /> : <Restaurant fetchNotices={fetchNotices} />
+            <div className='pr-16'>
+              {path === 'reports' ? <ActivityReports feedType={'group'} /> : <Restaurant fetchNotices={fetchNotices} />}
+            </div>
           }
-          rightSide={<UserList users={users} buttonText={'쪽지하기'} />}
+          rightSide={<UserList users={users} buttonText={'쪽지하기'} className='mr-5' />}
         ></ColumnLayoutWrapper>
       </div>
     </>
