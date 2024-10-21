@@ -61,7 +61,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ page, menu }) => {
     >
       <Stack spacing={4} mt={style.mt}>
         {menu.map(item => (
-          <SideMenuItem title={item.title} items={item.items} />
+          <SideMenuItem key={item.title} title={item.title} items={item.items} />
         ))}
       </Stack>
     </Paper>

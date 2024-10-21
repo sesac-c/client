@@ -31,6 +31,7 @@ export class RouteBaseError extends Error {
 export interface ErrorPageProps {
   errorState?: number;
   data?: {
+    title?: string;
     message: string;
   };
 }

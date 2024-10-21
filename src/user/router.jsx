@@ -1,8 +1,16 @@
 import { lazy } from 'react';
-import { ALL_PATH, CAMPUS_CHILDREN_PATH, CAMPUS_PATH, GROUP_CHILDREN_PATH, GROUP_PATH } from '@/common/constants';
+import {
+  ALL_PATH,
+  CAMPUS_CHILDREN_PATH,
+  CAMPUS_PATH,
+  GROUP_CHILDREN_PATH,
+  COURSES_CHILDREN_PATH,
+  RUNNINGMATE_CHILDREN_PATH,
+  GROUP_PATH
+} from '@/common/constants';
 import CampusLayout from './layouts/Campus';
 import AllLayout from './layouts/All';
-import GroupLayout from './layouts/Group';
+import GroupRootLayout from './layouts/Group';
 import Restaurant from '@/user/components/group/Restaurant';
 
 // ----------------------------------------------------------------------
@@ -74,42 +82,42 @@ const userRoutes = [
   },
   {
     path: GROUP_PATH,
-    element: <GroupLayout />,
+    element: <GroupRootLayout />,
     children: [
       {
-        path: `${GROUP_CHILDREN_PATH.courses}/notices`,
-        element: <GroupCoursePage path={'notices'} />
+        path: `${GROUP_CHILDREN_PATH.courses}/${COURSES_CHILDREN_PATH.notices}`,
+        element: <GroupCoursePage path={COURSES_CHILDREN_PATH.notices} />
       },
       {
-        path: `${GROUP_CHILDREN_PATH.courses}/notices/:noticeId`,
+        path: `${GROUP_CHILDREN_PATH.courses}/${COURSES_CHILDREN_PATH.notices}/:noticeId`,
         element: <CampusNoticeDetailPage />
       },
       {
-        path: `${GROUP_CHILDREN_PATH.courses}/restaurant`,
-        element: <GroupCoursePage path={'restaurant'} />
+        path: `${GROUP_CHILDREN_PATH.courses}/${COURSES_CHILDREN_PATH.restaurants}`,
+        element: <GroupCoursePage path={COURSES_CHILDREN_PATH.restaurants} />
       },
       {
-        path: `${GROUP_CHILDREN_PATH.courses}/restaurant/:restaurantId`,
+        path: `${GROUP_CHILDREN_PATH.courses}/${COURSES_CHILDREN_PATH.restaurants}/:restaurantId`,
         element: <Restaurant />
       },
       {
-        path: `${GROUP_CHILDREN_PATH.runningmate}/reports`,
-        element: <GroupRunningMatePage path={'reports'} />
+        path: `${GROUP_CHILDREN_PATH.runningmate}/${RUNNINGMATE_CHILDREN_PATH.reports}`,
+        element: <GroupRunningMatePage path={RUNNINGMATE_CHILDREN_PATH.reports} />
       },
       {
-        path: `${GROUP_CHILDREN_PATH.runningmate}/reports/write`,
+        path: `${GROUP_CHILDREN_PATH.runningmate}/${RUNNINGMATE_CHILDREN_PATH.reports}/write`,
         element: <ActivityReportWritePage />
       },
       {
-        path: `${GROUP_CHILDREN_PATH.runningmate}/reports/:reportId`,
+        path: `${GROUP_CHILDREN_PATH.runningmate}/${RUNNINGMATE_CHILDREN_PATH.reports}/:reportId`,
         element: <ActivityReportDetailPage />
       },
       {
-        path: `${GROUP_CHILDREN_PATH.runningmate}/restaurant`,
-        element: <GroupRunningMatePage path={'restaurant'} />
+        path: `${GROUP_CHILDREN_PATH.runningmate}/${RUNNINGMATE_CHILDREN_PATH.restaurants}`,
+        element: <GroupRunningMatePage path={RUNNINGMATE_CHILDREN_PATH.restaurants} />
       },
       {
-        path: `${GROUP_CHILDREN_PATH.runningmate}/restaurant/:restaurantId`,
+        path: `${GROUP_CHILDREN_PATH.runningmate}/${RUNNINGMATE_CHILDREN_PATH.restaurants}/:restaurantId`,
         element: <Restaurant />
       }
     ]
