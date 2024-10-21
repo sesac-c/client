@@ -131,6 +131,15 @@ export const GROUP_CHILDREN_PATH = {
   courses: 'courses',
   runningmate: 'runningmate'
 };
+export const RESTAURANT_END_POINT = 'restaurants';
+export const COURSES_CHILDREN_PATH = {
+  restaurants: RESTAURANT_END_POINT,
+  notices: 'notices'
+}
+export const RUNNINGMATE_CHILDREN_PATH = {
+  restaurants: RESTAURANT_END_POINT,
+  reports: 'reports'
+}
 
 export const GROUP_COURSES_PATH = `/${GROUP_PATH}/${GROUP_CHILDREN_PATH.courses}`;
 export const GROUP_RUNNING_MATE_PATH = `/${GROUP_PATH}/${GROUP_CHILDREN_PATH.runningmate}`;
@@ -144,6 +153,13 @@ export const GROUP_MENU = [
     title: '러닝메이트',
     path: `${GROUP_RUNNING_MATE_PATH}/reports`
   }
+];
+
+export const chatting = [
+  { name: '채팅방 바로가기', to: `` }
+];
+export const writeReport = [
+  { name: '새 보고서 작성하기', to: `${GROUP_RUNNING_MATE_PATH}/reports/write` }
 ];
 
 export const FEED_INFO = {

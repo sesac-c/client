@@ -2,7 +2,7 @@ import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { Typography, Container, Paper, Skeleton, Stack } from '@mui/material';
 import Grid2 from '@mui/material/Grid2';
 import { ArchiveType, PostGridProps, UserPostResponse } from '@/common/types';
-import { FEED_TYPE, POST_TYPE, ARCHIVE_TYPE, IMAGE_API_URL } from '@/common/constants';
+import { FEED_TYPE, POST_TYPE, ARCHIVE_TYPE, IMAGE_API_URL, scrollStyle } from '@/common/constants';
 import { getUserPosts, getUserLikePosts, getUserReplyPosts } from '@/common/services/api';
 
 const DetailModal = lazy(() => import('@/user/components/feed/detail/DetailModal'));
@@ -104,32 +104,15 @@ export const PostGridSkeleton: React.FC<{ archiveType: ArchiveType; itemCount?: 
 
 const PostGrid: React.FC<PostGridProps> = ({ posts, archiveType, profileId, onIsModalClose }) => {
   const isPostArchive = archiveType === ARCHIVE_TYPE.POST;
+  const containerStyle = {
+    ...scrollStyle,
+    margin: isPostArchive ? 'auto' : 0,
+    maxHeight: `calc(100vh - ${isPostArchive ? '380' : '200'}px)`,
+    overflowY: 'auto',
+    padding: 1
+  };
   return (
-    <Container
-      disableGutters
-      sx={{
-        margin: isPostArchive ? undefined : 0,
-        maxHeight: `calc(100vh - ${isPostArchive ? '380' : '200'}px)`,
-        overflowY: 'auto',
-        '&::-webkit-scrollbar': {
-          width: '8px'
-        },
-        '&::-webkit-scrollbar-track': {
-          background: '#f1f1f1'
-        },
-        '&::-webkit-scrollbar-thumb': {
-          background: '#888',
-          borderRadius: '4px'
-        },
-        '&::-webkit-scrollbar-thumb:hover': {
-          background: '#555'
-        },
-        scrollbarWidth: 'thin',
-        scrollbarColor: '#888 #f1f1f1',
-        padding: 1
-      }}
-      maxWidth='md'
-    >
+    <Container disableGutters sx={{ ...containerStyle }} maxWidth='md'>
       {posts && posts.length > 0 ? (
         <Grid2 container spacing={1} columns={6}>
           {posts.map(post => (
