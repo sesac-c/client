@@ -131,7 +131,7 @@ export const GROUP_CHILDREN_PATH = {
   courses: 'courses',
   runningmate: 'runningmate'
 };
-const RESTAURANT_END_POINT = 'restaurants';
+export const RESTAURANT_END_POINT = 'restaurants';
 export const COURSES_CHILDREN_PATH = {
   restaurants: RESTAURANT_END_POINT,
   notices: 'notices'

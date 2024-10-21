@@ -3,6 +3,7 @@ import { getRestaurants } from '@/user/services/api';
 import { RestaurantType, RestaurantResponse } from '@/user/type';
 import { Chip, Container, Grid2, Paper, Skeleton, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { scrollStyle, GROUP_PATH, RESTAURANT_END_POINT } from '@/common/constants';
 
 const RestaurantGridSkeleton: React.FC<{ itemCount?: number }> = ({ itemCount = 3 }) => (
   <Container
@@ -73,36 +74,29 @@ const RestaurantGrid: React.FC<{
   restaurants: RestaurantResponse[];
   restaurantType: RestaurantType;
 }> = ({ restaurants, restaurantType }) => {
+  const navigate = useNavigate();
+  const containerStyle = {
+    margin: 0,
+    maxHeight: 'calc(100vh - 200px)',
+    overflowY: 'auto',
+    ...scrollStyle,
+    padding: 1
+  };
   return (
-    <Container
-      disableGutters
-      sx={{
-        margin: 0,
-        maxHeight: 'calc(100vh - 200px)',
-        overflowY: 'auto',
-        '&::-webkit-scrollbar': {
-          width: '8px'
-        },
-        '&::-webkit-scrollbar-track': {
-          background: '#f1f1f1'
-        },
-        '&::-webkit-scrollbar-thumb': {
-          background: '#888',
-          borderRadius: '4px'
-        },
-        '&::-webkit-scrollbar-thumb:hover': {
-          background: '#555'
-        },
-        scrollbarWidth: 'thin',
-        scrollbarColor: '#888 #f1f1f1',
-        padding: 1
-      }}
-      maxWidth='md'
-    >
+    <Container disableGutters sx={{ ...containerStyle }} maxWidth='md'>
       {restaurants && restaurants.length > 0 ? (
         <Grid2 container spacing={1} columns={6}>
           {restaurants.map(restaurant => (
-            <Grid2 key={restaurant.id} size={2}>
+            <Grid2
+              key={restaurant.id}
+              size={2}
+              component='button'
+              onClick={() => {
+                navigate(
+                  `/${GROUP_PATH}/${restaurantType === 'campus' ? 'courses' : restaurantType}/${RESTAURANT_END_POINT}/${restaurant.id}`
+                );
+              }}
+            >
               <RestaurantWrapper restaurant={restaurant} restaurantType={restaurantType}>
                 <Stack p={1} alignItems='center'>
                   <Chip label={restaurant.category} variant='outlined' className='w-fit text-xs' size='small' />

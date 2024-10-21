@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import ActivityReports from '@/user/components/group/ActivityReports';
-import RestaurantGridContainer from '@/user/components/group/restaurant/RestaurantGridContainer';
 import PageLoadingSpinner from '@/common/components/common/UI/PageLoadingSpinner';
 import { GroupCotentLayout } from '@/user/layouts/Group';
 import { MEMBER_LIST_API_URL, RUNNINGMATE_DETAIL_API_URL } from '@/common/constants';
 import ErrorPage from '@/common/pages/Error/Error';
+import { Outlet } from 'react-router-dom';
 
 const GroupRunningMate = ({ path }) => {
   const [runningMate, setRunningMate] = useState(null);
@@ -41,7 +41,7 @@ const GroupRunningMate = ({ path }) => {
       if (status && status === 404) {
         setErrors({ isError: true, message: '아직 가입된 러닝메이트가 없습니다.' });
       } else {
-        throw error;
+        setErrors({ ...errors, isError: true });
       }
     } finally {
       setIsLoading(false);
@@ -59,11 +59,7 @@ const GroupRunningMate = ({ path }) => {
   } else {
     return (
       <GroupCotentLayout groupType='runningmate' path={path} title={runningMate.name} users={users}>
-        {path === 'reports' ? (
-          <ActivityReports feedType={'group'} />
-        ) : (
-          <RestaurantGridContainer restaurantType='runningmate' />
-        )}
+        {path === 'reports' ? <ActivityReports feedType={'group'} /> : <Outlet />}
       </GroupCotentLayout>
     );
   }

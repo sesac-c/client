@@ -71,6 +71,8 @@ export const IMAGE_API_URL = profileImage => `${process.env.REACT_APP_API_BASE_U
 export const DEFAULT_PROFILE_IMAGE = 'default-profile.png';
 
 export const RESTAURANT_LIST_API_URL = (restaurantType) => `restaurants/${restaurantType}`;
+export const RESTAURANT_DETAIL_API_URL = (restaurantType, id) => `${RESTAURANT_LIST_API_URL(restaurantType)}/${id}`;
+export const MENU_LIST_API_URL = (restaurantType, id) => `${RESTAURANT_LIST_API_URL(restaurantType)}/${id}/menu`;
 
 export const MEMBER_ROOT_API_URL = 'members';
 export const MEMBER_LIST_API_URL = (groupType, groupId) => `${MEMBER_ROOT_API_URL}/${groupType}/${groupId}`

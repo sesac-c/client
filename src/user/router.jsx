@@ -11,7 +11,6 @@ import {
 import CampusLayout from './layouts/Campus';
 import AllLayout from './layouts/All';
 import GroupRootLayout from './layouts/Group';
-import Restaurant from '@/user/components/group/Restaurant';
 
 // ----------------------------------------------------------------------
 
@@ -30,6 +29,9 @@ export const SearchAllPostPage = lazy(() => import('./pages/All/SearchAllPost.js
 // ----------------------------------------------------------------------
 export const GroupCoursePage = lazy(() => import('./pages/Group/GroupCourse'));
 export const GroupRunningMatePage = lazy(() => import('./pages/Group/GroupRunningMate'));
+
+export const RestaurantGridContainer = lazy(() => import('./components/group/restaurant/RestaurantGridContainer'));
+export const RestaurantDetailPage = lazy(() => import('./pages/Group/RestaurantDetail'));
 export const ActivityReportDetailPage = lazy(() => import('@/user/components/group/ActivityReportDetail'));
 export const ActivityReportWritePage = lazy(() => import('@/user/components/group/ActivityReportWrite'));
 
@@ -94,11 +96,17 @@ const userRoutes = [
       },
       {
         path: `${GROUP_CHILDREN_PATH.courses}/${COURSES_CHILDREN_PATH.restaurants}`,
-        element: <GroupCoursePage path={COURSES_CHILDREN_PATH.restaurants} />
-      },
-      {
-        path: `${GROUP_CHILDREN_PATH.courses}/${COURSES_CHILDREN_PATH.restaurants}/:restaurantId`,
-        element: <Restaurant />
+        element: <GroupCoursePage path={COURSES_CHILDREN_PATH.restaurants} />,
+        children: [
+          {
+            index: true,
+            element: <RestaurantGridContainer restaurantType='campus' />
+          },
+          {
+            path: ':restaurantId',
+            element: <RestaurantDetailPage restaurantType='campus' />
+          }
+        ]
       },
       {
         path: `${GROUP_CHILDREN_PATH.runningmate}/${RUNNINGMATE_CHILDREN_PATH.reports}`,
@@ -114,11 +122,17 @@ const userRoutes = [
       },
       {
         path: `${GROUP_CHILDREN_PATH.runningmate}/${RUNNINGMATE_CHILDREN_PATH.restaurants}`,
-        element: <GroupRunningMatePage path={RUNNINGMATE_CHILDREN_PATH.restaurants} />
-      },
-      {
-        path: `${GROUP_CHILDREN_PATH.runningmate}/${RUNNINGMATE_CHILDREN_PATH.restaurants}/:restaurantId`,
-        element: <Restaurant />
+        element: <GroupRunningMatePage path={RUNNINGMATE_CHILDREN_PATH.restaurants} />,
+        children: [
+          {
+            index: true,
+            element: <RestaurantGridContainer restaurantType='runningmate' />
+          },
+          {
+            path: ':restaurantId',
+            element: <RestaurantDetailPage restaurantType='runningmate' />
+          }
+        ]
       }
     ]
   }
