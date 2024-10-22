@@ -1,39 +1,25 @@
-import ColumnLayoutWrapper from '@/user/components/common/layout/ColumnLayoutWrapper.jsx';
-
-import GroupName from '@/user/components/group/GroupName';
-
-import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-
-import { fetchNotices } from '@/user/services/api/notices';
-import Restaurant from '@/user/components/group/Restaurant';
-import GroupTabs from '@/user/components/group/GroupTabs';
 import axios from 'axios';
-import UserList from '@/user/components/common/UI/UserList';
 import ActivityReports from '@/user/components/group/ActivityReports';
-import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-
-const TABS = [
-  {
-    label: '활동내역',
-    value: 'reports'
-  },
-  {
-    label: '음식점',
-    value: 'restaurant'
-  }
-];
+import PageLoadingSpinner from '@/common/components/common/UI/PageLoadingSpinner';
+import { GroupCotentLayout } from '@/user/layouts/Group';
+import { MEMBER_LIST_API_URL, RUNNINGMATE_DETAIL_API_URL } from '@/common/constants';
+import ErrorPage from '@/common/pages/Error/Error';
+import { Outlet } from 'react-router-dom';
 
 const GroupRunningMate = ({ path }) => {
   const [runningMate, setRunningMate] = useState(null);
   const [users, setUsers] = useState([]);
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const [errors, setErrors] = useState({
+    isError: false,
+    message: '러닝메이트 페이지 로드 중 오류가 발생했습니다.'
+  });
 
   const loadUsers = useCallback(async runningMateId => {
     if (!runningMateId) return;
     try {
-      const { data } = await axios.get(`/members/runningmate/${runningMateId}`);
+      const { data } = await axios.get(`${MEMBER_LIST_API_URL('runningmate', runningMateId)}`);
       setUsers(data);
     } catch (error) {
       console.error('Failed to load users:', error);
@@ -41,14 +27,24 @@ const GroupRunningMate = ({ path }) => {
   }, []);
 
   const loadRunningMate = useCallback(async () => {
+    setIsLoading(true);
     try {
-      const { data } = await axios.get('/runningmates/detail');
+      const { data } = await axios.get(RUNNINGMATE_DETAIL_API_URL);
       const { name, id } = data;
       setRunningMate({ name, id });
+      console.log(data);
 
       await loadUsers(id);
     } catch (error) {
-      console.error('Failed to load runningMate:', error);
+      const { response } = error;
+      const status = response?.data?.status;
+      if (status && status === 404) {
+        setErrors({ isError: true, message: '아직 가입된 러닝메이트가 없습니다.' });
+      } else {
+        setErrors({ ...errors, isError: true });
+      }
+    } finally {
+      setIsLoading(false);
     }
   }, [loadUsers]);
 
@@ -56,31 +52,16 @@ const GroupRunningMate = ({ path }) => {
     loadRunningMate();
   }, [loadRunningMate]);
 
-  return (
-    <>
-      <div className='board-container'>
-        <GroupName name={runningMate && `${runningMate.name}`} />
-        <GroupTabs tabs={TABS} path={path} />
-      </div>
-
-      <div className='group-container'>
-        <ColumnLayoutWrapper
-          leftSide={
-            path === 'reports' && (
-              <div className='flex justify-end pt-5'>
-                <Button variant='outlined' onClick={() => navigate('./write')}>
-                  보고서 작성
-                </Button>
-              </div>
-            )
-          }
-          mainArea={
-            path === 'reports' ? <ActivityReports feedType={'group'} /> : <Restaurant fetchNotices={fetchNotices} />
-          }
-          rightSide={<UserList users={users} buttonText={'쪽지하기'} />}
-        ></ColumnLayoutWrapper>
-      </div>
-    </>
-  );
+  if (isLoading) {
+    return <PageLoadingSpinner />;
+  } else if (errors.isError) {
+    return <ErrorPage data={{ message: errors.message }} />;
+  } else {
+    return (
+      <GroupCotentLayout groupType='runningmate' path={path} title={runningMate.name} users={users}>
+        {path === 'reports' ? <ActivityReports feedType={'group'} /> : <Outlet />}
+      </GroupCotentLayout>
+    );
+  }
 };
 export default GroupRunningMate;

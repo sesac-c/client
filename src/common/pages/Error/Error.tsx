@@ -1,26 +1,25 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRouteError } from 'react-router-dom';
 import ErrorLayout from '../../layouts/Error';
 import MascotImage from '../../components/common/layout/MascotImage';
 import Logo from '../../components/common/layout/Logo';
 import { ErrorPageProps, RouteError, ERROR_MESSAGES, ErrorDetails } from '../../types';
 
-const ErrorPage: React.FC<ErrorPageProps> = ({ errorState }) => {
+const ErrorPage: React.FC<ErrorPageProps> = ({ errorState, data }) => {
   const error = useRouteError() as RouteError;
 
   const getErrorDetails = (): ErrorDetails => {
     const status = error?.status || errorState;
-    let title = '페이지 요청 실패';
-    let message: React.ReactNode = error?.data?.message || ERROR_MESSAGES.DEFAULT;
+    let title = (data && data.title) || '페이지 요청 실패';
+    let message: React.ReactNode = error?.data?.message || (data && data.message) || ERROR_MESSAGES.DEFAULT;
 
     if (status === 500) {
       message = error?.data?.message || ERROR_MESSAGES.DEFAULT;
     } else if (status === 404) {
-      message = ERROR_MESSAGES.NOT_FOUND;
-      3;
+      message = message || ERROR_MESSAGES.NOT_FOUND;
     } else if (status === 401 || status === 403) {
-      title = '잘못된 접근';
-      message = ERROR_MESSAGES.UNAUTHORIZED;
+      title = title || '잘못된 접근';
+      message = message || ERROR_MESSAGES.UNAUTHORIZED;
     }
 
     return { title, message };
