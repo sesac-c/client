@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { formateDateTimeToKorean } from '@/common/utils';
 import ProfileImage from '@/common/components/common/layout/ProfileImage';
 import useMessageStore from '@/user/store/messageStore';
-import { IMAGE_API_URL } from '@/common/constants';
+import { THUMBNAIL_API_URL } from '@/common/constants';
 
 const MessageList = ({ messageType }) => {
   const [messages, setMessages] = useState([]);
@@ -44,7 +44,9 @@ const MessageList = ({ messageType }) => {
         >
           <div className='user-list__profile-image'>
             <ProfileImage
-              image={isReceived() ? IMAGE_API_URL(message.receiverProfile) : IMAGE_API_URL(message.senderProfile)}
+              image={
+                isReceived() ? THUMBNAIL_API_URL(message.senderProfile) : THUMBNAIL_API_URL(message.receiverProfile)
+              }
               hasShadow={false}
             />
           </div>

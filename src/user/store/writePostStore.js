@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { IMAGE_API_URL, MAX_HASHTAGS } from '../../common/constants';
+import { MAX_HASHTAGS, THUMBNAIL_API_URL } from '../../common/constants';
 
 import { removeImage, uploadImage } from '../services/api/posts';
 
@@ -81,7 +81,7 @@ const useWritePostStore = create((set, get) => ({
   getTitleLength: () => get().title.length,
   getContentLength: () => get().content.length,
   getHashtagCount: () => get().hashtags.length,
-  getThumbnail: () => IMAGE_API_URL(get().thumbnail)
+  getThumbnail: () => THUMBNAIL_API_URL(get().thumbnail)
 }));
 
 export default useWritePostStore;

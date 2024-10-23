@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, Button, Avatar } from '@mui/material';
-import { DEFAULT_PROFILE_IMAGE, IMAGE_API_URL } from '@/common/constants';
+import { DEFAULT_PROFILE_IMAGE, THUMBNAIL_API_URL } from '@/common/constants';
 
 const ProfileField: React.FC<{
   profileImage: string;
@@ -8,7 +8,7 @@ const ProfileField: React.FC<{
   onFileChange: (file: File | null) => void;
   fileState: File | null;
 }> = ({ profileImage, onRemovedButtonClick, onFileChange, fileState }) => {
-  const requestImageUrl = (image: string) => IMAGE_API_URL(image);
+  const requestImageUrl = (image: string) => THUMBNAIL_API_URL(image);
 
   const [isChange, setIsChange] = useState(false);
   const [isDelete, setIsDelete] = useState(false);

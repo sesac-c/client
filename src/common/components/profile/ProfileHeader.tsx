@@ -5,7 +5,7 @@ import { ProfileHeaderProps } from '@/common/types';
 import { followUser, unfollowUser } from '@/common/services/api';
 import { FollowListButton, FollowingListButton } from './FollowList';
 import { useNavigate } from 'react-router-dom';
-import { IMAGE_API_URL, USER_SETTING_CHILDREN_PATH, USER_SETTING_PATH } from '@/common/constants';
+import { THUMBNAIL_API_URL, USER_SETTING_CHILDREN_PATH, USER_SETTING_PATH } from '@/common/constants';
 
 const MenuButton: React.FC = () => {
   const navigate = useNavigate();
@@ -135,7 +135,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ profileId, ...profile }) 
           }}
         >
           <Avatar
-            src={IMAGE_API_URL(profile.profileImage)}
+            src={THUMBNAIL_API_URL(profile.profileImage)}
             alt='Uploaded Image'
             sx={{
               width: '100%',

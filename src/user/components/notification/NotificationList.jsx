@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import ProfileImage from '@/common/components/common/layout/ProfileImage';
 import useNotificationStore from '@/user/store/notificationStore';
-import { IMAGE_API_URL } from '@/common/constants';
+import { THUMBNAIL_API_URL } from '@/common/constants';
 const NotificationList = () => {
   const [notifications, setNotifications] = useState([]);
   const [newCount, setNewCount] = useState(0);
@@ -38,7 +38,7 @@ const NotificationList = () => {
           className={`my-1 flex px-1 py-3 ${!notification.isRead ? 'bg-emerald-50' : ''}`}
         >
           <div className='user-list__profile-image'>
-            <ProfileImage image={IMAGE_API_URL(notification.profileImage)} hasShadow={false} />
+            <ProfileImage image={THUMBNAIL_API_URL(notification.profileImage)} hasShadow={false} />
           </div>
           <div onClick={() => readNotification(notification)}>
             <div className='flex'>

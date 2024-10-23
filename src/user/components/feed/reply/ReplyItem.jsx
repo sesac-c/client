@@ -6,7 +6,7 @@ import { deleteReply, updateReply } from '@/user/services/api';
 import { REPLY_FIELD_SETTING } from '@/common/utils';
 import { Stack, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { IMAGE_API_URL, PROFILE_PATH } from '@/common/constants';
+import { PROFILE_PATH, THUMBNAIL_API_URL } from '@/common/constants';
 
 const ReplyItem = forwardRef(({ feedId, reply, apiUrl, onUpdate, isModal, onModalClose }, ref) => {
   const formattedDate = formatDateToKorean(reply.createdAt);
@@ -58,7 +58,7 @@ const ReplyItem = forwardRef(({ feedId, reply, apiUrl, onUpdate, isModal, onModa
               }
             }}
           >
-            <ProfileImage image={IMAGE_API_URL(reply.profileImage)} hasShadow={false} />
+            <ProfileImage image={THUMBNAIL_API_URL(reply.profileImage)} hasShadow={false} />
           </div>
           <div className='postdetail__reply-author-info'>
             <div className='postdetail__reply-author-info-header'>
