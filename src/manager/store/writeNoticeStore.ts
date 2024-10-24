@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { MAX_HASHTAGS, THUMBNAIL_API_URL } from '../../common/constants';
+import { IMAGE_API_URL, MAX_HASHTAGS } from '../../common/constants';
 import { removeImage, uploadImage } from '@/common/services/api';
 import { NoticeFormState, noticeError } from '../types';
 import { validateNoticeForm } from '../utils';
@@ -167,7 +167,7 @@ const useNoticeStore = create<NoticeStore>((set, get) => ({
   getTitleLength: () => get().state.title.length,
   getContentLength: () => get().state.content.length,
   getHashtagCount: () => (get().state.hashtags || []).length,
-  getThumbnail: () => THUMBNAIL_API_URL(get().thumbnail)
+  getThumbnail: () => IMAGE_API_URL(get().thumbnail)
 }));
 
 export default useNoticeStore;

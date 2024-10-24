@@ -3,7 +3,7 @@ import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 
 import { useNavigateHandler } from '@/common/hooks';
 import { formatDateToKorean } from '@/common/utils/formatter';
-import { FEED_ROOT_API_URL, FEED_TYPE, IMAGE_UPLOAD_API_URL, NOTICE_TYPE } from '@/common/constants';
+import { FEED_ROOT_API_URL, FEED_TYPE, NOTICE_TYPE, THUMBNAIL_API_URL } from '@/common/constants';
 import useSearchNoticeStore from '@/user/store/useSearchNoticeStore';
 
 import React, { useCallback, useEffect, useState, useRef } from 'react';
@@ -16,9 +16,9 @@ const Notice = ({ notice, feedType }) => {
   return (
     <div className='post'>
       <div className='post-container'>
-        {notice.thumbnail && (
+        {notice.imageUrl && (
           <div className='post-image'>
-            <img src={thumbnailUrl(notice.thumbnail)} alt='notice thumbnail' />
+            <img src={THUMBNAIL_API_URL(notice.imageUrl)} alt='notice thumbnail' />
           </div>
         )}
         <div className='post-content' onClick={useNavigateHandler(`./${notice.id}`)}>
@@ -68,10 +68,6 @@ const Notice = ({ notice, feedType }) => {
       </div>
     </div>
   );
-};
-
-const thumbnailUrl = thumbnail => {
-  return `${IMAGE_UPLOAD_API_URL}/${thumbnail}`;
 };
 
 const Notices = ({ apiUrl, feedType }) => {

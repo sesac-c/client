@@ -7,9 +7,10 @@ import Author from './Author.jsx';
 import Division from '@/common/components/common/UI/Division';
 import { Content, Image } from './Content';
 import { useFeedDetail } from '@/user/hooks/useFeedDetail';
+import { IMAGE_API_URL } from '@/common/constants';
 
 const DetailInner = ({ feedId, feedType, category }) => {
-  const { feed, isReplyUpdate, isLoading, isUpdating, apiUrl, backPagePath, openModal, imageUrl, handleReplyUpdate } =
+  const { feed, isReplyUpdate, isLoading, isUpdating, apiUrl, backPagePath, openModal, handleReplyUpdate } =
     useFeedDetail(feedId, feedType, category);
 
   if (isLoading || isUpdating) {
@@ -32,7 +33,7 @@ const DetailInner = ({ feedId, feedType, category }) => {
             <div className='postdetail__left-side page'>
               {feed.image !== null && (
                 <>
-                  <Image image={imageUrl(feed.image)} isPage />
+                  <Image image={IMAGE_API_URL(feed.image)} isPage />
                   <Division type='horizontal_custom' variant='custom' className='postdetail__left-side__division' />
                 </>
               )}
