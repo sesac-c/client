@@ -2,11 +2,11 @@ import { useCallback, useEffect, useState } from 'react';
 
 import Notices from '@/user/components/feed/Notices';
 import axios from 'axios';
-import { MEMBER_LIST_API_URL, USER_PROFILE_FORM_API_URL } from '@/common/constants';
+import { USER_PROFILE_FORM_API_URL } from '@/common/constants';
 import { GroupCotentLayout } from '@/user/layouts/Group';
 import PageLoadingSpinner from '@/common/components/common/UI/PageLoadingSpinner';
-import RestaurantGridContainer from '@/user/components/group/restaurant/RestaurantGridContainer';
 import { Outlet } from 'react-router-dom';
+import { getCourseMember } from '@/user/services/api';
 
 const GroupCourse = ({ path }) => {
   const [course, setCourse] = useState(null);
@@ -16,7 +16,7 @@ const GroupCourse = ({ path }) => {
   const loadUsers = useCallback(async courseId => {
     if (!courseId) return;
     try {
-      const { data } = await axios.get(`${MEMBER_LIST_API_URL('course', courseId)}`);
+      const data = await getCourseMember(courseId);
       setUsers(data);
     } catch (error) {
       console.error('Failed to load users:', error);

@@ -155,13 +155,6 @@ export const GROUP_MENU = [
   }
 ];
 
-export const chatting = [
-  { name: '채팅방 바로가기', to: `` }
-];
-export const writeReport = [
-  { name: '새 보고서 작성하기', to: `${GROUP_RUNNING_MATE_PATH}/reports/write` }
-];
-
 export const FEED_INFO = {
   campus: {
     title: KO_CAMPUS,
@@ -212,3 +205,15 @@ export const MANAGER_RUNNINGMATE_CHILDREN_PATH = {
 export const MANAGER_RESTAURANT_CHILDREN_PATH = {
   register: 'register'
 };
+
+export const COURSE_CHAT_PATH = 'chat/course';
+export const COURSE_CHAT_CHILDREN_PATH = {
+  redirect: 'redirect'
+}
+
+export const chatting = [
+  { name: '채팅방 바로가기', to: `${process.env.REACT_APP_BASE_URL}${COURSE_CHAT_PATH}/${COURSE_CHAT_CHILDREN_PATH.redirect}` }
+];
+export const writeReport = [
+  { name: '새 보고서 작성하기', to: `${GROUP_RUNNING_MATE_PATH}/reports/write` }
+];
