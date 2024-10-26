@@ -19,3 +19,8 @@ export interface MenuResponse {
   name: string;
   price: number;
 }
+
+export interface UserCourseInfoResponse {
+  courseId: number;
+  courseName: string;
+}
