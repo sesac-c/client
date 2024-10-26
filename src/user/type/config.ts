@@ -10,3 +10,7 @@ export interface MessageHookResult {
   handleNewMessage: (message: any) => void;
   handleSendMessage: (content: string, destination: string) => void;
 }
+export interface CourseChatConfig {
+  courseId: number;
+  accessToken: string;
+}
