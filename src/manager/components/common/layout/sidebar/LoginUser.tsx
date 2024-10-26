@@ -3,7 +3,7 @@ import { Avatar, Box, Typography } from '@mui/joy';
 import ColorSchemeToggle from '../../UI/ColorSchemeToggle';
 import { LoginUserProps } from '../../../../types';
 import useAuthStore from '@/common/stores/authStore';
-import { IMAGE_API_URL } from '@/common/constants';
+import { THUMBNAIL_API_URL } from '@/common/constants';
 
 const LoginUser: React.FC<LoginUserProps> = ({ loginUser }) => {
   const { profileImage } = useAuthStore();
@@ -12,7 +12,7 @@ const LoginUser: React.FC<LoginUserProps> = ({ loginUser }) => {
       <Avatar
         variant='outlined'
         size='sm'
-        src={IMAGE_API_URL(profileImage)}
+        src={THUMBNAIL_API_URL(profileImage)}
         sx={{
           padding: '4px', // 원하는 패딩 값 설정
           '& img': {

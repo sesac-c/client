@@ -2,7 +2,7 @@ import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { Typography, Container, Paper, Skeleton, Stack } from '@mui/material';
 import Grid2 from '@mui/material/Grid2';
 import { ArchiveType, PostGridProps, UserPostResponse } from '@/common/types';
-import { FEED_TYPE, POST_TYPE, ARCHIVE_TYPE, IMAGE_API_URL, scrollStyle } from '@/common/constants';
+import { FEED_TYPE, POST_TYPE, ARCHIVE_TYPE, scrollStyle, THUMBNAIL_API_URL } from '@/common/constants';
 import { getUserPosts, getUserLikePosts, getUserReplyPosts } from '@/common/services/api';
 
 const DetailModal = lazy(() => import('@/user/components/feed/detail/DetailModal'));
@@ -126,7 +126,7 @@ const PostGrid: React.FC<PostGridProps> = ({ posts, archiveType, profileId, onIs
               >
                 {post.image ? (
                   <img
-                    src={IMAGE_API_URL(post.image)}
+                    src={THUMBNAIL_API_URL(post.image)}
                     loading='lazy'
                     style={{
                       width: '100%',

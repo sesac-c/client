@@ -9,7 +9,7 @@ import { formatDateToKorean } from '@/common/utils/formatter';
 import useWritePostStore from '@/user/store/writePostStore';
 
 import React, { useCallback, useEffect, useState, useRef } from 'react';
-import { IMAGE_UPLOAD_API_URL } from '@/common/constants';
+import { IMAGE_API_URL } from '@/common/constants';
 import useSearchPostStore from '@/user/store/searchPostStore';
 import { LinearProgress } from '@mui/material';
 import Logo from '@/common/components/common/layout/Logo';
@@ -22,7 +22,7 @@ const Post = ({ post, feedType }) => {
       <div className='post-container'>
         {post.thumbnail && (
           <div className='post-image'>
-            <img src={thumbnailUrl(post.thumbnail)} alt='post url' />
+            <img src={IMAGE_API_URL(post.thumbnail)} alt='post url' />
           </div>
         )}
         <div className='post-content' onClick={useNavigateHandler(`/feed/${feedType}/posts/${post.id}`)}>
@@ -72,10 +72,6 @@ const Post = ({ post, feedType }) => {
       </div>
     </div>
   );
-};
-
-const thumbnailUrl = thumbnail => {
-  return `${IMAGE_UPLOAD_API_URL}/${thumbnail}`;
 };
 
 const Posts = ({ apiUrl, feedType }) => {

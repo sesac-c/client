@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import React, { useCallback, useEffect, useState } from 'react';
 import GroupName from '@/user/components/group/GroupName';
-import { IMAGE_UPLOAD_API_URL } from '@/common/constants';
 import Table from '@mui/material/Table';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -28,11 +27,6 @@ const TABS = [
     value: 'restaurant'
   }
 ];
-
-const thumbnailUrl = thumbnail => {
-  // return `${IMAGE_UPLOAD_API_URL}/s_${thumbnail}`;
-  return `${IMAGE_UPLOAD_API_URL}/s_f07171be-acac-47b7-875b-5ab636161ed7_python.jpg`;
-};
 
 const ActivityReportWrite = () => {
   const [runningMate, setRunningMate] = useState(null);

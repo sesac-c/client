@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { BellIcon, EnvelopeIcon } from '@heroicons/react/20/solid';
 import ProfileImage from '@/common/components/common/layout/ProfileImage';
-import { IMAGE_API_URL, PROFILE_PATH } from '@/common/constants';
+import { PROFILE_PATH, THUMBNAIL_API_URL } from '@/common/constants';
 import useAuthStore from '@/common/stores/authStore';
 import { useModal } from '@/common/hooks';
 import MessageModal from '@/user/components/message/MessageModal';
@@ -28,7 +28,7 @@ const UserMenu = () => {
 
   useEffect(() => {
     if (profileImage) {
-      setProfileImageLink(IMAGE_API_URL(profileImage));
+      setProfileImageLink(THUMBNAIL_API_URL(profileImage));
     }
   }, [profileImage]);
 

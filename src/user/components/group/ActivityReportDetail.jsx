@@ -5,7 +5,7 @@ import GroupName from '@/user/components/group/GroupName';
 import GroupTabs from '@/user/components/group/GroupTabs';
 import ColumnLayoutWrapper from '@/user/components/common/layout/ColumnLayoutWrapper';
 import UserList from '@/user/components/common/UI/UserList';
-import { IMAGE_UPLOAD_API_URL } from '@/common/constants';
+import { THUMBNAIL_API_URL } from '@/common/constants';
 import Table from '@mui/material/Table';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -24,10 +24,6 @@ const TABS = [
   }
 ];
 
-const thumbnailUrl = thumbnail => {
-  return `${IMAGE_UPLOAD_API_URL}/s_${thumbnail}`;
-};
-
 const Report = ({ report }) => {
   return (
     <>
@@ -38,7 +34,7 @@ const Report = ({ report }) => {
       <div className='mb-10'>
         <div className=''>활동사진</div>
         <hr className='mb-3' />
-        <img src={thumbnailUrl(report.photo)} />
+        <img src={THUMBNAIL_API_URL(report.photo)} />
       </div>
 
       <div className='mb-5'>
