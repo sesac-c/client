@@ -50,7 +50,6 @@ const ProtectedRoute = ({ children, requiredRole }) => {
   }
 
   if (!isAuthorized) {
-    console.log('아직도?');
     return <Navigate to={LOGIN_PATH} />;
   }
 
