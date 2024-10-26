@@ -79,3 +79,5 @@ export const MEMBER_ROOT_API_URL = 'members';
 export const MEMBER_LIST_API_URL = (groupType, groupId) => `${MEMBER_ROOT_API_URL}/${groupType}/${groupId}`
 
 export const RUNNINGMATE_DETAIL_API_URL = `${RUNNINGMATE_ROOT_API_URL}/detail`
+
+export const CHAT_ROOM_MESSAGES = (courseId) => `chat/course/${courseId}/messages`;

@@ -1,3 +1,4 @@
+export * from './chat';
 export * from './feeds';
 export * from './likes';
 export * from './notices';
