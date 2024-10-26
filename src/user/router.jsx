@@ -6,7 +6,9 @@ import {
   GROUP_CHILDREN_PATH,
   COURSES_CHILDREN_PATH,
   RUNNINGMATE_CHILDREN_PATH,
-  GROUP_PATH
+  GROUP_PATH,
+  COURSE_CHAT_PATH,
+  COURSE_CHAT_CHILDREN_PATH
 } from '@/common/constants';
 import CampusLayout from './layouts/Campus';
 import AllLayout from './layouts/All';
@@ -35,6 +37,9 @@ export const RestaurantDetailPage = lazy(() => import('./pages/Group/RestaurantD
 export const ActivityReportDetailPage = lazy(() => import('@/user/components/group/ActivityReportDetail'));
 export const ActivityReportWritePage = lazy(() => import('@/user/components/group/ActivityReportWrite'));
 
+// ----------------------------------------------------------------------
+export const ChatRedirectPage = lazy(() => import('./pages/Chat/ChatRedirect'));
+export const ChatPage = lazy(() => import('./pages/Chat/Chat'));
 // ----------------------------------------------------------------------
 
 const userRoutes = [
@@ -133,6 +138,19 @@ const userRoutes = [
             element: <RestaurantDetailPage restaurantType='runningmate' />
           }
         ]
+      }
+    ]
+  },
+  {
+    path: COURSE_CHAT_PATH,
+    children: [
+      {
+        index: true,
+        element: <ChatPage />
+      },
+      {
+        path: COURSE_CHAT_CHILDREN_PATH.redirect,
+        element: <ChatRedirectPage />
       }
     ]
   }

@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import {
     ACCESS_TOKEN_EXPIRED,
     ACCESS_TOKEN_EXPIRED_MESSAGE,
@@ -49,7 +48,7 @@ export function getAuthErrorDetails(error) {
     const { status, data } = error.response;
     const { message, code } = data || {};
 
-    if (status === StatusCodes.FORBIDDEN) {
+    if (status === 403) {
         switch (code) {
             case ACCESS_TOKEN_EXPIRED:
                 return {

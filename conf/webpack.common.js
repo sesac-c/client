@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.jsx',
@@ -57,6 +58,14 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
       React: 'react'
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, '../public/assets'),
+          to: path.resolve(__dirname, '../dist/assets')
+        }
+      ]
     })
   ],
   optimization: {

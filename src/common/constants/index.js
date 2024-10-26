@@ -5,4 +5,5 @@ export * from './form';
 export * from './modal';
 export * from './routes';
 export * from './style';
+export * from './socket';
 export * from './api';

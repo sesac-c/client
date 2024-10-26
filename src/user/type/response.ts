@@ -19,3 +19,38 @@ export interface MenuResponse {
   name: string;
   price: number;
 }
+
+export interface UserCourseInfoResponse {
+  courseId: number;
+  courseName: string;
+}
+
+export interface ChatMessage {
+  id: number;
+  senderId: number;
+  senderName: string;
+  content: string;
+  createdAt: string;
+  delivered: boolean;
+  isMine: boolean;
+}
+
+export interface ChatMessageResponse extends ChatMessage {
+  chatRoomId: number;
+}
+
+export interface ChatRoomMessagesResponse {
+  content: ChatMessage[];
+  pageNumber: number;
+  pageSize: number;
+  totalElements: number;
+  totalPages: number;
+  last: boolean;
+}
+
+export interface StudentMemberResponse {
+  id: number;
+  nickname: string;
+  courseName: string;
+  profileImage: string;
+}

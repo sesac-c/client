@@ -53,6 +53,7 @@ export const USER_PROFILE_API_URL = useId => `user/${useId}/profiles`;
 export const USER_PROFILE_FORM_API_URL = userType => `user/${userType}/profiles`;
 export const USER_ID_API_URL = 'user/id';
 export const USER_INFO_API_URL = 'user/info';
+export const USER_COURSEINFO_API_URL = 'user/course';
 export const UPDATE_PASSWORD_API_URL = 'user/update-password';
 export const ACCOUNT_INFO_API_URL = 'user/account-info';
 export const COURSE_CHANGE_REQUEST_API_URL = (campusId, courseId) => `user/campus/${campusId}/course/${courseId}`;
@@ -77,4 +78,6 @@ export const MENU_LIST_API_URL = (restaurantType, id) => `${RESTAURANT_LIST_API_
 export const MEMBER_ROOT_API_URL = 'members';
 export const MEMBER_LIST_API_URL = (groupType, groupId) => `${MEMBER_ROOT_API_URL}/${groupType}/${groupId}`;
 
-export const RUNNINGMATE_DETAIL_API_URL = `${RUNNINGMATE_ROOT_API_URL}/detail`;
+export const RUNNINGMATE_DETAIL_API_URL = `${RUNNINGMATE_ROOT_API_URL}/detail`
+
+export const CHAT_ROOM_MESSAGES = (courseId) => `chat/course/${courseId}/messages`;
