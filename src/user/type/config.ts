@@ -6,3 +6,7 @@ export interface SubscriptionConfig {
   onMessage: (message: any) => void;
   isConnected: boolean;
 }
+export interface MessageHookResult {
+  handleNewMessage: (message: any) => void;
+  handleSendMessage: (content: string, destination: string) => void;
+}
