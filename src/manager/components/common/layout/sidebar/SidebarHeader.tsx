@@ -8,7 +8,7 @@ const SidebarHeader = () => {
         <Avatar
           variant='plain'
           size='sm'
-          src='/assets/images/sesacc-logo.png'
+          src='./assets/images/sesacc-logo.png'
           sx={{
             padding: '2px',
             '& img': {
