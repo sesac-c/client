@@ -1,7 +1,6 @@
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common');
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
@@ -11,9 +10,6 @@ module.exports = merge(common, {
     path: path.resolve(__dirname, '../dist'),
     publicPath: './',
     clean: true
-  },
-  optimization: {
-    minimizer: [new TerserPlugin()],
   },
   performance: {
     hints: false,

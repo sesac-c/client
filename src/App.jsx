@@ -1,7 +1,8 @@
-import router from './router';
-import { setUpAxios } from './common/services/axios/setupAuth';
 import { RouterProvider } from 'react-router-dom';
-import ModalProvider from './common/ModalProvider';
+import ModalProvider from '@/ModalProvider';
+
+import { setUpAxios } from '@/services/setupAxios';
+import router from '@/routes/router';
 
 setUpAxios();
 
@@ -14,5 +15,3 @@ function App() {
   );
 }
 export default App;
-
-// TODO: lazy loading 구현

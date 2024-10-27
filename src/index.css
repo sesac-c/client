@@ -2,6 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('./common/styles/main.css');
-/* components/accounts */
-@import './common/styles/components/accounts/index.css';
+@import url('@/styles/main.css');

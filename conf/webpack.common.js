@@ -2,30 +2,15 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.jsx',
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/,
+        test: /\.(tsx|ts|jsx|js)$/,
         exclude: /node_modules/,
-        use: 'ts-loader'
-      },
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              '@babel/preset-env',
-              ['@babel/preset-react', { runtime: 'automatic' }],
-              '@babel/preset-typescript'
-            ]
-          }
-        }
+        use: 'babel-loader'
       },
       {
         test: /\.css$/i,
@@ -58,19 +43,6 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
       React: 'react'
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: path.resolve(__dirname, '../public/assets'),
-          to: path.resolve(__dirname, '../dist/assets')
-        }
-      ]
     })
-  ],
-  optimization: {
-    splitChunks: {
-      chunks: 'all'
-    }
-  }
+  ]
 };
