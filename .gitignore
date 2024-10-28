@@ -52,6 +52,7 @@ dist
 src/assets/fonts
 src/assets/images
 src/assets/mockData
+src/assets
 
 fonts
 images
