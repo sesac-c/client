@@ -63,3 +63,5 @@ package-lock.json
 yarn.lock
 
 .idea
+
+public/index.html
