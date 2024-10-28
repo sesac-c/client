@@ -28,11 +28,13 @@ import {
 // Form Validations
 
 const validateStringField = (value, minLength, maxLength) => {
-    return value.trim().length >= minLength && value.trim().length <= maxLength;
+    const strValue = String(value || '').trim();
+    return strValue.length >= minLength && strValue.length <= maxLength;
 };
 
 const isEmptyField = (value) => {
-    return value.trim().length === 0;
+    const strValue = String(value || '').trim();
+    return strValue.length === 0;
 };
 
 export const isNumber = (number) => {
