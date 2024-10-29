@@ -7,11 +7,10 @@ import GroupRootLayout from '@/layouts/Group';
 import CampusPostDetailPage from '@/pages/Campus/CampusPostDetail';
 import CampusPostListPage from '@/pages/Campus/CampusPostList';
 import CampusNoticeListPage from '@/pages/Campus/CampusNoticeList';
-import SearchCampusPostPage from '@/pages/All/SearchAllPost';
+import SearchCampusPostPage from '@/pages/Campus/SearchCampusPost';
 import AllPostDetailPage from '@/pages/All/AllPostDetail';
 import AllPostListPage from '@/pages/All/AllPostList';
-import RestaurantGridContainer
-  from '@/components/group/restaurant/RestaurantGridContainer';
+import RestaurantGridContainer from '@/components/group/restaurant/RestaurantGridContainer';
 import RestaurantDetailPage from '@/pages/Group/RestaurantDetail';
 import ChatPage from '@/pages/Chat/Chat';
 import ChatRedirectPage from '@/pages/Chat/ChatRedirect';

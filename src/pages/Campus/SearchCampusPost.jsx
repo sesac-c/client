@@ -18,11 +18,12 @@ const SearchCampusPostPage = () => {
     <FeedWrapper boardContent={<PostSearchBar onInputChange={handleInputChange} />}>
       <ColumnLayoutWrapper
         mainArea={
-          hasInput ? (
-            <Posts apiUrl={FEED_ROOT_API_URL(FEED_TYPE.POST, POST_TYPE.CAMPUS)} feedType={'campus'} />
-          ) : (
-            <SearchLoadingIndicator />
-          )
+          <div>
+            <div className={hasInput ? 'visible' : 'hidden'}>
+              <Posts apiUrl={FEED_ROOT_API_URL(FEED_TYPE.POST, POST_TYPE.CAMPUS)} feedType={'campus'} />
+            </div>
+            {!hasInput && <SearchLoadingIndicator />}
+          </div>
         }
       />
     </FeedWrapper>
