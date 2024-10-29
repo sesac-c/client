@@ -95,8 +95,13 @@ const Posts = ({ apiUrl, feedType }) => {
   };
 
   useEffect(() => {
+    resetStore();
     getInitailPost();
-  }, [apiUrl, keyword]); // 초기 로딩
+  }, [apiUrl]); // 초기 로딩
+
+  useEffect(() => {
+    loadPosts();
+  }, [keyword]);
 
   const handleObserver = entries => {
     const target = entries[0];
